@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 600" aria-hidden="true">
+  <!-- Vereinfachte Deutschland-Silhouette (Platzhalter  durch finale Karte ersetzbar) -->
+  <path fill="#132735" stroke="#8da4ba" stroke-width="1.5" stroke-linejoin="round"
+    d="M 248 18
+       L 278 22 L 310 35 L 340 28 L 375 42 L 410 55 L 435 78 L 455 105
+       L 468 135 L 478 168 L 485 200 L 488 235 L 482 270 L 470 305
+       L 458 340 L 445 375 L 428 405 L 405 430 L 378 450 L 348 465
+       L 315 478 L 280 488 L 245 492 L 210 488 L 175 478 L 142 462
+       L 112 440 L 88 412 L 68 378 L 52 340 L 42 300 L 38 258 L 40 218
+       L 48 178 L 62 142 L 82 108 L 108 78 L 138 55 L 172 38 L 208 25 Z"/>
+</svg>
