@@ -1,0 +1,523 @@
+:root {
+  --haus-white: #ffffff;
+  --haus-paper: #f7f7f7;
+  --haus-ink: #1a1a1a;
+  --haus-red: #c94832;
+  --haus-red-soft: #e8d5cf;
+  --haus-pink: #c97b7b;
+  --haus-shadow: 0 24px 60px rgba(26, 26, 26, 0.1);
+}
+
+.haus-body {
+  font-family: 'DM Sans', Inter, system-ui, sans-serif;
+  background: var(--haus-white);
+  color: var(--haus-ink);
+}
+
+.haus-header-desc {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: rgba(26, 26, 26, 0.55);
+  text-align: center;
+  padding: 0.65rem 1rem 0.85rem;
+  border-top: 1px solid rgba(26, 26, 26, 0.06);
+  max-width: 36rem;
+  margin: 0 auto;
+}
+
+/* Hero */
+.haus-hero {
+  position: relative;
+  min-height: min(92vh, 820px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #111;
+}
+.haus-hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+}
+.haus-hero-dim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.35) 0%,
+    rgba(0, 0, 0, 0.2) 45%,
+    rgba(0, 0, 0, 0.45) 100%
+  );
+}
+.haus-hero-header {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+}
+.haus-hero-tagline {
+  font-size: 0.72rem;
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.72);
+  text-align: center;
+  padding: 0 1rem 0.5rem;
+  max-width: 34rem;
+  margin: 0 auto;
+}
+.haus-hero-back {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  transition: color 0.2s ease;
+}
+.haus-hero-back:hover {
+  color: #fff;
+}
+.haus-hero-copy {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1.5rem 3.5rem;
+  color: #fff;
+}
+.haus-hero-title {
+  margin: 0 0 0.85rem;
+  font-family: 'DM Sans', Inter, system-ui, sans-serif;
+  font-size: clamp(2rem, 5.5vw, 3.25rem);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+}
+.haus-hero-lead {
+  margin: 0;
+  max-width: 26rem;
+  font-size: clamp(0.9rem, 2vw, 1.05rem);
+  font-weight: 300;
+  line-height: 1.65;
+  letter-spacing: 0.03em;
+  color: rgba(255, 255, 255, 0.88);
+}
+.haus-hero-more {
+  margin-top: 1.75rem;
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: underline;
+  text-underline-offset: 0.35em;
+  transition: color 0.2s ease;
+}
+.haus-hero-more:hover {
+  color: #fff;
+}
+.haus-logo-mark--light {
+  color: #fff;
+}
+.haus-logo-mark--light .haus-logo-haus {
+  color: rgba(255, 255, 255, 0.92);
+}
+.haus-nav-link--light {
+  color: rgba(255, 255, 255, 0.6);
+}
+.haus-nav-link--light:hover,
+.haus-nav-link--light.is-active {
+  color: #fff;
+}
+
+.haus-serif {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* Logo freigestellt (reines Markup, kein Hintergrund) */
+.haus-logo-mark {
+  display: inline-block;
+  line-height: 0.9;
+  text-decoration: none;
+  color: var(--haus-ink);
+}
+.haus-logo-fenyx {
+  display: block;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.haus-logo-haus {
+  display: block;
+  margin-top: -0.15rem;
+  margin-left: 2.1rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--haus-red);
+  line-height: 1;
+}
+
+/* Highlight-Produkte */
+.product-card {
+  background: #fff;
+  border: 1px solid rgba(26, 26, 26, 0.06);
+  overflow: hidden;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.product-card:hover {
+  box-shadow: var(--haus-shadow);
+  transform: translateY(-2px);
+}
+.product-card-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  padding: 1.25rem;
+  background: #fff;
+}
+.product-card-img img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Aktueller Verkauf */
+.current-sale-section {
+  background: var(--haus-white);
+  border-bottom: 1px solid rgba(26, 26, 26, 0.06);
+}
+.current-sale-card {
+  position: relative;
+  padding: 2rem 1.75rem 2.25rem;
+  background: linear-gradient(135deg, #fff 0%, #faf8f7 100%);
+  border: 1px solid rgba(201, 72, 50, 0.22);
+  box-shadow: 0 20px 50px rgba(201, 72, 50, 0.08);
+}
+.current-sale-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--haus-red);
+}
+@media (min-width: 640px) {
+  .current-sale-card { padding: 2.5rem 2.5rem 2.75rem; }
+}
+.current-sale-card-head {
+  margin-bottom: 1.75rem;
+}
+.current-sale-title {
+  margin: 0.85rem 0 0;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  line-height: 1.15;
+}
+.current-sale-grid {
+  display: grid;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+@media (min-width: 640px) {
+  .current-sale-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+}
+.current-sale-label {
+  display: block;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--haus-red);
+  margin-bottom: 0.4rem;
+}
+.current-sale-value {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--haus-ink);
+}
+@media (min-width: 640px) {
+  .current-sale-value { font-size: 1.15rem; }
+}
+.current-sale-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.current-sale-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(26, 26, 26, 0.08);
+}
+.haus-btn-accent {
+  background: var(--haus-red);
+}
+.haus-btn-accent:hover {
+  background: var(--haus-ink);
+}
+
+/* Marken-Logos */
+.brand-logo-grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem 1.5rem;
+}
+.brand-logo-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 5.5rem;
+  min-height: 2.5rem;
+  padding: 0.35rem 0.5rem;
+  opacity: 0.72;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.brand-logo-item:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+.brand-logo-item img {
+  display: block;
+  height: 1.75rem;
+  width: auto;
+  max-width: 6.5rem;
+  object-fit: contain;
+}
+.brand-logo-fallback {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(26, 26, 26, 0.45);
+}
+
+/* Suche */
+.haus-search {
+  width: 100%;
+  max-width: 22rem;
+  margin: 0 auto 1.5rem;
+  display: block;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(26, 26, 26, 0.12);
+  font-size: 0.85rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%231a1a1a' stroke-opacity='0.35'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 0.75rem center;
+  background-size: 1rem;
+}
+.haus-search:focus {
+  outline: none;
+  border-color: var(--haus-red);
+}
+.poster-card.is-hidden,
+.past-sale-item.is-hidden {
+  display: none;
+}
+
+.haus-nav-link {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(26, 26, 26, 0.55);
+  transition: color 0.2s ease;
+}
+.haus-nav-link:hover,
+.haus-nav-link.is-active {
+  color: var(--haus-ink);
+}
+
+.haus-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid rgba(26, 26, 26, 0.12);
+  background: rgba(255, 255, 255, 0.55);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.haus-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 1.6rem;
+  background: var(--haus-ink);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.haus-btn:hover {
+  background: var(--haus-red);
+}
+.haus-btn-outline {
+  background: transparent;
+  color: var(--haus-ink);
+  border: 1px solid rgba(26, 26, 26, 0.2);
+}
+.haus-btn-outline:hover {
+  background: var(--haus-ink);
+  color: #fff;
+}
+
+/* Verkaufs-Plakate (flach, hintereinander, eines im Vordergrund) */
+.poster-stack-wrap {
+  position: relative;
+  padding: 2.5rem 0 3.5rem;
+}
+.poster-stack {
+  display: flex;
+  align-items: flex-end;
+  gap: 0;
+  overflow-x: auto;
+  overflow-y: visible;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 50%;
+  padding: 1.5rem max(1.5rem, calc(50% - 8.5rem)) 2.5rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.poster-stack::-webkit-scrollbar {
+  display: none;
+}
+.poster-card {
+  flex: 0 0 15.5rem;
+  scroll-snap-align: center;
+  position: relative;
+  margin-left: -5.25rem;
+  transform: translateY(14px) scale(0.82);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease;
+  z-index: 1;
+  opacity: 0.45;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform, opacity;
+}
+@media (min-width: 640px) {
+  .poster-card { flex-basis: 16.5rem; margin-left: -5.75rem; }
+}
+.poster-card:first-child {
+  margin-left: 0;
+}
+.poster-card.is-centered {
+  transform: translateY(-0.35rem) scale(1.05);
+  z-index: 30;
+  opacity: 1;
+}
+.poster-card.is-hidden {
+  display: none;
+}
+.poster-card-inner {
+  background: #fff;
+  padding: 0.55rem;
+  box-shadow: var(--haus-shadow);
+  border: 1px solid rgba(26, 26, 26, 0.06);
+}
+.poster-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4.2;
+  object-fit: cover;
+  object-position: top;
+}
+.poster-card-meta {
+  padding: 0.65rem 0.35rem 0.2rem;
+}
+.poster-card-meta p {
+  margin: 0;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(26, 26, 26, 0.5);
+}
+.poster-card-meta strong {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--haus-ink);
+}
+
+/* Modal */
+.poster-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(26, 26, 26, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.poster-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.poster-modal-panel {
+  width: min(100%, 52rem);
+  max-height: 90vh;
+  overflow: auto;
+  background: var(--haus-white);
+  box-shadow: var(--haus-shadow);
+  display: grid;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 768px) {
+  .poster-modal-panel { grid-template-columns: 1.1fr 1fr; }
+}
+.poster-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid rgba(26, 26, 26, 0.15);
+  background: #fff;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.sale-status {
+  display: inline-block;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.sale-status--live {
+  background: var(--haus-red);
+  color: #fff;
+}
+.sale-status--past {
+  background: rgba(26, 26, 26, 0.08);
+  color: rgba(26, 26, 26, 0.6);
+}
