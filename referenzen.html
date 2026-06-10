@@ -6,6 +6,8 @@
   <meta name="description" content="Fenyx Referenzen – Projekte und Partnernetzwerk in ganz Deutschland auf der interaktiven Landkarte.">
   <title>Referenzen – Fenyx GmbH</title>
 
+  <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/143687456.js"></script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -73,53 +75,93 @@
       100% { opacity: 0;   r: 18; }
     }
 
-    /* Callout an der Karte */
+    /* Karten-Container: Callouts dürfen nicht abgeschnitten werden */
+    #map-interactive {
+      position: relative;
+      overflow: visible;
+    }
+    #callout-lines {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: visible;
+      z-index: 10;
+    }
+    #callout-lines #callout-line {
+      stroke: #c8ff00;
+      stroke-width: 1.5;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+    }
+    #callout-lines.is-visible #callout-line { opacity: 0.8; }
+
     #map-callout {
+      position: absolute;
+      z-index: 20;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.15s ease;
+      max-width: min(240px, 42vw);
     }
     #map-callout.is-visible { opacity: 1; }
-    #callout-line {
-      stroke: #c8ff00;
-      stroke-width: 1.5;
-      opacity: 0.75;
-    }
+
     .map-callout-card {
       box-sizing: border-box;
       width: 100%;
-      height: 100%;
-      padding: 10px 12px;
-      background: rgba(11, 23, 31, 0.96);
+      background: rgba(11, 23, 31, 0.98);
       border: 1px solid rgba(200, 255, 0, 0.35);
       font-family: Inter, system-ui, sans-serif;
       color: #fff;
       line-height: 1.35;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+    }
+    .map-callout-card .callout-img {
+      display: block;
+      width: 100%;
+      height: 72px;
+      object-fit: cover;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .map-callout-card .callout-body {
+      padding: 10px 12px 11px;
     }
     .map-callout-card .callout-tag {
-      margin: 0 0 4px;
-      font-size: 9px;
+      display: inline-block;
+      margin: 0 0 6px;
+      padding: 2px 6px;
+      font-size: 8px;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: #c8ff00;
+      background: rgba(200, 255, 0, 0.08);
     }
     .map-callout-card .callout-company {
-      margin: 0 0 3px;
-      font-size: 12px;
+      margin: 0 0 4px;
+      font-size: 11px;
       font-weight: 800;
       letter-spacing: -0.02em;
       color: #fff;
     }
     .map-callout-card .callout-title {
-      margin: 0 0 5px;
+      margin: 0 0 6px;
       font-size: 10px;
+      line-height: 1.4;
       color: #8da4ba;
     }
     .map-callout-card .callout-city {
       margin: 0;
       font-size: 9px;
       color: rgba(255, 255, 255, 0.45);
+    }
+
+    .project-card.is-hidden { display: none; }
+    .project-card.is-highlight {
+      outline: 1px solid rgba(200, 255, 0, 0.45);
+      outline-offset: -1px;
     }
 
     .filter-btn.is-active {
@@ -278,25 +320,39 @@
       </div>
     </section>
 
-    <!-- Karte (SVG) + Detail-Panel -->
-    <section class="py-10 sm:py-16 bg-abyss-deep border-y border-white/5" aria-label="Deutschlandkarte mit Projekten">
+    <!-- Karte (SVG) + Callout-Overlay -->
+    <section class="py-10 sm:py-16 bg-abyss-deep border-y border-white/5 overflow-visible" aria-label="Deutschlandkarte mit Projekten">
       <div id="map-interactive" class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <svg id="germany-map" viewBox="0 0 586 793" class="w-full h-auto max-h-[78vh]" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Interaktive Karte von Deutschland mit Projektstandorten">
+        <svg id="germany-map" viewBox="0 0 586 793" class="relative z-0 w-full h-auto max-h-[78vh]" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Interaktive Karte von Deutschland mit Projektstandorten">
           <rect width="586" height="793" fill="#0b171f"/>
           <g id="map-layer" aria-hidden="true"></g>
           <g id="map-markers"></g>
-          <g id="map-callout" aria-live="polite">
-            <line id="callout-line" x1="0" y1="0" x2="0" y2="0"/>
-            <foreignObject id="callout-fo" x="0" y="0" width="168" height="88">
-              <div xmlns="http://www.w3.org/1999/xhtml" class="map-callout-card">
-                <p id="detail-tag" class="callout-tag"></p>
-                <p id="detail-company" class="callout-company"></p>
-                <p id="detail-title" class="callout-title"></p>
-                <p id="detail-city" class="callout-city"></p>
-              </div>
-            </foreignObject>
-          </g>
         </svg>
+        <svg id="callout-lines" viewBox="0 0 586 793" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <line id="callout-line" x1="0" y1="0" x2="0" y2="0"/>
+        </svg>
+        <div id="map-callout" aria-live="polite">
+          <article class="map-callout-card">
+            <img id="callout-img" class="callout-img" src="" alt="">
+            <div class="callout-body">
+              <span id="detail-tag" class="callout-tag"></span>
+              <p id="detail-company" class="callout-company"></p>
+              <p id="detail-title" class="callout-title"></p>
+              <p id="detail-city" class="callout-city"></p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projektliste -->
+    <section class="py-16 sm:py-20 bg-abyss-deep border-b border-white/5" aria-labelledby="projektliste-heading">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 id="projektliste-heading" class="text-center text-2xl sm:text-3xl lg:text-4xl font-black tracking-[-0.03em] text-white mb-10 sm:mb-14">
+          Lassen Sie sich hier inspirieren.
+        </h2>
+        <div id="project-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5"></div>
+        <p id="empty-state" class="hidden text-mist text-center py-12">Keine Einträge für die gewählten Filter.</p>
       </div>
     </section>
 
@@ -355,7 +411,7 @@
                 +49 176 23820424
               </a>
             </div>
-            <form action="#" method="post" class="space-y-5">
+            <form action="#" method="post" class="contact-form space-y-5" novalidate>
               <div class="grid sm:grid-cols-2 gap-5">
                 <div>
                   <label for="name" class="block text-mist text-xs mb-1.5">Name*</label>
@@ -390,7 +446,8 @@
               <p class="text-mist/70 text-xs leading-relaxed">
                 Mit dem Absenden stimmen Sie unseren <a href="#" class="text-signal hover:underline">Datenschutzbestimmungen</a> zu.
               </p>
-              <button type="submit" class="w-full sm:w-auto px-10 py-4 bg-signal text-black text-[11px] font-bold uppercase tracking-[0.12em] hover:brightness-95 transition-all">
+              <p class="form-status hidden text-sm" role="status" aria-live="polite"></p>
+              <button type="submit" class="w-full sm:w-auto px-10 py-4 bg-signal text-black text-[11px] font-bold uppercase tracking-[0.12em] hover:brightness-95 transition-all disabled:opacity-60 disabled:cursor-not-allowed">
                 Anfrage absenden
               </button>
             </form>
@@ -537,20 +594,64 @@
       var mapLayer = document.getElementById('map-layer');
       var markersGroup = document.getElementById('map-markers');
       var mapReady = false;
+      var mapInteractive = document.getElementById('map-interactive');
       var mapCallout = document.getElementById('map-callout');
+      var calloutLines = document.getElementById('callout-lines');
       var calloutLine = document.getElementById('callout-line');
-      var calloutFo = document.getElementById('callout-fo');
+      var calloutImg = document.getElementById('callout-img');
       var detailTag = document.getElementById('detail-tag');
       var detailCompany = document.getElementById('detail-company');
       var detailTitle = document.getElementById('detail-title');
       var detailCity = document.getElementById('detail-city');
+      var projectGrid = document.getElementById('project-grid');
+      var emptyState = document.getElementById('empty-state');
       var activeMarker = null;
       var clearTimer = null;
-      var CARD_W = 168;
-      var CARD_H = 88;
-      var GAP = 22;
+      var CARD_W = 228;
+      var CARD_H = 178;
+      var GAP = 26;
       var VB_W = 586;
       var VB_H = 793;
+
+      var ENTRY_IMAGES = {
+        'vw-5': 'assets/Referenzen/signal-iduna.avif',
+        'ei-3': 'assets/Referenzen/nunatak-group.avif',
+        'ei-9': 'assets/Referenzen/reneo-group.avif',
+      };
+
+      var CATEGORY_IMAGES = {
+        bestandsmanagement: 'assets/timeline/6988d9ea184c3a10bc10d8a0_Home%20Digitales%20Bestandsmanagement.webp',
+        verwertung: 'assets/timeline/6988d9ea184c3a10bc10d984_Aufl%C3%B6sung%20Besichtigung%20%26%20Angebotserstellung.webp',
+        einrichtung: 'assets/timeline/timeline.webp',
+        partner: 'assets/timeline/timeline.webp',
+      };
+
+      function getEntryImage(entry) {
+        if (ENTRY_IMAGES[entry.id]) return ENTRY_IMAGES[entry.id];
+        if (entry.type === 'partner') return CATEGORY_IMAGES.partner;
+        return CATEGORY_IMAGES[entry.category] || CATEGORY_IMAGES.einrichtung;
+      }
+
+      function escHtml(value) {
+        return String(value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function svgToContainer(sx, sy) {
+        var pt = germanyMap.createSVGPoint();
+        pt.x = sx;
+        pt.y = sy;
+        var matrix = germanyMap.getScreenCTM();
+        var containerRect = mapInteractive.getBoundingClientRect();
+        var p = pt.matrixTransform(matrix);
+        return {
+          x: p.x - containerRect.left,
+          y: p.y - containerRect.top,
+        };
+      }
 
       /* Offset für mehrere Marker in derselben Stadt */
       function spreadMarkers(entries) {
@@ -588,15 +689,19 @@
         var fx, fy, x2, y2;
         var spaceL = mx;
         var spaceR = VB_W - mx;
+        var spaceT = my;
         var spaceB = VB_H - my;
         var placement;
+        var pad = 10;
 
-        if (mx < 210 && spaceR >= CARD_W + GAP) {
+        if (spaceR >= CARD_W + GAP && mx < 300) {
           placement = 'right';
-        } else if (mx > 376 && spaceL >= CARD_W + GAP) {
+        } else if (spaceL >= CARD_W + GAP && mx > 286) {
           placement = 'left';
         } else if (spaceB >= CARD_H + GAP) {
           placement = 'bottom';
+        } else if (spaceT >= CARD_H + GAP) {
+          placement = 'top';
         } else if (spaceR >= spaceL) {
           placement = 'right';
         } else {
@@ -613,35 +718,50 @@
           fy = my - CARD_H / 2;
           x2 = fx + CARD_W;
           y2 = my;
-        } else {
+        } else if (placement === 'bottom') {
           fx = mx - CARD_W / 2;
           fy = my + GAP;
           x2 = mx;
           y2 = fy;
+        } else {
+          fx = mx - CARD_W / 2;
+          fy = my - GAP - CARD_H;
+          x2 = mx;
+          y2 = fy + CARD_H;
         }
 
-        fx = Math.max(8, Math.min(fx, VB_W - CARD_W - 8));
-        fy = Math.max(8, Math.min(fy, VB_H - CARD_H - 8));
+        fx = Math.max(pad, Math.min(fx, VB_W - CARD_W - pad));
+        fy = Math.max(pad, Math.min(fy, VB_H - CARD_H - pad));
 
         return { fx: fx, fy: fy, x1: mx, y1: my, x2: x2, y2: y2 };
+      }
+
+      function positionCalloutOverlay(pos) {
+        var topLeft = svgToContainer(pos.fx, pos.fy);
+        var bottomRight = svgToContainer(pos.fx + CARD_W, pos.fy + CARD_H);
+        mapCallout.style.left = topLeft.x + 'px';
+        mapCallout.style.top = topLeft.y + 'px';
+        mapCallout.style.width = Math.max(bottomRight.x - topLeft.x, 160) + 'px';
       }
 
       function showDetail(entry, mx, my) {
         var tag = entry.type === 'partner' ? 'Partnernetzwerk' : (CATEGORY_LABELS[entry.category] || '');
         var pos = placeCallout(mx, my);
 
+        calloutImg.src = getEntryImage(entry);
+        calloutImg.alt = entry.company;
         detailTag.textContent = tag;
         detailCompany.textContent = entry.company;
         detailTitle.textContent = entry.title;
         detailCity.textContent = entry.city;
 
-        calloutFo.setAttribute('x', pos.fx);
-        calloutFo.setAttribute('y', pos.fy);
+        positionCalloutOverlay(pos);
         calloutLine.setAttribute('x1', pos.x1);
         calloutLine.setAttribute('y1', pos.y1);
         calloutLine.setAttribute('x2', pos.x2);
         calloutLine.setAttribute('y2', pos.y2);
         mapCallout.classList.add('is-visible');
+        calloutLines.classList.add('is-visible');
       }
 
       function clearDetail() {
@@ -653,7 +773,11 @@
           activeMarker.classList.remove('is-active');
           activeMarker = null;
         }
+        document.querySelectorAll('.project-card.is-highlight').forEach(function (c) {
+          c.classList.remove('is-highlight');
+        });
         mapCallout.classList.remove('is-visible');
+        calloutLines.classList.remove('is-visible');
       }
 
       function scheduleClear() {
@@ -726,10 +850,67 @@
         });
       }
 
-      germanyMap.addEventListener('mouseleave', clearDetail);
+      mapInteractive.addEventListener('mouseleave', clearDetail);
+      window.addEventListener('resize', function () {
+        if (activeMarker && mapCallout.classList.contains('is-visible')) {
+          var id = activeMarker.getAttribute('data-id');
+          var entry = ENTRIES.find(function (e) { return e.id === id; });
+          if (entry) {
+            var pos = spreadMarkers(ENTRIES.filter(matchesFilter)).find(function (item) {
+              return item.entry.id === id;
+            });
+            if (pos) {
+              positionCalloutOverlay(placeCallout(pos.x, pos.y));
+            }
+          }
+        }
+      });
+
+      function renderGrid() {
+        projectGrid.innerHTML = '';
+        var visible = ENTRIES.filter(matchesFilter);
+        emptyState.classList.toggle('hidden', visible.length > 0);
+
+        visible.forEach(function (e) {
+          var card = document.createElement('article');
+          card.className = 'project-card group bg-abyss-mid overflow-hidden';
+          card.setAttribute('data-id', e.id);
+
+          var imgSrc = getEntryImage(e);
+          card.innerHTML =
+            '<div class="aspect-[4/3] overflow-hidden bg-abyss-deep">' +
+              '<img src="' + imgSrc + '" alt="' + escHtml(e.company) + '" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy">' +
+            '</div>' +
+            '<div class="p-4 sm:p-5">' +
+              '<span class="inline-block px-2.5 py-1 bg-white/10 text-mist text-[10px] mb-2.5">' + escHtml(e.company) + '</span>' +
+              '<h3 class="text-white text-sm font-bold leading-snug mb-3 min-h-[2.5rem]">' + escHtml(e.title) + '</h3>' +
+              '<p class="text-mist text-xs flex items-center gap-1.5">' +
+                '<svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>' +
+                e.city +
+              '</p>' +
+            '</div>';
+
+          card.addEventListener('mouseenter', function () {
+            var marker = document.querySelector('.map-marker[data-id="' + e.id + '"]');
+            if (marker) {
+              var pos = spreadMarkers(ENTRIES.filter(matchesFilter)).find(function (item) {
+                return item.entry.id === e.id;
+              });
+              if (pos) {
+                selectMarker(marker, e, pos.x, pos.y);
+              }
+            }
+            card.classList.add('is-highlight');
+          });
+          card.addEventListener('mouseleave', scheduleClear);
+
+          projectGrid.appendChild(card);
+        });
+      }
 
       function applyFilters() {
         renderMap();
+        renderGrid();
       }
 
       /* Filter-Events */
@@ -813,5 +994,6 @@
       applyFilters();
     })();
   </script>
+  <script src="js/contact-form.js" defer></script>
 </body>
 </html>

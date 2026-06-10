@@ -6,6 +6,9 @@
   <meta name="description" content="Fenyx GmbH – Ihr Partner für zirkuläre Bürotransformationen: Bestandsmanagement, Verwertung und schlüsselfertige Einrichtung.">
   <title>Fenyx GmbH – Zirkuläre Bürotransformationen</title>
 
+  <!-- HubSpot Tracking (für Formular-Zuordnung / hutk-Cookie) -->
+  <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/143687456.js"></script>
+
   <!-- Google Fonts: Inter (Fenyx Corporate Font) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -614,7 +617,7 @@
               </a>
             </div>
 
-            <form action="#" method="post" class="reveal reveal-delay-2 space-y-5">
+            <form action="#" method="post" class="contact-form reveal reveal-delay-2 space-y-5" novalidate>
               <div class="grid sm:grid-cols-2 gap-5">
                 <div>
                   <label for="name" class="block text-mist text-xs mb-1.5">Name*</label>
@@ -649,8 +652,9 @@
               <p class="text-mist/70 text-xs leading-relaxed">
                 Mit dem Absenden stimmen Sie unseren <a href="#" class="text-signal hover:underline">Datenschutzbestimmungen</a> zu.
               </p>
+              <p class="form-status hidden text-sm" role="status" aria-live="polite"></p>
               <button type="submit"
-                      class="w-full sm:w-auto px-10 py-4 bg-signal text-black text-[11px] font-bold uppercase tracking-[0.12em] hover:brightness-95 transition-all duration-200">
+                      class="w-full sm:w-auto px-10 py-4 bg-signal text-black text-[11px] font-bold uppercase tracking-[0.12em] hover:brightness-95 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed">
                 Anfrage absenden
               </button>
             </form>
@@ -918,6 +922,7 @@
       });
     })();
   </script>
+  <script src="js/contact-form.js" defer></script>
 
 </body>
 </html>
