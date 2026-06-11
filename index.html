@@ -51,6 +51,7 @@
       },
     };
   </script>
+  <link rel="stylesheet" href="css/site-nav.css">
 
   <style>
     /* Fenyx Design Tokens */
@@ -85,13 +86,14 @@
     .reveal-delay-2 { transition-delay: 0.24s; }
     .reveal-delay-3 { transition-delay: 0.36s; }
 
-    /* ── Lifecycle-Linie (scroll-linked SVG) ── */
+    /* ── Lifecycle-Linie (scroll-linked SVG, zentral) ── */
     .lifecycle-line {
       position: absolute;
-      left: 0;
+      left: 50%;
       top: 0;
       width: 4px;
       height: 100%;
+      transform: translateX(-50%);
       pointer-events: none;
       z-index: 5;
     }
@@ -116,14 +118,232 @@
       opacity: 1;
     }
 
-    /* ── Referenz-Parallax (scrollY-gekoppelt, Fade am oberen Rand) ── */
-    .ref-parallax-stack {
-      position: relative;
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 5rem, #000 calc(100% - 3rem), transparent 100%);
-      mask-image: linear-gradient(to bottom, transparent 0%, #000 5rem, #000 calc(100% - 3rem), transparent 100%);
+    /* ── Kundenlogo-Grid (14 × 6) ── */
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(14, minmax(0, 1fr));
+      gap: 2.75rem 1.75rem;
     }
-    .ref-parallax-card {
+    .logo-cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 2.25rem;
+      padding: 0 0.5rem;
+    }
+    .logo-cell img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-width: 4.25rem;
+      object-fit: contain;
+      object-position: center;
+    }
+    @media (max-width: 1023px) {
+      .logo-grid { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+    }
+    @media (max-width: 639px) {
+      .logo-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+
+    /* ── Presse-Logos („Bekannt aus“) ── */
+    .presse-marquee {
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+      mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+    }
+    .presse-marquee__track {
+      display: flex;
+      align-items: center;
+      width: max-content;
+      gap: 4rem;
+      animation: presse-marquee-scroll 45s linear infinite;
+    }
+    .presse-marquee__group {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+      flex-shrink: 0;
+    }
+    .presse-logo-cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      height: 2.75rem;
+      min-width: 5rem;
+      max-width: 9rem;
+      padding: 0 0.25rem;
+    }
+    .presse-logo-cell img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-height: 2.75rem;
+      max-width: 9rem;
+      object-fit: contain;
+      object-position: center;
+      opacity: 0.42;
+      filter: grayscale(1) brightness(0) invert(1);
+    }
+    @keyframes presse-marquee-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .presse-marquee__track { animation: none; flex-wrap: wrap; width: 100%; justify-content: center; }
+      .presse-marquee__group:last-child { display: none; }
+      .presse-marquee { mask-image: none; -webkit-mask-image: none; }
+    }
+
+    /* ── Referenz-Stack (vertikal scroll, langsames Ausblenden) ── */
+    .ref-scroll-stack {
+      position: relative;
+      padding-bottom: 12vh;
+    }
+    .ref-scroll-item {
+      position: sticky;
+      top: 5.5rem;
+      min-height: 58vh;
+      display: flex;
+      align-items: flex-start;
+      padding-top: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .ref-scroll-item:last-child {
+      min-height: 44vh;
+      margin-bottom: 0;
+    }
+    .ref-scroll-card {
+      width: 100%;
       will-change: transform, opacity;
+      transition: opacity 0.85s ease, transform 0.85s ease;
+      transform-origin: center top;
+    }
+
+    /* ── Referenz-Case (Webflow cases_* Orientierung) ── */
+    .case-card {
+      display: grid;
+      grid-template-columns: 1fr;
+      min-height: 22rem;
+      overflow: hidden;
+      background: #0b171f;
+    }
+    @media (min-width: 1024px) {
+      .case-card { grid-template-columns: 1fr 1fr; min-height: 26rem; }
+    }
+    .case-card-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 1.75rem 1.5rem;
+    }
+    @media (min-width: 640px) {
+      .case-card-content { padding: 2rem 2rem; }
+    }
+    @media (min-width: 1024px) {
+      .case-card-content { padding: 2.25rem 2.5rem; }
+    }
+    .case-eyebrow {
+      margin: 0 0 0.5rem;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.9);
+    }
+    .case-heading {
+      margin: 0 0 1rem;
+      font-size: clamp(1.65rem, 3vw, 2.125rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: #fff;
+    }
+    .case-tag {
+      display: inline-flex;
+      align-self: flex-start;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      padding: 0.35rem 0.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      font-size: 0.75rem;
+      line-height: 1.3;
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .case-body {
+      margin: 0 0 1.25rem;
+      max-width: 34rem;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: #8da4ba;
+    }
+    .case-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      padding-top: 1.15rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .case-stat-value {
+      margin: 0;
+      font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+      font-weight: 800;
+      line-height: 1.1;
+      color: #fff;
+    }
+    .case-stat-label {
+      margin: 0.35rem 0 0;
+      font-size: 0.6875rem;
+      line-height: 1.35;
+      color: #8da4ba;
+    }
+    .case-cta {
+      display: inline-flex;
+      align-self: flex-start;
+      align-items: center;
+      justify-content: center;
+      padding: 0.8rem 1.5rem;
+      border: 1px solid #c8ff00;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #c8ff00;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .case-cta:hover {
+      background: #c8ff00;
+      color: #000;
+    }
+    .case-card-image {
+      display: flex;
+      min-height: 13rem;
+      order: -1;
+      padding: 1.75rem;
+      background: #0b171f;
+    }
+    @media (min-width: 640px) {
+      .case-card-image { padding: 2rem; }
+    }
+    @media (min-width: 1024px) {
+      .case-card-image {
+        order: 0;
+        min-height: 100%;
+        padding: 2.5rem 2.5rem 2.5rem 1.35rem;
+      }
+      .case-card--image-left .case-card-image {
+        order: -1;
+        padding: 2.5rem 1.35rem 2.5rem 2.5rem;
+      }
+    }
+    .case-card-image img {
+      width: 100%;
+      height: 100%;
+      min-height: 9.5rem;
+      flex: 1;
+      object-fit: cover;
+      object-position: center;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -132,13 +352,10 @@
         transform: none;
         transition: none;
       }
-      .ref-parallax-card {
+      .ref-scroll-card {
         transform: none !important;
         opacity: 1 !important;
-      }
-      .ref-parallax-stack {
-        -webkit-mask-image: none;
-        mask-image: none;
+        transition: none;
       }
       #lifecycle-path {
         stroke-dashoffset: 0 !important;
@@ -149,6 +366,8 @@
     }
 
     /* Form inputs – dark theme */
+    /* Mega-Menü: siehe css/site-nav.css */
+
     .form-input {
       background: transparent;
       border: 1px solid rgba(255, 255, 255, 0.15);
@@ -168,30 +387,371 @@
   <!-- ============================================================
        1. STICKY HEADER
        ============================================================ -->
-  <header class="sticky top-0 z-50 bg-abyss-deep border-b border-white/5">
+  <header class="sticky top-0 z-50 bg-abyss-deep border-b border-white/5" id="site-header">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16 lg:h-[72px]">
+      <div class="flex items-center h-16 lg:h-[72px]">
 
-        <!-- Logo (PNG mit Hintergrundfarbe #0b171f) -->
-        <a href="index.html" class="shrink-0 inline-block bg-[#0b171f] leading-none">
+        <a href="index.html" class="flex items-center shrink-0 self-center bg-[#0b171f] leading-none">
           <img src="assets/fenyx-logo.png" alt="FENYX" class="h-4 sm:h-[17px] lg:h-[18px] w-auto object-contain" width="82" height="18">
         </a>
 
-        <!-- Desktop Navigation -->
-        <nav class="hidden lg:flex items-center gap-7 xl:gap-9" aria-label="Hauptnavigation">
-          <a href="#bestandsmanagement" class="text-white/70 hover:text-white text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors duration-200">Bestandsmanagement</a>
-          <a href="#verwertung" class="text-white/70 hover:text-white text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors duration-200">Verwertung</a>
-          <a href="#einrichtung" class="text-white/70 hover:text-white text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors duration-200">Einrichtung</a>
-          <a href="referenzen.html" class="text-white/70 hover:text-white text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors duration-200">Referenzen</a>
-          <a href="fenyx-haus/index.html" class="text-white/70 hover:text-white text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors duration-200">fenyx.haus</a>
-          <a href="#kontakt" class="text-white/70 hover:text-white text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors duration-200">Kontakt</a>
-        </nav>
+        <div class="ml-auto flex items-center gap-4 xl:gap-6">
+          <nav class="hidden lg:flex items-center gap-5 xl:gap-6" aria-label="Hauptnavigation">
 
-        <!-- CTA + Mobile Toggle -->
-        <div class="flex items-center gap-3">
-          <a href="#kontakt"
+            <!-- Bestandsmanagement -->
+            <div class="mega-item relative" data-mega-item>
+              <button type="button" data-mega-trigger class="mega-trigger" aria-expanded="false" aria-haspopup="true">Bestandsmanagement</button>
+              <div data-mega-panel class="mega-panel" role="region" aria-label="Bestandsmanagement">
+                <div class="mega-panel-full">
+                  <div class="mega-col-services">
+                    <p class="mega-eyebrow mega-eyebrow--dark">Bestandsmanagement</p>
+                    <ul class="mega-service-list">
+                      <li>
+                        <a href="bestandsmanagement.html" class="mega-service-link">
+                          <span class="mega-service-thumb"><img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6/6988d9ea184c3a10bc10d8a1_bestand-hero.webp" alt="" loading="lazy" width="60" height="60"></span>
+                          <span class="mega-service-text">
+                            <span class="mega-service-title">Digitales Bestandsmanagement</span>
+                            <span class="mega-service-sub">Ziehen Sie den maximalen Wert aus Ihrem Bestand</span>
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="digitale-inventarisierung.html" class="mega-service-link">
+                          <span class="mega-service-thumb"><img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6/6988d9ea184c3a10bc10d8a0_Home%20Digitales%20Bestandsmanagement.webp" alt="" loading="lazy" width="60" height="60"></span>
+                          <span class="mega-service-text">
+                            <span class="mega-service-title">Digitale Inventarisierung</span>
+                            <span class="mega-service-sub">Schaffen Sie Transparenz über Ihren gesamten Bestand</span>
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="projektmanagement.html" class="mega-service-link">
+                          <span class="mega-service-thumb"><img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6/6988d9ea184c3a10bc10d8a9_miete-tabs-3.webp" alt="" loading="lazy" width="60" height="60"></span>
+                          <span class="mega-service-text">
+                            <span class="mega-service-title">Projektmanagement</span>
+                            <span class="mega-service-sub">Ganzheitliche, nachhaltige Projektbegleitung aus einer Hand</span>
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="mega-col-cases">
+                    <p class="mega-eyebrow mega-eyebrow--signal">Erfolgsgeschichten</p>
+                    <ul class="mega-case-list">
+                      <li>
+                        <a href="referenzen.html" class="mega-case-link">
+                          <span class="mega-case-thumb"><img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f/699452dfaa8fb06578b6e1f9_Sofa%20Lobby%20Quadrat.avif" alt="" loading="lazy" width="60" height="60"></span>
+                          <span class="mega-case-text">
+                            <span class="mega-case-title">Internationales Consulting Unternehmen</span>
+                            <span class="mega-case-sub">Vier Standorte digital inventarisiert vor Fusion</span>
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="referenzen.html" class="mega-case-link">
+                          <span class="mega-case-thumb"><img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f/6988d9ea184c3a10bc10da96_685bf2c655ab6bf7b8f0e0c0_Bildschirmfoto%25202025-06-23%2520um%252014.28.43.webp" alt="" loading="lazy" width="60" height="60"></span>
+                          <span class="mega-case-text">
+                            <span class="mega-case-title">Internationales Technologieunternehmen</span>
+                            <span class="mega-case-sub">Nachhaltige Aufarbeitung von Arbeitsplätzen</span>
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="referenzen.html" class="mega-case-link">
+                          <span class="mega-case-thumb"><img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f/6988d9ea184c3a10bc10daa8_6875175629552700f8e0f0a0_Bildschirmfoto%25202025-07-14%2520um%252016.18.14.webp" alt="" loading="lazy" width="60" height="60"></span>
+                          <span class="mega-case-text">
+                            <span class="mega-case-title">Internationaler Industriekonzern</span>
+                            <span class="mega-case-sub">Aufbereitung für Unternehmensstandorte</span>
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="referenzen.html" class="mega-case-link">
+                          <span class="mega-case-thumb"><img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f/6988d9ea184c3a10bc10da60_683a16be5e80545507a92f6f_Finanzdienstleister.avif" alt="" loading="lazy" width="60" height="60"></span>
+                          <span class="mega-case-text">
+                            <span class="mega-case-title">Internationaler Finanzdienstleister</span>
+                            <span class="mega-case-sub">Aufbereitung statt Neukauf</span>
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="mega-col-promo">
+                    <div class="mega-promo" style="background-image: url('https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6/6988d9ea184c3a10bc10d83d_nachhaltige-bueroplanung-80b.webp');">
+                      <p class="mega-promo-title">Entdecken Sie den zirkulären Büro-Lebenszyklus</p>
+                      <a href="index.html#leistungen" class="mega-promo-btn">Mehr erfahren</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Verwertung -->
+            <div class="mega-item relative" data-mega-item>
+              <button type="button" data-mega-trigger class="mega-trigger" aria-expanded="false" aria-haspopup="true">Verwertung</button>
+              <div data-mega-panel class="mega-panel" role="region" aria-label="Verwertung">
+                <div class="mega-panel-full">
+                  <div class="mega-col-services">
+                    <p class="mega-eyebrow mega-eyebrow--dark">Verwertung</p>
+                    <ul class="mega-service-list">
+                      <li>
+                        <a href="bueroaufloesung.html" class="mega-service-link">
+                          <span class="mega-service-thumb"><img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6/6988d9ea184c3a10bc10d841_bueroaufloesung%20(thumbnail).webp" alt="" loading="lazy" width="60" height="60"></span>
+                          <span class="mega-service-text">
+                            <span class="mega-service-title">Büroauflösung</span>
+                            <span class="mega-service-sub">Mit nur einem Partner zur besenreinen Flächenübergabe</span>
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="mitarbeiterverkauf.html" class="mega-service-link">
+                          <span class="mega-service-thumb"><img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6/6988d9ea184c3a10bc10d993_header%20Verwertung%20MA%20Verkauf.webp" alt="" loading="lazy" width="60" height="60"></span>
+                          <span class="mega-service-text">
+                            <span class="mega-service-title">Mitarbeiterverkauf</span>
+                            <span class="mega-service-sub">Verkauf an Mitarbeiter ohne steuerliche und Haftungs-Risiken</span>
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="spende.html" class="mega-service-link">
+                          <span class="mega-service-thumb"><img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6/6988d9ea184c3a10bc10d994_Header%20Verwertung%20Spende%20(1).webp" alt="" loading="lazy" width="60" height="60"></span>
+                          <span class="mega-service-text">
+                            <span class="mega-service-title">Spende</span>
+                            <span class="mega-service-sub">Optimale und soziale Verwertung des Gesamtbestands</span>
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="aufbereitung.html" class="mega-service-link">
+                          <span class="mega-service-thumb"><img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6/6988d9ea184c3a10bc10d96d_Auflso%CC%88ung%20Fenyx%20Versprechen%20(1).webp" alt="" loading="lazy" width="60" height="60"></span>
+                          <span class="mega-service-text">
+                            <span class="mega-service-title">Aufbereitung</span>
+                            <span class="mega-service-sub">Maximaler Erlös durch professionelle Vermarktung</span>
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="mega-col-cases">
+                    <p class="mega-eyebrow mega-eyebrow--signal">Erfolgsgeschichten</p>
+                    <ul class="mega-case-list">
+                      <li>
+                        <a href="referenzen.html" class="mega-case-link">
+                          <span class="mega-case-thumb"><img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f/69c56038c83ed205443907fd_plakate_gross%20(1).webp" alt="" loading="lazy" width="60" height="60"></span>
+                          <span class="mega-case-text">
+                            <span class="mega-case-title">SoundCloud</span>
+                            <span class="mega-case-sub">Circular Office Exit für das Berliner SoundCloud Headquarter</span>
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="referenzen.html" class="mega-case-link">
+                          <span class="mega-case-thumb"><img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f/6988d9ea184c3a10bc10da94_687513f3537f3fc0f8f0e0a0_Continentale.webp" alt="" loading="lazy" width="60" height="60"></span>
+                          <span class="mega-case-text">
+                            <span class="mega-case-title">Continentale</span>
+                            <span class="mega-case-sub">Standortzusammenführung mit Mitarbeiterverkauf</span>
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="referenzen.html" class="mega-case-link">
+                          <span class="mega-case-thumb"><img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f/6988d9ea184c3a10bc10da8f_687514661a0a1570f8f0e0a0_Klett.webp" alt="" loading="lazy" width="60" height="60"></span>
+                          <span class="mega-case-text">
+                            <span class="mega-case-title">Ernst Klett Verlag</span>
+                            <span class="mega-case-sub">Räumung mit Spenden an soziale Einrichtungen</span>
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="referenzen.html" class="mega-case-link">
+                          <span class="mega-case-thumb"><img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f/6988d9ea184c3a10bc10dadb_68dd09c82283dea0f8f0e0a0_OTTO.webp" alt="" loading="lazy" width="60" height="60"></span>
+                          <span class="mega-case-text">
+                            <span class="mega-case-title">OTTO</span>
+                            <span class="mega-case-sub">Nachhaltige Auflösung von vier Standorten</span>
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="mega-col-promo">
+                    <div class="mega-promo" style="background-image: url('https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6/6988d9ea184c3a10bc10d83d_nachhaltige-bueroplanung-80b.webp');">
+                      <p class="mega-promo-title">Entdecken Sie den zirkulären Büro-Lebenszyklus</p>
+                      <a href="index.html#leistungen" class="mega-promo-btn">Mehr erfahren</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Einrichtung -->
+            <div class="mega-item relative" data-mega-item>
+              <button type="button" data-mega-trigger class="mega-trigger" aria-expanded="false" aria-haspopup="true">Einrichtung</button>
+              <div data-mega-panel class="mega-panel" role="region" aria-label="Einrichtung">
+                <div class="mega-panel-full">
+                  <div class="mega-col-services">
+                    <p class="mega-eyebrow mega-eyebrow--dark">Einrichtung</p>
+                    <ul class="mega-service-list">
+                      <li>
+                        <a href="bueroeinrichtung.html" class="mega-service-link">
+                          <span class="mega-service-thumb"><img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6/6989a9bafc4d640fd4e302cb_Einrichtung%20Header%20Dropdown%20B%C3%BCroeinrichtung.webp" alt="" loading="lazy" width="60" height="60"></span>
+                          <span class="mega-service-text">
+                            <span class="mega-service-title">Büroeinrichtung</span>
+                            <span class="mega-service-sub">Ganzheitliche Gestaltung nachhaltiger Arbeitswelten</span>
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="workspace-analytics.html" class="mega-service-link">
+                          <span class="mega-service-thumb"><img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6/6988d9ea184c3a10bc10d930_miete-herkunft-3.webp" alt="" loading="lazy" width="60" height="60"></span>
+                          <span class="mega-service-text">
+                            <span class="mega-service-title">Workspace Analytics &amp; Bürokonzept</span>
+                            <span class="mega-service-sub">Datenbasierte Analyse und optimale Raumnutzung</span>
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="bueromoebel-mieten.html" class="mega-service-link">
+                          <span class="mega-service-thumb"><img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6/6988d9ea184c3a10bc10d94a_683186c52505f0a9d720ec59_Nachhaltige%20B%C3%BCroplanung.webp" alt="" loading="lazy" width="60" height="60"></span>
+                          <span class="mega-service-text">
+                            <span class="mega-service-title">Mietoptionen</span>
+                            <span class="mega-service-sub">Flexible Bürolösungen ohne Kapitalbindung</span>
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="mega-col-cases">
+                    <p class="mega-eyebrow mega-eyebrow--signal">Erfolgsgeschichten</p>
+                    <ul class="mega-case-list">
+                      <li>
+                        <a href="referenzen.html" class="mega-case-link">
+                          <span class="mega-case-thumb"><img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f/69aeb870d28d57934eb424d4_blick-ins-foyer.webp" alt="" loading="lazy" width="60" height="60"></span>
+                          <span class="mega-case-text">
+                            <span class="mega-case-title">Pharmaunternehmen</span>
+                            <span class="mega-case-sub">Nachhaltige Büroausstattung im Mietmodell</span>
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="referenzen.html" class="mega-case-link">
+                          <span class="mega-case-thumb"><img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f/6988d9ea184c3a10bc10dad3_68837e8c28869c60f8f0e0a0_Bildungsanbieter.webp" alt="" loading="lazy" width="60" height="60"></span>
+                          <span class="mega-case-text">
+                            <span class="mega-case-title">Bildungsanbieter</span>
+                            <span class="mega-case-sub">Zirkuläre Einrichtung für 120 Arbeitsplätze</span>
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="referenzen.html" class="mega-case-link">
+                          <span class="mega-case-thumb"><img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f/6988d9ea184c3a10bc10da77_683a0c7649d3317f8f0e0a0_Nunatak.webp" alt="" loading="lazy" width="60" height="60"></span>
+                          <span class="mega-case-text">
+                            <span class="mega-case-title">The Nunatak Group</span>
+                            <span class="mega-case-sub">Workspace-Analyse und nachhaltige Einrichtung</span>
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="referenzen.html" class="mega-case-link">
+                          <span class="mega-case-thumb"><img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f/6988d9ea184c3a10bc10da90_68caf2fe71b79dec22e92e0e_Bildschirmfoto%25202025-09-17%2520um%252019.42.19.webp" alt="" loading="lazy" width="60" height="60"></span>
+                          <span class="mega-case-text">
+                            <span class="mega-case-title">bcause</span>
+                            <span class="mega-case-sub">Refurbished Büromöblierung im Mietmodell</span>
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="mega-col-promo">
+                    <div class="mega-promo" style="background-image: url('https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6/6988d9ea184c3a10bc10d83d_nachhaltige-bueroplanung-80b.webp');">
+                      <p class="mega-promo-title">Entdecken Sie den zirkulären Büro-Lebenszyklus</p>
+                      <a href="index.html#leistungen" class="mega-promo-btn">Mehr erfahren</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Fenyx für Sie -->
+            <div class="mega-item relative" data-mega-item>
+              <button type="button" data-mega-trigger class="mega-trigger" aria-expanded="false" aria-haspopup="true">Fenyx für Sie</button>
+              <div data-mega-panel class="mega-panel" role="region" aria-label="Fenyx für Sie">
+                <div class="mega-panel-full mega-panel-full--two">
+                  <div class="mega-col-services">
+                    <p class="mega-eyebrow mega-eyebrow--dark">Fenyx für Sie</p>
+                    <ul class="mega-service-list">
+                      <li>
+                        <a href="grossunternehmen.html" class="mega-service-link">
+                          <span class="mega-service-thumb"><img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6/6988d9ea184c3a10bc10d841_bueroaufloesung%20(thumbnail).webp" alt="" loading="lazy" width="60" height="60"></span>
+                          <span class="mega-service-text">
+                            <span class="mega-service-title">Großunternehmen</span>
+                            <span class="mega-service-sub">Errichten und betreiben Sie Ihre Standorte kosteneffizient und nachhaltig.</span>
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="mittelstand.html" class="mega-service-link">
+                          <span class="mega-service-thumb"><img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6/6988d9ea184c3a10bc10d838_mitarbeiterverkauf%20(thumbnail).webp" alt="" loading="lazy" width="60" height="60"></span>
+                          <span class="mega-service-text">
+                            <span class="mega-service-title">Mittelstand</span>
+                            <span class="mega-service-sub">Gestalten Sie Ihr Büro genauso schnell und flexibel wie Ihr Geschäft.</span>
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="start-up-scale-up.html" class="mega-service-link">
+                          <span class="mega-service-thumb"><img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6/6988d9ea184c3a10bc10d8c6_spende%201.webp" alt="" loading="lazy" width="60" height="60"></span>
+                          <span class="mega-service-text">
+                            <span class="mega-service-title">Scale-Ups</span>
+                            <span class="mega-service-sub">Erhalten Sie EU-weites nachhaltiges Projektmanagement aus einer Hand.</span>
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="co-working-space.html" class="mega-service-link">
+                          <span class="mega-service-thumb"><img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6/6988d9ea184c3a10bc10d83a_auktionsplattform.webp" alt="" loading="lazy" width="60" height="60"></span>
+                          <span class="mega-service-text">
+                            <span class="mega-service-title">Co-Working Space</span>
+                            <span class="mega-service-sub">Machen Sie Ihr Büro zukunftsfähig und schonen Sie dabei Ressourcen.</span>
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="mega-col-promo">
+                    <div class="mega-promo" style="background-image: url('https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6/6988d9ea184c3a10bc10d83d_nachhaltige-bueroplanung-80b.webp');">
+                      <p class="mega-promo-title">Entdecken Sie den zirkulären Büro-Lebenszyklus</p>
+                      <a href="index.html#leistungen" class="mega-promo-btn">Mehr erfahren</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <a href="referenzen.html" class="mega-direct-link">Referenzen</a>
+            <a href="events.html" class="mega-direct-link">Events</a>
+
+            <!-- Über uns -->
+            <div class="mega-item relative mega-item--end" data-mega-item>
+              <button type="button" data-mega-trigger class="mega-trigger" aria-expanded="false" aria-haspopup="true">Über uns</button>
+              <div data-mega-panel class="mega-panel mega-panel--simple mega-panel--end" role="region" aria-label="Über uns">
+                <div class="mega-panel-full mega-panel-full--one">
+                  <div class="mega-col-services">
+                    <p class="mega-eyebrow mega-eyebrow--dark">Über uns</p>
+                    <ul class="mega-link-list">
+                      <li><a href="ueber-uns.html" class="mega-link"><span class="mega-link-title">Team</span></a></li>
+                      <li><a href="ratgeber.html" class="mega-link"><span class="mega-link-title">Ratgeber</span></a></li>
+                      <li><a href="presse-medien.html" class="mega-link"><span class="mega-link-title">News &amp; Medien</span></a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </nav>
+
+          <a href="index.html#kontakt"
              class="hidden sm:inline-flex items-center px-5 py-2.5 bg-signal text-black text-[11px] font-bold uppercase tracking-[0.1em] hover:brightness-95 transition-all duration-200">
-            Kontakt aufnehmen
+            Kontakt
           </a>
           <button id="menu-toggle" type="button"
                   class="lg:hidden p-2 text-white hover:text-signal transition-colors"
@@ -207,41 +767,88 @@
       </div>
     </div>
 
-    <!-- Mobile Navigation -->
-    <nav id="mobile-menu" class="hidden lg:hidden bg-abyss-mid border-t border-white/5" aria-label="Mobile Navigation">
+    <nav id="mobile-menu" class="hidden lg:hidden bg-abyss-mid border-t border-white/5 max-h-[80vh] overflow-y-auto" aria-label="Mobile Navigation">
       <div class="px-4 py-4 space-y-1">
-        <a href="#bestandsmanagement" class="mobile-nav-link block px-3 py-3 text-white/70 hover:text-signal text-sm font-semibold uppercase tracking-wider transition-colors">Bestandsmanagement</a>
-        <a href="#verwertung" class="mobile-nav-link block px-3 py-3 text-white/70 hover:text-signal text-sm font-semibold uppercase tracking-wider transition-colors">Verwertung</a>
-        <a href="#einrichtung" class="mobile-nav-link block px-3 py-3 text-white/70 hover:text-signal text-sm font-semibold uppercase tracking-wider transition-colors">Einrichtung</a>
-        <a href="referenzen.html" class="mobile-nav-link block px-3 py-3 text-white/70 hover:text-signal text-sm font-semibold uppercase tracking-wider transition-colors">Referenzen</a>
-        <a href="fenyx-haus/index.html" class="mobile-nav-link block px-3 py-3 text-white/70 hover:text-signal text-sm font-semibold uppercase tracking-wider transition-colors">fenyx.haus</a>
-        <a href="#kontakt" class="mobile-nav-link block px-3 py-3 text-white/70 hover:text-signal text-sm font-semibold uppercase tracking-wider transition-colors">Kontakt</a>
-        <a href="#kontakt" class="mobile-nav-link block mt-2 px-5 py-3 bg-signal text-black text-sm font-bold uppercase tracking-wider text-center hover:brightness-95 transition-all">Kontakt aufnehmen</a>
+        <div data-mobile-mega>
+          <button type="button" data-mobile-mega-trigger class="mobile-mega-trigger" aria-expanded="false">Bestandsmanagement</button>
+          <div data-mobile-mega-panel class="hidden pl-3 pb-2 space-y-1">
+            <a href="bestandsmanagement.html" class="mobile-nav-link block px-3 py-2 text-white/70 hover:text-signal text-sm">Digitales Bestandsmanagement</a>
+            <a href="digitale-inventarisierung.html" class="mobile-nav-link block px-3 py-2 text-white/70 hover:text-signal text-sm">Digitale Inventarisierung</a>
+            <a href="projektmanagement.html" class="mobile-nav-link block px-3 py-2 text-white/70 hover:text-signal text-sm">Projektmanagement</a>
+          </div>
+        </div>
+        <div data-mobile-mega>
+          <button type="button" data-mobile-mega-trigger class="mobile-mega-trigger" aria-expanded="false">Verwertung</button>
+          <div data-mobile-mega-panel class="hidden pl-3 pb-2 space-y-1">
+            <a href="bueroaufloesung.html" class="mobile-nav-link block px-3 py-2 text-white/70 hover:text-signal text-sm">Büroauflösung</a>
+            <a href="mitarbeiterverkauf.html" class="mobile-nav-link block px-3 py-2 text-white/70 hover:text-signal text-sm">Mitarbeiterverkauf</a>
+            <a href="spende.html" class="mobile-nav-link block px-3 py-2 text-white/70 hover:text-signal text-sm">Spende</a>
+            <a href="aufbereitung.html" class="mobile-nav-link block px-3 py-2 text-white/70 hover:text-signal text-sm">Aufbereitung</a>
+          </div>
+        </div>
+        <div data-mobile-mega>
+          <button type="button" data-mobile-mega-trigger class="mobile-mega-trigger" aria-expanded="false">Einrichtung</button>
+          <div data-mobile-mega-panel class="hidden pl-3 pb-2 space-y-1">
+            <a href="bueroeinrichtung.html" class="mobile-nav-link block px-3 py-2 text-white/70 hover:text-signal text-sm">Büroeinrichtung</a>
+            <a href="workspace-analytics.html" class="mobile-nav-link block px-3 py-2 text-white/70 hover:text-signal text-sm">Workspace Analytics</a>
+            <a href="bueromoebel-mieten.html" class="mobile-nav-link block px-3 py-2 text-white/70 hover:text-signal text-sm">Mietoptionen</a>
+          </div>
+        </div>
+        <div data-mobile-mega>
+          <button type="button" data-mobile-mega-trigger class="mobile-mega-trigger" aria-expanded="false">Fenyx für Sie</button>
+          <div data-mobile-mega-panel class="hidden pl-3 pb-2 space-y-1">
+            <a href="grossunternehmen.html" class="mobile-nav-link block px-3 py-2 text-white/70 hover:text-signal text-sm">Großunternehmen</a>
+            <a href="mittelstand.html" class="mobile-nav-link block px-3 py-2 text-white/70 hover:text-signal text-sm">Mittelstand</a>
+            <a href="start-up-scale-up.html" class="mobile-nav-link block px-3 py-2 text-white/70 hover:text-signal text-sm">Scale-Ups</a>
+            <a href="co-working-space.html" class="mobile-nav-link block px-3 py-2 text-white/70 hover:text-signal text-sm">Co-Working Space</a>
+          </div>
+        </div>
+        <a href="referenzen.html" class="mobile-nav-link block px-3 py-3 text-white/70 hover:text-signal text-sm font-semibold uppercase tracking-wider">Referenzen</a>
+        <a href="events.html" class="mobile-nav-link block px-3 py-3 text-white/70 hover:text-signal text-sm font-semibold uppercase tracking-wider">Events</a>
+        <div data-mobile-mega>
+          <button type="button" data-mobile-mega-trigger class="mobile-mega-trigger" aria-expanded="false">Über uns</button>
+          <div data-mobile-mega-panel class="hidden pl-3 pb-2 space-y-1">
+            <a href="ueber-uns.html" class="mobile-nav-link block px-3 py-2 text-white/70 hover:text-signal text-sm">Team</a>
+            <a href="ratgeber.html" class="mobile-nav-link block px-3 py-2 text-white/70 hover:text-signal text-sm">Ratgeber</a>
+            <a href="presse-medien.html" class="mobile-nav-link block px-3 py-2 text-white/70 hover:text-signal text-sm">News &amp; Medien</a>
+          </div>
+        </div>
+        <a href="index.html#kontakt" class="mobile-nav-link block mt-2 px-5 py-3 bg-signal text-black text-sm font-bold uppercase tracking-wider text-center hover:brightness-95 transition-all">Kontakt</a>
       </div>
     </nav>
   </header>
 
+
+
+
   <main>
 
     <!-- ============================================================
-         2. HERO – Full viewport, background image
+         2. HERO – Full viewport, background video
          ============================================================ -->
     <section class="relative min-h-[100svh] flex items-center bg-abyss-deep overflow-hidden" aria-labelledby="hero-heading">
       <div class="absolute inset-0">
-        <img src="assets/timeline/timeline.webp"
-             alt=""
-             class="w-full h-full object-cover"
-             loading="eager"
-             aria-hidden="true">
-        <div class="absolute inset-0 bg-gradient-to-r from-abyss-deep via-abyss-deep/85 to-abyss-deep/40"></div>
+        <video id="hero-video"
+               autoplay
+               muted
+               loop
+               playsinline
+               preload="metadata"
+               poster="assets/timeline/timeline.webp"
+               class="w-full h-full object-cover"
+               aria-hidden="true">
+          <source src="assets/hero/Home%20Hero%20Video.mp4" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 bg-[#2a1f12]/15"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-[#1a1410]/92 via-[#151a12]/78 to-[#0f1410]/30"></div>
       </div>
 
       <div class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 sm:py-36 lg:py-0">
-        <div class="max-w-2xl lg:max-w-3xl reveal">
-          <h1 id="hero-heading" class="text-white text-4xl sm:text-5xl lg:text-6xl xl:text-[4.25rem] font-black leading-[1.08] tracking-[-0.03em] mb-6">
+        <div class="max-w-2xl lg:max-w-4xl xl:max-w-5xl reveal">
+          <h1 id="hero-heading" class="text-white text-3xl sm:text-4xl lg:text-5xl xl:text-[3.5rem] font-black leading-[1.08] tracking-[-0.03em] mb-5">
             Nachhaltige Bürotransformationen aus einer Hand.
           </h1>
-          <p class="text-mist text-base sm:text-lg lg:text-xl leading-relaxed mb-10 max-w-xl">
+          <p class="text-white text-xs sm:text-[13px] lg:text-sm leading-snug mb-10 lg:whitespace-nowrap">
             Von digitalem Bestandsmanagement über die nachhaltige Verwertung zur schlüsselfertigen Einrichtung.
           </p>
           <div class="flex flex-col sm:flex-row gap-4">
@@ -259,6 +866,111 @@
     </section>
 
     <!-- ============================================================
+         2. REFERENZEN – Logo-Grid (Social Proof)
+         ============================================================ -->
+    <section id="referenzen" class="py-20 sm:py-28 bg-white" aria-labelledby="referenzen-heading">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="text-center max-w-3xl mx-auto mb-14 sm:mb-20">
+          <h2 id="referenzen-heading" class="reveal text-3xl sm:text-4xl lg:text-5xl font-black tracking-[-0.03em] mb-5 text-black">
+            Diese und viele weitere Unternehmen vertrauen bereits auf Fenyx.
+          </h2>
+          <p class="reveal reveal-delay-1 text-black text-base sm:text-lg leading-relaxed">
+            Führende Unternehmen aus verschiedenen Branchen haben sich für nachhaltige Bürolösungen von Fenyx entschieden und profitieren von messbaren Kosteneinsparungen und zertifizierbarer Nachhaltigkeit.
+          </p>
+        </div>
+
+        <!-- Logo Grid -->
+        <div class="logo-grid reveal reveal-delay-2" role="list" aria-label="Kundenlogos">
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10db8f_CIC%20Rotterdam.webp" alt="CIC Rotterdam" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10db90_spacebase.avif" alt="spacebase" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10db91_enpal.webp" alt="enpal" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10db92_Ivy.webp" alt="Ivy" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10db93_My%20Hammer.avif" alt="My Hammer" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10db94_reneo.webp" alt="reneo" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10db95_TZ%20Connect.webp" alt="TZ Connect" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10db96_BRAUN.webp" alt="BRAUN" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10db97_Dienes%201.webp" alt="Dienes" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10db98_Cision%201.webp" alt="Cision" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10db99_365%20Farm%20Net.webp" alt="365 Farm Net" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10db9a_w3-hub%201.webp" alt="w3-hub" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10db9b_regus%201.webp" alt="regus" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10db9c_Voids%202.webp" alt="Voids" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10db9d_Outfitery%201.webp" alt="Outfitery" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10db9e_getir%202.webp" alt="getir" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10db9f_TradeRepublic%201.webp" alt="TradeRepublic" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dba0_VARM%201.webp" alt="VARM" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dba1_klett.webp" alt="klett" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dba2_NUNATAK.webp" alt="NUNATAK" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dba3_Schu%CC%88lerhilfe.webp" alt="Schülerhilfe" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dba4_Penumbra%201.webp" alt="Penumbra" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dba5_Universal%201.webp" alt="Universal" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dba6_Uniball%201.avif" alt="Uniball" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dba7_TU%CC%88V%201.avif" alt="TÜV" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dba8_SIGNAL%20IDUNA%201.avif" alt="SIGNAL IDUNA" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dba9_RedBull%201.avif" alt="RedBull" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbaa_Mercedes%201.avif" alt="Mercedes" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbad_adler%201.avif" alt="adler" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbae_angermeier_ingenieure_logo_neu%201.avif" alt="angermeier_ingenieure_logo_neu" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbaf_Beiersdorf%20AG%201.avif" alt="Beiersdorf AG" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbb0_BEOS%20AG%201.avif" alt="BEOS AG" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbb1_brickbyte%20gmbh%201.avif" alt="brickbyte gmbh" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbb2_Broders%20and%20Knigge%201.avif" alt="Broders and Knigge" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbb3_Buma%201.avif" alt="Buma" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbb4_cairos%201.avif" alt="cairos" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbb5_cariad%201.avif" alt="cariad" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbb6_DB%20Bahn%201.avif" alt="DB Bahn" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbb7_deep%20tech%20momentum%201.avif" alt="deep tech momentum" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbb8_feco%201.avif" alt="feco" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbb9_fielmann-ag%201.avif" alt="fielmann-ag" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbba_GEMA-Logo-RGB%201.avif" alt="GEMA-Logo-RGB" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbbb_gonder%201.avif" alt="gonder" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbbc_GreenStandards_Logo_Navy_RGB%201.avif" alt="GreenStandards_Logo_Navy_RGB" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbbd_Haspa%20Direkt%201.avif" alt="Haspa Direkt" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbbe_hochtief%201.avif" alt="hochtief" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbbf_holmris%20b8%201.avif" alt="holmris b8" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbc0_intapp2%201.avif" alt="intapp2" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbc1_kobaltblau%201.avif" alt="kobaltblau" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbc2_Landeshauptstadt%20Muenchen%201.avif" alt="Landeshauptstadt Muenchen" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbc3_lechler%20gmbh%201.avif" alt="lechler gmbh" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbc4_LoadUp%20GmbH%201.avif" alt="LoadUp GmbH" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbc5_melitta%201.avif" alt="melitta" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbc6_ministerium%20fur%20inneres%20achsen%20anhalt%201.avif" alt="ministerium fur inneres achsen anhalt" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbc7_Momeni%201.avif" alt="Momeni" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbc8_nexenio2%201.avif" alt="nexenio2" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbc9_Otto%201.avif" alt="Otto" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbca_patina%20berlin%201.avif" alt="patina berlin" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbcb_point%20of%20sailing%20marketing%201.avif" alt="point of sailing marketing" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbcc_procuros-logo%201.avif" alt="procuros" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbcd_Rayner%20surgical%201.avif" alt="Rayner surgical" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbce_reich%20gmbh%201.avif" alt="reich gmbh" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbcf_RSG%20Group%201.avif" alt="RSG Group" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbd0_soundcloud%201.avif" alt="soundcloud" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbd1_stem%201.avif" alt="stem" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbd2_Streff2%201.avif" alt="Streff2" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbd3_the%20stepstone%20group%201.avif" alt="the stepstone group" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbd4_VGH%20Versicherungen%201.avif" alt="VGH Versicherungen" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbd5_VTG%201.avif" alt="VTG" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbd6_cell%20it%201%201.avif" alt="cell it 1" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbd7_centralis%201%201.avif" alt="centralis 1" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbd8_cowork_ag%201%201.avif" alt="cowork_ag 1" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbd9_fryte%201%201.avif" alt="fryte 1" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbda_lindner%201%201.avif" alt="lindner 1" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbdb_valeo%201%201.avif" alt="valeo 1" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbdc_Delta%20Campus%201.avif" alt="Delta Campus" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbdd_ProSite%201.avif" alt="ProSite" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbde_Vivao%201.avif" alt="Vivao" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbdf_meinestadt%201.avif" alt="meinestadt" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbe0_Heier%201.avif" alt="Heier" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbee_Intel_logo_2023.svg.avif" alt="Intel_logo_2023.svg" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbef_Bamboo%20Artists.png" alt="Bamboo Artists" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/6994418208fd121fe8e33004_N26_Logo_Black_RGB_M.avif" alt="N26" loading="lazy"></div>
+          <div class="logo-cell" role="listitem"><img src="assets/logos/69c534696df37548c3443d26_Continentale%20logo%20%282%29.avif" alt="Continentale" loading="lazy"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
          3. LEISTUNGEN
          ============================================================ -->
     <section id="leistungen" class="py-20 sm:py-28 bg-white" aria-labelledby="leistungen-heading">
@@ -269,7 +981,7 @@
             Wenn Nachhaltigkeit sich auch wirtschaftlich lohnt.
           </h2>
           <p class="reveal reveal-delay-1 text-black text-base sm:text-lg leading-relaxed">
-            Fenyx begleitet Sie durch den gesamten zirkulären Büro-Lebenszyklus – digital, effizient und messbar nachhaltig.
+            Nachhaltige Bürotransformation bedeutet mehr als Produktzertifikate. Mit Fenyx gewinnen Sie einen Partner, der Kosteneinsparungen messbar macht, Nachhaltigkeit transparent dokumentiert und Ihr Projekt strukturiert begleitet – von der Analyse bis zur Umsetzung.
           </p>
           <a href="#kontakt"
              class="reveal reveal-delay-2 inline-flex items-center justify-center mt-8 px-8 py-4 bg-signal text-black text-[11px] font-bold uppercase tracking-[0.12em] hover:brightness-95 transition-all duration-200">
@@ -278,7 +990,7 @@
         </div>
 
         <!-- Büro-Lebenszyklus mit grüner SVG-Linie -->
-        <div id="lifecycle-track" class="relative lg:pl-10">
+        <div id="lifecycle-track" class="relative">
           <div class="lifecycle-line hidden lg:block" aria-hidden="true">
             <svg id="lifecycle-svg" class="lifecycle-svg" xmlns="http://www.w3.org/2000/svg">
               <path id="lifecycle-path" d="M 2 0 L 2 100" />
@@ -295,11 +1007,9 @@
                class="absolute inset-0 w-full h-full object-cover"
                loading="lazy">
           <div class="relative z-10 w-full max-w-lg ml-0 lg:ml-8 xl:ml-16 m-4 sm:m-8 lg:m-12 bg-black p-8 sm:p-10 lg:p-12">
-            <div class="absolute -top-px left-12 w-px h-16 bg-signal hidden sm:block" aria-hidden="true"></div>
-            <div class="absolute -top-2 left-[46px] w-3 h-3 rounded-full bg-signal hidden sm:block" aria-hidden="true"></div>
             <h3 class="text-white text-2xl sm:text-3xl font-black tracking-[-0.02em] mb-4">Digitales Bestands&shy;management.</h3>
             <p class="text-mist text-sm leading-relaxed mb-6">
-              Erfassen, bewerten und verwalten Sie Ihren Bürobestand digital. Maximieren Sie interne Weiternutzung und erzielen Sie höhere Ankaufangebote.
+              Schaffen Sie durch digitale Inventarisierung Transparenz über Ihren Bestand und legen Sie das Fundament für die weitere, nachhaltige, interne Nutzung durch professionelle Aufbereitung und neue Konzepte.
             </p>
             <ul class="space-y-2.5 mb-8" aria-label="Vorteile Bestandsmanagement">
               <li class="flex items-start gap-2.5 text-white/85 text-sm">
@@ -315,7 +1025,7 @@
                 ø 29&nbsp;% bessere Wiederverwertungsrate
               </li>
             </ul>
-            <a href="#kontakt" class="inline-flex items-center gap-2 text-signal text-[11px] font-bold uppercase tracking-[0.1em] hover:gap-3 transition-all duration-200">
+            <a href="bestandsmanagement.html" class="inline-flex items-center gap-2 text-signal text-[11px] font-bold uppercase tracking-[0.1em] hover:gap-3 transition-all duration-200">
               Mehr erfahren
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
@@ -329,11 +1039,9 @@
                class="absolute inset-0 w-full h-full object-cover"
                loading="lazy">
           <div class="relative z-10 w-full max-w-lg mr-0 lg:mr-8 xl:mr-16 m-4 sm:m-8 lg:m-12 bg-black p-8 sm:p-10 lg:p-12">
-            <div class="absolute -top-px right-12 w-px h-16 bg-signal hidden sm:block" aria-hidden="true"></div>
-            <div class="absolute -top-2 right-[46px] w-3 h-3 rounded-full bg-signal hidden sm:block" aria-hidden="true"></div>
             <h3 class="text-white text-2xl sm:text-3xl font-black tracking-[-0.02em] mb-4">Ganzheitliche Verwertung.</h3>
             <p class="text-mist text-sm leading-relaxed mb-6">
-              Wir maximieren Recyclingquoten und Verkaufserlöse Ihrer gebrauchten Büromöbel – kostenlose Vor-Ort-Besichtigung inklusive.
+              Maximieren Sie die Wiederverwertungsquote und den Verkaufserlös Ihres nicht mehr gebrauchten Bestands. Die Fenyx Plattform garantiert die optimale Veräußerung, unabhängig von Hersteller, Kategorie und Zustand.
             </p>
             <ul class="space-y-2.5 mb-8" aria-label="Vorteile Verwertung">
               <li class="flex items-start gap-2.5 text-white/85 text-sm">
@@ -349,7 +1057,7 @@
                 100&nbsp;% sorgenfreie Übergabe
               </li>
             </ul>
-            <a href="#kontakt" class="inline-flex items-center gap-2 text-signal text-[11px] font-bold uppercase tracking-[0.1em] hover:gap-3 transition-all duration-200">
+            <a href="bueroaufloesung.html" class="inline-flex items-center gap-2 text-signal text-[11px] font-bold uppercase tracking-[0.1em] hover:gap-3 transition-all duration-200">
               Mehr erfahren
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
@@ -363,11 +1071,9 @@
                class="absolute inset-0 w-full h-full object-cover"
                loading="lazy">
           <div class="relative z-10 w-full max-w-lg ml-0 lg:ml-8 xl:ml-16 m-4 sm:m-8 lg:m-12 bg-black p-8 sm:p-10 lg:p-12">
-            <div class="absolute -top-px left-12 w-px h-16 bg-signal hidden sm:block" aria-hidden="true"></div>
-            <div class="absolute -top-2 left-[46px] w-3 h-3 rounded-full bg-signal hidden sm:block" aria-hidden="true"></div>
             <h3 class="text-white text-2xl sm:text-3xl font-black tracking-[-0.02em] mb-4">Schlüsselfertige Einrichtung.</h3>
             <p class="text-mist text-sm leading-relaxed mb-6">
-              Refurbished Premium-Möbel, Planung und Montage aus einer Hand. Ein Partner, ein Prozess, null Stress.
+              Planen Sie mit uns Ihr neues Büro. Wir analysieren Ihre Anforderungen &amp; Wünsche und übersetzen diese in ein anspruchsvolles Konzept. In der Umsetzung nutzen wir einen Hybrid aus Bestand, refurbished und neuen Büromöbeln.
             </p>
             <ul class="space-y-2.5 mb-8" aria-label="Vorteile Einrichtung">
               <li class="flex items-start gap-2.5 text-white/85 text-sm">
@@ -383,7 +1089,7 @@
                 ø 125&nbsp;kg CO₂ pro Arbeitsplatz sparen
               </li>
             </ul>
-            <a href="#kontakt" class="inline-flex items-center gap-2 text-signal text-[11px] font-bold uppercase tracking-[0.1em] hover:gap-3 transition-all duration-200">
+            <a href="bueroeinrichtung.html" class="inline-flex items-center gap-2 text-signal text-[11px] font-bold uppercase tracking-[0.1em] hover:gap-3 transition-all duration-200">
               Mehr erfahren
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
@@ -396,55 +1102,45 @@
     </section>
 
     <!-- ============================================================
-         4. REFERENZEN – Logo-Grid
+         4. BEKANNT AUS – Presse-Logos (Marquee)
+         Logos in assets/presse-logos/ ablegen, dann sync-presse-logos.py ausführen
+         Erwartet laut Live-Seite (12): circularmonday, bdia, Bundesverband, BVMW,
+         DGNB, Furniture 4.0, NewWork Business, Office Roxx, ORGATEC, RealFM, cube-2, cademi
          ============================================================ -->
-    <section id="referenzen" class="py-20 sm:py-28 bg-white" aria-labelledby="referenzen-heading">
+    <section id="bekannt-aus" class="py-16 sm:py-20 bg-black overflow-hidden" aria-labelledby="bekannt-aus-heading">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        <div class="text-center max-w-3xl mx-auto mb-14 sm:mb-20">
-          <h2 id="referenzen-heading" class="reveal text-3xl sm:text-4xl lg:text-5xl font-black tracking-[-0.03em] mb-5 text-black">
-            Diese und viele weitere Unternehmen vertrauen bereits auf Fenyx.
-          </h2>
-          <p class="reveal reveal-delay-1 text-black text-base sm:text-lg leading-relaxed">
-            Führende Unternehmen aus verschiedenen Branchen haben sich für nachhaltige Bürolösungen von Fenyx entschieden und profitieren von messbaren Kosteneinsparungen und zertifizierbarer Nachhaltigkeit.
-          </p>
-          <a href="referenzen.html"
-             class="reveal reveal-delay-2 inline-flex items-center justify-center mt-8 px-8 py-4 border border-black text-black text-[11px] font-bold uppercase tracking-[0.12em] hover:bg-black hover:text-white transition-colors duration-200">
-            Alle Referenzen auf der Karte
-          </a>
-        </div>
-
-        <!-- Logo Grid -->
-        <div class="reveal reveal-delay-3 grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-x-3 gap-y-5 sm:gap-x-5 sm:gap-y-6 items-center justify-items-center" role="list" aria-label="Kundenlogos">
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbd0_soundcloud%201.avif" alt="SoundCloud" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbc9_Otto%201.avif" alt="OTTO" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbee_Intel_logo_2023.svg.avif" alt="Intel" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbc5_melitta%201.avif" alt="Melitta" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbd4_VGH%20Versicherungen%201.avif" alt="VGH Versicherungen" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbd5_VTG%201.avif" alt="VTG" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbcf_RSG%20Group%201.avif" alt="RSG Group" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbd3_the%20stepstone%20group%201.avif" alt="The Stepstone Group" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbd1_stem%201.avif" alt="STEM" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbd2_Streff2%201.avif" alt="Streff" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbdb_valeo%201%201.avif" alt="Valeo" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbde_Vivao%201.avif" alt="Vivao" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbbf_holmris%20b8%201.avif" alt="Holmris B8" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbc0_intapp2%201.avif" alt="Intapp" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbc1_kobaltblau%201.avif" alt="Kobaltblau" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbc2_Landeshauptstadt%20Muenchen%201.avif" alt="Landeshauptstadt München" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbc3_lechler%20gmbh%201.avif" alt="Lechler GmbH" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbc4_LoadUp%20GmbH%201.avif" alt="LoadUp GmbH" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbc6_ministerium%20fur%20inneres%20achsen%20anhalt%201.avif" alt="Ministerium für Inneres Sachsen-Anhalt" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbc7_Momeni%201.avif" alt="Momeni" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbc8_nexenio2%201.avif" alt="Nexenio" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbca_patina%20berlin%201.avif" alt="Patina Berlin" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbcb_point%20of%20sailing%20marketing%201.avif" alt="Point of Sailing Marketing" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbcc_procuros-logo%201.avif" alt="Procuros" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbcd_Rayner%20surgical%201.avif" alt="Rayner Surgical" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbce_reich%20gmbh%201.avif" alt="Reich GmbH" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbda_lindner%201%201.avif" alt="Lindner" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbdd_ProSite%201.avif" alt="ProSite" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
-          <div class="flex items-center justify-center h-7 sm:h-8 px-1" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10dbdf_meinestadt%201.avif" alt="meinestadt.de" class="max-h-3 sm:max-h-3.5 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity" loading="lazy"></div>
+        <h2 id="bekannt-aus-heading" class="reveal text-center text-3xl sm:text-4xl lg:text-5xl font-black tracking-[-0.03em] mb-12 sm:mb-16 text-white">
+          Fenyx ist bekannt aus
+        </h2>
+        <div class="presse-marquee reveal reveal-delay-1" role="region" aria-label="Presse und Medien">
+          <div id="presse-logo-track" class="presse-marquee__track" role="list" aria-label="Presse-Logos">
+          <div class="presse-marquee__group" aria-hidden="false">
+            <div class="presse-logo-cell" role="listitem"><img src="assets/presse-logos/6988d9ea184c3a10bc10dbe1_%23circularmonday.avif" alt="#circularmonday" loading="lazy"></div>
+            <div class="presse-logo-cell" role="listitem"><img src="assets/presse-logos/6988d9ea184c3a10bc10dbe2_bdia.avif" alt="bdia" loading="lazy"></div>
+            <div class="presse-logo-cell" role="listitem"><img src="assets/presse-logos/6988d9ea184c3a10bc10dbe3_Bundesverband.avif" alt="Bundesverband" loading="lazy"></div>
+            <div class="presse-logo-cell" role="listitem"><img src="assets/presse-logos/6988d9ea184c3a10bc10dbe4_BVMW.png" alt="BVMW" loading="lazy"></div>
+            <div class="presse-logo-cell" role="listitem"><img src="assets/presse-logos/6988d9ea184c3a10bc10dbe5_DGNB.avif" alt="DGNB" loading="lazy"></div>
+            <div class="presse-logo-cell" role="listitem"><img src="assets/presse-logos/6988d9ea184c3a10bc10dbe6_Furniture%204.0.avif" alt="Furniture 4.0" loading="lazy"></div>
+            <div class="presse-logo-cell" role="listitem"><img src="assets/presse-logos/6988d9ea184c3a10bc10dbe7_NewWork%20Business%20Award.avif" alt="NewWork Business Award" loading="lazy"></div>
+            <div class="presse-logo-cell" role="listitem"><img src="assets/presse-logos/6988d9ea184c3a10bc10dbe8_Office%20Roxx.avif" alt="Office Roxx" loading="lazy"></div>
+            <div class="presse-logo-cell" role="listitem"><img src="assets/presse-logos/6988d9ea184c3a10bc10dbeb_Stern.avif" alt="Stern" loading="lazy"></div>
+            <div class="presse-logo-cell" role="listitem"><img src="assets/presse-logos/6988d9ea184c3a10bc10dbec_cube-2.avif" alt="cube-2" loading="lazy"></div>
+            <div class="presse-logo-cell" role="listitem"><img src="assets/presse-logos/6988d9ea184c3a10bc10dbed_cademi.avif" alt="cademi" loading="lazy"></div>
+          </div>
+          <div class="presse-marquee__group" aria-hidden="true">
+            <div class="presse-logo-cell" role="listitem"><img src="assets/presse-logos/6988d9ea184c3a10bc10dbe1_%23circularmonday.avif" alt="#circularmonday" loading="lazy"></div>
+            <div class="presse-logo-cell" role="listitem"><img src="assets/presse-logos/6988d9ea184c3a10bc10dbe2_bdia.avif" alt="bdia" loading="lazy"></div>
+            <div class="presse-logo-cell" role="listitem"><img src="assets/presse-logos/6988d9ea184c3a10bc10dbe3_Bundesverband.avif" alt="Bundesverband" loading="lazy"></div>
+            <div class="presse-logo-cell" role="listitem"><img src="assets/presse-logos/6988d9ea184c3a10bc10dbe4_BVMW.png" alt="BVMW" loading="lazy"></div>
+            <div class="presse-logo-cell" role="listitem"><img src="assets/presse-logos/6988d9ea184c3a10bc10dbe5_DGNB.avif" alt="DGNB" loading="lazy"></div>
+            <div class="presse-logo-cell" role="listitem"><img src="assets/presse-logos/6988d9ea184c3a10bc10dbe6_Furniture%204.0.avif" alt="Furniture 4.0" loading="lazy"></div>
+            <div class="presse-logo-cell" role="listitem"><img src="assets/presse-logos/6988d9ea184c3a10bc10dbe7_NewWork%20Business%20Award.avif" alt="NewWork Business Award" loading="lazy"></div>
+            <div class="presse-logo-cell" role="listitem"><img src="assets/presse-logos/6988d9ea184c3a10bc10dbe8_Office%20Roxx.avif" alt="Office Roxx" loading="lazy"></div>
+            <div class="presse-logo-cell" role="listitem"><img src="assets/presse-logos/6988d9ea184c3a10bc10dbeb_Stern.avif" alt="Stern" loading="lazy"></div>
+            <div class="presse-logo-cell" role="listitem"><img src="assets/presse-logos/6988d9ea184c3a10bc10dbec_cube-2.avif" alt="cube-2" loading="lazy"></div>
+            <div class="presse-logo-cell" role="listitem"><img src="assets/presse-logos/6988d9ea184c3a10bc10dbed_cademi.avif" alt="cademi" loading="lazy"></div>
+          </div>
+          </div>
         </div>
       </div>
     </section>
@@ -464,112 +1160,183 @@
           </p>
         </div>
 
-        <div id="ref-parallax-stack" class="ref-parallax-stack space-y-6 sm:space-y-8">
+        <div id="ref-scroll-stack" class="ref-scroll-stack">
 
-          <!-- Projekt 1: Reneo Group – Text links, Bild rechts -->
-          <article class="ref-parallax-card grid lg:grid-cols-2 bg-abyss-deep overflow-hidden" data-parallax-index="0">
-            <div class="p-8 sm:p-10 lg:p-12 flex flex-col justify-center order-2 lg:order-1">
-              <p class="text-mist text-xs uppercase tracking-[0.1em] mb-3">Planung mit Bestand / Einrichtung</p>
-              <h3 class="text-white text-2xl sm:text-3xl font-black tracking-[-0.02em] mb-4">Reneo Group GmbH</h3>
-              <span class="inline-block self-start px-3 py-1 border border-white/20 text-white/80 text-xs mb-5">Schlüsselfertige Einrichtung</span>
-              <p class="text-mist text-sm leading-relaxed mb-8">
-                Fenyx entwickelte für den neuen Firmensitz in Hamburg ein ressourcenschonendes Einrichtungskonzept. Bestehende Möbel wurden gezielt integriert, nicht benötigte Bestände nachhaltig verwertet und 82 ergonomische, refurbished E-Tische ergänzt – funktional, hochwertig und CO₂-effizient.
+          <!-- Projekt 1: Reneo Group -->
+          <div class="ref-scroll-item" data-stack-index="0">
+          <article class="ref-scroll-card case-card">
+            <div class="case-card-content">
+              <p class="case-eyebrow">Planung mit Bestand / Einrichtung</p>
+              <h3 class="case-heading">Reneo Group GmbH</h3>
+              <div class="case-tag">Schlüsselfertige Einrichtung</div>
+              <p class="case-body">
+                Fenyx entwickelte für den neuen Firmensitz in Hamburg ein ressourcenschonendes Einrichtungskonzept: Bestehende Möbel wurden gezielt integriert, nicht benötigte Bestände nachhaltig verwertet und 82 ergonomische, refurbished E-Tische ergänzt – funktional, hochwertig und CO₂-effizient.
               </p>
-              <div class="grid grid-cols-3 gap-4 border-t border-white/10 pt-6 mb-8">
+              <div class="case-stats">
                 <div>
-                  <p class="text-white text-xl sm:text-2xl font-black">82</p>
-                  <p class="text-mist text-[11px] sm:text-xs mt-1">refurbished Arbeitstische</p>
+                  <p class="case-stat-value">82</p>
+                  <p class="case-stat-label">Refurbished Möbelstücke</p>
                 </div>
                 <div>
-                  <p class="text-white text-xl sm:text-2xl font-black">5.084&nbsp;kg</p>
-                  <p class="text-mist text-[11px] sm:text-xs mt-1">CO₂ Emissionen gespart</p>
+                  <p class="case-stat-value">5.084&nbsp;kg</p>
+                  <p class="case-stat-label">CO₂ Emissionen gespart</p>
                 </div>
                 <div>
-                  <p class="text-white text-xl sm:text-2xl font-black">58&nbsp;%</p>
-                  <p class="text-mist text-[11px] sm:text-xs mt-1">Kostenersparnis</p>
+                  <p class="case-stat-value">58&nbsp;%</p>
+                  <p class="case-stat-label">Kostenersparnis</p>
                 </div>
               </div>
-              <a href="#" class="inline-flex items-center justify-center self-start px-6 py-3 border border-signal text-signal text-[11px] font-bold uppercase tracking-[0.1em] hover:bg-signal hover:text-black transition-colors duration-200">
-                Zum Projekt
-              </a>
+              <a href="projekte/reneo-group.html" class="case-cta">Zum Projekt</a>
             </div>
-            <div class="relative min-h-[260px] sm:min-h-[320px] lg:min-h-full order-1 lg:order-2">
-              <img src="assets/Referenzen/reneo-group.avif"
-                   alt="Büroeinrichtung Reneo Group GmbH"
-                   class="absolute inset-0 w-full h-full object-cover"
+            <div class="case-card-image">
+              <img src="assets/Referenzen/reneo-group.png"
+                   alt="Empfangsbereich Reneo Group GmbH, Hamburg"
+                   width="976"
+                   height="664"
                    loading="lazy">
             </div>
           </article>
+          </div>
 
-          <!-- Projekt 2: SIGNAL IDUNA – Bild links, Text rechts -->
-          <article class="ref-parallax-card grid lg:grid-cols-2 bg-black overflow-hidden" data-parallax-index="1">
-            <div class="relative min-h-[260px] sm:min-h-[320px] lg:min-h-full">
-              <img src="assets/Referenzen/signal-iduna.avif"
-                   alt="Büro SIGNAL IDUNA Gruppe"
-                   class="absolute inset-0 w-full h-full object-cover"
+          <!-- Projekt 2: SIGNAL IDUNA – Bild links -->
+          <div class="ref-scroll-item" data-stack-index="1">
+          <article class="ref-scroll-card case-card case-card--image-left">
+            <div class="case-card-image">
+              <img src="assets/Referenzen/signal-iduna.png"
+                   alt="Empfangsbereich SIGNAL IDUNA Gruppe, Hamburg"
+                   width="1200"
+                   height="800"
                    loading="lazy">
             </div>
-            <div class="p-8 sm:p-10 lg:p-12 flex flex-col justify-center">
-              <p class="text-mist text-xs uppercase tracking-[0.1em] mb-3">Verwertung / Verkauf</p>
-              <h3 class="text-white text-2xl sm:text-3xl font-black tracking-[-0.02em] mb-4">SIGNAL IDUNA Gruppe</h3>
-              <span class="inline-block self-start px-3 py-1 border border-white/20 text-white/80 text-xs mb-5">Ganzheitliche Verwertung</span>
-              <p class="text-mist text-sm leading-relaxed mb-8">
+            <div class="case-card-content">
+              <p class="case-eyebrow">Verwertung / Verkauf</p>
+              <h3 class="case-heading">SIGNAL IDUNA Gruppe</h3>
+              <div class="case-tag">Ganzheitliche Verwertung</div>
+              <p class="case-body">
                 Ganzheitliche Verwertung bei Standortauflösung: Fenyx übernahm die vollständige Räumung von sieben Gebäudeteilen in Hamburg – inklusive strukturierter Aufbereitung, Verkauf und Recycling. Ein Teil des Mobiliars wurde wirtschaftlich weitervermarktet, der Rest fachgerecht und ressourcenschonend recycelt.
               </p>
-              <div class="grid grid-cols-3 gap-4 border-t border-white/10 pt-6 mb-8">
+              <div class="case-stats">
                 <div>
-                  <p class="text-white text-xl sm:text-2xl font-black">4.500</p>
-                  <p class="text-mist text-[11px] sm:text-xs mt-1">Möbel vermarktet</p>
+                  <p class="case-stat-value">4.500</p>
+                  <p class="case-stat-label">Möbel verarbeitet</p>
                 </div>
                 <div>
-                  <p class="text-white text-xl sm:text-2xl font-black">ca.&nbsp;19.000&nbsp;kg</p>
-                  <p class="text-mist text-[11px] sm:text-xs mt-1">CO₂ Emissionen gespart</p>
+                  <p class="case-stat-value">ca.&nbsp;19.000&nbsp;kg</p>
+                  <p class="case-stat-label">CO₂-Emissionen gespart</p>
                 </div>
                 <div>
-                  <p class="text-white text-xl sm:text-2xl font-black">15&nbsp;%</p>
-                  <p class="text-mist text-[11px] sm:text-xs mt-1">Kostenersparnis</p>
+                  <p class="case-stat-value">15&nbsp;%</p>
+                  <p class="case-stat-label">Kosteneinsparung</p>
                 </div>
               </div>
-              <a href="#" class="inline-flex items-center justify-center self-start px-6 py-3 border border-signal text-signal text-[11px] font-bold uppercase tracking-[0.1em] hover:bg-signal hover:text-black transition-colors duration-200">
-                Zum Projekt
-              </a>
+              <a href="projekte/signal-iduna.html" class="case-cta">Zum Projekt</a>
             </div>
           </article>
+          </div>
 
-          <!-- Projekt 3: The Nunatak Group – Text links, Bild rechts -->
-          <article class="ref-parallax-card grid lg:grid-cols-2 bg-abyss-deep overflow-hidden" data-parallax-index="2">
-            <div class="p-8 sm:p-10 lg:p-12 flex flex-col justify-center order-2 lg:order-1">
-              <p class="text-mist text-xs uppercase tracking-[0.1em] mb-3">Planung / Workspace Analytics</p>
-              <h3 class="text-white text-2xl sm:text-3xl font-black tracking-[-0.02em] mb-4">The Nunatak Group</h3>
-              <span class="inline-block self-start px-3 py-1 border border-white/20 text-white/80 text-xs mb-5">Schlüsselfertige Einrichtung</span>
-              <p class="text-mist text-sm leading-relaxed mb-8">
-                Für den neuen Standort in München entwickelte Fenyx ein modernes Einrichtungskonzept mit 80 Arbeitsplätzen auf Basis hochwertiger Refurbished-Möbel – funktional, ästhetisch und deutlich ressourcenschonender als ein Neukauf.
+          <!-- Projekt 3: The Nunatak Group -->
+          <div class="ref-scroll-item" data-stack-index="2">
+          <article class="ref-scroll-card case-card">
+            <div class="case-card-content">
+              <p class="case-eyebrow">Planung / Workspace Analytics</p>
+              <h3 class="case-heading">The Nunatak Group</h3>
+              <div class="case-tag">Schlüsselfertige Einrichtung</div>
+              <p class="case-body">
+                Fenyx entwickelte ein modernes Einrichtungskonzept für 80 Arbeitsplätze in München – basierend auf einer fundierten Arbeitsplatzanalyse mit Mitarbeitendenbefragung und umgesetzt mit hochwertig aufbereitetem Mobiliar für eine nachhaltige, ergonomische und kollaborative Arbeitsumgebung.
               </p>
-              <div class="grid grid-cols-3 gap-4 border-t border-white/10 pt-6 mb-8">
+              <div class="case-stats">
                 <div>
-                  <p class="text-white text-xl sm:text-2xl font-black">80</p>
-                  <p class="text-mist text-[11px] sm:text-xs mt-1">Refurbished Möbel</p>
+                  <p class="case-stat-value">80</p>
+                  <p class="case-stat-label">Refurbished Möbel</p>
                 </div>
                 <div>
-                  <p class="text-white text-xl sm:text-2xl font-black">5.096&nbsp;kg</p>
-                  <p class="text-mist text-[11px] sm:text-xs mt-1">CO₂ Emissionen gespart</p>
+                  <p class="case-stat-value">5.096&nbsp;kg</p>
+                  <p class="case-stat-label">CO₂ Emissionen gespart</p>
                 </div>
                 <div>
-                  <p class="text-white text-xl sm:text-2xl font-black">49&nbsp;%</p>
-                  <p class="text-mist text-[11px] sm:text-xs mt-1">Kostenersparnis im Vergleich zum Neukauf</p>
+                  <p class="case-stat-value">49&nbsp;%</p>
+                  <p class="case-stat-label">Kostenersparnis im Vergleich zum Neukauf</p>
                 </div>
               </div>
-              <a href="#" class="inline-flex items-center justify-center self-start px-6 py-3 border border-signal text-signal text-[11px] font-bold uppercase tracking-[0.1em] hover:bg-signal hover:text-black transition-colors duration-200">
-                Zum Projekt
-              </a>
+              <a href="projekte/nunatak-group.html" class="case-cta">Zum Projekt</a>
             </div>
-            <div class="relative min-h-[260px] sm:min-h-[320px] lg:min-h-full order-1 lg:order-2">
-              <img src="assets/Referenzen/nunatak-group.avif"
-                   alt="Büroeinrichtung The Nunatak Group"
-                   class="absolute inset-0 w-full h-full object-cover"
+            <div class="case-card-image">
+              <img src="assets/Referenzen/nunatak-group.png"
+                   alt="Lounge The Nunatak Group, München"
+                   width="580"
+                   height="421"
                    loading="lazy">
             </div>
           </article>
+          </div>
+
+          <!-- Projekt 4: Universal Music Group – Bild links -->
+          <div class="ref-scroll-item" data-stack-index="3">
+          <article class="ref-scroll-card case-card case-card--image-left">
+            <div class="case-card-image">
+              <img src="assets/Referenzen/universal-music-group.png"
+                   alt="Lounge Universal Music Group, Berlin"
+                   loading="lazy">
+            </div>
+            <div class="case-card-content">
+              <p class="case-eyebrow">Mitarbeiterverkauf</p>
+              <h3 class="case-heading">Universal Music Group</h3>
+              <div class="case-tag">Ganzheitliche Verwertung</div>
+              <p class="case-body">
+                Fenyx organisierte die vollständige Räumung des Berliner Headquarters und ermöglichte die Weitergabe von 1.800 Möbelstücken an Mitarbeitende. Durch strukturierte Inventarisierung, systematische Sortierung und professionelle Verkaufsabwicklung wurde ein dreistufiges Verwertungsmodell umgesetzt: Mitarbeitendenverkauf, europaweiter Weiterverkauf und gezielte Spenden.
+              </p>
+              <div class="case-stats">
+                <div>
+                  <p class="case-stat-value">4.500</p>
+                  <p class="case-stat-label">Möbel verarbeitet</p>
+                </div>
+                <div>
+                  <p class="case-stat-value">1.800</p>
+                  <p class="case-stat-label">Möbel intern weitergegeben</p>
+                </div>
+                <div>
+                  <p class="case-stat-value">45.045&nbsp;kg</p>
+                  <p class="case-stat-label">CO₂-Emissionen gespart</p>
+                </div>
+              </div>
+              <a href="projekte/universal-music-group.html" class="case-cta">Zum Projekt</a>
+            </div>
+          </article>
+          </div>
+
+          <!-- Projekt 5: The Delta Campus -->
+          <div class="ref-scroll-item" data-stack-index="4">
+          <article class="ref-scroll-card case-card">
+            <div class="case-card-content">
+              <p class="case-eyebrow">Einrichtung</p>
+              <h3 class="case-heading">The Delta Campus</h3>
+              <div class="case-tag">Schlüsselfertige Einrichtung</div>
+              <p class="case-body">
+                Fenyx begleitete die Ausstattung des Berliner Co-Working-Spaces mit klarem Fokus auf Kreislaufwirtschaft: 324 hochwertig aufbereitete Stühle schaffen eine moderne, wirtschaftliche und ressourcenschonende Arbeitsumgebung.
+              </p>
+              <div class="case-stats">
+                <div>
+                  <p class="case-stat-value">324</p>
+                  <p class="case-stat-label">Refurbished Möbel</p>
+                </div>
+                <div>
+                  <p class="case-stat-value">21.096&nbsp;kg</p>
+                  <p class="case-stat-label">CO₂ Emissionen gespart</p>
+                </div>
+                <div>
+                  <p class="case-stat-value">69&nbsp;%</p>
+                  <p class="case-stat-label">Kostenersparnis im Vergleich zum Neukauf</p>
+                </div>
+              </div>
+              <a href="projekte/delta-campus.html" class="case-cta">Zum Projekt</a>
+            </div>
+            <div class="case-card-image">
+              <img src="assets/Referenzen/delta-campus.png"
+                   alt="Co-Working-Space The Delta Campus, Berlin"
+                   loading="lazy">
+            </div>
+          </article>
+          </div>
 
         </div>
       </div>
@@ -652,7 +1419,7 @@
                 </label>
               </div>
               <p class="text-mist/70 text-xs leading-relaxed">
-                Mit dem Absenden stimmen Sie unseren <a href="#" class="text-signal hover:underline">Datenschutzbestimmungen</a> zu.
+                Mit dem Absenden stimmen Sie unseren <a href="datenschutz.html" class="text-signal hover:underline">Datenschutzbestimmungen</a> zu.
               </p>
               <p class="form-status hidden text-sm" role="status" aria-live="polite"></p>
               <button type="submit"
@@ -674,9 +1441,8 @@
   <footer class="bg-abyss-deep border-t border-white/5 text-mist" aria-label="Seitenfuß">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
 
-      <div class="reveal grid sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-16">
+      <div class="reveal grid sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-12">
 
-        <!-- Kontakt & Social -->
         <div>
           <ul class="space-y-3 text-sm mb-6">
             <li>
@@ -693,56 +1459,62 @@
             </li>
           </ul>
           <div class="flex gap-3">
-            <a href="#" class="w-9 h-9 border border-white/15 flex items-center justify-center hover:border-signal hover:text-signal transition-colors" aria-label="Instagram">
+            <a href="https://www.instagram.com/fenyx_offices/" target="_blank" rel="noopener noreferrer" class="w-9 h-9 border border-white/15 flex items-center justify-center hover:border-signal hover:text-signal transition-colors" aria-label="Instagram">
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
             </a>
-            <a href="#" class="w-9 h-9 border border-white/15 flex items-center justify-center hover:border-signal hover:text-signal transition-colors" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/company/fenyx-office/" target="_blank" rel="noopener noreferrer" class="w-9 h-9 border border-white/15 flex items-center justify-center hover:border-signal hover:text-signal transition-colors" aria-label="LinkedIn">
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 114.127 0 2.063 2.063 0 01-2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
             </a>
           </div>
         </div>
 
-        <!-- Bestandsmanagement -->
         <div>
           <h3 class="text-white text-sm font-bold mb-4">Bestandsmanagement</h3>
           <ul class="space-y-2 text-sm">
-            <li><a href="#" class="hover:text-signal transition-colors">Digitales Bestandsmanagement</a></li>
-            <li><a href="#" class="hover:text-signal transition-colors">Digitale Inventarisierung</a></li>
-            <li><a href="#" class="hover:text-signal transition-colors">Projektmanagement</a></li>
+            <li><a href="bestandsmanagement.html" class="hover:text-signal transition-colors">Digitales Bestandsmanagement</a></li>
+            <li><a href="digitale-inventarisierung.html" class="hover:text-signal transition-colors">Digitale Inventarisierung</a></li>
+            <li><a href="projektmanagement.html" class="hover:text-signal transition-colors">Projektmanagement</a></li>
           </ul>
         </div>
 
-        <!-- Verwertung -->
         <div>
           <h3 class="text-white text-sm font-bold mb-4">Verwertung</h3>
           <ul class="space-y-2 text-sm">
-            <li><a href="#" class="hover:text-signal transition-colors">Büroauflösung</a></li>
-            <li><a href="#" class="hover:text-signal transition-colors">Mitarbeiterverkauf</a></li>
-            <li><a href="#" class="hover:text-signal transition-colors">Aufbereitung</a></li>
-            <li><a href="#" class="hover:text-signal transition-colors">Spende</a></li>
+            <li><a href="bueroaufloesung.html" class="hover:text-signal transition-colors">Büroauflösung</a></li>
+            <li><a href="mitarbeiterverkauf.html" class="hover:text-signal transition-colors">Mitarbeiterverkauf</a></li>
+            <li><a href="aufbereitung.html" class="hover:text-signal transition-colors">Aufbereitung</a></li>
+            <li><a href="spende.html" class="hover:text-signal transition-colors">Spende</a></li>
           </ul>
         </div>
 
-        <!-- Einrichtung -->
         <div>
           <h3 class="text-white text-sm font-bold mb-4">Einrichtung</h3>
           <ul class="space-y-2 text-sm">
-            <li><a href="#" class="hover:text-signal transition-colors">Büroeinrichtung</a></li>
-            <li><a href="#" class="hover:text-signal transition-colors">Workspace Analytics &amp; Bürokonzept</a></li>
-            <li><a href="#" class="hover:text-signal transition-colors">Mietoptionen</a></li>
+            <li><a href="bueroeinrichtung.html" class="hover:text-signal transition-colors">Büroeinrichtung</a></li>
+            <li><a href="workspace-analytics.html" class="hover:text-signal transition-colors">Workspace Analytics &amp; Bürokonzept</a></li>
+            <li><a href="bueromoebel-mieten.html" class="hover:text-signal transition-colors">Mietoptionen</a></li>
           </ul>
         </div>
 
       </div>
 
-      <!-- Giant FENYX Logo -->
-      <div class="reveal pt-4 border-t border-white/5 bg-[#0b171f] -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8">
+      <div class="reveal pt-4 border-t border-white/5 bg-[#0b171f] -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 pb-6">
         <img src="assets/fenyx-logo.png" alt="FENYX" class="w-full h-auto object-contain" width="1200" height="200">
-        <p class="text-xs text-white/30 mt-6 text-center sm:text-left">&copy; 2026 Fenyx GmbH. Alle Rechte vorbehalten.</p>
+        <div class="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-xs text-white/40">
+          <p>&copy; 2026 Fenyx Office · Website by Flownity</p>
+          <div class="flex flex-wrap gap-x-6 gap-y-2">
+            <a href="impressum.html" class="hover:text-signal transition-colors">Impressum</a>
+            <a href="datenschutz.html" class="hover:text-signal transition-colors">Datenschutz</a>
+            <a href="agb.html" class="hover:text-signal transition-colors">AGB</a>
+          </div>
+        </div>
       </div>
 
     </div>
   </footer>
+
+
+  <script src="js/mega-menu.js" defer></script>
 
   <!-- Mobile Menu Toggle -->
   <script>
@@ -779,6 +1551,12 @@
       'use strict';
 
       var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      var heroVideo = document.getElementById('hero-video');
+      if (heroVideo && reducedMotion) {
+        heroVideo.pause();
+        heroVideo.removeAttribute('autoplay');
+      }
 
       /* ══════════════════════════════════════════════════════════
          3. SECTION REVEALS – Intersection Observer
@@ -864,31 +1642,37 @@
       }
 
       /* ══════════════════════════════════════════════════════════
-         2. REFERENZEN-PARALLAX – translateY an scrollY gekoppelt
-         Karten bewegen sich schneller nach oben, faden am oberen Rand aus
+         2. REFERENZ-STACK – sticky scroll, langsames Ausblenden
          ══════════════════════════════════════════════════════════ */
-      var refSection = document.getElementById('referenz-projekte');
-      var refCards = document.querySelectorAll('.ref-parallax-card');
-      var fadeZone = 140;
+      var refStackItems = document.querySelectorAll('.ref-scroll-item');
+      var stickyTop = 88;
+      var fadeDistance = 520;
 
-      function updateRefParallax() {
-        if (!refSection || !refCards.length) return;
+      function updateRefStack() {
+        if (!refStackItems.length) return;
 
-        var sectionScroll = window.innerHeight * 0.5 - refSection.getBoundingClientRect().top;
-
-        refCards.forEach(function (card) {
-          var index = parseInt(card.getAttribute('data-parallax-index') || '0', 10);
-          var cardRect = card.getBoundingClientRect();
-          var speed = 0.06 + index * 0.025;
-          var parallaxY = -Math.max(0, sectionScroll) * speed;
+        refStackItems.forEach(function (item, i) {
+          var card = item.querySelector('.ref-scroll-card');
+          if (!card) return;
 
           var opacity = 1;
-          if (cardRect.top < fadeZone) {
-            opacity = Math.max(0, cardRect.top / fadeZone);
+          var scale = 1;
+          var nextItem = refStackItems[i + 1];
+
+          item.style.zIndex = String(i + 1);
+
+          if (nextItem) {
+            var nextTop = nextItem.getBoundingClientRect().top;
+            var overlap = stickyTop + fadeDistance - nextTop;
+            if (overlap > 0) {
+              var fade = Math.min(1, overlap / fadeDistance);
+              opacity = Math.max(0.18, 1 - fade * 0.82);
+              scale = Math.max(0.94, 1 - fade * 0.05);
+            }
           }
 
-          card.style.transform = 'translate3d(0, ' + parallaxY + 'px, 0)';
           card.style.opacity = String(opacity);
+          card.style.transform = 'scale(' + scale.toFixed(3) + ')';
         });
       }
 
@@ -899,7 +1683,7 @@
 
       function onScrollFrame() {
         updateLifecycleLine();
-        updateRefParallax();
+        updateRefStack();
         ticking = false;
       }
 

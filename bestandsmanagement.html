@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Fenyx Referenzen – Projekte und Partnernetzwerk in ganz Deutschland auf der interaktiven Landkarte.">
-  <title>Referenzen – Fenyx GmbH</title>
-
+  <meta name="description" content="Bestandsmanagement von Fenyx: Digitale Inventarisierung, flexible Einlagerung und ganzheitliche Aufbereitung – Kosten senken, CO₂ sparen.">
+  <title>Bestandsmanagement – Fenyx GmbH</title>
   <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/143687456.js"></script>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -18,8 +16,8 @@
         extend: {
           colors: {
             abyss: { DEFAULT: '#0b171f', deep: '#0b171f', mid: '#132735' },
-            signal: { DEFAULT: '#c8ff00', soft: '#4c6225' },
-            mist: { DEFAULT: '#8da4ba', ash: '#a1b1c0' },
+            signal: { DEFAULT: '#c8ff00' },
+            mist: { DEFAULT: '#8da4ba' },
           },
           fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
           borderRadius: { DEFAULT: '0', none: '0' },
@@ -28,219 +26,9 @@
     };
   </script>
   <link rel="stylesheet" href="css/site-nav.css">
-
-  <style>
-    /* Marker – stabiler Hover ohne Zittern */
-    .map-marker { cursor: pointer; }
-    .map-marker .hit-area {
-      fill: transparent;
-      stroke: none;
-      pointer-events: all;
-    }
-    .map-marker .dot {
-      fill: #c8ff00;
-      stroke: #132735;
-      stroke-width: 2;
-      pointer-events: none;
-      transition: fill 0.15s ease, stroke 0.15s ease;
-    }
-    .map-marker.partner .dot {
-      fill: #0b171f;
-      stroke: #c8ff00;
-      stroke-width: 2.5;
-    }
-    .map-marker.is-active .dot {
-      fill: #e5ff4d;
-      stroke: #c8ff00;
-      stroke-width: 3;
-      filter: drop-shadow(0 0 6px rgba(200, 255, 0, 0.55));
-    }
-    .map-marker.partner.is-active .dot {
-      fill: #1a3344;
-      stroke: #e5ff4d;
-    }
-    .map-marker .pulse-ring {
-      fill: none;
-      stroke: #c8ff00;
-      stroke-width: 1.5;
-      opacity: 0;
-      pointer-events: none;
-    }
-    .map-marker:not(.is-active) .pulse-ring {
-      animation: marker-pulse 2.5s ease-out infinite;
-    }
-    .map-marker.is-active .pulse-ring { animation: none; opacity: 0; }
-
-  @keyframes marker-pulse {
-      0%   { opacity: 0.5; r: 7; }
-      100% { opacity: 0;   r: 18; }
-    }
-
-    /* Kundenlogo-Grid (14 × 6) */
-    .logo-grid {
-      display: grid;
-      grid-template-columns: repeat(14, minmax(0, 1fr));
-      gap: 2.75rem 1.75rem;
-    }
-    .logo-cell {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 2.25rem;
-      padding: 0 0.5rem;
-    }
-    .logo-cell img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      max-width: 4.25rem;
-      object-fit: contain;
-      object-position: center;
-    }
-    @media (max-width: 1023px) {
-      .logo-grid { grid-template-columns: repeat(7, minmax(0, 1fr)); }
-    }
-    @media (max-width: 639px) {
-      .logo-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    }
-
-    /* Karten-Container: Callouts dürfen nicht abgeschnitten werden */
-    #map-interactive {
-      position: relative;
-      overflow: visible;
-    }
-    #callout-lines {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      overflow: visible;
-      z-index: 10;
-    }
-    #callout-lines #callout-line {
-      stroke: #c8ff00;
-      stroke-width: 1.5;
-      opacity: 0;
-      transition: opacity 0.15s ease;
-    }
-    #callout-lines.is-visible #callout-line { opacity: 0.8; }
-
-    #map-callout {
-      position: absolute;
-      z-index: 20;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.15s ease;
-      max-width: min(240px, 42vw);
-    }
-    #map-callout.is-visible { opacity: 1; }
-
-    .map-callout-card {
-      box-sizing: border-box;
-      width: 100%;
-      background: rgba(11, 23, 31, 0.98);
-      border: 1px solid rgba(200, 255, 0, 0.35);
-      font-family: Inter, system-ui, sans-serif;
-      color: #fff;
-      line-height: 1.35;
-      overflow: hidden;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
-    }
-    .map-callout-card .callout-img {
-      display: block;
-      width: 100%;
-      height: 72px;
-      object-fit: cover;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .map-callout-card .callout-body {
-      padding: 10px 12px 11px;
-    }
-    .map-callout-card .callout-tag {
-      display: inline-block;
-      margin: 0 0 6px;
-      padding: 2px 6px;
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #c8ff00;
-      background: rgba(200, 255, 0, 0.08);
-    }
-    .map-callout-card .callout-company {
-      margin: 0 0 4px;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: #fff;
-    }
-    .map-callout-card .callout-title {
-      margin: 0 0 6px;
-      font-size: 10px;
-      line-height: 1.4;
-      color: #8da4ba;
-    }
-    .map-callout-card .callout-city {
-      margin: 0;
-      font-size: 9px;
-      color: rgba(255, 255, 255, 0.45);
-    }
-
-    .project-card.is-hidden { display: none; }
-    .project-card.is-highlight {
-      outline: 1px solid rgba(200, 255, 0, 0.45);
-      outline-offset: -1px;
-    }
-
-    .filter-btn.is-active {
-      background-color: #c8ff00;
-      color: #000;
-      border-color: #c8ff00;
-    }
-
-    .form-input {
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #fff;
-      transition: border-color 0.2s ease;
-    }
-    .form-input::placeholder { color: rgba(141, 164, 186, 0.6); }
-    .form-input:focus { outline: none; border-color: #c8ff00; }
-
-    /* ── SVG-Karte: Render & Animation ── */
-    #germany-map {
-      overflow: visible;
-    }
-    #germany-map .de-state {
-      opacity: 0;
-      transition: opacity 0.55s ease, fill 0.3s ease;
-    }
-    #germany-map.is-animated .de-state {
-      opacity: 1;
-    }
-    #germany-map .de-city {
-      opacity: 0;
-      transform: translateY(5px);
-      transition: opacity 0.45s ease, transform 0.45s ease;
-    }
-    #germany-map.is-animated .de-city {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    #germany-map .de-state:hover {
-      fill: #1a3344 !important;
-      stroke-opacity: 0.75;
-    }
-    @media (prefers-reduced-motion: reduce) {
-      #germany-map .de-state, #germany-map .de-city { transition: none; animation: none; opacity: 1; transform: none; }
-      .map-marker .pulse-ring { display: none; }
-    }
-  </style>
+  <link rel="stylesheet" href="css/leistung-page.css">
 </head>
-
-<body class="font-sans bg-abyss-deep text-white antialiased min-h-screen flex flex-col">
-
+<body class="font-sans text-black bg-white antialiased flex flex-col min-h-screen">
   <header class="sticky top-0 z-50 bg-abyss-deep border-b border-white/5" id="site-header">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center h-16 lg:h-[72px]">
@@ -673,22 +461,57 @@
   </header>
 
 
+<main class="flex-1">
 
-
-  <main class="flex-grow">
-
-    <!-- Logo-Grid -->
-    <section class="py-20 sm:py-28 bg-white" aria-labelledby="referenzen-heading">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-14 sm:mb-20">
-          <h2 id="referenzen-heading" class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-[-0.03em] mb-5 text-black">
-            Diese und viele weitere Unternehmen vertrauen bereits auf Fenyx.
-          </h2>
-          <p class="text-black text-base sm:text-lg leading-relaxed">
-            Führende Unternehmen aus verschiedenen Branchen haben sich für nachhaltige Bürolösungen von Fenyx entschieden und profitieren von messbaren Kosteneinsparungen und zertifizierbarer Nachhaltigkeit.
+  <!-- Hero -->
+  <section class="bg-abyss-deep text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+      <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div class="reveal">
+          <h1 class="text-3xl sm:text-4xl lg:text-[2.75rem] font-black tracking-[-0.03em] mb-5 leading-[1.08]">
+            Bestandsmanagement, das aus Kosten Wert macht.
+          </h1>
+          <p class="text-mist text-base sm:text-lg leading-relaxed mb-8 max-w-xl">
+            Wir erfassen, bewerten und nutzen Ihren Bürobestand wirtschaftlich – statt ihn abzuschreiben oder ungenutzt zu lagern.
           </p>
+          <ul class="space-y-3 mb-10" aria-label="Vorteile">
+            <li class="flex items-start gap-3 text-white/90 text-sm sm:text-base">
+              <svg class="w-5 h-5 text-signal shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              +50&nbsp;% niedrigere Beschaffungskosten
+            </li>
+            <li class="flex items-start gap-3 text-white/90 text-sm sm:text-base">
+              <svg class="w-5 h-5 text-signal shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              +125&nbsp;kg CO₂-Einsparungen pro Arbeitsplatz
+            </li>
+            <li class="flex items-start gap-3 text-white/90 text-sm sm:text-base">
+              <svg class="w-5 h-5 text-signal shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Zeitlich flexible Umsetzung
+            </li>
+          </ul>
+          <a href="index.html#kontakt" class="inline-flex items-center px-8 py-4 bg-signal text-black text-[11px] font-bold uppercase tracking-[0.12em] hover:brightness-95 transition-all">
+            Kontakt aufnehmen
+          </a>
         </div>
-        <div class="logo-grid" role="list" aria-label="Kundenlogos">
+        <div class="reveal reveal-delay-1 hidden sm:block">
+          <img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6/6988d9ea184c3a10bc10d8a1_bestand-hero.webp"
+               alt="Fenyx-Mitarbeiter schiebt einen Bürostuhl in einem hellen Büro"
+               class="w-full aspect-[4/3] object-cover"
+               loading="eager"
+               width="1102"
+               height="826">
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section class="py-20 sm:py-28 bg-white" aria-labelledby="logos-heading">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-14 sm:mb-20">
+        <h2 id="logos-heading" class="reveal text-3xl sm:text-4xl lg:text-5xl font-black tracking-[-0.03em] mb-5 text-black">
+          Diese und viele weitere Unternehmen vertrauen bereits auf Fenyx.
+        </h2>
+      </div>
+      <div class="logo-grid reveal reveal-delay-2" role="list" aria-label="Kundenlogos">
           <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10db8f_CIC%20Rotterdam.webp" alt="CIC Rotterdam" loading="lazy"></div>
           <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10db90_spacebase.avif" alt="spacebase" loading="lazy"></div>
           <div class="logo-cell" role="listitem"><img src="assets/logos/6988d9ea184c3a10bc10db91_enpal.webp" alt="enpal" loading="lazy"></div>
@@ -774,189 +597,233 @@
           <div class="logo-cell" role="listitem"><img src="assets/logos/6994418208fd121fe8e33004_N26_Logo_Black_RGB_M.avif" alt="N26" loading="lazy"></div>
           <div class="logo-cell" role="listitem"><img src="assets/logos/69c534696df37548c3443d26_Continentale%20logo%20%282%29.avif" alt="Continentale" loading="lazy"></div>
         </div>
-      </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Karten-Intro -->
-    <section class="py-12 sm:py-16 border-b border-white/5">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-[-0.03em] mb-4">Lassen Sie sich inspirieren.</h1>
-        <p class="text-mist text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-          Entdecken Sie unsere Projekte und unser deutschlandweites Partnernetzwerk.
+<!-- Wertversprechen + Timeline -->
+  <section class="py-20 sm:py-28 bg-white" aria-labelledby="wert-heading">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+        <h2 id="wert-heading" class="reveal text-3xl sm:text-4xl lg:text-5xl font-black tracking-[-0.03em] mb-5 text-black">
+          Wenn Nachhaltigkeit sich auch wirtschaftlich lohnt.
+        </h2>
+        <p class="reveal reveal-delay-1 text-black text-base sm:text-lg leading-relaxed">
+          Nachhaltige Bürotransformation bedeutet mehr als Produktzertifikate. Mit Fenyx gewinnen Sie einen Partner, der Kosteneinsparungen messbar macht, Nachhaltigkeit transparent dokumentiert und Ihr Projekt strukturiert begleitet – von der Analyse bis zur Umsetzung.
+        </p>
+        <a href="index.html#kontakt" class="reveal reveal-delay-2 inline-flex items-center justify-center mt-8 px-8 py-4 bg-signal text-black text-[11px] font-bold uppercase tracking-[0.12em] hover:brightness-95 transition-all">
+          Kontakt aufnehmen
+        </a>
+      </div>
+
+      <div id="lifecycle-track" class="relative">
+        <div class="lifecycle-line hidden lg:block" aria-hidden="true">
+          <svg id="lifecycle-svg" class="lifecycle-svg" xmlns="http://www.w3.org/2000/svg">
+            <path id="lifecycle-path" d="M 2 0 L 2 100" />
+            <circle class="lifecycle-dot" id="lifecycle-dot-1" cx="2" cy="0" r="5" />
+            <circle class="lifecycle-dot" id="lifecycle-dot-2" cx="2" cy="0" r="5" />
+            <circle class="lifecycle-dot" id="lifecycle-dot-3" cx="2" cy="0" r="5" />
+          </svg>
+        </div>
+
+        <div class="leistung-card relative mb-6 lg:mb-8 min-h-[420px] sm:min-h-[480px] flex items-center overflow-hidden reveal">
+          <img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6/6988d9ea184c3a10bc10d8a0_Home%20Digitales%20Bestandsmanagement.webp" alt="Digitale Inventarisierung mit der Fenyx-App" class="absolute inset-0 w-full h-full object-cover" loading="lazy">
+          <div class="relative z-10 w-full max-w-lg ml-0 lg:ml-8 xl:ml-16 m-4 sm:m-8 lg:m-12 bg-black p-8 sm:p-10 lg:p-12">
+            <h3 class="text-white text-2xl sm:text-3xl font-black tracking-[-0.02em] mb-4">Digitale Inventarisierung.</h3>
+            <p class="text-mist text-sm leading-relaxed">Maximieren Sie die Wiederverwertungsquote und den Verkaufserlös Ihres nicht mehr genötigten Bestands. Die Fenyx-Plattform garantiert die optimale Veräußerung, unabhängig von Hersteller, Kategorie und Zustand.</p>
+          </div>
+        </div>
+
+        <div class="leistung-card relative mb-6 lg:mb-8 min-h-[420px] sm:min-h-[480px] flex items-center justify-end overflow-hidden reveal reveal-delay-1">
+          <img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6/6988d9ea184c3a10bc10d8a2_2.webp" alt="Flexible Einlagerung von Büromöbeln" class="absolute inset-0 w-full h-full object-cover" loading="lazy">
+          <div class="relative z-10 w-full max-w-lg mr-0 lg:mr-8 xl:mr-16 m-4 sm:m-8 lg:m-12 bg-black p-8 sm:p-10 lg:p-12">
+            <h3 class="text-white text-2xl sm:text-3xl font-black tracking-[-0.02em] mb-4">Flexible Einlagerung.</h3>
+            <p class="text-mist text-sm leading-relaxed">Mit Fenyx erhalten Sie Zugang zum größten Büromöbel-Lager-Ökosystem in Europa. Nutzen Sie die flexiblen Angebote, um Ihren individuellen Bedarf an zusätzlicher Kapazität zu decken.</p>
+          </div>
+        </div>
+
+        <div class="leistung-card relative min-h-[420px] sm:min-h-[480px] flex items-center overflow-hidden reveal reveal-delay-2">
+          <img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6/6988d9ea184c3a10bc10d8e4_aufb-2.webp" alt="Ganzheitliche Aufbereitung von Büromöbeln" class="absolute inset-0 w-full h-full object-cover" loading="lazy">
+          <div class="relative z-10 w-full max-w-lg ml-0 lg:ml-8 xl:ml-16 m-4 sm:m-8 lg:m-12 bg-black p-8 sm:p-10 lg:p-12">
+            <h3 class="text-white text-2xl sm:text-3xl font-black tracking-[-0.02em] mb-4">Ganzheitliche Aufbereitung.</h3>
+            <p class="text-mist text-sm leading-relaxed">Wir verlängern den Lebenszyklus Ihrer Bestände – strukturiert, fachgerecht und unabhängig vom Hersteller. Das Ergebnis: deutlich reduzierte Emissionen und Kosten.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section class="py-16 sm:py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="feature-row reveal">
+        <div class="feature-row-content">
+          <h2>What gets measured gets improved.</h2>
+          <p>Was nicht sichtbar ist, lässt sich nicht steuern. Eine digitale, strukturierte Bestandsübersicht schafft Transparenz – und damit die Grundlage für weniger Kosten, weniger CO₂ und weniger Aufwand.</p>
+          <a href="index.html#kontakt" class="inline-flex items-center px-8 py-4 bg-signal text-black text-[11px] font-bold uppercase tracking-[0.12em] hover:brightness-95 transition-all">Jetzt starten</a>
+        </div>
+        <div class="feature-row-media">
+          <img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6/69c6af35a7ee937d441f2004_2025_fenyx-118.webp" alt="Hand misst mit einem Maßband eine Oberfläche" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 sm:py-20 bg-[#f4f6f8]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="feature-row feature-row--reverse reveal">
+        <div class="feature-row-content">
+          <h2>Die Datengrundlage für Planung im Bestand.</h2>
+          <p>Wir liefern mehr als Software. Unsere geschulten Teams erfassen Ihren Bestand strukturiert, inklusive Bilddokumentation und aller relevanten Produktdaten. Das Ergebnis: eine präzise, digital nutzbare Bestandsübersicht – erweiterbar um Pläne und Dokumente wie DWG-Dateien.</p>
+          <a href="index.html#kontakt" class="inline-flex items-center px-8 py-4 bg-signal text-black text-[11px] font-bold uppercase tracking-[0.12em] hover:brightness-95 transition-all">Jetzt beraten lassen</a>
+        </div>
+        <div class="feature-row-media">
+          <img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6/6988d9ea184c3a10bc10d930_miete-herkunft-3.webp" alt="Zwei Mitarbeiter im Gespräch in einem Büro" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 sm:py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="feature-row reveal">
+        <div class="feature-row-content">
+          <h2>Das Gerüst für weitere Entscheidungen.</h2>
+          <p>Auf das digitale Mengengerüst folgt eine strukturierte Qualitätsbewertung. Funktionalität, Zustand und optische Qualität werden anhand definierter Kriterien geprüft. So können konkrete Aufbereitungsangebote für einzelne Möbelstücke realistisch kalkuliert und transparent dargestellt werden.</p>
+          <a href="index.html#kontakt" class="inline-flex items-center px-8 py-4 bg-signal text-black text-[11px] font-bold uppercase tracking-[0.12em] hover:brightness-95 transition-all">Jetzt beraten lassen</a>
+        </div>
+        <div class="feature-row-media">
+          <img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6/6988d9ea184c3a10bc10d8a2_2.webp" alt="Qualitätsbewertung von Büromöbeln" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 sm:py-20 bg-[#f4f6f8]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="feature-row feature-row--reverse reveal">
+        <div class="feature-row-content">
+          <h2>Vom Digitalen in die Realität.</h2>
+          <p>Neben der Innenmöblierung erfassen wir auch das Gebäude selbst als Teil der Bestandsaufnahme. Laufwege, Aufzugsmaße, Anfahrtsmöglichkeiten und weitere logistische Rahmenbedingungen werden strukturiert dokumentiert. So entstehen belastbare Grundlagen für Angebote zu Räumung und Umzug.</p>
+          <a href="index.html#kontakt" class="inline-flex items-center px-8 py-4 bg-signal text-black text-[11px] font-bold uppercase tracking-[0.12em] hover:brightness-95 transition-all">Jetzt starten</a>
+        </div>
+        <div class="feature-row-media">
+          <img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6/6988d9ea184c3a10bc10d8a9_miete-tabs-3.webp" alt="Fenyx-Mitarbeiter dokumentiert Bestand vor Ort" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section class="py-20 sm:py-28 bg-abyss-deep text-white" aria-labelledby="praxis-heading">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
+        <h2 id="praxis-heading" class="reveal text-3xl sm:text-4xl lg:text-5xl font-black tracking-[-0.03em] mb-5">
+          Bestandsmanagement in der Praxis.
+        </h2>
+        <p class="reveal reveal-delay-1 text-mist text-base sm:text-lg leading-relaxed">
+          Werden auch Sie Vorreiter und erleben Sie die Zukunft der Büroeinrichtung.
         </p>
       </div>
-    </section>
-
-    <!-- Filter -->
-    <section class="py-8 border-b border-white/5 bg-abyss-mid/30">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-
-          <!-- Typ: Projekte vs. Partner -->
-          <div class="flex flex-wrap gap-2" role="group" aria-label="Anzeigetyp">
-            <button type="button" class="filter-btn filter-type is-active px-4 py-2.5 border border-white/20 text-[11px] font-bold uppercase tracking-[0.1em] text-white hover:border-signal transition-colors" data-type="all">Alle</button>
-            <button type="button" class="filter-btn filter-type px-4 py-2.5 border border-white/20 text-[11px] font-bold uppercase tracking-[0.1em] text-white hover:border-signal transition-colors" data-type="project">Referenzprojekte</button>
-            <button type="button" class="filter-btn filter-type px-4 py-2.5 border border-white/20 text-[11px] font-bold uppercase tracking-[0.1em] text-white hover:border-signal transition-colors" data-type="partner">Partnernetzwerk</button>
+      <div class="bm-case-grid">
+        <article class="bm-case-card reveal">
+          <img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f/699452dfaa8fb06578b6e1f9_Sofa%20Lobby%20Quadrat.avif" alt="Internationales Consulting Unternehmen" loading="lazy">
+          <h3>Internationales Consulting Unternehmen</h3>
+          <div class="bm-case-stats">
+            <div><p class="bm-case-stat-value">4</p><p class="bm-case-stat-label">Standorte</p></div>
+            <div><p class="bm-case-stat-value">3.469</p><p class="bm-case-stat-label">Objekte</p></div>
+            <div><p class="bm-case-stat-value">&gt;70&nbsp;%</p><p class="bm-case-stat-label">Quote</p></div>
           </div>
+        </article>
+        <article class="bm-case-card reveal reveal-delay-1">
+          <img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f/6988d9ea184c3a10bc10da60_683a16be5e80545507a92f6f_Finanzdienstleister.avif" alt="Internationaler Finanzdienstleister" loading="lazy">
+          <h3>Internationaler Finanzdienstleister</h3>
+          <div class="bm-case-stats">
+            <div><p class="bm-case-stat-value">3.300</p><p class="bm-case-stat-label">Objekte</p></div>
+            <div><p class="bm-case-stat-value">132.000&nbsp;kg</p><p class="bm-case-stat-label">CO₂ gespart</p></div>
+            <div><p class="bm-case-stat-value">30&nbsp;%</p><p class="bm-case-stat-label">Kostenersparnis</p></div>
+          </div>
+        </article>
+        <article class="bm-case-card reveal">
+          <img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f/6988d9ea184c3a10bc10daa8_6875175629552700f8e0f0a0_Bildschirmfoto%25202025-07-14%2520um%252016.18.14.webp" alt="Internationaler Industriekonzern" loading="lazy">
+          <h3>Internationaler Industriekonzern</h3>
+          <div class="bm-case-stats" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+            <div><p class="bm-case-stat-value">1.000</p><p class="bm-case-stat-label">Objekte</p></div>
+            <div><p class="bm-case-stat-value">40.000&nbsp;kg</p><p class="bm-case-stat-label">CO₂ gespart</p></div>
+          </div>
+        </article>
+        <article class="bm-case-card reveal reveal-delay-1">
+          <img src="https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f/6988d9ea184c3a10bc10da96_685bf2c655ab6bf7b8f0e0c0_Bildschirmfoto%25202025-06-23%2520um%252014.28.43.webp" alt="Internationales Technologieunternehmen" loading="lazy">
+          <h3>Internationales Technologieunternehmen</h3>
+          <div class="bm-case-stats" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+            <div><p class="bm-case-stat-value">1.250</p><p class="bm-case-stat-label">Objekte</p></div>
+            <div><p class="bm-case-stat-value">50.000&nbsp;kg</p><p class="bm-case-stat-label">CO₂ gespart</p></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
 
-          <!-- Kategorie (nur Projekte) -->
-          <div class="flex items-center gap-3">
-            <label for="filter-category" class="text-mist text-xs uppercase tracking-wider shrink-0">Leistung</label>
-            <select id="filter-category" class="w-full lg:w-72 bg-abyss-deep border border-white/20 text-white text-sm px-4 py-2.5 focus:border-signal focus:outline-none">
-              <option value="all">Alle Leistungen</option>
-              <option value="bestandsmanagement">Digitales Bestandsmanagement</option>
-              <option value="verwertung">Ganzheitliche Verwertung</option>
-              <option value="einrichtung">Schlüsselfertige Einrichtung</option>
-            </select>
+<section class="py-20 sm:py-28 bg-white" aria-labelledby="faq-heading">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 id="faq-heading" class="reveal text-3xl sm:text-4xl font-black tracking-[-0.03em] mb-10 text-center text-black">
+        Häufige Fragen
+      </h2>
+      <div class="faq-list reveal reveal-delay-1">
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false">
+            Was ist Bestandsmanagement?
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Bestandsmanagement von Büromöbeln umfasst die digitale Inventarisierung des Bestands, um auf Basis dieser Datengrundlage weitere Entscheidungen zur Nutzung treffen zu können: Gibt es Potenziale zur Weiternutzung, Aufbereitung von Möbeln oder ist neue Beschaffung bei anstehenden Projekten nötig. Dies ermöglicht Unternehmen nicht nur zusätzliche Flexibilität, sondern senkt auch Kosten in der Beschaffung und den CO₂-Fußabdruck nachhaltig.</p>
           </div>
         </div>
-
-        <!-- Legende -->
-        <div class="flex flex-wrap gap-6 mt-6 text-xs text-mist">
-          <span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-signal inline-block"></span> Referenzprojekt</span>
-          <span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full border-2 border-signal inline-block"></span> Partner</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Karte (SVG) + Callout-Overlay -->
-    <section class="py-10 sm:py-16 bg-abyss-deep border-y border-white/5 overflow-visible" aria-label="Deutschlandkarte mit Projekten">
-      <div id="map-interactive" class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <svg id="germany-map" viewBox="0 0 586 793" class="relative z-0 w-full h-auto max-h-[78vh]" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Interaktive Karte von Deutschland mit Projektstandorten">
-          <rect width="586" height="793" fill="#0b171f"/>
-          <g id="map-layer" aria-hidden="true"></g>
-          <g id="map-markers"></g>
-        </svg>
-        <svg id="callout-lines" viewBox="0 0 586 793" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-          <line id="callout-line" x1="0" y1="0" x2="0" y2="0"/>
-        </svg>
-        <div id="map-callout" aria-live="polite">
-          <article class="map-callout-card">
-            <img id="callout-img" class="callout-img" src="" alt="">
-            <div class="callout-body">
-              <span id="detail-tag" class="callout-tag"></span>
-              <p id="detail-company" class="callout-company"></p>
-              <p id="detail-title" class="callout-title"></p>
-              <p id="detail-city" class="callout-city"></p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Projektliste -->
-    <section class="py-16 sm:py-20 bg-abyss-deep border-b border-white/5" aria-labelledby="projektliste-heading">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 id="projektliste-heading" class="text-center text-2xl sm:text-3xl lg:text-4xl font-black tracking-[-0.03em] text-white mb-10 sm:mb-14">
-          Lassen Sie sich hier inspirieren.
-        </h2>
-        <div id="project-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5"></div>
-        <p id="empty-state" class="hidden text-mist text-center py-12">Keine Einträge für die gewählten Filter.</p>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="relative min-h-[420px] sm:min-h-[480px] flex items-center overflow-hidden" aria-labelledby="cta-heading">
-      <img src="assets/cta/CTA%20Section.webp" alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" aria-hidden="true">
-      <div class="absolute inset-0 bg-black/60" aria-hidden="true"></div>
-      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 w-full">
-        <div class="max-w-xl">
-          <h2 id="cta-heading" class="text-white text-2xl sm:text-3xl lg:text-4xl font-black tracking-[-0.03em] mb-5 leading-tight">
-            Bereit für ein Büro, das wirklich funktioniert?
-          </h2>
-          <p class="text-white/85 text-sm sm:text-base leading-relaxed mb-8">
-            Mit einem branchenführenden Team aus erfahrenen Experten unterstützen wir Sie bei der nachhaltigen Transformation Ihres Büros. Werden Sie Vorreiter und erleben Sie, wie einfach Ressourcenschonung sein kann.
-          </p>
-          <a href="#kontakt" class="inline-flex px-8 py-4 bg-signal text-black text-[11px] font-bold uppercase tracking-[0.12em] hover:brightness-95 transition-all">
-            Analyse starten
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Kontakt -->
-    <section id="kontakt" class="bg-abyss-deep py-20 sm:py-28" aria-labelledby="kontakt-heading">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-          <div class="relative">
-            <div class="relative aspect-[3/4] max-w-md mx-auto lg:mx-0 overflow-hidden">
-              <img src="assets/kontakt%20section/kontakt_anina.webp"
-                   alt="Anine Blatter, Einrichtungsberaterin bei Fenyx"
-                   class="w-full h-full object-cover object-top"
-                   loading="lazy">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-              <div class="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-                <blockquote class="text-white text-sm sm:text-base leading-relaxed mb-4 font-medium">
-                  „Bilder sagen viel, aber Zahlen und Prozesse noch mehr. Gern erzähle ich Ihnen die ganze Geschichte hinter unseren Projekten."
-                </blockquote>
-                <div class="text-right">
-                  <p class="text-white font-bold text-sm">Anine Blatter</p>
-                  <p class="text-mist text-xs">Einrichtungsberaterin</p>
-                </div>
-              </div>
-            </div>
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false">
+            Was ist nachhaltiges Bestandsmanagement für Büromöbel?
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Senkung der Kosten in der Beschaffung und des CO₂-Fußabdrucks durch digitale Inventarisierung des Bestands, um auf Basis dessen Entscheidungen zur Nutzung getroffen werden können: Gibt es Potenziale zur Weiternutzung, Aufbereitung von Möbeln oder ist neue Beschaffung bei anstehenden Projekten nötig.</p>
           </div>
-          <div>
-            <h2 id="kontakt-heading" class="text-white text-2xl sm:text-3xl lg:text-4xl font-black tracking-[-0.02em] mb-6">
-              Jetzt mehr über die Referenzen erfahren
-            </h2>
-            <div class="flex flex-col sm:flex-row gap-4 sm:gap-8 mb-8 text-sm">
-              <a href="mailto:anina@fenyx-office.com" class="flex items-center gap-2 text-mist hover:text-signal transition-colors">
-                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                anina@fenyx-office.com
-              </a>
-              <a href="tel:+4917623820424" class="flex items-center gap-2 text-mist hover:text-signal transition-colors">
-                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-                +49 176 23820424
-              </a>
-            </div>
-            <form action="#" method="post" class="contact-form space-y-5" novalidate>
-              <div class="grid sm:grid-cols-2 gap-5">
-                <div>
-                  <label for="name" class="block text-mist text-xs mb-1.5">Name*</label>
-                  <input type="text" id="name" name="name" required class="form-input w-full px-4 py-3 text-sm">
-                </div>
-                <div>
-                  <label for="firma" class="block text-mist text-xs mb-1.5">Firma*</label>
-                  <input type="text" id="firma" name="firma" required class="form-input w-full px-4 py-3 text-sm">
-                </div>
-              </div>
-              <div class="grid sm:grid-cols-2 gap-5">
-                <div>
-                  <label for="email" class="block text-mist text-xs mb-1.5">E-Mail*</label>
-                  <input type="email" id="email" name="email" required class="form-input w-full px-4 py-3 text-sm">
-                </div>
-                <div>
-                  <label for="telefon" class="block text-mist text-xs mb-1.5">Telefonnummer</label>
-                  <input type="tel" id="telefon" name="telefon" class="form-input w-full px-4 py-3 text-sm">
-                </div>
-              </div>
-              <div>
-                <label for="nachricht" class="block text-mist text-xs mb-1.5">Nachricht</label>
-                <textarea id="nachricht" name="nachricht" rows="4" class="form-input w-full px-4 py-3 text-sm resize-y"></textarea>
-              </div>
-              <div>
-                <p class="text-mist text-xs mb-2">Optional: Anhang (Inventarliste etc.)</p>
-                <label class="inline-flex items-center gap-2 px-5 py-2.5 border border-signal text-signal text-[11px] font-bold uppercase tracking-[0.1em] cursor-pointer hover:bg-signal/10 transition-colors">
-                  Dateien auswählen
-                  <input type="file" name="anhang" class="sr-only" multiple>
-                </label>
-              </div>
-              <p class="text-mist/70 text-xs leading-relaxed">
-                Mit dem Absenden stimmen Sie unseren <a href="#" class="text-signal hover:underline">Datenschutzbestimmungen</a> zu.
-              </p>
-              <p class="form-status hidden text-sm" role="status" aria-live="polite"></p>
-              <button type="submit" class="w-full sm:w-auto px-10 py-4 bg-signal text-black text-[11px] font-bold uppercase tracking-[0.12em] hover:brightness-95 transition-all disabled:opacity-60 disabled:cursor-not-allowed">
-                Anfrage absenden
-              </button>
-            </form>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false">
+            Wie viel CO₂ lässt sich durch professionelles Bestandsmanagement einsparen?
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Durchschnittlich sparen Fenyx-Kunden durch professionelles Bestandsmanagement 125&nbsp;kg CO₂ pro Arbeitsplatz.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-trigger" aria-expanded="false">
+            Lohnt sich die Aufbereitung von Bestandsmöbeln im Vergleich zum Neukauf?
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Ja, gerade bei hochwertigen Möbeln können Verschleißteile ausgetauscht und Textilien aufgearbeitet werden. Fenyx-Kunden sparen so durchschnittlich 90&nbsp;% der CO₂-Emissionen und 80&nbsp;% der Kosten im Vergleich zum Neukauf.</p>
           </div>
         </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
 
-  <!-- Footer -->
+<section class="py-20 sm:py-28 bg-abyss-deep text-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="reveal text-3xl sm:text-4xl font-black tracking-[-0.02em] mb-6">
+        Lassen Sie uns sichtbar machen, was bereits da ist.
+      </h2>
+      <div class="reveal reveal-delay-1 mb-8">
+        <p class="text-white font-bold text-base">Marius Gimm</p>
+        <p class="text-mist text-sm">Einrichtungsberater</p>
+        <a href="mailto:marius@fenyx-office.com" class="inline-block mt-2 text-signal hover:underline text-sm">marius@fenyx-office.com</a>
+      </div>
+      <a href="index.html#kontakt" class="reveal reveal-delay-2 inline-flex items-center px-8 py-4 bg-signal text-black text-[11px] font-bold uppercase tracking-[0.12em] hover:brightness-95 transition-all">
+        Kontakt aufnehmen
+      </a>
+    </div>
+  </section>
+</main>
+
   <footer class="bg-abyss-deep border-t border-white/5 text-mist" aria-label="Seitenfuß">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
 
@@ -1032,484 +899,7 @@
     </div>
   </footer>
 
-
-  <script>
-    (function () {
-      'use strict';
-
-      /* ── Stadt-Koordinaten auf SVG viewBox 586×793 ── */
-      var CITIES = {
-        'Berlin':        { x: 398, y: 268 },
-        'Hamburg':       { x: 218, y: 128 },
-        'München':       { x: 378, y: 672 },
-        'Stuttgart':     { x: 248, y: 608 },
-        'Dortmund':      { x: 172, y: 332 },
-        'Düsseldorf':    { x: 142, y: 352 },
-        'Bad Homburg':   { x: 208, y: 438 },
-        'Gelsenkirchen': { x: 165, y: 338 },
-        'Deutschland':   { x: 300, y: 400 },
-        'Lüneburg':      { x: 250, y: 210 },
-        'Bremen':        { x: 178, y: 168 },
-        'Aalen':         { x: 320, y: 580 },
-      };
-
-      function getCityPos(city) {
-        var c = CITIES[city] || CITIES['Deutschland'];
-        return { x: c.x, y: c.y };
-      }
-
-      /* ── Alle Projekte & Partner (aus Screenshots) ── */
-      var ENTRIES = [
-        /* Digitales Bestandsmanagement */
-        { id: 'bm-1', type: 'project', category: 'bestandsmanagement', company: 'Internationales Consulting Unternehmen', title: 'Vier Standorte digital inventarisiert vor Fusion', city: 'Berlin' },
-        { id: 'bm-2', type: 'project', category: 'bestandsmanagement', company: 'Internationales Technologieunternehmen', title: 'Nachhaltige Aufarbeitung von Arbeitsplätzen', city: 'Deutschland' },
-        { id: 'bm-3', type: 'project', category: 'bestandsmanagement', company: 'Internationaler Industriekonzern', title: 'Aufbereitung für Unternehmensstandorte', city: 'Deutschland' },
-
-        /* Ganzheitliche Verwertung */
-        { id: 'vw-1', type: 'project', category: 'verwertung', company: 'SoundCloud', title: 'Circular Office Exit für das Berliner SoundCloud Headquarter', city: 'Berlin' },
-        { id: 'vw-2', type: 'project', category: 'verwertung', company: 'Continentale', title: 'Standortzusammenführung mit Mitarbeiterverkauf', city: 'Dortmund' },
-        { id: 'vw-3', type: 'project', category: 'verwertung', company: 'Ernst Klett Verlag', title: 'Räumung mit Spenden an soziale Einrichtungen', city: 'Stuttgart' },
-        { id: 'vw-4', type: 'project', category: 'verwertung', company: 'OTTO', title: 'Nachhaltige Auflösung von vier Standorten', city: 'Hamburg' },
-        { id: 'vw-5', type: 'project', category: 'verwertung', company: 'SIGNAL IDUNA Gruppe', title: 'Nachhaltige Auflösung von über 2500 Arbeitsplätzen', city: 'Hamburg' },
-        { id: 'vw-6', type: 'project', category: 'verwertung', company: 'TÜV SÜD', title: 'Mitarbeiterverkauf und Verwertung', city: 'München' },
-        { id: 'vw-7', type: 'project', category: 'verwertung', company: 'Universal Music Group', title: 'Mitarbeiterverkauf im Zentrum der Verwertung', city: 'Berlin' },
-        { id: 'vw-8', type: 'project', category: 'verwertung', company: 'KPMG', title: 'Mitarbeiterverkauf bei Standortkonsolidierung', city: 'Berlin' },
-        { id: 'vw-9', type: 'project', category: 'verwertung', company: 'Unibail-Rodamco-Westfield', title: 'Mitarbeiterverkauf nach Teilflächenauflösung', city: 'Düsseldorf' },
-
-        /* Schlüsselfertige Einrichtung */
-        { id: 'ei-1', type: 'project', category: 'einrichtung', company: 'Pharmaunternehmen', title: 'Nachhaltige Büroausstattung im Mietmodell', city: 'Bad Homburg' },
-        { id: 'ei-2', type: 'project', category: 'einrichtung', company: 'Bildungsanbieter', title: 'Zirkuläre Einrichtung für 120 Arbeitsplätze', city: 'Gelsenkirchen' },
-        { id: 'ei-3', type: 'project', category: 'einrichtung', company: 'The Nunatak Group', title: 'Workspace-Analyse und nachhaltige Einrichtung', city: 'München' },
-        { id: 'ei-4', type: 'project', category: 'einrichtung', company: 'because', title: 'Refurbished Büromöblierung im Mietmodell', city: 'Berlin' },
-        { id: 'ei-5', type: 'project', category: 'einrichtung', company: 'w3.hub', title: 'Zukunftsfähige Einrichtung für Coworking und Events', city: 'Berlin' },
-        { id: 'ei-6', type: 'project', category: 'einrichtung', company: 'Automobilhersteller', title: 'Refurbished Workspace in Rekordzeit', city: 'Deutschland' },
-        { id: 'ei-7', type: 'project', category: 'einrichtung', company: 'Ivy', title: 'Refurbished Workspace für das Fintech von morgen', city: 'Berlin' },
-        { id: 'ei-8', type: 'project', category: 'einrichtung', company: 'VARM', title: 'Möblierung für schnelles Wachstum', city: 'Berlin' },
-        { id: 'ei-9', type: 'project', category: 'einrichtung', company: 'Reneo Group GmbH', title: 'Büroplanung mit Refurbished Möbeln', city: 'Hamburg' },
-        { id: 'ei-10', type: 'project', category: 'einrichtung', company: 'Spacebase', title: 'Möblierung für Coworking und Event Space', city: 'Berlin' },
-        { id: 'ei-11', type: 'project', category: 'einrichtung', company: 'The Delta Campus', title: 'Kreislauffähige Einrichtung für modernes Arbeiten', city: 'Berlin' },
-        { id: 'ei-12', type: 'project', category: 'einrichtung', company: 'Enpal', title: 'Flexible Möblierung für Wachstum', city: 'Berlin' },
-        { id: 'ei-13', type: 'project', category: 'einrichtung', company: "O'Donnell Moonshine", title: 'Flexible Büromöblierung zur Miete', city: 'Berlin' },
-
-        /* Partnernetzwerk */
-        { id: 'pa-1', type: 'partner', category: 'partner', company: 'Sellenthin', title: 'Partner für Logistik & Umzug', city: 'Lüneburg' },
-        { id: 'pa-2', type: 'partner', category: 'partner', company: 'Hertling', title: 'Partner für nationale Transporte', city: 'Bremen' },
-        { id: 'pa-3', type: 'partner', category: 'partner', company: 'Scholz', title: 'Partner für Recycling & Verwertung', city: 'Aalen' },
-      ];
-
-      var CATEGORY_LABELS = {
-        bestandsmanagement: 'Digitales Bestandsmanagement',
-        verwertung: 'Ganzheitliche Verwertung',
-        einrichtung: 'Schlüsselfertige Einrichtung',
-        partner: 'Partnernetzwerk',
-      };
-
-      var state = { type: 'all', category: 'all' };
-      var germanyMap = document.getElementById('germany-map');
-      var mapLayer = document.getElementById('map-layer');
-      var markersGroup = document.getElementById('map-markers');
-      var mapReady = false;
-      var mapInteractive = document.getElementById('map-interactive');
-      var mapCallout = document.getElementById('map-callout');
-      var calloutLines = document.getElementById('callout-lines');
-      var calloutLine = document.getElementById('callout-line');
-      var calloutImg = document.getElementById('callout-img');
-      var detailTag = document.getElementById('detail-tag');
-      var detailCompany = document.getElementById('detail-company');
-      var detailTitle = document.getElementById('detail-title');
-      var detailCity = document.getElementById('detail-city');
-      var projectGrid = document.getElementById('project-grid');
-      var emptyState = document.getElementById('empty-state');
-      var activeMarker = null;
-      var clearTimer = null;
-      var CARD_W = 228;
-      var CARD_H = 178;
-      var GAP = 26;
-      var VB_W = 586;
-      var VB_H = 793;
-
-      var ENTRY_IMAGES = {
-        'vw-5': 'assets/Referenzen/signal-iduna.avif',
-        'ei-3': 'assets/Referenzen/nunatak-group.avif',
-        'ei-9': 'assets/Referenzen/reneo-group.avif',
-      };
-
-      var CATEGORY_IMAGES = {
-        bestandsmanagement: 'assets/timeline/6988d9ea184c3a10bc10d8a0_Home%20Digitales%20Bestandsmanagement.webp',
-        verwertung: 'assets/timeline/6988d9ea184c3a10bc10d984_Aufl%C3%B6sung%20Besichtigung%20%26%20Angebotserstellung.webp',
-        einrichtung: 'assets/timeline/timeline.webp',
-        partner: 'assets/timeline/timeline.webp',
-      };
-
-      function getEntryImage(entry) {
-        if (ENTRY_IMAGES[entry.id]) return ENTRY_IMAGES[entry.id];
-        if (entry.type === 'partner') return CATEGORY_IMAGES.partner;
-        return CATEGORY_IMAGES[entry.category] || CATEGORY_IMAGES.einrichtung;
-      }
-
-      function escHtml(value) {
-        return String(value)
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/"/g, '&quot;')
-          .replace(/'/g, '&#39;');
-      }
-
-      function svgToContainer(sx, sy) {
-        var pt = germanyMap.createSVGPoint();
-        pt.x = sx;
-        pt.y = sy;
-        var matrix = germanyMap.getScreenCTM();
-        var containerRect = mapInteractive.getBoundingClientRect();
-        var p = pt.matrixTransform(matrix);
-        return {
-          x: p.x - containerRect.left,
-          y: p.y - containerRect.top,
-        };
-      }
-
-      /* Offset für mehrere Marker in derselben Stadt */
-      function spreadMarkers(entries) {
-        var byCity = {};
-        entries.forEach(function (e) {
-          if (!byCity[e.city]) byCity[e.city] = [];
-          byCity[e.city].push(e);
-        });
-        var result = [];
-        Object.keys(byCity).forEach(function (city) {
-          var group = byCity[city];
-          var base = getCityPos(city);
-          group.forEach(function (entry, i) {
-            var angle = (i / group.length) * Math.PI * 2 - Math.PI / 2;
-            var r = group.length > 1 ? 10 + group.length * 1.5 : 0;
-            result.push({
-              entry: entry,
-              x: base.x + Math.cos(angle) * r,
-              y: base.y + Math.sin(angle) * r,
-            });
-          });
-        });
-        return result;
-      }
-
-      function matchesFilter(entry) {
-        if (state.type === 'project' && entry.type !== 'project') return false;
-        if (state.type === 'partner' && entry.type !== 'partner') return false;
-        if (state.category !== 'all' && entry.category !== state.category) return false;
-        if (state.category !== 'all' && entry.type === 'partner') return false;
-        return true;
-      }
-
-      function placeCallout(mx, my) {
-        var fx, fy, x2, y2;
-        var spaceL = mx;
-        var spaceR = VB_W - mx;
-        var spaceT = my;
-        var spaceB = VB_H - my;
-        var placement;
-        var pad = 10;
-
-        if (spaceR >= CARD_W + GAP && mx < 300) {
-          placement = 'right';
-        } else if (spaceL >= CARD_W + GAP && mx > 286) {
-          placement = 'left';
-        } else if (spaceB >= CARD_H + GAP) {
-          placement = 'bottom';
-        } else if (spaceT >= CARD_H + GAP) {
-          placement = 'top';
-        } else if (spaceR >= spaceL) {
-          placement = 'right';
-        } else {
-          placement = 'left';
-        }
-
-        if (placement === 'right') {
-          fx = mx + GAP;
-          fy = my - CARD_H / 2;
-          x2 = fx;
-          y2 = my;
-        } else if (placement === 'left') {
-          fx = mx - GAP - CARD_W;
-          fy = my - CARD_H / 2;
-          x2 = fx + CARD_W;
-          y2 = my;
-        } else if (placement === 'bottom') {
-          fx = mx - CARD_W / 2;
-          fy = my + GAP;
-          x2 = mx;
-          y2 = fy;
-        } else {
-          fx = mx - CARD_W / 2;
-          fy = my - GAP - CARD_H;
-          x2 = mx;
-          y2 = fy + CARD_H;
-        }
-
-        fx = Math.max(pad, Math.min(fx, VB_W - CARD_W - pad));
-        fy = Math.max(pad, Math.min(fy, VB_H - CARD_H - pad));
-
-        return { fx: fx, fy: fy, x1: mx, y1: my, x2: x2, y2: y2 };
-      }
-
-      function positionCalloutOverlay(pos) {
-        var topLeft = svgToContainer(pos.fx, pos.fy);
-        var bottomRight = svgToContainer(pos.fx + CARD_W, pos.fy + CARD_H);
-        mapCallout.style.left = topLeft.x + 'px';
-        mapCallout.style.top = topLeft.y + 'px';
-        mapCallout.style.width = Math.max(bottomRight.x - topLeft.x, 160) + 'px';
-      }
-
-      function showDetail(entry, mx, my) {
-        var tag = entry.type === 'partner' ? 'Partnernetzwerk' : (CATEGORY_LABELS[entry.category] || '');
-        var pos = placeCallout(mx, my);
-
-        calloutImg.src = getEntryImage(entry);
-        calloutImg.alt = entry.company;
-        detailTag.textContent = tag;
-        detailCompany.textContent = entry.company;
-        detailTitle.textContent = entry.title;
-        detailCity.textContent = entry.city;
-
-        positionCalloutOverlay(pos);
-        calloutLine.setAttribute('x1', pos.x1);
-        calloutLine.setAttribute('y1', pos.y1);
-        calloutLine.setAttribute('x2', pos.x2);
-        calloutLine.setAttribute('y2', pos.y2);
-        mapCallout.classList.add('is-visible');
-        calloutLines.classList.add('is-visible');
-      }
-
-      function clearDetail() {
-        if (clearTimer) {
-          clearTimeout(clearTimer);
-          clearTimer = null;
-        }
-        if (activeMarker) {
-          activeMarker.classList.remove('is-active');
-          activeMarker = null;
-        }
-        document.querySelectorAll('.project-card.is-highlight').forEach(function (c) {
-          c.classList.remove('is-highlight');
-        });
-        mapCallout.classList.remove('is-visible');
-        calloutLines.classList.remove('is-visible');
-      }
-
-      function scheduleClear() {
-        if (clearTimer) clearTimeout(clearTimer);
-        clearTimer = setTimeout(clearDetail, 60);
-      }
-
-      function selectMarker(markerEl, entry, mx, my) {
-        if (clearTimer) {
-          clearTimeout(clearTimer);
-          clearTimer = null;
-        }
-        if (activeMarker && activeMarker !== markerEl) {
-          activeMarker.classList.remove('is-active');
-        }
-        activeMarker = markerEl;
-        markerEl.classList.add('is-active');
-        showDetail(entry, mx, my);
-      }
-
-      function renderMap() {
-        clearDetail();
-        markersGroup.innerHTML = '';
-        var visible = ENTRIES.filter(matchesFilter);
-        var positioned = spreadMarkers(visible);
-
-        positioned.forEach(function (item) {
-          var e = item.entry;
-          var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-          g.classList.add('map-marker');
-          if (e.type === 'partner') g.classList.add('partner');
-          g.setAttribute('data-id', e.id);
-          g.setAttribute('transform', 'translate(' + item.x + ',' + item.y + ')');
-          g.setAttribute('tabindex', '0');
-          g.setAttribute('role', 'button');
-          g.setAttribute('aria-label', e.company + ': ' + e.title);
-
-          var hit = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-          hit.classList.add('hit-area');
-          hit.setAttribute('cx', '0');
-          hit.setAttribute('cy', '0');
-          hit.setAttribute('r', '18');
-
-          var pulse = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-          pulse.classList.add('pulse-ring');
-          pulse.setAttribute('cx', '0');
-          pulse.setAttribute('cy', '0');
-          pulse.setAttribute('r', e.type === 'partner' ? '8' : '7');
-
-          var dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-          dot.classList.add('dot');
-          dot.setAttribute('cx', '0');
-          dot.setAttribute('cy', '0');
-          dot.setAttribute('r', e.type === 'partner' ? '8' : '7');
-
-          g.appendChild(hit);
-          g.appendChild(pulse);
-          g.appendChild(dot);
-
-          g.addEventListener('mouseenter', function () { selectMarker(g, e, item.x, item.y); });
-          g.addEventListener('mouseleave', scheduleClear);
-          g.addEventListener('focus', function () { selectMarker(g, e, item.x, item.y); });
-          g.addEventListener('blur', scheduleClear);
-          g.addEventListener('click', function (ev) {
-            ev.preventDefault();
-            selectMarker(g, e, item.x, item.y);
-          });
-
-          markersGroup.appendChild(g);
-        });
-      }
-
-      mapInteractive.addEventListener('mouseleave', clearDetail);
-      window.addEventListener('resize', function () {
-        if (activeMarker && mapCallout.classList.contains('is-visible')) {
-          var id = activeMarker.getAttribute('data-id');
-          var entry = ENTRIES.find(function (e) { return e.id === id; });
-          if (entry) {
-            var pos = spreadMarkers(ENTRIES.filter(matchesFilter)).find(function (item) {
-              return item.entry.id === id;
-            });
-            if (pos) {
-              positionCalloutOverlay(placeCallout(pos.x, pos.y));
-            }
-          }
-        }
-      });
-
-      function renderGrid() {
-        projectGrid.innerHTML = '';
-        var visible = ENTRIES.filter(matchesFilter);
-        emptyState.classList.toggle('hidden', visible.length > 0);
-
-        visible.forEach(function (e) {
-          var card = document.createElement('article');
-          card.className = 'project-card group bg-abyss-mid overflow-hidden';
-          card.setAttribute('data-id', e.id);
-
-          var imgSrc = getEntryImage(e);
-          card.innerHTML =
-            '<div class="aspect-[4/3] overflow-hidden bg-abyss-deep">' +
-              '<img src="' + imgSrc + '" alt="' + escHtml(e.company) + '" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy">' +
-            '</div>' +
-            '<div class="p-4 sm:p-5">' +
-              '<span class="inline-block px-2.5 py-1 bg-white/10 text-mist text-[10px] mb-2.5">' + escHtml(e.company) + '</span>' +
-              '<h3 class="text-white text-sm font-bold leading-snug mb-3 min-h-[2.5rem]">' + escHtml(e.title) + '</h3>' +
-              '<p class="text-mist text-xs flex items-center gap-1.5">' +
-                '<svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>' +
-                e.city +
-              '</p>' +
-            '</div>';
-
-          card.addEventListener('mouseenter', function () {
-            var marker = document.querySelector('.map-marker[data-id="' + e.id + '"]');
-            if (marker) {
-              var pos = spreadMarkers(ENTRIES.filter(matchesFilter)).find(function (item) {
-                return item.entry.id === e.id;
-              });
-              if (pos) {
-                selectMarker(marker, e, pos.x, pos.y);
-              }
-            }
-            card.classList.add('is-highlight');
-          });
-          card.addEventListener('mouseleave', scheduleClear);
-
-          projectGrid.appendChild(card);
-        });
-      }
-
-      function applyFilters() {
-        renderMap();
-        renderGrid();
-      }
-
-      /* Filter-Events */
-      document.querySelectorAll('.filter-type').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          document.querySelectorAll('.filter-type').forEach(function (b) { b.classList.remove('is-active'); });
-          btn.classList.add('is-active');
-          state.type = btn.getAttribute('data-type');
-          if (state.type === 'partner') {
-            document.getElementById('filter-category').value = 'all';
-            state.category = 'all';
-          }
-          applyFilters();
-        });
-      });
-
-      document.getElementById('filter-category').addEventListener('change', function (e) {
-        state.category = e.target.value;
-        if (state.category !== 'all' && state.type === 'partner') {
-          state.type = 'project';
-          document.querySelectorAll('.filter-type').forEach(function (b) {
-            b.classList.toggle('is-active', b.getAttribute('data-type') === 'project');
-          });
-        }
-        applyFilters();
-      });
-
-      /* ── SVG-Karte laden & animieren ── */
-      function initMapAnimation() {
-        if (!germanyMap || mapReady) return;
-        mapReady = true;
-
-        var states = germanyMap.querySelectorAll('.de-state');
-        states.forEach(function (el, i) {
-          el.style.transitionDelay = (i * 45) + 'ms';
-        });
-
-        var cities = germanyMap.querySelectorAll('.de-city');
-        cities.forEach(function (el, i) {
-          el.style.transitionDelay = (400 + i * 35) + 'ms';
-        });
-
-        var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (reduced) {
-          germanyMap.classList.add('is-animated');
-          return;
-        }
-
-        var observer = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              germanyMap.classList.add('is-animated');
-              applyFilters();
-              observer.unobserve(germanyMap);
-            }
-          });
-        }, { threshold: 0.2 });
-        observer.observe(germanyMap);
-      }
-
-      function loadMapLayer() {
-        fetch('assets/deutschlandkarte/fenyx-germany-map.svg')
-          .then(function (res) { return res.text(); })
-          .then(function (svgText) {
-            var parser = new DOMParser();
-            var doc = parser.parseFromString(svgText, 'image/svg+xml');
-            var inner = doc.documentElement;
-            Array.from(inner.childNodes).forEach(function (node) {
-              if (node.nodeType === 1 && node.tagName !== 'rect') {
-                mapLayer.appendChild(document.importNode(node, true));
-              }
-            });
-            initMapAnimation();
-          })
-          .catch(function () {
-            mapLayer.innerHTML = '<text x="293" y="400" text-anchor="middle" fill="#8da4ba" font-size="14">Karte konnte nicht geladen werden.</text>';
-          });
-      }
-
-      loadMapLayer();
-      applyFilters();
-    })();
-  </script>
-  <script src="js/contact-form.js" defer></script>
+<script src="js/leistung-page.js" defer></script>
 <script src="js/mega-menu.js" defer></script>
 <script src="js/site-shell.js" defer></script>
 </body>

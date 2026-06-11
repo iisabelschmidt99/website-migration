@@ -1,0 +1,222 @@
+/* ── Leistungsunterseiten (shared) ── */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.12s; }
+.reveal-delay-2 { transition-delay: 0.24s; }
+
+.lifecycle-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 5;
+}
+.lifecycle-svg {
+  display: block;
+  width: 4px;
+  height: 100%;
+  overflow: visible;
+}
+#lifecycle-path {
+  stroke: #c8ff00;
+  stroke-width: 3;
+  fill: none;
+  stroke-linecap: round;
+}
+.lifecycle-dot {
+  fill: #c8ff00;
+  opacity: 0.25;
+  transition: opacity 0.3s ease;
+}
+.lifecycle-dot.is-active {
+  opacity: 1;
+}
+
+.logo-grid {
+  display: grid;
+  grid-template-columns: repeat(14, minmax(0, 1fr));
+  gap: 2.75rem 1.75rem;
+}
+.logo-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.25rem;
+  padding: 0 0.5rem;
+}
+.logo-cell img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 4.25rem;
+  object-fit: contain;
+  object-position: center;
+}
+@media (max-width: 1023px) {
+  .logo-grid { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+}
+@media (max-width: 639px) {
+  .logo-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+.leistung-card {
+  position: relative;
+}
+
+.feature-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+@media (min-width: 1024px) {
+  .feature-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+  .feature-row--reverse .feature-row-media {
+    order: 2;
+  }
+  .feature-row--reverse .feature-row-content {
+    order: 1;
+  }
+}
+.feature-row-media img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+.feature-row-content h2 {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+.feature-row-content p {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: rgba(0, 0, 0, 0.78);
+  margin-bottom: 1.5rem;
+}
+.feature-row--dark .feature-row-content p {
+  color: #8da4ba;
+}
+.feature-row--dark .feature-row-content h2 {
+  color: #fff;
+}
+
+.bm-case-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+@media (min-width: 768px) {
+  .bm-case-grid { grid-template-columns: 1fr 1fr; }
+}
+.bm-case-card {
+  background: #0b171f;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 100%;
+}
+.bm-case-card img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+.bm-case-card h3 {
+  color: #fff;
+  font-size: 1.125rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+.bm-case-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.bm-case-stat-value {
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+.bm-case-stat-label {
+  color: #8da4ba;
+  font-size: 0.6875rem;
+  line-height: 1.35;
+  margin-top: 0.25rem;
+}
+
+.faq-list {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+.faq-item {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.faq-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #0b171f;
+}
+.faq-trigger svg {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  transition: transform 0.2s ease;
+}
+.faq-item.is-open .faq-trigger svg {
+  transform: rotate(180deg);
+}
+.faq-answer {
+  display: none;
+  padding: 0 0 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: rgba(0, 0, 0, 0.72);
+}
+.faq-item.is-open .faq-answer {
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  #lifecycle-path {
+    stroke-dashoffset: 0 !important;
+  }
+  .lifecycle-dot {
+    opacity: 1;
+  }
+}
