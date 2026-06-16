@@ -122,7 +122,7 @@ export default function DigitaleInventarisierungPage() {
 
       <FaqSection items={digitaleInventarisierungFaq} dark />
 
-      <ServiceContactSection {...contactContent} layout="formFirst" />
+      <ServiceContactSection {...contactContent} />
     </div>
   );
 }

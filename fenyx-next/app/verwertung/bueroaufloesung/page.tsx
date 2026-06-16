@@ -43,7 +43,7 @@ export default function BueroaufloesungPage() {
         description={referenzenContent.description}
       />
 
-      <ServiceContactSection {...verwertungContact} layout="formFirst" />
+      <ServiceContactSection {...verwertungContact} />
     </div>
   );
 }

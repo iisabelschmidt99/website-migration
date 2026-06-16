@@ -48,7 +48,7 @@ export default function ProjektmanagementPage() {
         description={referenzenContent.description}
       />
 
-      <ServiceContactSection {...contactContent} layout="formFirst" />
+      <ServiceContactSection {...contactContent} />
     </div>
   );
 }

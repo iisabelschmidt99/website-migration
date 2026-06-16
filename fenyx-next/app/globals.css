@@ -1122,3 +1122,112 @@
   background: #f6f6f6;
   border-radius: 10px;
 }
+
+/* Kontakt-Section (Webflow section_contact) */
+.service-contact__grid {
+  display: grid;
+  gap: 3rem;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .service-contact__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .service-contact__portrait {
+    aspect-ratio: 5 / 6;
+    max-width: none;
+    margin-inline: 0;
+  }
+}
+
+.service-contact__portrait {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 5 / 6;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 4px;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .service-contact__portrait {
+    aspect-ratio: 1;
+    max-width: 28rem;
+    margin-inline: auto;
+  }
+}
+
+.service-contact__portrait-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(11, 23, 31, 0) 35%,
+    rgba(4, 8, 10, 0.92) 88%
+  );
+  pointer-events: none;
+}
+
+.service-contact__portrait-caption {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.5rem;
+  padding: 2rem 2.5rem;
+  color: #f2f9ff;
+}
+
+.service-contact__quote {
+  max-width: 16rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-wrap: balance;
+}
+
+.service-contact__person {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.service-contact__name {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.service-contact__role {
+  margin-top: 0.15rem;
+  font-size: 0.75rem;
+  line-height: 1.35;
+  color: #dceaf5;
+}
+
+@media (max-width: 767px) {
+  .service-contact__portrait-caption {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem;
+  }
+
+  .service-contact__quote {
+    max-width: none;
+    font-size: 0.9375rem;
+  }
+
+  .service-contact__person {
+    text-align: left;
+    width: 100%;
+  }
+}
+
+.service-contact__form {
+  min-width: 0;
+}

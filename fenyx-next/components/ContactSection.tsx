@@ -1,18 +1,39 @@
 import Image from "next/image";
 import HubSpotForm from "./HubSpotForm";
 
-/** Kontakt-Section mit HubSpot-Formular und Anina-Blatter-Portrait. */
+/** Kontakt-Section Homepage: Portrait links, Formular rechts. */
 export default function ContactSection() {
   return (
     <section
       id="kontakt"
-      className="bg-gradient-to-b from-black-gradient to-abyss-deep py-20 sm:py-28"
+      className="service-contact bg-gradient-to-b from-black-gradient to-abyss-deep py-20 sm:py-28"
       aria-labelledby="kontakt-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-stretch">
-          {/* Formular + Überschrift (links) */}
-          <div>
+        <div className="service-contact__grid">
+          <div className="service-contact__portrait">
+            <Image
+              src="/assets/kontakt/anina-blatter.webp"
+              alt="Bild von Anina Blatter, Einrichtungsberaterin bei Fenyx Office"
+              fill
+              className="object-cover object-center"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              loading="lazy"
+            />
+            <div className="service-contact__portrait-overlay" aria-hidden="true" />
+            <div className="service-contact__portrait-caption">
+              <p className="service-contact__quote">
+                „Gerne begleite ich Sie auf dem Weg zu einer nachhaltigen
+                Transformation Ihres Büros.“
+              </p>
+              <div className="service-contact__person">
+                <p className="service-contact__name">Anina Blatter</p>
+                <p className="service-contact__role">Einrichtungsberaterin</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="service-contact__form">
             <h2
               id="kontakt-heading"
               className="text-white text-2xl sm:text-3xl lg:text-h2 font-heading tracking-[-0.02em] mb-6"
@@ -64,29 +85,6 @@ export default function ContactSection() {
             </div>
 
             <HubSpotForm />
-          </div>
-
-          {/* Portrait Anina Blatter (rechts) */}
-          <div className="relative min-h-[420px] lg:min-h-full border border-white/10 overflow-hidden">
-            <Image
-              src="/assets/kontakt/anina-blatter.webp"
-              alt="Bild von Anina Blatter, Einrichtungsberaterin bei Fenyx Office"
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 text-white">
-              <blockquote className="text-sm sm:text-base leading-relaxed mb-4 font-medium">
-                „Gerne begleite ich Sie auf dem Weg zu einer nachhaltigen
-                Transformation Ihres Büros.“
-              </blockquote>
-              <div className="text-right">
-                <p className="font-bold text-sm">Anina Blatter</p>
-                <p className="text-mist text-xs">Einrichtungsberaterin</p>
-              </div>
-            </div>
           </div>
         </div>
       </div>

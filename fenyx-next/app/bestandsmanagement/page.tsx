@@ -145,7 +145,7 @@ export default function BestandsmanagementPage() {
         heading="Lassen Sie uns sichtbar machen, was bereits da ist."
         email="marius@fenyx-office.com"
         phone="+49 176 23820424"
-        portraitSrc="/assets/kontakt section/marius-gimm.png"
+        portraitSrc="/assets/kontakt/marius-gimm.webp"
         portraitAlt="Marius Gimm, Einrichtungsberater bei Fenyx"
         quote="„Ein nachhaltiges Büro beginnt nicht beim Neukauf, sondern bei der Wertschätzung dessen, was man bereits besitzt. Ich helfe Ihnen dabei, Transparenz in Ihren Bestand zu bringen.“"
         name="Marius Gimm"

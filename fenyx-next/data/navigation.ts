@@ -40,6 +40,8 @@ export const PROMO = {
   imageAlt: "Moderner Büroarbeitsplatz mit nachhaltiger Einrichtung",
 };
 
+const NAV_VERWERTUNG = "/assets/navigation/verwertung";
+
 export const MEGA_MENUS: MegaMenuConfig[] = [
   {
     id: "bestandsmanagement",
@@ -103,25 +105,25 @@ export const MEGA_MENUS: MegaMenuConfig[] = [
         label: "Büroauflösung",
         href: "/verwertung/bueroaufloesung",
         sub: "Mit nur einem Partner zur besenreinen Flächenübergabe",
-        imageSrc: `${CDN}/6988d9ea184c3a10bc10d841_bueroaufloesung%20(thumbnail).webp`,
+        imageSrc: `${NAV_VERWERTUNG}/bueroaufloesung.webp`,
       },
       {
         label: "Mitarbeiterverkauf",
         href: "/verwertung/mitarbeiterverkauf",
         sub: "Verkauf an Mitarbeiter ohne steuerliche und Haftungs-Risiken",
-        imageSrc: `${CDN}/6988d9ea184c3a10bc10d993_header%20Verwertung%20MA%20Verkauf.webp`,
+        imageSrc: `${NAV_VERWERTUNG}/mitarbeiterverkauf.webp`,
       },
       {
         label: "Spende",
         href: "/verwertung/spende",
         sub: "Optimale und soziale Verwertung des Gesamtbestands",
-        imageSrc: `${CDN}/6988d9ea184c3a10bc10d994_Header%20Verwertung%20Spende%20(1).webp`,
+        imageSrc: `${NAV_VERWERTUNG}/spende.webp`,
       },
       {
         label: "Aufbereitung",
         href: "/verwertung/aufbereitung",
         sub: "Maximaler Erlös durch professionelle Vermarktung",
-        imageSrc: `${CDN}/6988d9ea184c3a10bc10d96d_Auflso%CC%88ung%20Fenyx%20Versprechen%20(1).webp`,
+        imageSrc: `${NAV_VERWERTUNG}/aufbereitung.webp`,
       },
     ],
     cases: [

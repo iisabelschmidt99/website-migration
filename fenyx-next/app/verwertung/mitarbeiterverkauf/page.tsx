@@ -53,7 +53,7 @@ export default function MitarbeiterverkaufPage() {
         description={referenzenContent.description}
       />
 
-      <ServiceContactSection {...verwertungContact} layout="formFirst" />
+      <ServiceContactSection {...verwertungContact} />
     </div>
   );
 }

@@ -33,7 +33,7 @@ export default function SpendePage() {
         description={referenzenContent.description}
       />
 
-      <ServiceContactSection {...verwertungContact} layout="formFirst" />
+      <ServiceContactSection {...verwertungContact} />
     </div>
   );
 }

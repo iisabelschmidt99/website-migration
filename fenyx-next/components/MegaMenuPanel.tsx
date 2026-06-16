@@ -79,8 +79,9 @@ export default function MegaMenuPanel({
                       <Image
                         src={link.imageSrc}
                         alt=""
-                        width={60}
-                        height={60}
+                        fill
+                        className="object-cover object-center"
+                        sizes="64px"
                         loading="lazy"
                       />
                     </span>
@@ -106,8 +107,9 @@ export default function MegaMenuPanel({
                       <Image
                         src={item.imageSrc}
                         alt=""
-                        width={60}
-                        height={60}
+                        fill
+                        className="object-cover object-center"
+                        sizes="64px"
                         loading="lazy"
                       />
                     </span>

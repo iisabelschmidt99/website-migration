@@ -188,10 +188,12 @@
 
 .mega-service-thumb,
 .mega-case-thumb {
-  flex: 0 0 3.75rem;
-  width: 3.75rem;
-  height: 3.75rem;
+  position: relative;
+  flex: 0 0 4rem;
+  width: 4rem;
+  height: 4rem;
   overflow: hidden;
+  border-radius: 4px;
   background: #e8edf2;
 }
 
@@ -201,10 +203,8 @@
 
 .mega-service-thumb img,
 .mega-case-thumb img {
-  width: 100%;
-  height: 100%;
   object-fit: cover;
-  display: block;
+  object-position: center;
 }
 
 .mega-service-text,

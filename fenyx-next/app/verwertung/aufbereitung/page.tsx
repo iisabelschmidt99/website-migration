@@ -56,7 +56,7 @@ export default function AufbereitungPage() {
         description={referenzenContent.description}
       />
 
-      <ServiceContactSection {...verwertungContact} layout="formFirst" />
+      <ServiceContactSection {...verwertungContact} />
     </div>
   );
 }
