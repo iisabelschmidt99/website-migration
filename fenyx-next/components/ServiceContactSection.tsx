@@ -3,6 +3,7 @@ import HubSpotForm from "./HubSpotForm";
 
 type ServiceContactSectionProps = {
   heading: string;
+  subline?: string;
   email: string;
   phone: string;
   portraitSrc: string;
@@ -17,6 +18,7 @@ type ServiceContactSectionProps = {
 /** Kontakt-Section mit konfigurierbarem Berater-Portrait (Leistungsunterseiten). */
 export default function ServiceContactSection({
   heading,
+  subline,
   email,
   phone,
   portraitSrc,
@@ -57,6 +59,11 @@ export default function ServiceContactSection({
       >
         {heading}
       </h2>
+      {subline ? (
+        <p className="text-mist text-sm sm:text-base leading-relaxed mb-6">
+          {subline}
+        </p>
+      ) : null}
 
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 mb-8 text-sm">
         <a

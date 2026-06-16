@@ -899,3 +899,226 @@
     rgba(11, 23, 31, 0.35) 100%
   );
 }
+
+.inv-timeline--light {
+  background: #fff;
+  color: #0b171f;
+}
+
+.inv-timeline--light .inv-timeline__card {
+  background: rgba(11, 23, 31, 0.03);
+  border-color: rgba(11, 23, 31, 0.1);
+}
+
+.inv-timeline--light .inv-timeline__card-title {
+  color: #0b171f;
+}
+
+.inv-timeline--light .inv-timeline__card-body {
+  color: rgba(11, 23, 31, 0.72);
+}
+
+.inv-timeline--light .inv-timeline__bg-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.88) 0%,
+    rgba(255, 255, 255, 0.78) 45%,
+    rgba(255, 255, 255, 0.92) 100%
+  );
+}
+
+/* Büroauflösung: Bild-Timeline */
+.ba-timeline__row {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 1024px) {
+  .ba-timeline__row {
+    grid-template-columns: 1fr 1fr;
+    min-height: 28rem;
+  }
+
+  .ba-timeline__row--image-right .ba-timeline__content {
+    order: 1;
+  }
+
+  .ba-timeline__row--image-right .ba-timeline__media {
+    order: 2;
+  }
+
+  .ba-timeline__row--image-left .ba-timeline__media {
+    order: 1;
+  }
+
+  .ba-timeline__row--image-left .ba-timeline__content {
+    order: 2;
+  }
+}
+
+.ba-timeline__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #fff;
+}
+
+.ba-timeline__media-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(11, 23, 31, 0.08) 0%,
+    rgba(11, 23, 31, 0.22) 100%
+  );
+}
+
+.ba-timeline__details {
+  border-top: 1px solid rgba(11, 23, 31, 0.12);
+  padding-top: 1rem;
+}
+
+.ba-timeline__details summary {
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #0b171f;
+  list-style: none;
+}
+
+.ba-timeline__details summary::-webkit-details-marker {
+  display: none;
+}
+
+.ba-timeline__details p {
+  margin: 1rem 0 0;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: rgba(11, 23, 31, 0.75);
+}
+
+/* CO₂-Rechner (Mitarbeiterverkauf) */
+.co2-calculator__grid {
+  display: grid;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .co2-calculator__grid {
+    grid-template-columns: 1fr 1.5fr;
+    gap: 4rem;
+  }
+}
+
+.co2-calculator__slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 5px;
+  margin: 0.35rem 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.co2-calculator__slider:focus {
+  outline: none;
+}
+
+.co2-calculator__slider::-webkit-slider-runnable-track {
+  height: 5px;
+  background: rgba(221, 221, 221, 0.78);
+  border-radius: 999px;
+}
+
+.co2-calculator__slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 30px;
+  height: 30px;
+  margin-top: -13px;
+  border: 0;
+  border-radius: 50%;
+  background: #c8ff00;
+  cursor: pointer;
+}
+
+.co2-calculator__slider::-moz-range-track {
+  height: 5px;
+  background: rgba(221, 221, 221, 0.78);
+  border: 0;
+  border-radius: 999px;
+}
+
+.co2-calculator__slider::-moz-range-thumb {
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 50%;
+  background: #c8ff00;
+  cursor: pointer;
+}
+
+.co2-calculator__categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.co2-calculator__category {
+  display: flex;
+  flex: 1 1 calc(33.333% - 0.5rem);
+  min-width: 7.5rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 6.5rem;
+  padding: 1.25rem 0.75rem;
+  text-align: center;
+  background: #f6f6f6;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.co2-calculator__category--selected {
+  background: rgba(29, 29, 29, 0.2);
+  border-color: #747474;
+}
+
+.co2-calculator__results {
+  display: grid;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .co2-calculator__results {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .co2-calculator__result-main {
+    grid-column: 1 / -1;
+  }
+}
+
+.co2-calculator__result-main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.35rem 0.5rem;
+  padding: 1.5rem;
+  background: #c8ff00;
+  border-radius: 10px;
+}
+
+.co2-calculator__result-equiv {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem;
+  background: #f6f6f6;
+  border-radius: 10px;
+}

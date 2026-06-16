@@ -12,8 +12,9 @@ type TimelineStep = {
 type InventarisierungTimelineProps = {
   heading: string;
   steps: TimelineStep[];
-  backgroundSrc: string;
-  backgroundAlt: string;
+  backgroundSrc?: string;
+  backgroundAlt?: string;
+  variant?: "dark" | "light";
 };
 
 /** 6-Schritte-Timeline mit Hintergrundbild (Webflow section_timeline). */
@@ -21,24 +22,29 @@ export default function InventarisierungTimeline({
   heading,
   steps,
   backgroundSrc,
-  backgroundAlt,
+  backgroundAlt = "",
+  variant = "dark",
 }: InventarisierungTimelineProps) {
+  const isDark = variant === "dark";
+
   return (
     <section
-      className="inv-timeline"
+      className={`inv-timeline${isDark ? "" : " inv-timeline--light"}`}
       aria-labelledby="inv-timeline-heading"
     >
-      <div className="inv-timeline__bg" aria-hidden="true">
-        <Image
-          src={backgroundSrc}
-          alt={backgroundAlt}
-          fill
-          className="object-cover object-center"
-          sizes="100vw"
-          loading="lazy"
-        />
-        <div className="inv-timeline__bg-overlay" />
-      </div>
+      {backgroundSrc ? (
+        <div className="inv-timeline__bg" aria-hidden="true">
+          <Image
+            src={backgroundSrc}
+            alt={backgroundAlt}
+            fill
+            className="object-cover object-center"
+            sizes="100vw"
+            loading="lazy"
+          />
+          <div className="inv-timeline__bg-overlay" />
+        </div>
+      ) : null}
 
       <div className="relative z-[1] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
         <h2
