@@ -1,0 +1,13 @@
+# Netlify-Konfiguration für das Next.js-Projekt im Unterordner fenyx-next/
+[build]
+  base = "fenyx-next"          # Projekt liegt in diesem Unterordner
+  command = "npm run build"     # Next.js-Build
+  publish = ".next"             # Build-Ausgabe (relativ zu base)
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Offizielles Next.js-Plugin: kümmert sich um Routing, Server-Rendering
+# und die automatische Bildoptimierung von next/image.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
