@@ -1,0 +1,50 @@
+# Fenyx Website – Cursor Rules (Dauerkontext)
+
+Diese Datei wird von Cursor automatisch als Kontext geladen. Sie hält die
+wichtigsten Konventionen fest, damit der KI-Assistent konsistent zur
+bestehenden Fenyx-Seite baut.
+
+## Projekt
+- Migration der Fenyx-Website von Webflow (statisches HTML) auf Next.js.
+- Framework: Next.js 14, App Router, TypeScript, React 18.
+- Styling: Tailwind CSS (Config in `tailwind.config.ts`).
+- Ansatz: seitenweise migrieren. Vorlagen sind die alten HTML-Dateien
+  im übergeordneten Ordner (`../*.html`, `../fenyx-rebuild/**`).
+
+## Design-Tokens (NIE hartkodierte Hex-Werte, immer diese Tailwind-Klassen)
+- Hintergrund dunkel: `bg-abyss` (#132735), `bg-abyss-deep` (#0b171f), `bg-black-gradient` (#020405)
+- Akzentfarbe (Neongrün): `text-signal` / `bg-signal` (#c8ff00)
+  - gedämpft: `signal-soft` (#4c6225), `signal-fade` (#7c9a2b)
+- Grautöne: `text-mist` (#8da4ba), `mist-soft` (#dceaf5), `mist-ash` (#a1b1c0)
+- Ecken sind eckig: Standard-`border-radius` ist 0 (kein `rounded` verwenden).
+- Enge Buchstaben für Headlines: `tracking-fenyx` (-0.04em) oder `tracking-[-0.03em]`.
+
+## Schrift (echte Marken-Fonts, self-hosted – KEIN Inter)
+- Fließtext/Body = **Roobert** -> `font-sans` (Standard, automatisch über `app/layout.tsx`).
+- Überschriften = **Telegraf** -> Klasse `font-heading` (h1–h6 erhalten Telegraf automatisch).
+- Heading-Größen (alle Gewicht 700) als Klassen verfügbar: `text-h1` (4rem) … `text-h6` (1rem).
+- Fonts liegen in `app/fonts/`, eingebunden via `next/font/local`. Nicht erneut laden.
+
+## Komponenten-Konventionen
+- Wiederverwendbare Bausteine liegen in `components/`.
+- Server-Komponenten als Standard. `"use client"` nur, wenn der Baustein
+  Interaktivität braucht (State, onClick, Hover-Menüs) – siehe `Header.tsx`.
+- Navigations-/Footer-Links zentral als Daten-Arrays pflegen, nicht im JSX duplizieren.
+- Bilder über `next/image` (`<Image>`), Pfade relativ zu `public/` (z.B. `/assets/...`).
+- Interne Links über `next/link` (`<Link href="/...">`), keine `.html`-Endungen.
+
+## URL-Struktur (aus _redirects der alten Seite übernommen)
+- /bestandsmanagement, /bestandsmanagement/digitale-inventarisierung, /bestandsmanagement/projektmanagement
+- /verwertung/bueroaufloesung, /verwertung/mitarbeiterverkauf, /verwertung/aufbereitung, /verwertung/spende
+- /einrichtung/bueroeinrichtung, /einrichtung/workspace-analytics, /einrichtung/bueromoebel-mieten
+- /fenyx-fuer-sie/{grossunternehmen,mittelstand,start-up-scale-up,co-working-space}
+- /referenzen, /events, /ueber-uns, /ratgeber, /presse-medien
+- /impressum, /datenschutz, /agb
+
+## Sprache
+- Alle Inhalte und UI-Texte auf Deutsch. Kommentare im Code ebenfalls Deutsch.
+
+## Backend (geplant, noch nicht angebunden)
+- Supabase als Backend (Admin-Zugang, kein Kunden-Login).
+- Dynamisch über Supabase: Blogsystem und ggf. Referenzen.
+- Kontaktformular: bestehende HubSpot-Anbindung (Netlify-Funktion) übernehmen.

@@ -1,0 +1,80 @@
+# Fenyx Website-Migration – Cursor Rules (Dauerkontext)
+
+Dieser Ordner enthält ZWEI Dinge:
+
+- **Quelle / Vorlage:** `_reference/webflow-export/` – der vollständige Webflow-Export
+  (alle Seiten als HTML, Bilder in `images/`). NUR als Referenz für Inhalte und Bilder.
+- **Ziel:** `fenyx-next/` – das neue Next.js-Projekt. HIER wird gebaut.
+
+Im Ordner `_reference/` liegt ausschließlich altes Referenzmaterial: `webflow-export/`
+(Webflow-Export), `alte-seite/` (frühere statische Nachbauten inkl. funktionierender
+Skripte) und `fenyx-rebuild/`. Dort wird NICHT gebaut; daraus werden nur Texte und Bilder
+übernommen. `_reference/` ist bewusst aus dem Git ausgeschlossen (siehe .gitignore).
+
+## Grundregel
+- **Inhalte (Texte) und Bilder** werden 1:1 aus der Webflow-Vorlage übernommen.
+- **Aufbau und Design werden originalgetreu nachgebaut**: gleiche Sections, gleiche
+  Reihenfolge, gleiche Anordnung/Abstände, gleiches Aussehen wie in der Vorlageseite.
+  Die Struktur entnimmst du der jeweiligen Export-HTML-Datei.
+- Nur **Webflows technischer Code** wird NICHT übernommen: kein Webflow-CSS, keine
+  Webflow-Klassen (`w-`, `.w-dyn-...`), keine Webflow-IDs. Stattdessen sauberes Tailwind.
+- Kurz: gleiches Ergebnis wie die Webflow-Seite, aber neu und sauber programmiert.
+- Wenn ein Screenshot der Live-Seite mitgegeben wird, baue pixelnah danach.
+
+## Vorgehen pro Seite (immer so)
+1. Eine Seite nach der anderen – nie die ganze Site auf einmal.
+2. Route in `fenyx-next/app/<pfad>/page.tsx` anlegen (URL-Struktur siehe unten).
+3. Header und Footer kommen aus `app/layout.tsx` – die Seite enthält NUR ihre eigenen Sections.
+4. Wiederkehrende Muster (Hero, CTA, Karten, Logo-Grid) als Komponente in
+   `fenyx-next/components/` auslagern und überall wiederverwenden.
+5. Genutzte Bilder aus `_reference/webflow-export/images/` nach
+   `fenyx-next/public/assets/` kopieren und von dort als `/assets/...` referenzieren.
+6. Danach `npm run dev` und mit der Live-Seite vergleichen, dann iterieren.
+
+## Modellwahl (Empfehlung aus dem Meeting mit Patrick)
+- Erste Struktur einer komplexen Seite: starkes Modell (Opus).
+- Danach Feinschliff/Iterationen: schnelleres Modell (Composer/Auto/Sonnet).
+
+## Design-Tokens (immer diese Tailwind-Klassen, nie hartkodierte Hex-Werte)
+- Dunkler Hintergrund: `bg-abyss` (#132735), `bg-abyss-deep` (#0b171f), `bg-black-gradient` (#020405)
+- Akzent (Neongrün): `text-signal` / `bg-signal` (#c8ff00); gedämpft `signal-soft`, `signal-fade`
+- Grautöne: `text-mist` (#8da4ba), `mist-soft` (#dceaf5), `mist-ash` (#a1b1c0)
+- Weitere Farben: `bg-black-gradient` (#020405), `system-*` (error/success/warning/focus) für Status.
+- Eckige Ecken: Standard-`border-radius` ist 0 (kein `rounded`).
+- Enge Headlines: `tracking-fenyx` (-0.04em) oder `tracking-[-0.03em]`.
+
+## Schrift (echte Marken-Fonts, self-hosted – KEIN Inter, KEIN Google-CDN)
+- Fließtext/Body = **Roobert** -> `font-sans` (Standard, kommt automatisch über `app/layout.tsx`).
+- Überschriften = **Telegraf** -> Klasse `font-heading` (h1–h6 bekommen Telegraf auch automatisch).
+- Heading-Größen wie im Original (alle font-weight 700): h1 4rem, h2 2.3rem (-0.01em),
+  h3 2rem, h4 1.5rem, h5 1.25rem, h6 1rem. Als Tailwind-Klassen verfügbar: `text-h1` … `text-h6`.
+- Fonts liegen in `fenyx-next/app/fonts/`, eingebunden via `next/font/local`. Nicht erneut laden.
+
+## Komponenten-Konventionen
+- Standard sind Server-Komponenten. `"use client"` nur bei Interaktivität (State, onClick).
+- Bilder über `next/image` (`<Image>`), interne Links über `next/link` (keine `.html`-Endungen).
+- Navigations-/Footer-Links zentral als Daten-Array pflegen (siehe `components/Header.tsx`).
+
+## URL-Struktur (Ziel-Routen in fenyx-next/app/)
+- /bestandsmanagement, /bestandsmanagement/digitale-inventarisierung, /bestandsmanagement/projektmanagement
+- /verwertung/bueroaufloesung, /verwertung/mitarbeiterverkauf, /verwertung/aufbereitung, /verwertung/spende
+- /einrichtung/bueroeinrichtung, /einrichtung/workspace-analytics, /einrichtung/bueromoebel-mieten
+- /fenyx-fuer-sie/{grossunternehmen,mittelstand,start-up-scale-up,co-working-space}
+- /referenzen, /events, /ueber-uns, /ratgeber, /presse-medien
+- /impressum, /datenschutz, /agb
+
+## Vorsicht bei der Vorlage
+- Der Export enthält Dubletten/Entwürfe (`*-copy`, `untitled*`, Ordner `dev/`) und
+  CMS-Template-Seiten (`detail_*.html`) – diese NICHT nachbauen.
+- Die vielen Standort-Seiten (`bueroeinrichtung-standort/*`, `bueromoebel-mieten/*`)
+  sind nach gleichem Muster – später aus EINER Vorlage generieren, nicht einzeln bauen.
+- Funktionierende Alt-Implementierungen (z.B. Scroll-Animationen wie die grüne
+  Lebenszyklus-Linie) liegen in `_reference/alte-seite/` (HTML + `js/`) und dürfen als
+  Referenz für die React-Umsetzung dienen – sauber neu bauen, nicht 1:1 kopieren.
+
+## Sprache
+- Alle Inhalte, UI-Texte und Code-Kommentare auf Deutsch.
+
+## Backend (kommt später, jetzt noch nicht)
+- Referenzen und Blog laufen über Webflow-CMS → später nach Supabase.
+- Kontaktformular: bestehende HubSpot-Anbindung (Netlify-Funktion) übernehmen.

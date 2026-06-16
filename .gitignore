@@ -1,2 +1,17 @@
-.DS_Store
+# Referenzmaterial – nur lokal als Vorlage, NICHT ins Repo
+/_reference/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+build/
+
+# Env / Logs
+.env*.local
 *.log
+
+# System / Build
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts
