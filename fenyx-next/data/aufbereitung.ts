@@ -105,7 +105,7 @@ export const timelineContent = {
   backgroundSrc: `${ab}/timeline-bg.webp`,
   backgroundAlt:
     "Mann mit Tattoos in schwarzen Handschuhen und schwarzem Shirt, der hinter einem grauen Bürostuhl vor einem Holzpaneelwand-Hintergrund steht.",
-  variant: "light" as const,
+  variant: "dark" as const,
   steps: [
     {
       num: "01",

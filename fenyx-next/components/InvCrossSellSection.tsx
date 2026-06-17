@@ -29,17 +29,15 @@ export default function InvCrossSellSection({
           fill
           className="object-cover object-center"
           sizes="100vw"
+          priority={false}
           loading="lazy"
         />
         <div className="inv-crosssell__overlay" />
       </div>
 
-      <div className="relative z-[1] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
-        <div className="max-w-xl">
-          <h2
-            id="crosssell-heading"
-            className="text-2xl sm:text-3xl lg:text-4xl font-heading tracking-[-0.03em] mb-5 text-white"
-          >
+      <div className="relative z-[1] w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-40">
+        <div className="inv-crosssell__content">
+          <h2 id="crosssell-heading" className="inv-crosssell__heading">
             {heading.split("\n").map((line, i, arr) => (
               <span key={line.slice(0, 24)}>
                 {line}
@@ -47,12 +45,16 @@ export default function InvCrossSellSection({
               </span>
             ))}
           </h2>
-          <div className="text-mist text-base leading-relaxed mb-8 space-y-4">
+          <div className="inv-crosssell__body">
             {body.split("\n\n").map((paragraph) => (
               <p key={paragraph.slice(0, 32)}>{paragraph}</p>
             ))}
           </div>
-          <CtaButton href={href}>{cta}</CtaButton>
+          <div className="inv-crosssell__actions">
+            <CtaButton href={href} className="text-sm tracking-[0.08em] px-7 py-3">
+              {cta}
+            </CtaButton>
+          </div>
         </div>
       </div>
     </section>

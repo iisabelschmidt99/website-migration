@@ -24,13 +24,22 @@ export default function StatsGrid({ heading, items }: StatsGridProps) {
         >
           {heading}
         </h2>
-        <div className="grid sm:grid-cols-3 gap-10 sm:gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-x-8 sm:gap-y-12">
           {items.map((item) => (
             <div key={item.label} className="text-center">
-              <p className="text-4xl sm:text-5xl font-black tracking-[-0.03em] text-signal mb-3">
-                {item.prefix}
-                {item.value}
-                {item.suffix}
+              <p className="text-4xl sm:text-5xl font-black tracking-[-0.03em] text-signal mb-3 leading-none">
+                {item.prefix === "+" ? (
+                  <span className="inline-flex flex-col items-center gap-0.5">
+                    <span>+</span>
+                    <span>{item.value}</span>
+                  </span>
+                ) : (
+                  <>
+                    {item.prefix}
+                    {item.value}
+                    {item.suffix}
+                  </>
+                )}
               </p>
               <h3 className="text-sm sm:text-base font-semibold leading-snug">
                 {item.label}

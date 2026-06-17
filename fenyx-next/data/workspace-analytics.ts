@@ -58,7 +58,7 @@ export const grundlagenContent = {
 
 export const timelineContent = {
   heading: "In 6 Schritten zum Fundament Ihrer Arbeitsplatzstrategie.",
-  variant: "light" as const,
+  variant: "dark" as const,
   backgroundSrc: `${wa}/timeline-bg.webp`,
   backgroundAlt:
     "Moderner Büroflur mit schwarzen Stahlrahmen-Glaswänden, grüner Deckenverkleidung und Blick auf einen Loungebereich am Ende des Gangs.",

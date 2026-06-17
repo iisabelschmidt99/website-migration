@@ -20,7 +20,7 @@ export const heroContent = {
   ctaHref: "#kontakt",
   ctaLabel: "Beratung zur Spende vereinbaren",
   showLearnMore: false,
-  variant: "dark" as const,
+  variant: "gradient" as const,
   uppercase: false,
 };
 
