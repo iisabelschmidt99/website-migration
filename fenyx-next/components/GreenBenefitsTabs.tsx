@@ -33,8 +33,15 @@ export default function GreenBenefitsTabs({
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <header className="inv-green-section__header">
-          <h2 id="vorteile-heading">{heading}</h2>
-          <p>{description}</p>
+          <h2 id="vorteile-heading">
+            {heading.split("\n").map((line, i, arr) => (
+              <span key={line.slice(0, 24)}>
+                {line}
+                {i < arr.length - 1 ? <br /> : null}
+              </span>
+            ))}
+          </h2>
+          {description ? <p>{description}</p> : null}
         </header>
 
         <div className="inv-green-tabs">

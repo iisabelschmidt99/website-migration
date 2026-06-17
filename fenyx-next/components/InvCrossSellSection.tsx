@@ -40,7 +40,12 @@ export default function InvCrossSellSection({
             id="crosssell-heading"
             className="text-2xl sm:text-3xl lg:text-4xl font-heading tracking-[-0.03em] mb-5 text-white"
           >
-            {heading}
+            {heading.split("\n").map((line, i, arr) => (
+              <span key={line.slice(0, 24)}>
+                {line}
+                {i < arr.length - 1 ? <br /> : null}
+              </span>
+            ))}
           </h2>
           <div className="text-mist text-base leading-relaxed mb-8 space-y-4">
             {body.split("\n\n").map((paragraph) => (

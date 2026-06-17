@@ -45,10 +45,20 @@ export default function VideoHero({
             id="video-hero-heading"
             className="text-3xl sm:text-4xl lg:text-5xl font-heading tracking-[-0.03em] mb-5 leading-[1.08]"
           >
-            {heading}
+            {heading.split("\n").map((line, i, arr) => (
+              <span key={line.slice(0, 24)}>
+                {line}
+                {i < arr.length - 1 ? <br /> : null}
+              </span>
+            ))}
           </h1>
           <p className="text-white/90 text-base sm:text-lg leading-relaxed mb-8">
-            {description}
+            {description.split("\n").map((line, i, arr) => (
+              <span key={line.slice(0, 24)}>
+                {line}
+                {i < arr.length - 1 ? <br /> : null}
+              </span>
+            ))}
           </p>
           <CtaButton href={ctaHref}>{ctaLabel}</CtaButton>
         </div>

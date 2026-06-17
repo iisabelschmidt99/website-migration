@@ -1,34 +1,43 @@
 import Image from "next/image";
 import Link from "next/link";
+import CheckList from "./CheckList";
 import CtaButton from "./CtaButton";
 
 type InventarisierungHeroProps = {
   heading: string;
   description: string;
-  pills: string[];
+  pills?: string[];
+  bullets?: string[];
   imageSrc: string;
   imageAlt: string;
   ctaHref?: string;
   ctaLabel?: string;
   learnMoreHref?: string;
   showLearnMore?: boolean;
+  variant?: "white" | "gradient";
+  uppercase?: boolean;
 };
 
-/** Hero mit Text + Pillen links, Bild rechts (Leistungsunterseiten). */
+/** Hero mit Text + Pillen/Bullets links, Bild rechts (Leistungsunterseiten). */
 export default function InventarisierungHero({
   heading,
   description,
-  pills,
+  pills = [],
+  bullets,
   imageSrc,
   imageAlt,
   ctaHref = "#kontakt",
   ctaLabel = "Kontakt aufnehmen",
   learnMoreHref = "#vorteile",
   showLearnMore = true,
+  variant = "white",
+  uppercase = true,
 }: InventarisierungHeroProps) {
+  const isGradient = variant === "gradient";
+
   return (
     <section
-      className="inv-hero bg-white"
+      className={`inv-hero${isGradient ? " inv-hero--gradient" : " bg-white"}`}
       aria-labelledby="inv-hero-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,26 +45,44 @@ export default function InventarisierungHero({
           <div>
             <h1
               id="inv-hero-heading"
-              className="text-3xl sm:text-4xl lg:text-5xl font-heading tracking-[-0.03em] mb-5 leading-[1.08] uppercase"
+              className={`text-3xl sm:text-4xl lg:text-5xl font-heading tracking-[-0.03em] mb-5 leading-[1.08] ${
+                uppercase ? "uppercase" : ""
+              } ${isGradient ? "text-white" : ""}`}
             >
               {heading}
             </h1>
-            <p className="text-black/75 text-base sm:text-lg leading-relaxed mb-8 max-w-xl">
+            <p
+              className={`text-base sm:text-lg leading-relaxed mb-8 max-w-xl ${
+                isGradient ? "text-white/85" : "text-black/75"
+              }`}
+            >
               {description}
             </p>
-            <ul className="inv-hero__pills" aria-label="Vorteile">
-              {pills.map((pill) => (
-                <li key={pill} className="inv-pill">
-                  {pill}
-                </li>
-              ))}
-            </ul>
+            {bullets ? (
+              <CheckList
+                items={bullets}
+                className={`mb-8 ${isGradient ? "text-white/90" : "text-black/80"}`}
+                aria-label="Vorteile"
+              />
+            ) : (
+              <ul className="inv-hero__pills" aria-label="Vorteile">
+                {pills.map((pill) => (
+                  <li key={pill} className="inv-pill">
+                    {pill}
+                  </li>
+                ))}
+              </ul>
+            )}
             <div className="flex flex-col sm:flex-row gap-4 items-start">
               <CtaButton href={ctaHref}>{ctaLabel}</CtaButton>
               {showLearnMore ? (
                 <Link
                   href={learnMoreHref}
-                  className="inline-flex items-center gap-2 text-black text-[11px] font-bold uppercase tracking-[0.1em] hover:text-signal transition-colors"
+                  className={`inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.1em] transition-colors ${
+                    isGradient
+                      ? "text-white/80 hover:text-signal"
+                      : "text-black hover:text-signal"
+                  }`}
                 >
                   Mehr erfahren
                   <svg
