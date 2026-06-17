@@ -14,7 +14,7 @@ type InventarisierungHeroProps = {
   ctaLabel?: string;
   learnMoreHref?: string;
   showLearnMore?: boolean;
-  variant?: "white" | "gradient";
+  variant?: "white" | "gradient" | "dark";
   uppercase?: boolean;
 };
 
@@ -34,10 +34,17 @@ export default function InventarisierungHero({
   uppercase = true,
 }: InventarisierungHeroProps) {
   const isGradient = variant === "gradient";
+  const isDark = variant === "dark" || isGradient;
 
   return (
     <section
-      className={`inv-hero${isGradient ? " inv-hero--gradient" : " bg-white"}`}
+      className={`inv-hero${
+        isGradient
+          ? " inv-hero--gradient"
+          : isDark
+            ? " inv-hero--dark"
+            : " bg-white"
+      }`}
       aria-labelledby="inv-hero-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -47,13 +54,13 @@ export default function InventarisierungHero({
               id="inv-hero-heading"
               className={`text-3xl sm:text-4xl lg:text-5xl font-heading tracking-[-0.03em] mb-5 leading-[1.08] ${
                 uppercase ? "uppercase" : ""
-              } ${isGradient ? "text-white" : ""}`}
+              } ${isDark ? "text-white" : ""}`}
             >
               {heading}
             </h1>
             <p
               className={`text-base sm:text-lg leading-relaxed mb-8 max-w-xl ${
-                isGradient ? "text-white/85" : "text-black/75"
+                isDark ? "text-white/85" : "text-black/75"
               }`}
             >
               {description}
@@ -61,7 +68,7 @@ export default function InventarisierungHero({
             {bullets ? (
               <CheckList
                 items={bullets}
-                className={`mb-8 ${isGradient ? "text-white/90" : "text-black/80"}`}
+                className={`mb-8 ${isDark ? "text-white/90" : "text-black/80"}`}
                 aria-label="Vorteile"
               />
             ) : (
@@ -79,7 +86,7 @@ export default function InventarisierungHero({
                 <Link
                   href={learnMoreHref}
                   className={`inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.1em] transition-colors ${
-                    isGradient
+                    isDark
                       ? "text-white/80 hover:text-signal"
                       : "text-black hover:text-signal"
                   }`}

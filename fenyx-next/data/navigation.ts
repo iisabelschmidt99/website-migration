@@ -1,7 +1,9 @@
 /** Navigationsdaten für Header / Mega-Menü (1:1 aus fenyx-rebuild). */
 
 const CDN = "https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6";
-const CDN_CASES = "https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f";
+const NAV_VERWERTUNG = "/assets/navigation/verwertung";
+const NAV_EINRICHTUNG = "/assets/navigation/einrichtung";
+const NAV_CASES = "/assets/navigation/cases";
 
 export type NavServiceLink = {
   label: string;
@@ -40,8 +42,6 @@ export const PROMO = {
   imageAlt: "Moderner Büroarbeitsplatz mit nachhaltiger Einrichtung",
 };
 
-const NAV_VERWERTUNG = "/assets/navigation/verwertung";
-
 export const MEGA_MENUS: MegaMenuConfig[] = [
   {
     id: "bestandsmanagement",
@@ -73,25 +73,25 @@ export const MEGA_MENUS: MegaMenuConfig[] = [
         title: "Internationales Consulting Unternehmen",
         sub: "Vier Standorte digital inventarisiert vor Fusion",
         href: "/referenzen",
-        imageSrc: `${CDN_CASES}/699452dfaa8fb06578b6e1f9_Sofa%20Lobby%20Quadrat.avif`,
+        imageSrc: `${NAV_CASES}/consulting-unternehmen.webp`,
       },
       {
         title: "Internationales Technologieunternehmen",
         sub: "Nachhaltige Aufarbeitung von Arbeitsplätzen",
         href: "/referenzen",
-        imageSrc: "/assets/mega-cases/technologieunternehmen.png",
+        imageSrc: `${NAV_CASES}/technologieunternehmen.png`,
       },
       {
         title: "Internationaler Industriekonzern",
         sub: "Aufbereitung für Unternehmensstandorte",
         href: "/referenzen",
-        imageSrc: "/assets/mega-cases/industriekonzern.png",
+        imageSrc: `${NAV_CASES}/industriekonzern.png`,
       },
       {
         title: "Internationaler Finanzdienstleister",
         sub: "Aufbereitung statt Neukauf",
         href: "/referenzen",
-        imageSrc: `${CDN_CASES}/6988d9ea184c3a10bc10da60_683a16be5e80545507a92f6f_Finanzdienstleister.avif`,
+        imageSrc: `${NAV_CASES}/finanzdienstleister.png`,
       },
     ],
   },
@@ -111,7 +111,7 @@ export const MEGA_MENUS: MegaMenuConfig[] = [
         label: "Mitarbeiterverkauf",
         href: "/verwertung/mitarbeiterverkauf",
         sub: "Verkauf an Mitarbeiter ohne steuerliche und Haftungs-Risiken",
-        imageSrc: `${NAV_VERWERTUNG}/mitarbeiterverkauf.webp`,
+        imageSrc: `${NAV_VERWERTUNG}/mitarbeiterverkauf.avif`,
       },
       {
         label: "Spende",
@@ -131,25 +131,25 @@ export const MEGA_MENUS: MegaMenuConfig[] = [
         title: "SoundCloud",
         sub: "Circular Office Exit für das Berliner SoundCloud Headquarter",
         href: "/referenzen",
-        imageSrc: `${CDN_CASES}/69c56038c83ed205443907fd_plakate_gross%20(1).webp`,
+        imageSrc: `${NAV_CASES}/soundcloud.webp`,
       },
       {
         title: "Continentale",
         sub: "Standortzusammenführung mit Mitarbeiterverkauf",
         href: "/referenzen",
-        imageSrc: `${CDN_CASES}/6988d9ea184c3a10bc10da94_687513f3537f3fc0f8f0e0a0_Continentale.webp`,
+        imageSrc: `${NAV_CASES}/continentale.png`,
       },
       {
         title: "Ernst Klett Verlag",
         sub: "Räumung mit Spenden an soziale Einrichtungen",
         href: "/referenzen",
-        imageSrc: `${CDN_CASES}/6988d9ea184c3a10bc10da8f_687514661a0a1570f8f0e0a0_Klett.webp`,
+        imageSrc: `${NAV_CASES}/klett.webp`,
       },
       {
         title: "OTTO",
         sub: "Nachhaltige Auflösung von vier Standorten",
         href: "/referenzen",
-        imageSrc: `${CDN_CASES}/6988d9ea184c3a10bc10dadb_68dd09c82283dea0f8f0e0a0_OTTO.webp`,
+        imageSrc: `${NAV_CASES}/otto.webp`,
       },
     ],
   },
@@ -163,19 +163,19 @@ export const MEGA_MENUS: MegaMenuConfig[] = [
         label: "Büroeinrichtung",
         href: "/einrichtung/bueroeinrichtung",
         sub: "Ganzheitliche Gestaltung nachhaltiger Arbeitswelten",
-        imageSrc: `${CDN}/6989a9bafc4d640fd4e302cb_Einrichtung%20Header%20Dropdown%20B%C3%BCroeinrichtung.webp`,
+        imageSrc: `${NAV_EINRICHTUNG}/bueroeinrichtung.webp`,
       },
       {
         label: "Workspace Analytics & Bürokonzept",
         href: "/einrichtung/workspace-analytics",
         sub: "Datenbasierte Analyse und optimale Raumnutzung",
-        imageSrc: `${CDN}/6988d9ea184c3a10bc10d930_miete-herkunft-3.webp`,
+        imageSrc: `${NAV_EINRICHTUNG}/workspace-analytics.webp`,
       },
       {
         label: "Mietoptionen",
         href: "/einrichtung/bueromoebel-mieten",
         sub: "Flexible Bürolösungen ohne Kapitalbindung",
-        imageSrc: `${CDN}/6988d9ea184c3a10bc10d94a_683186c52505f0a9d720ec59_Nachhaltige%20B%C3%BCroplanung.webp`,
+        imageSrc: `${NAV_EINRICHTUNG}/bueromoebel-mieten.webp`,
       },
     ],
     cases: [
@@ -183,25 +183,25 @@ export const MEGA_MENUS: MegaMenuConfig[] = [
         title: "Pharmaunternehmen",
         sub: "Nachhaltige Büroausstattung im Mietmodell",
         href: "/referenzen",
-        imageSrc: `${CDN_CASES}/69aeb870d28d57934eb424d4_blick-ins-foyer.webp`,
+        imageSrc: `${NAV_CASES}/pharma.webp`,
       },
       {
         title: "Bildungsanbieter",
         sub: "Zirkuläre Einrichtung für 120 Arbeitsplätze",
         href: "/referenzen",
-        imageSrc: `${CDN_CASES}/6988d9ea184c3a10bc10dad3_68837e8c28869c60f8f0e0a0_Bildungsanbieter.webp`,
+        imageSrc: `${NAV_CASES}/bildungsanbieter.webp`,
       },
       {
         title: "The Nunatak Group",
         sub: "Workspace-Analyse und nachhaltige Einrichtung",
         href: "/referenzen",
-        imageSrc: `${CDN_CASES}/6988d9ea184c3a10bc10da77_683a0c7649d3317f8f0e0a0_Nunatak.webp`,
+        imageSrc: `${NAV_CASES}/nunatak.webp`,
       },
       {
         title: "bcause",
         sub: "Refurbished Büromöblierung im Mietmodell",
         href: "/referenzen",
-        imageSrc: `${CDN_CASES}/6988d9ea184c3a10bc10da90_68caf2fe71b79dec22e92e0e_Bildschirmfoto%25202025-09-17%2520um%252019.42.19.webp`,
+        imageSrc: `${NAV_CASES}/bcause.webp`,
       },
     ],
   },

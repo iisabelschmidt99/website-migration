@@ -408,7 +408,13 @@
   color: #fff;
 }
 
-.inv-hero--gradient .inv-pill {
+.inv-hero--dark {
+  background: #0b171f;
+  color: #fff;
+}
+
+.inv-hero--gradient .inv-pill,
+.inv-hero--dark .inv-pill {
   border-color: rgba(255, 255, 255, 0.2);
   color: rgba(255, 255, 255, 0.9);
 }

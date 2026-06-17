@@ -10,7 +10,7 @@ export const heroContent = {
   heading: "Spenden Sie Ihren Restbestand.",
   description:
     "Mit Fenyx können Sie Restbestände, die beispielsweise aufgrund ihres Alters keinen Marktwert mehr besitzen, an gemeinnützige Organisationen spenden und somit Ihrer sozialen Verantwortung und Nachhaltigkeits-Zielen gerecht werden.",
-  pills: [
+  bullets: [
     "⌀ 64% höhere Verwertungsquote von nicht-vermarktbarem Bestand",
     "⌀ 125kg CO₂-Einsparungen pro gespendetem Arbeitsplatz",
     "Koordination & Abwicklung der Administration & Logistik aus einer Hand",
@@ -20,6 +20,8 @@ export const heroContent = {
   ctaHref: "#kontakt",
   ctaLabel: "Beratung zur Spende vereinbaren",
   showLearnMore: false,
+  variant: "dark" as const,
+  uppercase: false,
 };
 
 export const netzwerkContent = {

@@ -12,6 +12,7 @@ import {
   crossSellContent,
   referenzenContent,
 } from "@/data/spende";
+import { spendeReferences } from "@/data/spende-references";
 
 export const metadata: Metadata = {
   title: spendeMeta.title,
@@ -31,6 +32,7 @@ export default function SpendePage() {
         id="referenzen"
         heading={referenzenContent.heading}
         description={referenzenContent.description}
+        projects={spendeReferences}
       />
 
       <ServiceContactSection {...verwertungContact} />
