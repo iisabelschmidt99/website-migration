@@ -231,11 +231,19 @@ export async function getHomepageReferenceProjects(): Promise<ReferenceProject[]
   const studies = await getReferenzCaseStudiesBySlugs([...HOMEPAGE_REFERENZ_SLUGS]);
   const bySlug = new Map(studies.map((study) => [study.slug, study]));
 
-  return HOMEPAGE_REFERENZ_SLUGS.map((slug, index) => {
-    const study = bySlug.get(slug);
-    if (!study) {
-      throw new Error(`Referenz-Case-Study fehlt: ${slug}`);
-    }
-    return caseStudyToReferenceProject(study, index % 2 === 1);
-  });
+  // Bevorzugte Reihenfolge, aber fehlende/unveröffentlichte Slugs einfach
+  // überspringen statt einen Fehler zu werfen (Startseite darf nie crashen).
+  const projects = HOMEPAGE_REFERENZ_SLUGS
+    .map((slug) => bySlug.get(slug))
+    .filter((study): study is ReferenzCaseStudy => Boolean(study))
+    .map((study, index) => caseStudyToReferenceProject(study, index % 2 === 1));
+
+  if (projects.length > 0) return projects;
+
+  // Notfall-Fallback: irgendwelche veröffentlichten Referenzen nehmen,
+  // damit der Abschnitt nie leer ist.
+  const all = await getPublishedReferenzCaseStudies();
+  return all
+    .slice(0, 5)
+    .map((study, index) => caseStudyToReferenceProject(study, index % 2 === 1));
 }

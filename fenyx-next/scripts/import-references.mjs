@@ -58,6 +58,18 @@ function parseCSV(text) {
 const stripHtml = (s) =>
   (s || "").replace(/<[^>]*>/g, " ").replace(/&nbsp;/g, " ").replace(/\s+/g, " ").trim();
 
+// Ein "Block"-Feld ist HTML wie <h3>Überschrift</h3><p>Text…</p>.
+// Daraus Überschrift + Fließtext als Highlight extrahieren.
+function parseBlock(htmlRaw) {
+  const html = htmlRaw || "";
+  if (!html.trim()) return null;
+  const hMatch = html.match(/<h[1-6][^>]*>([\s\S]*?)<\/h[1-6]>/i);
+  const heading = hMatch ? stripHtml(hMatch[1]) : "";
+  const body = stripHtml(hMatch ? html.replace(hMatch[0], " ") : html);
+  if (!heading && !body) return null;
+  return { heading, body };
+}
+
 async function main() {
   const env = loadEnv();
   const url = env.NEXT_PUBLIC_SUPABASE_URL;
@@ -114,9 +126,12 @@ async function main() {
       if (v || l) heroStats.push({ value: v, label: l });
     }
 
-    // Intro: Intro-Text + Block 1..3 als Absätze (HTML entfernt)
-    const intro = [get("Intro-Text"), get("Block 1 Text"), get("Block 2 Text"), get("Block 3 Text")]
-      .map(stripHtml)
+    // Intro = nur der Intro-Text (HTML entfernt)
+    const intro = [stripHtml(get("Intro-Text"))].filter(Boolean);
+
+    // Highlights aus Block 1..3 (Überschrift + Text)
+    const highlights = ["Block 1 Text", "Block 2 Text", "Block 3 Text"]
+      .map((c) => parseBlock(get(c)))
       .filter(Boolean);
 
     const metaRows = [
@@ -142,6 +157,7 @@ async function main() {
       hero_image_alt: company || null,
       intro,
       hero_stats: heroStats,
+      highlights,
       meta_rows: metaRows,
       published,
     };
