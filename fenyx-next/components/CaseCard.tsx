@@ -18,50 +18,57 @@ export default function CaseCard({
 }: CaseCardProps) {
   return (
     <article
-      className={`case-card grid grid-cols-1 lg:grid-cols-2 min-h-[22rem] lg:h-[28rem] lg:min-h-[28rem] lg:max-h-[28rem] overflow-hidden bg-abyss-deep items-stretch ${
+      className={`case-card flex flex-col lg:flex-row lg:items-stretch gap-8 lg:gap-12 bg-abyss-deep p-8 sm:p-10 lg:p-12 shadow-[0_2px_5rem_rgba(2,4,5,0.2)] ${
         imageLeft ? "case-card--image-left" : ""
       }`}
     >
-      <div className="case-card-content flex flex-col justify-center p-7 sm:p-9 lg:p-11 lg:h-[28rem] lg:overflow-hidden">
-        <p className="text-xs font-bold text-white/90 mb-1.5">{eyebrow}</p>
-        <h3 className="text-white text-xl sm:text-2xl font-heading tracking-[-0.02em] mb-3">
-          {heading}
-        </h3>
-        <div className="inline-flex self-start items-center mb-4 px-3.5 py-1.5 border border-white/20 text-[11px] text-white/85">
-          {tag}
+      <div className="case-card-content flex w-full flex-col justify-between lg:max-w-[50%] lg:flex-1">
+        <div>
+          <p className="mb-1.5 text-sm font-bold text-white/90">{eyebrow}</p>
+          <h3 className="mb-3 font-heading text-xl tracking-[-0.02em] text-white sm:text-2xl">
+            {heading}
+          </h3>
+          <div className="mb-4 inline-flex items-center self-start border border-white/20 px-3.5 py-1.5 text-[11px] text-white/85">
+            {tag}
+          </div>
         </div>
-        <p className="text-mist text-[13px] leading-relaxed mb-4 max-w-[34rem]">
-          {body}
-        </p>
-        <div className="grid grid-cols-3 gap-2.5 mb-4 pt-4 border-t border-white/10">
-          {stats.map((stat) => (
-            <div key={stat.label}>
-              <p className="text-white text-lg sm:text-xl font-heading leading-tight">
-                {stat.value}
-              </p>
-              <p className="text-mist text-[10px] leading-snug mt-1">
-                {stat.label}
-              </p>
-            </div>
-          ))}
+
+        <div>
+          <p className="mb-4 max-w-[34rem] text-[13px] leading-relaxed text-mist">
+            {body}
+          </p>
+          <div className="mb-4 grid grid-cols-3 gap-2.5 border-t border-white/10 pt-4">
+            {stats.map((stat) => (
+              <div key={stat.label}>
+                <p className="font-heading text-lg leading-tight text-white sm:text-xl">
+                  {stat.value}
+                </p>
+                <p className="mt-1 text-[10px] leading-snug text-mist">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+          <Link
+            href={href}
+            className="inline-flex items-center justify-center self-start border border-signal px-5 py-2.5 text-[10px] font-bold uppercase tracking-[0.1em] text-signal transition-colors duration-200 hover:bg-signal hover:text-black"
+          >
+            Zum Projekt
+          </Link>
         </div>
-        <Link
-          href={href}
-          className="inline-flex self-start items-center justify-center px-5 py-2.5 border border-signal text-signal text-[10px] font-bold uppercase tracking-[0.1em] hover:bg-signal hover:text-black transition-colors duration-200"
-        >
-          Zum Projekt
-        </Link>
       </div>
 
-      <div className="case-card-image relative aspect-[16/10] min-h-[14rem] lg:aspect-auto lg:h-[28rem] p-7 sm:p-9 lg:py-11 lg:pl-7 lg:pr-11 bg-abyss-deep overflow-hidden">
-        <Image
-          src={imageSrc}
-          alt={imageAlt}
-          fill
-          className="object-cover object-center"
-          sizes="(max-width: 1024px) 100vw, 50vw"
-          loading="lazy"
-        />
+      <div className="case-card-image flex w-full items-center lg:max-w-[50%] lg:flex-1">
+        <div className="case-card-image-frame relative aspect-[5/3] w-full overflow-hidden">
+          <Image
+            src={imageSrc}
+            alt={imageAlt}
+            fill
+            className="object-cover object-center"
+            sizes="(max-width: 1024px) 100vw, 40vw"
+            loading="lazy"
+          />
+        </div>
       </div>
     </article>
   );

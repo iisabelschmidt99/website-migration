@@ -12,7 +12,6 @@ import {
 } from "react";
 import {
   REFERENZEN_CATEGORY_LABELS,
-  REFERENZEN_MAP_ENTRIES,
   getReferenzEntryImage,
   matchesReferenzFilter,
   placeReferenzCallout,
@@ -26,6 +25,7 @@ import { referenzEntryHref } from "@/data/referenz-case-studies";
 type ReferenzenInteractiveSectionProps = {
   heading: string;
   mapIntro: string;
+  entries: ReferenzMapEntry[];
 };
 
 const MAP_SVG_SRC = "/assets/deutschlandkarte/fenyx-germany-map.svg";
@@ -62,6 +62,7 @@ function LocationPinIcon() {
 export default function ReferenzenInteractiveSection({
   heading,
   mapIntro,
+  entries,
 }: ReferenzenInteractiveSectionProps) {
   const [filter, setFilter] = useState<ReferenzFilterState>({
     type: "all",
@@ -81,8 +82,8 @@ export default function ReferenzenInteractiveSection({
   const clearTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const visibleEntries = useMemo(
-    () => REFERENZEN_MAP_ENTRIES.filter((entry) => matchesReferenzFilter(entry, filter)),
-    [filter],
+    () => entries.filter((entry) => matchesReferenzFilter(entry, filter)),
+    [entries, filter],
   );
 
   const positionedMarkers = useMemo(
@@ -410,7 +411,7 @@ export default function ReferenzenInteractiveSection({
               aria-live="polite"
             >
               {callout ? (() => {
-                const calloutHref = referenzEntryHref(callout.entry.id);
+                const calloutHref = referenzEntryHref(callout.entry);
                 return (
                 <article className="referenzen-cases__callout-card">
                   <Image
@@ -451,7 +452,7 @@ export default function ReferenzenInteractiveSection({
 
         <div className="referenzen-cases__grid" role="list">
           {visibleEntries.map((entry) => {
-            const href = referenzEntryHref(entry.id);
+            const href = referenzEntryHref(entry);
             const card = (
               <>
                 <div className="referenzen-cases__card-image-wrap">

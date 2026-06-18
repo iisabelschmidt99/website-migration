@@ -4,6 +4,11 @@ const nextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "cdn.prod.website-files.com" },
       { protocol: "https", hostname: "vz-248cf2fb-ed4.b-cdn.net" },
+      {
+        protocol: "https",
+        hostname: "aadugmrnlvsmdxisaady.supabase.co",
+        pathname: "/storage/v1/object/public/**",
+      },
     ],
   },
   async redirects() {

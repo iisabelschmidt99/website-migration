@@ -11,17 +11,23 @@ import {
   contactContent,
 } from "@/data/referenzen";
 
+import { getReferenzenMapEntries } from "@/lib/references";
+
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: referenzenMeta.title,
   description: referenzenMeta.description,
 };
 
-export default function ReferenzenPage() {
+export default async function ReferenzenPage() {
+  const mapEntries = await getReferenzenMapEntries();
+
   return (
     <div className="inv-page">
       <LogoGrid {...logoSectionContent} />
 
-      <ReferenzenInteractiveSection {...casesSectionContent} />
+      <ReferenzenInteractiveSection {...casesSectionContent} entries={mapEntries} />
 
       <InvCrossSellSection {...crossSellContent} />
 

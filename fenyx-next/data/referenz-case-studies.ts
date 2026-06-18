@@ -1,4 +1,5 @@
 import caseStudiesRaw from "./referenz-case-studies.generated.json";
+import type { ReferenzMapEntry } from "./referenzen-entries";
 import type { ReferenceStat } from "@/data/reference-projects";
 
 export type ReferenzCaseHighlight = {
@@ -23,21 +24,8 @@ export type ReferenzCaseStudy = {
   relatedSlugs: string[];
 };
 
+/** Nur noch für Fallback ohne Supabase-Konfiguration. */
 export const REFERENZ_CASE_STUDIES = caseStudiesRaw as ReferenzCaseStudy[];
-
-export function getReferenzCaseStudy(slug: string) {
-  return REFERENZ_CASE_STUDIES.find((study) => study.slug === slug);
-}
-
-export function getAllReferenzCaseSlugs() {
-  return REFERENZ_CASE_STUDIES.map((study) => study.slug);
-}
-
-export function getReferenzCaseStudiesBySlugs(slugs: string[]) {
-  return slugs
-    .map((slug) => getReferenzCaseStudy(slug))
-    .filter((study): study is ReferenzCaseStudy => Boolean(study));
-}
 
 /** Verknüpfung Karten-Einträge auf der Referenzen-Übersicht mit Detailseiten. */
 export const REFERENZ_ENTRY_SLUGS: Record<string, string> = {
@@ -68,7 +56,8 @@ export const REFERENZ_ENTRY_SLUGS: Record<string, string> = {
   "ei-13": "flexible-buromoblierung-zur-miete",
 };
 
-export function referenzEntryHref(entryId: string) {
-  const slug = REFERENZ_ENTRY_SLUGS[entryId];
-  return slug ? `/referenzen/${slug}` : undefined;
+export function referenzEntryHref(entry: Pick<ReferenzMapEntry, "id" | "slug">) {
+  if (entry.slug) return `/referenzen/${entry.slug}`;
+  const mapped = REFERENZ_ENTRY_SLUGS[entry.id];
+  return mapped ? `/referenzen/${mapped}` : undefined;
 }

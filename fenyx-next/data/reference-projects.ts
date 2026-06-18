@@ -1,4 +1,7 @@
-import { REFERENZ_CASE_STUDIES, getReferenzCaseStudy } from "@/data/referenz-case-studies";
+import {
+  REFERENZ_CASE_STUDIES,
+  type ReferenzCaseStudy,
+} from "@/data/referenz-case-studies";
 
 export type ReferenceStat = {
   value: string;
@@ -26,7 +29,7 @@ const HOMEPAGE_REFERENZ_SLUGS = [
 ] as const;
 
 function caseToReferenceProject(
-  study: (typeof REFERENZ_CASE_STUDIES)[number],
+  study: ReferenzCaseStudy,
   imageLeft = false,
 ): ReferenceProject {
   return {
@@ -49,7 +52,7 @@ function caseToReferenceProject(
 /** Homepage-Referenzprojekte (Inhalte aus Live-Seite / Webflow-Vorlage). */
 export const referenceProjects: ReferenceProject[] = HOMEPAGE_REFERENZ_SLUGS.map(
   (slug, index) => {
-    const study = getReferenzCaseStudy(slug);
+    const study = REFERENZ_CASE_STUDIES.find((item) => item.slug === slug);
     if (!study) {
       throw new Error(`Referenz-Case-Study fehlt: ${slug}`);
     }

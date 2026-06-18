@@ -45,6 +45,7 @@ export default async function AdminReferenzen() {
               <th className="py-2 pr-4 font-medium">Titel</th>
               <th className="py-2 pr-4 font-medium">Ort / Jahr</th>
               <th className="py-2 pr-4 font-medium">Status</th>
+              <th className="py-2 pr-4 font-medium"></th>
             </tr>
           </thead>
           <tbody>
@@ -61,6 +62,14 @@ export default async function AdminReferenzen() {
                   ) : (
                     <span className="text-white/40">○ Entwurf</span>
                   )}
+                </td>
+                <td className="py-2.5 pr-4">
+                  <Link
+                    href={`/admin/referenzen/${r.id}`}
+                    className="text-mist hover:text-signal"
+                  >
+                    Bearbeiten
+                  </Link>
                 </td>
               </tr>
             ))}

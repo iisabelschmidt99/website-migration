@@ -9,6 +9,7 @@ export type ReferenzCategory =
 
 export type ReferenzMapEntry = {
   id: string;
+  slug?: string;
   type: ReferenzEntryType;
   category: ReferenzCategory;
   company: string;
@@ -296,6 +297,10 @@ export const REFERENZEN_MAP_ENTRIES: ReferenzMapEntry[] = [
     city: "Aalen",
   },
 ];
+
+export const REFERENZEN_PARTNER_ENTRIES = REFERENZEN_MAP_ENTRIES.filter(
+  (entry) => entry.type === "partner",
+);
 
 export function getReferenzEntryImage(entry: ReferenzMapEntry): string {
   if (entry.imageSrc) return entry.imageSrc;

@@ -8,7 +8,7 @@ import {
   getAllReferenzCaseSlugs,
   getReferenzCaseStudiesBySlugs,
   getReferenzCaseStudy,
-} from "@/data/referenz-case-studies";
+} from "@/lib/references";
 
 const detailContactContent = {
   heading: "Kostenlose Erstberatung buchen",
@@ -22,17 +22,20 @@ const detailContactContent = {
   role: "Customer Support",
 };
 
+export const revalidate = 60;
+
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export function generateStaticParams() {
-  return getAllReferenzCaseSlugs().map((slug) => ({ slug }));
+export async function generateStaticParams() {
+  const slugs = await getAllReferenzCaseSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const study = getReferenzCaseStudy(slug);
+  const study = await getReferenzCaseStudy(slug);
   if (!study) return {};
 
   return {
@@ -43,13 +46,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ReferenzCasePage({ params }: PageProps) {
   const { slug } = await params;
-  const study = getReferenzCaseStudy(slug);
+  const study = await getReferenzCaseStudy(slug);
 
   if (!study) {
     notFound();
   }
 
-  const related = getReferenzCaseStudiesBySlugs(study.relatedSlugs).filter(
+  const related = (await getReferenzCaseStudiesBySlugs(study.relatedSlugs)).filter(
     (item) => item.slug !== study.slug,
   );
 

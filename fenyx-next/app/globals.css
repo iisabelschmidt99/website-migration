@@ -76,7 +76,7 @@
 .ref-scroll-item {
   position: sticky;
   top: 5.5rem;
-  min-height: 58vh;
+  min-height: 46vh;
   display: flex;
   align-items: flex-start;
   padding-top: 0.5rem;
@@ -84,28 +84,14 @@
 }
 
 .ref-scroll-item:last-child {
-  min-height: 44vh;
+  min-height: 36vh;
   margin-bottom: 0;
-}
-
-.ref-scroll-card {
-  width: 100%;
-  will-change: transform, opacity;
-  transition: opacity 0.85s ease, transform 0.85s ease;
-  transform-origin: center top;
 }
 
 /* Bild links bei geraden Karten (ab Index 1) */
 @media (min-width: 1024px) {
   .case-card--image-left .case-card-image {
     order: -1;
-    padding-left: 2.75rem;
-    padding-right: 1.75rem;
-  }
-
-  .case-card:not(.case-card--image-left) .case-card-image {
-    padding-right: 2.75rem;
-    padding-left: 1.75rem;
   }
 }
 
@@ -113,6 +99,13 @@
   .case-card-image {
     order: -1;
   }
+}
+
+.ref-scroll-card {
+  width: 100%;
+  will-change: transform, opacity;
+  transition: opacity 0.85s ease, transform 0.85s ease;
+  transform-origin: center top;
 }
 
 @media (prefers-reduced-motion: reduce) {
