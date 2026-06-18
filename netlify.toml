@@ -6,6 +6,8 @@
 
 [build.environment]
   NODE_VERSION = "20"
+  # In Netlify UI unter Site settings → Environment variables setzen:
+  # NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY
 
 # Offizielles Next.js-Plugin: kümmert sich um Routing, Server-Rendering
 # und die automatische Bildoptimierung von next/image.

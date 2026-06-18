@@ -8,7 +8,6 @@ import { createClient } from "@/lib/supabase/client";
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  const supabase = createClient();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -18,9 +17,22 @@ export default function AdminLoginPage() {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+    let supabase;
+    try {
+      supabase = createClient();
+    } catch {
+      setLoading(false);
+      setError("Backend nicht konfiguriert – Supabase-Umgebungsvariablen fehlen.");
+      return;
+    }
+
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
     setLoading(false);
-    if (error) {
+    if (signInError) {
       setError("Login fehlgeschlagen – bitte E-Mail und Passwort prüfen.");
       return;
     }
