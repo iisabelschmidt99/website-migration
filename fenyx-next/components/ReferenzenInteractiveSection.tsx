@@ -341,7 +341,6 @@ export default function ReferenzenInteractiveSection({
               role="img"
               aria-label="Interaktive Karte von Deutschland mit Projektstandorten"
             >
-              <rect width={VB_W} height={VB_H} fill="#0b171f" />
               <g ref={mapLayerRef} aria-hidden="true" />
               <g>
                 {positionedMarkers.map(({ entry, x, y }) => (

@@ -1979,13 +1979,11 @@
 
 .referenzen-cases__map .de-city {
   opacity: 0;
-  transform: translateY(5px);
-  transition: opacity 0.45s ease, transform 0.45s ease;
+  transition: opacity 0.45s ease;
 }
 
 .referenzen-cases__map.is-animated .de-city {
   opacity: 1;
-  transform: translateY(0);
 }
 
 .referenzen-cases__map .de-state:hover {
@@ -2644,7 +2642,6 @@
   .referenzen-cases__map .de-city {
     transition: none;
     opacity: 1;
-    transform: none;
   }
 
   .referenzen-map-marker__pulse {
