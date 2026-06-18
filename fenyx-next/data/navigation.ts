@@ -1,6 +1,5 @@
 /** Navigationsdaten für Header / Mega-Menü (1:1 aus fenyx-rebuild). */
 
-const CDN = "https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6";
 const NAV_VERWERTUNG = "/assets/navigation/verwertung";
 const NAV_EINRICHTUNG = "/assets/navigation/einrichtung";
 const NAV_CASES = "/assets/navigation/cases";
@@ -53,7 +52,7 @@ export const MEGA_MENUS: MegaMenuConfig[] = [
         label: "Digitales Bestandsmanagement",
         href: "/bestandsmanagement",
         sub: "Ziehen Sie den maximalen Wert aus Ihrem Bestand",
-        imageSrc: `${CDN}/6988d9ea184c3a10bc10d8a1_bestand-hero.webp`,
+        imageSrc: `/assets/cms/bestand-hero.webp`,
       },
       {
         label: "Digitale Inventarisierung",
@@ -65,7 +64,7 @@ export const MEGA_MENUS: MegaMenuConfig[] = [
         label: "Projektmanagement",
         href: "/bestandsmanagement/projektmanagement",
         sub: "Ganzheitliche, nachhaltige Projektbegleitung aus einer Hand",
-        imageSrc: `${CDN}/6988d9ea184c3a10bc10d8a9_miete-tabs-3.webp`,
+        imageSrc: `/assets/cms/miete-tabs-3.webp`,
       },
     ],
     cases: [
@@ -215,25 +214,25 @@ export const MEGA_MENUS: MegaMenuConfig[] = [
         label: "Großunternehmen",
         href: "/fenyx-fuer-sie/grossunternehmen",
         sub: "Errichten und betreiben Sie Ihre Standorte kosteneffizient und nachhaltig.",
-        imageSrc: `${CDN}/6988d9ea184c3a10bc10d841_bueroaufloesung%20(thumbnail).webp`,
+        imageSrc: `/assets/cms/bueroaufloesung-thumbnail.webp`,
       },
       {
         label: "Mittelstand",
         href: "/fenyx-fuer-sie/mittelstand",
         sub: "Gestalten Sie Ihr Büro genauso schnell und flexibel wie Ihr Geschäft.",
-        imageSrc: `${CDN}/6988d9ea184c3a10bc10d838_mitarbeiterverkauf%20(thumbnail).webp`,
+        imageSrc: `/assets/cms/mitarbeiterverkauf-thumbnail.webp`,
       },
       {
         label: "Scale-Ups",
         href: "/fenyx-fuer-sie/start-up-scale-up",
         sub: "Erhalten Sie EU-weites nachhaltiges Projektmanagement aus einer Hand.",
-        imageSrc: `${CDN}/6988d9ea184c3a10bc10d8c6_spende%201.webp`,
+        imageSrc: `/assets/cms/spende-1.webp`,
       },
       {
         label: "Co-Working Space",
         href: "/fenyx-fuer-sie/co-working-space",
         sub: "Machen Sie Ihr Büro zukunftsfähig und schonen Sie dabei Ressourcen.",
-        imageSrc: `${CDN}/6988d9ea184c3a10bc10d83a_auktionsplattform.webp`,
+        imageSrc: `/assets/cms/auktionsplattform.webp`,
       },
     ],
   },

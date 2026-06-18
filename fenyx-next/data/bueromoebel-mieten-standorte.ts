@@ -19,7 +19,6 @@ export type StandortPageData = {
   contactQuote: string;
 };
 
-const CMS = "https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f";
 
 export const STANDORT_PAGES = standorteRaw as StandortPageData[];
 
@@ -44,7 +43,7 @@ export function standortContactContent(page: StandortPageData) {
       `Dein Ansprechpartner für unseren Standort in ${city}`,
     email: page.contactEmail || "marius@fenyx-office.com",
     phone: "+49 176 23820424",
-    portraitSrc: `${CMS}/6993440dadc6b370203d5c41_698d9039a6c253ec309fc4b4_Marius.avif`,
+    portraitSrc: `/assets/cms/Marius.webp`,
     portraitAlt: "Bild von Marius Grimm, Einrichtungsberater bei Fenyx Office",
     quote: page.contactQuote || DEFAULT_CONTACT_QUOTE,
     name: page.contactName || "Marius Grimm",
@@ -52,13 +51,12 @@ export function standortContactContent(page: StandortPageData) {
   };
 }
 
-const IMG = "https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6";
 
 export const standortSharedImages = {
   parallax: [
-    `${IMG}/6988d9ea184c3a10bc10d8c6_Animation-5.webp`,
-    `${IMG}/6988d9ea184c3a10bc10d8c5_Animation-4.webp`,
+    `/assets/cms/Animation-5.webp`,
+    `/assets/cms/Animation-4.webp`,
   ],
-  section1: `${IMG}/6988d9ea184c3a10bc10d8c3_Animation-2.webp`,
-  section2: `${IMG}/6988d9ea184c3a10bc10d8c7_White-Chair-White-Table.webp`,
+  section1: `/assets/cms/Animation-2.webp`,
+  section2: `/assets/cms/White-Chair-White-Table.webp`,
 };

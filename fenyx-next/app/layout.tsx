@@ -7,6 +7,7 @@ import "./globals.css";
 import "./site-nav.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ChromeGate from "@/components/ChromeGate";
 
 // ── Marken-Fonts (self-hosted, aus dem Webflow-Original) ──────────
 // Roobert = Fließtext (body). Telegraf = Überschriften (h1–h6).
@@ -45,10 +46,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="de" className={`${roobert.variable} ${telegraf.variable}`}>
-      <body className="font-sans text-black bg-white antialiased">
-        <Header />
-        <main className="relative z-0">{children}</main>
-        <Footer />
+      <body
+        className="font-sans text-black bg-white antialiased"
+        suppressHydrationWarning
+      >
+        <ChromeGate header={<Header />} footer={<Footer />}>
+          {children}
+        </ChromeGate>
       </body>
     </html>
   );

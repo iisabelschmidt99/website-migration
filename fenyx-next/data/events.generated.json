@@ -1,0 +1,149 @@
+{
+  "meta": {
+    "title": "Events & Seminare für nachhaltige Bürogestaltung | FENYX",
+    "description": ""
+  },
+  "hero": {
+    "heading": "Wissen teilen.\nKreisläufe schließen.",
+    "description": "Spannende Themen. Tolle Menschen.\n\nSeminare, Site Visits und Networking-Events: Wählen Sie das Event, das am besten zu Ihrer Rolle passt.",
+    "videoSrc": "https://vz-248cf2fb-ed4.b-cdn.net/360a443c-e207-4286-bdf8-8c791a4ed40e/playlist.m3u8",
+    "posterSrc": "https://vz-248cf2fb-ed4.b-cdn.net/360a443c-e207-4286-bdf8-8c791a4ed40e/thumbnail.jpg"
+  },
+  "events": [
+    {
+      "slug": "raumakustik-in-der-architektur-grundlagen-normen-und-planungspraxis",
+      "title": "Raumakustik in der Architektur – Grundlagen, Normen und Planungspraxis",
+      "meta": {
+        "title": "Raumakustik in der Architektur – Grundlagen, Normen und Planungspraxis",
+        "description": ""
+      },
+      "imageSrc": "https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f/6a0ed4650504a5cc6d904c78_events-hero.avif",
+      "paragraphs": [],
+      "href": "/events/raumakustik-in-der-architektur-grundlagen-normen-und-planungspraxis",
+      "dateLabel": "18.06.2026",
+      "description": "Für Architekten, Innenarchitekten und Planer, die Räume schaffen wollen, die nicht nur gut aussehen, sondern sich auch gut anhören. Akustikingenieur und studierter Musiker Björn Federspiel (Akustikwerke GmbH, Köln) zeigt praxisnah, was zählt: Grundlagen, Normen, Planungspraxis mit Live-Messung im Raum.",
+      "location": "Anerkannt von der Architektenkammer mit 8 Unterrichtseinheiten.",
+      "tag": "Fortbildung"
+    },
+    {
+      "slug": "raumakustik-in-der-architektur-grundlagen-normen-und-planungspraxis-koeln",
+      "title": "Raumakustik in der Architektur – Grundlagen, Normen und Planungspraxis",
+      "meta": {
+        "title": "Raumakustik in der Architektur – Grundlagen, Normen und Planungspraxis",
+        "description": ""
+      },
+      "imageSrc": "https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f/6a0ed4650504a5cc6d904c78_events-hero.avif",
+      "paragraphs": [],
+      "href": "/events/raumakustik-in-der-architektur-grundlagen-normen-und-planungspraxis-koeln",
+      "dateLabel": "25.06.2026",
+      "description": "Für Architekten, Innenarchitekten und Planer, die Räume schaffen wollen, die nicht nur gut aussehen, sondern sich auch gut anhören. Akustikingenieur und studierter Musiker Björn Federspiel (Akustikwerke GmbH, Köln) zeigt praxisnah, was zählt: Grundlagen, Normen, Planungspraxis mit Live-Messung im Raum.",
+      "location": "Anerkannt von der Architektenkammer mit 8 Unterrichtseinheiten.",
+      "tag": "Fortbildung"
+    },
+    {
+      "slug": "raumakustik-in-der-architektur-grundlagen-normen-und-planungspraxis-belrin",
+      "title": "Raumakustik in der Architektur – Grundlagen, Normen und Planungspraxis",
+      "meta": {
+        "title": "Raumakustik in der Architektur – Grundlagen, Normen und Planungspraxis",
+        "description": ""
+      },
+      "imageSrc": "https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f/6a0ed4650504a5cc6d904c78_events-hero.avif",
+      "paragraphs": [],
+      "href": "/events/raumakustik-in-der-architektur-grundlagen-normen-und-planungspraxis-belrin",
+      "dateLabel": "02.07.2026",
+      "description": "Für Architekten, Innenarchitekten und Planer, die Räume schaffen wollen, die nicht nur gut aussehen, sondern sich auch gut anhören. Akustikingenieur und studierter Musiker Björn Federspiel (Akustikwerke GmbH, Köln) zeigt praxisnah, was zählt: Grundlagen, Normen, Planungspraxis mit Live-Messung im Raum.",
+      "location": "Anerkannt von der Architektenkammer mit 8 Unterrichtseinheiten.",
+      "tag": "Fortbildung"
+    },
+    {
+      "slug": "buerokonzepte-unter-budget-druck-was-2026-wirklich-traegt-duesseldorf",
+      "title": "Bürokonzepte unter Budget-Druck: Was 2026 wirklich trägt",
+      "meta": {
+        "title": "Bürokonzepte unter Budget-Druck: Was 2026 wirklich trägt",
+        "description": ""
+      },
+      "imageSrc": "https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f/6a0f06d6e6be93354cce0332_Hero_HR.avif",
+      "paragraphs": [],
+      "href": "/events/buerokonzepte-unter-budget-druck-was-2026-wirklich-traegt-duesseldorf",
+      "dateLabel": "18.06.2026",
+      "description": "Reduzierte Möbelbudgets, gestiegene Erwartungen, Hybrid-Realität: Was Workplace-Konzepte 2026 wirklich leisten müssen, jenseits von Hochglanz und Phrasen.",
+      "location": "Für HR-, New-Work- und Workplace-Verantwortliche, die mit weniger Geld bessere Räume liefern müssen — und ihre Konzepte vor der Geschäftsführung verteidigen wollen.",
+      "tag": "Impulsvortrag"
+    },
+    {
+      "slug": "buerokonzepte-unter-budget-druck-was-2026-wirklich-traegt-koeln",
+      "title": "Bürokonzepte unter Budget-Druck: Was 2026 wirklich trägt",
+      "meta": {
+        "title": "Bürokonzepte unter Budget-Druck: Was 2026 wirklich trägt",
+        "description": ""
+      },
+      "imageSrc": "https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f/6a0f06d6e6be93354cce0332_Hero_HR.avif",
+      "paragraphs": [],
+      "href": "/events/buerokonzepte-unter-budget-druck-was-2026-wirklich-traegt-koeln",
+      "dateLabel": "25.06.2026",
+      "description": "Reduzierte Möbelbudgets, gestiegene Erwartungen, Hybrid-Realität: Was Workplace-Konzepte 2026 wirklich leisten müssen, jenseits von Hochglanz und Phrasen.",
+      "location": "Für HR-, New-Work- und Workplace-Verantwortliche, die mit weniger Geld bessere Räume liefern müssen — und ihre Konzepte vor der Geschäftsführung verteidigen wollen.",
+      "tag": "Impulsvortrag"
+    },
+    {
+      "slug": "buerokonzepte-unter-budget-druck-was-2026-wirklich-traegt-berlin",
+      "title": "Bürokonzepte unter Budget-Druck: Was 2026 wirklich trägt",
+      "meta": {
+        "title": "Bürokonzepte unter Budget-Druck: Was 2026 wirklich trägt",
+        "description": ""
+      },
+      "imageSrc": "https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f/6a0f06d6e6be93354cce0332_Hero_HR.avif",
+      "paragraphs": [],
+      "href": "/events/buerokonzepte-unter-budget-druck-was-2026-wirklich-traegt-berlin",
+      "dateLabel": "02.07.2026",
+      "description": "Reduzierte Möbelbudgets, gestiegene Erwartungen, Hybrid-Realität: Was Workplace-Konzepte 2026 wirklich leisten müssen, jenseits von Hochglanz und Phrasen.",
+      "location": "Für HR-, New-Work- und Workplace-Verantwortliche, die mit weniger Geld bessere Räume liefern müssen — und ihre Konzepte vor der Geschäftsführung verteidigen wollen.",
+      "tag": "Impulsvortrag"
+    },
+    {
+      "slug": "logistik-einer-bueroaufloesung-duesseldorf",
+      "title": "Logistik einer Büroauflösung",
+      "meta": {
+        "title": "Logistik einer Büroauflösung",
+        "description": ""
+      },
+      "imageSrc": "https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f/6a1853d98036c41f27d4b7d2_Hero_FM.avif",
+      "paragraphs": [],
+      "href": "/events/logistik-einer-bueroaufloesung-duesseldorf",
+      "dateLabel": "19.06.2026",
+      "description": "Hinter den Kulissen: Wie eine 6.000m²-Auflösung in 9 Tagen sauber, dokumentiert und ohne Betriebsstörung läuft.",
+      "location": "Für FM- und Real-Estate-Verantwortliche, die Veränderungen im Bestand oder Standortwechsel ohne Betriebsausfall kosten- und zeiteffizient umsetzen müssen. Wir zeigen wie! Sogar mit einer Dokumentation, die ESG- und CO₂-Reporting trägt.",
+      "tag": "Impulsvortrag"
+    },
+    {
+      "slug": "logistik-einer-bueroaufloesung-koeln",
+      "title": "Logistik einer Büroauflösung",
+      "meta": {
+        "title": "Logistik einer Büroauflösung",
+        "description": ""
+      },
+      "imageSrc": "https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f/6a1853d98036c41f27d4b7d2_Hero_FM.avif",
+      "paragraphs": [],
+      "href": "/events/logistik-einer-bueroaufloesung-koeln",
+      "dateLabel": "26.06.2026",
+      "description": "Hinter den Kulissen: Wie eine 6.000m²-Auflösung in 9 Tagen sauber, dokumentiert und ohne Betriebsstörung läuft.",
+      "location": "Für FM- und Real-Estate-Verantwortliche, die Veränderungen im Bestand oder Standortwechsel ohne Betriebsausfall kosten- und zeiteffizient umsetzen müssen. Wir zeigen wie! Sogar mit einer Dokumentation, die ESG- und CO₂-Reporting trägt.",
+      "tag": "Impulsvortrag"
+    },
+    {
+      "slug": "logistik-einer-bueroaufloesung-berlin",
+      "title": "Logistik einer Büroauflösung",
+      "meta": {
+        "title": "Logistik einer Büroauflösung",
+        "description": ""
+      },
+      "imageSrc": "https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d80f/6a1853d98036c41f27d4b7d2_Hero_FM.avif",
+      "paragraphs": [],
+      "href": "/events/logistik-einer-bueroaufloesung-berlin",
+      "dateLabel": "03.07.2026",
+      "description": "Hinter den Kulissen: Wie eine 6.000m²-Auflösung in 9 Tagen sauber, dokumentiert und ohne Betriebsstörung läuft.",
+      "location": "Für FM- und Real-Estate-Verantwortliche, die Veränderungen im Bestand oder Standortwechsel ohne Betriebsausfall kosten- und zeiteffizient umsetzen müssen. Wir zeigen wie! Sogar mit einer Dokumentation, die ESG- und CO₂-Reporting trägt.",
+      "tag": "Impulsvortrag"
+    }
+  ]
+}

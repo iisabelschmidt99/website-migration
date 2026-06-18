@@ -1,11 +1,19 @@
 // Startseite (URL: "/").
 
+import type { Metadata } from "next";
 import LogoGrid from "@/components/LogoGrid";
 import LifecycleSection from "@/components/LifecycleSection";
 import PressMarquee from "@/components/PressMarquee";
 import ReferenceProjectsSection from "@/components/ReferenceProjectsSection";
 import ContactSection from "@/components/ContactSection";
 import CtaButton from "@/components/CtaButton";
+
+// SEO-Metadaten der Startseite (echte Werte aus dem Webflow-Original)
+export const metadata: Metadata = {
+  title: "Nachhaltige Bürotransformation aus einer Hand | Fenyx GmbH",
+  description:
+    "Nachhaltige Bürotransformationen aus einer Hand: Digitales Bestandsmanagement, Verwertung & schlüsselfertige Einrichtung. CO2 sparen, Kosten senken mit Fenyx.",
+};
 
 export default function HomePage() {
   return (

@@ -12,9 +12,9 @@ import { bestandsmanagementReferences } from "@/data/bestandsmanagement-referenc
 import { bestandsmanagementFaq } from "@/data/bestandsmanagement-faq";
 
 export const metadata: Metadata = {
-  title: "Bestandsmanagement – Fenyx GmbH",
+  title: "Büromöbel-Bestandsmanagement | Inventur & Verwertung | Fenyx",
   description:
-    "Bestandsmanagement von Fenyx: Digitale Inventarisierung, flexible Einlagerung und ganzheitliche Aufbereitung – Kosten senken, CO₂ sparen.",
+    "Professionelles Büromöbel-Bestandsmanagement: Inventarisierung, Einlagerung & Aufbereitung aus einer Hand. Ø 50% Kosteneinsparung. Jetzt beraten lassen!",
 };
 
 const assetBase = "/assets/leistungen/bestandsmanagement";

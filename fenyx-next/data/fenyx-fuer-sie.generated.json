@@ -1,0 +1,142 @@
+{
+  "grossunternehmen": {
+    "meta": {
+      "title": "Nachhaltige Bürolösungen für Konzerne | Fenyx",
+      "description": ""
+    },
+    "hero": {
+      "heading": "Fenyx für Konzerne.",
+      "description": "Von digitalem Bestandsmanagement über nachhaltige Verwertung bis zur schlüsselfertigen Einrichtung begleiten wir Sie durch den gesamten Prozess Ihrer Bürotransformation. Gemeinsam schaffen wir passgenaue Arbeitswelten, die CO₂ einsparen und Kosten senken.",
+      "bullets": [
+        "EU-weit einsetzbare Lösung für Corporate Real Estate Management",
+        "Zugriff auf die größte Plattform an refurbished Möbeln",
+        "Ganzheitliche Verwertung von obsoleten Beständen"
+      ],
+      "imageSrc": "/assets/cms/Lobby-Quadrat.webp",
+      "ctaLabel": "Kontakt aufnehmen"
+    },
+    "cards": [
+      {
+        "title": "Ganzheitlicher Service.",
+        "body": "Wir koordinieren die gesamte Planung und Umsetzung Ihres Projekts. Fenyx ist Ihr Partner vom Erstgespräch bis zur finalen Begutachtung und darüber hinaus."
+      },
+      {
+        "title": "Zertifizierbar Nachhaltig.",
+        "body": "Wir dokumentieren alle Prozesse Ihrer Transformation und übersetzen diese in einen transparenten CO₂-Bericht, der im Audit zertifiziert werden kann."
+      },
+      {
+        "title": "Garantierte Kostensenkung.",
+        "body": "Wir mobilisieren Werte aus Ihrem Bestand für die interne Weiternutzung und die externe Veräußerung und ermöglichen den skalierbaren Zugang zum Zweitmarkt."
+      }
+    ],
+    "cta": {
+      "heading": "Eine neue Ära von Ausschreibungen hat begonnen.",
+      "body": "Konzerne in der DACH-Region orientieren sich zunehmend an den Prinzipien aus den Niederlanden und Frankreich und gestalten ihre Beschaffungsmaßnahmen über Zertifikate hinaus nachhaltiger. Die Aufbereitung und Verwertung von Altbeständen sowie die Beschaffung von Refurbished-Ware werden dabei zunehmend zum neuen Standard. Mit Fenyx erhalten Sie Zugang zu Ressourcen und Know-how, die es Ihnen ermöglichen, die Anforderungen der Auftraggeber nicht nur zu erfüllen, sondern zu übertreffen."
+    }
+  },
+  "mittelstand": {
+    "meta": {
+      "title": "Nachhaltige Büroeinrichtung für Mittelstand | Fenyx",
+      "description": ""
+    },
+    "hero": {
+      "heading": "Fenyx für den Mittelstand.",
+      "description": "Fenyx ist Ihr ganzheitlicher Partner auf dem Weg zur neuen Arbeitswelt. Mit uns erzielen Sie ein Ergebnis, das optimal auf die Bedürfnisse Ihres Unternehmens und Ihrer Mitarbeitenden abgestimmt ist und Ressourcen spart.",
+      "bullets": [
+        "⌀ 52% geringere Beschaffungskosten",
+        "Ganzheitlicher Service aus einer Hand",
+        "Zertifizierbare Nachhaltigkeit"
+      ],
+      "imageSrc": "/assets/cms/ms-1.webp",
+      "ctaLabel": "Kontakt aufnehmen"
+    },
+    "cards": [
+      {
+        "title": "Ganzheitlicher Service",
+        "body": "Wir koordinieren die gesamte Planung und Umsetzung Ihres Projekts inklusive der Verwertung von Altbestand. Fenyx ist Ihr Partner vom Erstgespräch bis zur finalen Begutachtung und darüber hinaus."
+      },
+      {
+        "title": "Zertifizierbar Nachhaltig",
+        "body": "Nachhaltigkeit zieht sich durch alle Prozesse, von der anforderungsgerechten Planung bis zur CO₂-armen Umsetzung. Fenyx steht für kompetente Beratung und Umsetzung nach höchsten Nachhaltigkeitsstandards."
+      },
+      {
+        "title": "Garantierte Kostensenkung",
+        "body": "Wir ermöglichen die Weiternutzung Ihres Bestands sowie den direkten Zugang zum Zweitmarkt. So beschaffen Sie kosteneffizienter und verwerten nicht mehr genutzte Einrichtung wirtschaftlich weiter."
+      }
+    ],
+    "cta": {
+      "heading": "Wir sind Experten für Büroplanung und Einrichtung.",
+      "body": "Unsere Kompetenz beruht auf unserer Erfahrung aus +150 nachhaltigen Transformationen. Gemeinsam können wir ein Ergebnis erzielen, welches Ihren Raum als Wertfaktor entfaltet."
+    }
+  },
+  "start-up-scale-up": {
+    "meta": {
+      "title": "Start-Up Büroeinrichtung agil & nachhaltig | Fenyx",
+      "description": ""
+    },
+    "hero": {
+      "heading": "Fenyx für Start-Ups & Scale-Ups.",
+      "description": "Fenyx unterstützt wachsende Unternehmen bei der schnellen und nachhaltigen Transformation ihrer Büroflächen. Intuitives Bestandsmanagement, Ankauf bestehender Bestände und der Zugang zu Europas größtem Portfolio an Refurbished-Möbeln sorgen für maximale Flexibilität bei voller Kostenkontrolle.",
+      "bullets": [
+        "⌀ 52% niedrigere Beschaffungskosten",
+        "EU-weiter, nachhaltiger Service aus einer Hand",
+        "Stressfreie und schnelle Logistikumsetzung"
+      ],
+      "imageSrc": "/assets/cms/taylor-friehl-GIbrQem17Zg-unsplash.webp",
+      "ctaLabel": "Kontakt aufnehmen"
+    },
+    "cards": [
+      {
+        "title": "Ganzheitlicher Service.",
+        "body": "Wir koordinieren die gesamte Planung und Umsetzung Ihres Projekts. Fenyx ist Ihr Partner vom Erstgespräch bis zur finalen Begutachtung und darüber hinaus."
+      },
+      {
+        "title": "Garantierte Kostensenkung.",
+        "body": "Wir ermöglichen einen skalierbaren Zugang zum Zweitmarkt, um kosteneffizient zu beschaffen und nicht mehr genutzte Einrichtung wirtschaftlich weiterzuverkaufen."
+      },
+      {
+        "title": "Schnelle Logistik.",
+        "body": "Mit Fenyx werden die Prozesse rund um die Bürotransformation so schnell wie Ihr Geschäft. Ihr neues Büro ist nur wenige Wochen entfernt."
+      }
+    ],
+    "cta": {
+      "heading": "Wächst Ihr Team schneller als Ihre Büroflächen?",
+      "body": "Ob Homeoffice oder Co-Working: Irgendwann reicht das Provisorium nicht mehr aus, um weiteres Wachstum sinnvoll abzubilden. Fenyx unterstützt Sie bei der Flächensuche, der Bürogestaltung und der Umsetzung neuer Arbeitswelten – inklusive vollständiger Logistik."
+    }
+  },
+  "co-working-space": {
+    "meta": {
+      "title": "Co-Working Space Einrichtung nachhaltig & günstig | Fenyx",
+      "description": ""
+    },
+    "hero": {
+      "heading": "Fenyx für Co-Working Spaces.",
+      "description": "Mit Fenyx gestalten und betreiben Sie Ihren Co-Working-Space nachhaltig, effizient und flexibel. Änderungen an Ausstattung und Einrichtung lassen sich schnell und ohne operative Reibung umsetzen.",
+      "bullets": [
+        "⌀ 52% niedrigere Beschaffungskosten",
+        "Flexible Ausstattung für wechselnde Anforderungen",
+        "Nachhaltiger Betrieb mit zertifizierbarer Wirkung"
+      ],
+      "imageSrc": "/assets/cms/co-1.webp",
+      "ctaLabel": "Kontakt aufnehmen"
+    },
+    "cards": [
+      {
+        "title": "Mehr Wirtschaftlichkeit",
+        "body": "Senken Sie Ihre Beschaffungskosten und beschleunigen Sie den Ausbau Ihrer Standorte durch den gezielten Einsatz von refurbished Büromöbeln und flexiblen Mietmodellen."
+      },
+      {
+        "title": "Differenziertes Angebot",
+        "body": "Heben Sie sich vom Wettbewerb ab, indem Sie potenziellen Mietern einen reibungslosen Umzug sowie die Möglichkeit zur individuellen Gestaltung ihrer Flächen bieten."
+      },
+      {
+        "title": "Zertifizierbare Nachhaltigkeit",
+        "body": "Reduzieren Sie Ihre CO₂-Emissionen, indem Sie refurbished Möbel einsetzen, Bestände aufbereiten lassen oder weiterverkaufen und so eine Entsorgung vermeiden."
+      }
+    ],
+    "cta": {
+      "heading": "Neuer Standort geplant?",
+      "body": "Unser Team begleitet Sie ganzheitlich bei der Planung und Umsetzung Ihrer neuen Fläche. Im Mittelpunkt steht der ressourcenschonende Einsatz von Zeit, Kapital und CO₂ – durch gezielte Optimierung und effiziente Prozesse."
+    }
+  }
+}

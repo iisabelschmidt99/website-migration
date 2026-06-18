@@ -1,9 +1,9 @@
 const mv = "/assets/leistungen/mitarbeiterverkauf";
 
 export const mitarbeiterverkaufMeta = {
-  title: "Mitarbeiterverkauf | Steuerfrei & rechtssicher | Fenyx",
+  title: "Mitarbeiterverkauf Büromöbel | Digital & rechtssicher | Fenyx",
   description:
-    "Professioneller Mitarbeiterverkauf für obsoleten Bürobestand: steuerfrei, rechtssicher, ohne administrativen Aufwand. Fenyx organisiert EU-weit.",
+    "Büromöbel digital & rechtssicher an Mitarbeiter verkaufen. Steuerfrei, inkl. Webshop & Logistik. Komplette Abwicklung durch Fenyx!",
 };
 
 export const heroContent = {

@@ -1,4 +1,3 @@
-const CDN = "https://cdn.prod.website-files.com/6988d9ea184c3a10bc10d7e6";
 
 export type Standort = {
   slug: string;
@@ -7,7 +6,7 @@ export type Standort = {
   left: number;
 };
 
-export const STANDORT_MAP_SRC = `${CDN}/69ef30d779a0f0d70c7ae2b1_map.svg`;
+export const STANDORT_MAP_SRC = `/assets/cms/map.svg`;
 
 /** Koordinaten aus dem Webflow-Original (Prozent auf der Europakarte). */
 export const STANDORTE: Standort[] = [

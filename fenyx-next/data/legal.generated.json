@@ -1,0 +1,817 @@
+{
+  "impressum": {
+    "title": "Impressum",
+    "meta": {
+      "title": "Impressum | Fenyx GmbH",
+      "description": ""
+    },
+    "blocks": [
+      {
+        "type": "p",
+        "text": "‍"
+      },
+      {
+        "type": "p",
+        "text": "FENYX GmbH Oranienstraße 183 10999 Berlin, Germany Telefon: +49 176 23820424 E-Mail: info@fenyx-office.com Registergericht: Amtsgericht Berlin-Charlottenburg Registernummer: HRB 243747 B Umsatzsteuernummer: DE356653066 Geschäftsführer: Artus Aßmann, Carl Lennart Corleißen, Vincent Jahn"
+      }
+    ]
+  },
+  "datenschutz": {
+    "title": "Datenschutz­erklärung",
+    "meta": {
+      "title": "Datenschutzerklärung | Fenyx GmbH",
+      "description": ""
+    },
+    "blocks": [
+      {
+        "type": "h2",
+        "text": "§1 Allgemeine Hinweise"
+      },
+      {
+        "type": "h3",
+        "text": "Verantwortlicher:"
+      },
+      {
+        "type": "h2",
+        "text": "§2 Datenerfassung auf dieser Website"
+      },
+      {
+        "type": "h3",
+        "text": "Wer ist verantwortlich für die Datenerfassung auf dieser Website?"
+      },
+      {
+        "type": "h3",
+        "text": "Wofür nutzen wir Ihre Daten?"
+      },
+      {
+        "type": "h3",
+        "text": "Welche Rechte haben Sie bezüglich Ihrer Daten?"
+      },
+      {
+        "type": "h3",
+        "text": "Welche Daten werden erhoben?"
+      },
+      {
+        "type": "h2",
+        "text": "§3 Hosting"
+      },
+      {
+        "type": "h3",
+        "text": "Webflow"
+      },
+      {
+        "type": "h2",
+        "text": "§4 Allgemeine Hinweise und Pflichtinformationen"
+      },
+      {
+        "type": "h3",
+        "text": "Datenschutz"
+      },
+      {
+        "type": "h3",
+        "text": "Hinweis zur verantwortlichen Stelle"
+      },
+      {
+        "type": "h3",
+        "text": "Speicherdauer"
+      },
+      {
+        "type": "h3",
+        "text": "Allgemeine Hinweise zu den Rechtsgrundlagen der Datenverarbeitung auf dieser Website"
+      },
+      {
+        "type": "h3",
+        "text": "Empfänger von personenbezogenen Daten"
+      },
+      {
+        "type": "h3",
+        "text": "Widerruf Ihrer Einwilligung zur Datenverarbeitung"
+      },
+      {
+        "type": "h3",
+        "text": "Widerspruchsrecht gegen die Datenerhebung in besonderen Fällen sowie gegen Direktwerbung (Art. 21 DSGVO)"
+      },
+      {
+        "type": "h3",
+        "text": "Beschwerderecht bei der zuständigen Aufsichtsbehörde"
+      },
+      {
+        "type": "h3",
+        "text": "Recht auf Datenübertragbarkeit"
+      },
+      {
+        "type": "h3",
+        "text": "Auskunft, Berichtigung und Löschung"
+      },
+      {
+        "type": "h3",
+        "text": "Recht auf Einschränkung der Verarbeitung"
+      },
+      {
+        "type": "h3",
+        "text": "SSL- bzw. TLS-Verschlüsselung"
+      },
+      {
+        "type": "h2",
+        "text": "§5 Datenerfassung auf dieser Website"
+      },
+      {
+        "type": "h3",
+        "text": "Cookies"
+      },
+      {
+        "type": "h3",
+        "text": "Anfrage per E-Mail, Telefon oder Telefax"
+      },
+      {
+        "type": "h2",
+        "text": "§6 Newsletter"
+      },
+      {
+        "type": "h3",
+        "text": "Newsletterdaten"
+      },
+      {
+        "type": "h2",
+        "text": "§7 Analyse-Tools und Tools von Drittanbietern"
+      },
+      {
+        "type": "h3",
+        "text": "7.1 Google Analytics"
+      },
+      {
+        "type": "h3",
+        "text": "7.2 Google Tag Manager"
+      },
+      {
+        "type": "h3",
+        "text": "7.3 Google Ads"
+      },
+      {
+        "type": "h4",
+        "text": "Art und Umfang der Verarbeitung"
+      },
+      {
+        "type": "h4",
+        "text": "Zweck und Rechtsgrundlage"
+      },
+      {
+        "type": "h4",
+        "text": "Speicherdauer"
+      },
+      {
+        "type": "h3",
+        "text": "7.4 Facebook Pixel"
+      },
+      {
+        "type": "h3",
+        "text": "7.5 Google Optimize"
+      },
+      {
+        "type": "h3",
+        "text": "7.6 Calendly"
+      },
+      {
+        "type": "h3",
+        "text": "7.7 Salesviewer"
+      },
+      {
+        "type": "h3",
+        "text": "7.8 Google Fonts (lokales Hosting)"
+      },
+      {
+        "type": "h3",
+        "text": "7.9 Google Signale"
+      },
+      {
+        "type": "h3",
+        "text": "7.10 Typeform"
+      },
+      {
+        "type": "h3",
+        "text": "7.11 HubSpot"
+      },
+      {
+        "type": "h3",
+        "text": "7.12 Make"
+      },
+      {
+        "type": "h2",
+        "text": "§8 Ihre Rechte als betroffene Person"
+      },
+      {
+        "type": "h2",
+        "text": "§9 Änderungen und Aktualisierungen der Datenschutzerklärung"
+      },
+      {
+        "type": "p",
+        "text": "Diese Datenschutzerklärung klärt Sie über die Art, den Umfang und Zweck der Verarbeitung von personenbezogenen Daten (nachfolgend kurz „Daten\") innerhalb unseres Onlineangebotes und der mit ihm verbundenen Webseite, Funktionen und Inhalte sowie externen Onlinepräsenzen, wie z.B. unser Social Media Profile auf (nachfolgend gemeinsam bezeichnet als „Onlineangebot\"). Im Hinblick auf die verwendeten Begrifflichkeiten, wie z.B. „Verarbeitung\" oder „Verantwortlicher\" verweisen wir auf die Definitionen im Art. 4 der Datenschutzgrundverordnung (DSGVO)."
+      },
+      {
+        "type": "p",
+        "text": "FENYX GmbH Oranienstraße 183 10999 Berlin, Germany E-Mail: info@fenyx-office.com Telefon: +49 176 23820424"
+      },
+      {
+        "type": "p",
+        "text": "Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Abschnitt „Verantwortlicher\" in dieser Datenschutzerklärung entnehmen."
+      },
+      {
+        "type": "p",
+        "text": "Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es sich z.B. um Daten handeln, die Sie in ein Kontaktformular eingeben."
+      },
+      {
+        "type": "p",
+        "text": "Andere Daten werden automatisch oder nach Ihrer Einwilligung beim Besuch der Website durch unsere IT-Systeme erfasst. Das sind vor allem technische Daten (z.B. Internetbrowser, Betriebssystem oder Uhrzeit des Seitenaufrufs). Die Erfassung dieser Daten erfolgt automatisch, sobald Sie diese Website betreten."
+      },
+      {
+        "type": "p",
+        "text": "Sie haben jederzeit das Recht, unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten. Sie haben außerdem ein Recht, die Berichtigung oder Löschung dieser Daten zu verlangen. Wenn Sie eine Einwilligung zur Datenverarbeitung erteilt haben, können Sie diese Einwilligung jederzeit für die Zukunft widerrufen. Außerdem haben Sie das Recht, unter bestimmten Umständen die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen. Des Weiteren steht Ihnen ein Beschwerderecht bei der zuständigen Aufsichtsbehörde zu."
+      },
+      {
+        "type": "p",
+        "text": "Hierzu sowie zu weiteren Fragen zum Thema Datenschutz können Sie sich jederzeit an uns wenden."
+      },
+      {
+        "type": "p",
+        "text": "Wir hosten die Inhalte unserer Website bei folgendem Anbieter:"
+      },
+      {
+        "type": "p",
+        "text": "Anbieter ist die Webflow, Inc., 398 11th Street, 2nd Floor, San Francisco, CA 94103, USA (nachfolgend Webflow). Wenn Sie unsere Website besuchen, erfasst Webflow verschiedene Logfiles inklusive Ihrer IP-Adressen."
+      },
+      {
+        "type": "p",
+        "text": "Webflow ist ein Tool zum Erstellen und zum Hosten von Websites. Webflow speichert Cookies oder sonstige Wiedererkennungstechnologien, die für die Darstellung der Seite, zur Bereitstellung bestimmter Webseitenfunktionen und zur Gewährleistung der Sicherheit erforderlich sind (notwendige Cookies)."
+      },
+      {
+        "type": "p",
+        "text": "Details entnehmen Sie der Datenschutzerklärung von Webflow: https://webflow.com/legal/eu-privacy-policy"
+      },
+      {
+        "type": "p",
+        "text": "Die Verwendung von Webflow erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Wir haben ein berechtigtes Interesse an einer möglichst zuverlässigen Darstellung unserer Website. Sofern eine entsprechende Einwilligung abgefragt wurde, erfolgt die Verarbeitung ausschließlich auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDDG, soweit die Einwilligung die Speicherung von Cookies oder den Zugriff auf Informationen im Endgerät des Nutzers (z.B. Device-Fingerprinting) im Sinne des TDDDG umfasst. Die Einwilligung ist jederzeit widerrufbar."
+      },
+      {
+        "type": "p",
+        "text": "Die Datenübertragung in die USA wird auf die Standardvertragsklauseln der EU-Kommission gestützt. Details finden Sie hier: https://webflow.com/legal/eu-privacy-policy"
+      },
+      {
+        "type": "p",
+        "text": "Das Unternehmen verfügt über eine Zertifizierung nach dem „EU-US Data Privacy Framework\" (DPF). Der DPF ist ein Übereinkommen zwischen der Europäischen Union und den USA, der die Einhaltung europäischer Datenschutzstandards bei Datenverarbeitungen in den USA gewährleisten soll. Jedes nach dem DPF zertifizierte Unternehmen verpflichtet sich, diese Datenschutzstandards einzuhalten. Weitere Informationen hierzu erhalten Sie vom Anbieter unter folgendem Link: https://www.dataprivacyframework.gov/s/participant-search/participant-detail?contact=true&id=a2zt0000000TT9jAAG&status=Active"
+      },
+      {
+        "type": "p",
+        "text": "Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend den gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung."
+      },
+      {
+        "type": "p",
+        "text": "Wenn Sie diese Website benutzen, werden verschiedene personenbezogene Daten erhoben. Personenbezogene Daten sind Daten, mit denen Sie persönlich identifiziert werden können. Die vorliegende Datenschutzerklärung erläutert, welche Daten wir erheben und wofür wir sie nutzen. Sie erläutert auch, wie und zu welchem Zweck das geschieht."
+      },
+      {
+        "type": "p",
+        "text": "Wir weisen darauf hin, dass die Datenübertragung im Internet (z.B. bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich."
+      },
+      {
+        "type": "p",
+        "text": "Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:"
+      },
+      {
+        "type": "p",
+        "text": "FENYX GmbH Oranienstraße 183 10999 Berlin, Germany Telefon: +49 176 23820424 E-Mail: info@fenyx-office.com"
+      },
+      {
+        "type": "p",
+        "text": "Verantwortliche Stelle ist die natürliche oder juristische Person, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten (z.B. Namen, E-Mail-Adressen o.Ä.) entscheidet."
+      },
+      {
+        "type": "p",
+        "text": "Soweit innerhalb dieser Datenschutzerklärung keine speziellere Speicherdauer genannt wurde, verbleiben Ihre personenbezogenen Daten bei uns, bis der Zweck für die Datenverarbeitung entfällt. Wenn Sie ein berechtigtes Löschersuchen geltend machen oder eine Einwilligung zur Datenverarbeitung widerrufen, werden Ihre Daten gelöscht, sofern wir keine anderen rechtlich zulässigen Gründe für die Speicherung Ihrer personenbezogenen Daten haben (z.B. steuer- oder handelsrechtliche Aufbewahrungsfristen); im letztgenannten Fall erfolgt die Löschung nach Fortfall dieser Gründe."
+      },
+      {
+        "type": "p",
+        "text": "Sofern Sie in die Datenverarbeitung eingewilligt haben, verarbeiten wir Ihre personenbezogenen Daten auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO bzw. Art. 9 Abs. 2 lit. a DSGVO, sofern besondere Datenkategorien nach Art. 9 Abs. 1 DSGVO verarbeitet werden. Im Falle einer ausdrücklichen Einwilligung in die Übertragung personenbezogener Daten in Drittstaaten erfolgt die Datenverarbeitung außerdem auf Grundlage von Art. 49 Abs. 1 lit. a DSGVO. Sofern Sie in die Speicherung von Cookies oder in den Zugriff auf Informationen in Ihr Endgerät (z.B. via Device-Fingerprinting) eingewilligt haben, erfolgt die Datenverarbeitung zusätzlich auf Grundlage von § 25 Abs. 1 TDDDG. Die Einwilligung ist jederzeit widerrufbar. Sind Ihre Daten zur Vertragserfüllung oder zur Durchführung vorvertraglicher Maßnahmen erforderlich, verarbeiten wir Ihre Daten auf Grundlage des Art. 6 Abs. 1 lit. b DSGVO. Des Weiteren verarbeiten wir Ihre Daten, sofern diese zur Erfüllung einer rechtlichen Verpflichtung erforderlich sind auf Grundlage von Art. 6 Abs. 1 lit. c DSGVO. Die Datenverarbeitung kann ferner auf Grundlage unseres berechtigten Interesses nach Art. 6 Abs. 1 lit. f DSGVO erfolgen. Über die jeweils im Einzelfall einschlägigen Rechtsgrundlagen wird in den folgenden Absätzen dieser Datenschutzerklärung informiert."
+      },
+      {
+        "type": "p",
+        "text": "Im Rahmen unserer Geschäftstätigkeit arbeiten wir mit verschiedenen externen Stellen zusammen. Dabei ist teilweise auch eine Übermittlung von personenbezogenen Daten an diese externen Stellen erforderlich. Wir geben personenbezogene Daten nur dann an externe Stellen weiter, wenn dies im Rahmen einer Vertragserfüllung erforderlich ist, wenn wir gesetzlich hierzu verpflichtet sind (z.B. Weitergabe von Daten an Steuerbehörden), wenn wir ein berechtigtes Interesse nach Art. 6 Abs. 1 lit. f DSGVO an der Weitergabe haben oder wenn eine sonstige Rechtsgrundlage die Datenweitergabe erlaubt. Beim Einsatz von Auftragsverarbeitern geben wir personenbezogene Daten unserer Kunden nur auf Grundlage eines gültigen Vertrags über Auftragsverarbeitung weiter. Im Falle einer gemeinsamen Verarbeitung wird ein Vertrag über gemeinsame Verarbeitung geschlossen."
+      },
+      {
+        "type": "p",
+        "text": "Viele Datenverarbeitungsvorgänge sind nur mit Ihrer ausdrücklichen Einwilligung möglich. Sie können eine bereits erteilte Einwilligung jederzeit widerrufen. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Datenverarbeitung bleibt vom Widerruf unberührt."
+      },
+      {
+        "type": "p",
+        "text": "WENN DIE DATENVERARBEITUNG AUF GRUNDLAGE VON ART. 6 ABS. 1 LIT. E ODER F DSGVO ERFOLGT, HABEN SIE JEDERZEIT DAS RECHT, AUS GRÜNDEN, DIE SICH AUS IHRER BESONDEREN SITUATION ERGEBEN, GEGEN DIE VERARBEITUNG IHRER PERSONENBEZOGENEN DATEN WIDERSPRUCH EINZULEGEN; DIES GILT AUCH FÜR EIN AUF DIESE BESTIMMUNGEN GESTÜTZTES PROFILING. DIE JEWEILIGE RECHTSGRUNDLAGE, AUF DENEN EINE VERARBEITUNG BERUHT, ENTNEHMEN SIE DIESER DATENSCHUTZERKLÄRUNG. WENN SIE WIDERSPRUCH EINLEGEN, WERDEN WIR IHRE BETROFFENEN PERSONENBEZOGENEN DATEN NICHT MEHR VERARBEITEN, ES SEI DENN, WIR KÖNNEN ZWINGENDE SCHUTZWÜRDIGE GRÜNDE FÜR DIE VERARBEITUNG NACHWEISEN, DIE IHRE INTERESSEN, RECHTE UND FREIHEITEN ÜBERWIEGEN ODER DIE VERARBEITUNG DIENT DER GELTENDMACHUNG, AUSÜBUNG ODER VERTEIDIGUNG VON RECHTSANSPRÜCHEN (WIDERSPRUCH NACH ART. 21 ABS. 1 DSGVO)."
+      },
+      {
+        "type": "p",
+        "text": "WERDEN IHRE PERSONENBEZOGENEN DATEN VERARBEITET, UM DIREKTWERBUNG ZU BETREIBEN, SO HABEN SIE DAS RECHT, JEDERZEIT WIDERSPRUCH GEGEN DIE VERARBEITUNG SIE BETREFFENDER PERSONENBEZOGENER DATEN ZUM ZWECKE DERARTIGER WERBUNG EINZULEGEN; DIES GILT AUCH FÜR DAS PROFILING, SOWEIT ES MIT SOLCHER DIREKTWERBUNG IN VERBINDUNG STEHT. WENN SIE WIDERSPRECHEN, WERDEN IHRE PERSONENBEZOGENEN DATEN ANSCHLIESSEND NICHT MEHR ZUM ZWECKE DER DIREKTWERBUNG VERWENDET (WIDERSPRUCH NACH ART. 21 ABS. 2 DSGVO)."
+      },
+      {
+        "type": "p",
+        "text": "Im Falle von Verstößen gegen die DSGVO steht den Betroffenen ein Beschwerderecht bei einer Aufsichtsbehörde, insbesondere in dem Mitgliedstaat ihres gewöhnlichen Aufenthalts, ihres Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes zu. Das Beschwerderecht besteht unbeschadet anderweitiger verwaltungsrechtlicher oder gerichtlicher Rechtsbehelfe."
+      },
+      {
+        "type": "p",
+        "text": "Sie haben das Recht, Daten, die wir auf Grundlage Ihrer Einwilligung oder in Erfüllung eines Vertrags automatisiert verarbeiten, an sich oder an einen Dritten in einem gängigen, maschinenlesbaren Format aushändigen zu lassen. Sofern Sie die direkte Übertragung der Daten an einen anderen Verantwortlichen verlangen, erfolgt dies nur, soweit es technisch machbar ist."
+      },
+      {
+        "type": "p",
+        "text": "Sie haben im Rahmen der geltenden gesetzlichen Bestimmungen jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung und ggf. ein Recht auf Berichtigung oder Löschung dieser Daten. Hierzu sowie zu weiteren Fragen zum Thema personenbezogene Daten können Sie sich jederzeit an uns wenden."
+      },
+      {
+        "type": "p",
+        "text": "Sie haben das Recht, die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen. Hierzu können Sie sich jederzeit an uns wenden. Das Recht auf Einschränkung der Verarbeitung besteht in folgenden Fällen:"
+      },
+      {
+        "type": "p",
+        "text": "Wenn Sie die Verarbeitung Ihrer personenbezogenen Daten eingeschränkt haben, dürfen diese Daten – von ihrer Speicherung abgesehen – nur mit Ihrer Einwilligung oder zur Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen oder zum Schutz der Rechte einer anderen natürlichen oder juristischen Person oder aus Gründen eines wichtigen öffentlichen Interesses der Europäischen Union oder eines Mitgliedstaats verarbeitet werden."
+      },
+      {
+        "type": "p",
+        "text": "Diese Seite nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte, wie zum Beispiel Bestellungen oder Anfragen, die Sie an uns als Seitenbetreiber senden, eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie daran, dass die Adresszeile des Browsers von „http://\" auf „https://\" wechselt und an dem Schloss-Symbol in Ihrer Browserzeile."
+      },
+      {
+        "type": "p",
+        "text": "Wenn die SSL- bzw. TLS-Verschlüsselung aktiviert ist, können die Daten, die Sie an uns übermitteln, nicht von Dritten mitgelesen werden."
+      },
+      {
+        "type": "p",
+        "text": "Unsere Internetseiten verwenden so genannte „Cookies\". Cookies sind kleine Datenpakete und richten auf Ihrem Endgerät keinen Schaden an. Sie werden entweder vorübergehend für die Dauer einer Sitzung (Session-Cookies) oder dauerhaft (permanente Cookies) auf Ihrem Endgerät gespeichert. Session-Cookies werden nach Ende Ihres Besuchs automatisch gelöscht. Permanente Cookies bleiben auf Ihrem Endgerät gespeichert, bis Sie diese selbst löschen oder eine automatische Löschung durch Ihren Webbrowser erfolgt."
+      },
+      {
+        "type": "p",
+        "text": "Cookies können von uns (First-Party-Cookies) oder von Drittunternehmen stammen (sog. Third-Party-Cookies). Third-Party-Cookies ermöglichen die Einbindung bestimmter Dienstleistungen von Drittunternehmen innerhalb von Webseiten (z.B. Cookies zur Abwicklung von Zahlungsdienstleistungen)."
+      },
+      {
+        "type": "p",
+        "text": "Cookies haben verschiedene Funktionen. Zahlreiche Cookies sind technisch notwendig, da bestimmte Webseitenfunktionen ohne diese nicht funktionieren würden (z.B. die Warenkorbfunktion oder die Anzeige von Videos). Andere Cookies können zur Auswertung des Nutzerverhaltens oder zu Werbezwecken verwendet werden."
+      },
+      {
+        "type": "p",
+        "text": "Cookies, die zur Durchführung des elektronischen Kommunikationsvorgangs, zur Bereitstellung bestimmter, von Ihnen erwünschter Funktionen (z.B. für die Warenkorbfunktion) oder zur Optimierung der Website (z.B. Cookies zur Messung des Webpublikums) erforderlich sind (notwendige Cookies), werden auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO gespeichert, sofern keine andere Rechtsgrundlage angegeben wird. Der Websitebetreiber hat ein berechtigtes Interesse an der Speicherung von notwendigen Cookies zur technisch fehlerfreien und optimierten Bereitstellung seiner Dienste. Sofern eine Einwilligung zur Speicherung von Cookies und vergleichbaren Wiedererkennungstechnologien abgefragt wurde, erfolgt die Verarbeitung ausschließlich auf Grundlage dieser Einwilligung (Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDDG); die Einwilligung ist jederzeit widerrufbar."
+      },
+      {
+        "type": "p",
+        "text": "Sie können Ihren Browser so einstellen, dass Sie über das Setzen von Cookies informiert werden und Cookies nur im Einzelfall erlauben, die Annahme von Cookies für bestimmte Fälle oder generell ausschließen sowie das automatische Löschen der Cookies beim Schließen des Browsers aktivieren. Bei der Deaktivierung von Cookies kann die Funktionalität dieser Website eingeschränkt sein."
+      },
+      {
+        "type": "p",
+        "text": "Welche Cookies und Dienste auf dieser Website eingesetzt werden, können Sie dieser Datenschutzerklärung entnehmen."
+      },
+      {
+        "type": "p",
+        "text": "Wenn Sie uns per E-Mail, Telefon oder Telefax kontaktieren, wird Ihre Anfrage inklusive aller daraus hervorgehenden personenbezogenen Daten (Name, Anfrage) zum Zwecke der Bearbeitung Ihres Anliegens bei uns gespeichert und verarbeitet. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter."
+      },
+      {
+        "type": "p",
+        "text": "Die Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich ist. In allen übrigen Fällen beruht die Verarbeitung auf unserem berechtigten Interesse an der effektiven Bearbeitung der an uns gerichteten Anfragen (Art. 6 Abs. 1 lit. f DSGVO) oder auf Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO) sofern diese abgefragt wurde; die Einwilligung ist jederzeit widerrufbar."
+      },
+      {
+        "type": "p",
+        "text": "Die von Ihnen an uns per Kontaktanfragen übersandten Daten verbleiben bei uns, bis Sie uns zur Löschung auffordern, Ihre Einwilligung zur Speicherung widerrufen oder der Zweck für die Datenspeicherung entfällt (z.B. nach abgeschlossener Bearbeitung Ihres Anliegens). Zwingende gesetzliche Bestimmungen – insbesondere gesetzliche Aufbewahrungsfristen – bleiben unberührt."
+      },
+      {
+        "type": "p",
+        "text": "Wenn Sie den auf der Website angebotenen Newsletter beziehen möchten, benötigen wir von Ihnen eine E-Mail-Adresse sowie Informationen, welche uns die Überprüfung gestatten, dass Sie der Inhaber der angegebenen E-Mail-Adresse sind und mit dem Empfang des Newsletters einverstanden sind. Weitere Daten werden nicht bzw. nur auf freiwilliger Basis erhoben. Diese Daten verwenden wir ausschließlich für den Versand der angeforderten Informationen und geben diese nicht an Dritte weiter."
+      },
+      {
+        "type": "p",
+        "text": "Die Verarbeitung der in das Newsletteranmeldeformular eingegebenen Daten erfolgt ausschließlich auf Grundlage Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Die erteilte Einwilligung zur Speicherung der Daten, der E-Mail-Adresse sowie deren Nutzung zum Versand des Newsletters können Sie jederzeit widerrufen, etwa über den „Austragen\"-Link im Newsletter. Die Rechtmäßigkeit der bereits erfolgten Datenverarbeitungsvorgänge bleibt vom Widerruf unberührt."
+      },
+      {
+        "type": "p",
+        "text": "Die von Ihnen zum Zwecke des Newsletter-Bezugs bei uns hinterlegten Daten werden von uns bis zu Ihrer Austragung aus dem Newsletter bei uns bzw. dem Newsletterdiensteanbieter gespeichert und nach der Abbestellung des Newsletters oder nach Zweckfortfall aus der Newsletterverteilerliste gelöscht. Wir behalten uns vor, E-Mail-Adressen aus unserem Newsletterverteiler nach eigenem Ermessen im Rahmen unseres berechtigten Interesses nach Art. 6 Abs. 1 lit. f DSGVO zu löschen oder zu sperren."
+      },
+      {
+        "type": "p",
+        "text": "Daten, die zu anderen Zwecken bei uns gespeichert wurden, bleiben hiervon unberührt."
+      },
+      {
+        "type": "p",
+        "text": "Nach Ihrer Austragung aus der Newsletterverteilerliste wird Ihre E-Mail-Adresse bei uns bzw. dem Newsletterdiensteanbieter ggf. in einer Blacklist gespeichert, sofern dies zur Verhinderung künftiger Mailings erforderlich ist. Die Daten aus der Blacklist werden nur für diesen Zweck verwendet und nicht mit anderen Daten zusammengeführt. Dies dient sowohl Ihrem Interesse als auch unserem Interesse an der Einhaltung der gesetzlichen Vorgaben beim Versand von Newslettern (berechtigtes Interesse im Sinne des Art. 6 Abs. 1 lit. f DSGVO). Die Speicherung in der Blacklist ist zeitlich nicht befristet. Sie können der Speicherung widersprechen, sofern Ihre Interessen unser berechtigtes Interesse überwiegen."
+      },
+      {
+        "type": "p",
+        "text": "Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc. („Google\"). Google Analytics verwendet sog. „Cookies\", Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der Website durch Sie ermöglichen. Die durch das Cookie erzeugten Informationen über Ihre Benutzung dieser Website werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert. Im Falle der Aktivierung der IP-Anonymisierung auf dieser Website, wird Ihre IP-Adresse von Google jedoch innerhalb von Mitgliedstaaten der Europäischen Union oder in anderen Vertragsstaaten des Abkommens über den Europäischen Wirtschaftsraum zuvor gekürzt. Nur in Ausnahmefällen wird die volle IP-Adresse an einen Server von Google in den USA übertragen und dort gekürzt. Im Auftrag des Betreibers dieser Website wird Google diese Informationen benutzen, um Ihre Nutzung der Website auszuwerten, um Reports über die Website-Aktivitäten zusammenzustellen und um weitere mit der Website-Nutzung und der Internetnutzung verbundene Dienstleistungen gegenüber dem Website-Betreiber zu erbringen. Die im Rahmen von Google Analytics von Ihrem Browser übermittelte IP-Adresse wird nicht mit anderen Daten von Google zusammengeführt."
+      },
+      {
+        "type": "p",
+        "text": "Sie können die Speicherung der Cookies durch eine entsprechende Einstellung Ihrer Browsersoftware verhindern; wir weisen Sie jedoch darauf hin, dass Sie in diesem Fall gegebenenfalls nicht sämtliche Funktionen dieser Website vollumfänglich werden nutzen können. Sie können darüber hinaus die Erfassung der durch das Cookie erzeugten und auf Ihre Nutzung der Website bezogenen Daten (inkl. Ihrer IP-Adresse) an Google sowie die Verarbeitung dieser Daten durch Google verhindern, indem Sie das unter dem folgenden Link verfügbare Browser-Plug-in herunterladen und installieren: http://tools.google.com/dlpage/gaoptout?hl=de"
+      },
+      {
+        "type": "p",
+        "text": "Diese Website verwendet Google Analytics mit der Erweiterung „_anonymizeIp()\". Dadurch werden IP-Adressen gekürzt weiterverarbeitet, eine Personenbeziehbarkeit kann damit ausgeschlossen werden. Soweit den über Sie erhobenen Daten ein Personenbezug zukommt, wird dieser also sofort ausgeschlossen und die personenbezogenen Daten damit umgehend gelöscht."
+      },
+      {
+        "type": "p",
+        "text": "Wir nutzen Google Analytics, um die Nutzung unserer Website analysieren und regelmäßig verbessern zu können. Über die gewonnenen Statistiken können wir unser Angebot verbessern und für Sie als Nutzer interessanter gestalten. Für Ausnahmefälle, in denen personenbezogene Daten in die USA übertragen werden, gelten die Standardvertragsklauseln. Rechtsgrundlage für die Nutzung von Google Analytics ist Art. 6 Abs. 1 S. 1 lit. f DS-GVO."
+      },
+      {
+        "type": "p",
+        "text": "Informationen des Anbieters: Google Dublin, Google Ireland Ltd., Gordon House, Barrow Street, Dublin 4, Ireland, Fax: +353 (1) 436 1001. Nutzerbedingungen: http://www.google.com/analytics/terms/de.html, Übersicht zum Datenschutz: http://www.google.com/intl/de/analytics/learn/privacy.html, sowie die Datenschutzerklärung: http://www.google.de/intl/de/policies/privacy"
+      },
+      {
+        "type": "p",
+        "text": "Google Tag Manager ist eine Lösung, mit der wir Website-Tags über eine Oberfläche verwalten können. Das Tool Tag Manager selbst (das die Tags implementiert) ist eine cookielose Domain. Das Tool sorgt für die Auslösung anderer Tags, die ihrerseits unter Umständen Daten erfassen. Google Tag Manager greift nicht auf diese Daten zu. Wenn auf Domain- oder Cookie-Ebene eine Deaktivierung vorgenommen wurde, bleibt diese für alle Tracking-Tags bestehen, die mit Google Tag Manager implementiert werden."
+      },
+      {
+        "type": "p",
+        "text": "Informationen des Anbieters: Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Weitere Informationen finden Sie in den Nutzungsrichtlinien für dieses Produkt: https://www.google.com/intl/de/tagmanager/use-policy.html"
+      },
+      {
+        "type": "p",
+        "text": "Wir haben auf unserer Website Google Ads integriert. Google Ads ist ein Dienst von Google Ireland Limited, um Nutzern zielgerichtet Werbung anzuzeigen. Google Ads nutzt Cookies und weitere Browser-Technologien um Nutzerverhalten auszuwerten und Nutzer wiederzuerkennen. Google Ads sammelt Informationen über das Besucherverhalten auf verschiedenen Websites. Diese Informationen werden verwendet, um die Relevanz der Werbung zu optimieren. Des Weiteren liefert Google Ads gezielt Werbung auf der Grundlage von Verhaltensprofilen und geografischer Lage. Dem Anbieter werden Ihre IP-Adresse und weitere Identifikationsmerkmale wie Ihr User-Agent übermittelt."
+      },
+      {
+        "type": "p",
+        "text": "Wenn Sie bei einem Google Ireland Limited Dienst registriert sind, kann Google Ads den Besuch Ihrem Konto zuordnen. Selbst wenn Sie nicht bei Google Ireland Limited registriert sind oder sich nicht eingeloggt haben, ist es möglich, dass der Anbieter Ihre IP-Adresse und weitere Identifikationsmerkmale herausfindet und speichert."
+      },
+      {
+        "type": "p",
+        "text": "Die Weitergabe Ihrer Daten erfolgt in diesem Fall an den Betreiber von Google Ads, die Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland."
+      },
+      {
+        "type": "p",
+        "text": "Der Einsatz von Google Ads erfolgt auf Grundlage Ihrer Einwilligung gemäß Art. 6 Abs. 1 lit. a. DSGVO und § 25 Abs. 1 TDDDG."
+      },
+      {
+        "type": "p",
+        "text": "Wir beabsichtigen personenbezogenen Daten an Drittländer außerhalb des Europäischen Wirtschaftsraums, insbesondere die USA, zu übermitteln. In Fällen, in denen kein Angemessenheitsbeschluss der Europäischen Kommission existiert (z.B. in den USA) haben wir mit den Empfängern der Daten anderweitige geeignete Garantien im Sinne der Art. 44 ff. DSGVO vereinbart. Dies sind – sofern nicht anders angegeben – Standardvertragsklauseln der EU-Kommission gemäß Durchführungsbeschluss (EU) 2021/914 vom 4. Juni 2021. Eine Kopie dieser Standardvertragsklauseln können Sie unter https://eur-lex.europa.eu/legal-content/DE/TXT/HTML/?uri=CELEX:32021D0914&from=DE einsehen."
+      },
+      {
+        "type": "p",
+        "text": "Zudem holen wir vor einem solchen Drittlandtransfer Ihre Einwilligung nach Art. 49 Abs. 1 Satz 1 lit. a. DSGVO ein, die Sie über die Einwilligung im Consent Manager (oder sonstigen Formularen, Registrierungen etc.) erteilen. Wir weisen Sie darauf hin, dass bei Drittlandübermittlungen im Detail unbekannte Risiken (z.B. die Datenverarbeitung durch Sicherheitsbehörden des Drittlandes, deren genauer Umfang und deren Folgen für Sie wir nicht kennen, auf die wir keinen Einfluss haben und von denen Sie unter Umständen keine Kenntnis erlangen) bestehen können."
+      },
+      {
+        "type": "p",
+        "text": "Die konkrete Speicherdauer der verarbeiteten Daten ist nicht durch uns beeinflussbar, sondern wird von Google Ireland Limited bestimmt. Weitere Hinweise finden Sie in der Datenschutzerklärung für Google Ads: https://policies.google.com/privacy"
+      },
+      {
+        "type": "p",
+        "text": "Wir nutzen den \"Facebook Pixel\" der Facebook Inc., 1601 S. California Ave, Palo Alto, CA 94304, USA (\"Facebook\"), um mit Hilfe von Werbeanzeigen die Aktionen von Nutzern auf externen Websites nachverfolgen zu können, nachdem diese eine Facebook-Werbeanzeige gesehen oder geklickt haben. So können wir die Wirksamkeit der Facebook-Werbeanzeigen für statistische und Marktforschungszwecke erfassen. Wir verfolgen damit das Interesse, Ihnen Werbung anzuzeigen, die für Sie von Interesse ist, unsere Website für Sie interessanter zu gestalten und eine faire Berechnung von Werbekosten zu erreichen."
+      },
+      {
+        "type": "p",
+        "text": "Diese Werbemittel werden durch Facebook über sogenannte „Ad Server\" ausgeliefert. Dazu nutzen wir Ad Server Cookies, durch die bestimmte Parameter zur Erfolgsmessung, wie Einblendung der Werbeanzeigen oder Klicks durch die Nutzer, gemessen werden können. Sofern Sie über eine Facebook-Anzeige auf unsere Website gelangen, wird ein Cookie in ihrem PC gespeichert. Diese Cookies verlieren in der Regel nach 30 Tagen ihre Gültigkeit und sollen nicht dazu dienen, Sie persönlich zu identifizieren."
+      },
+      {
+        "type": "p",
+        "text": "Zu diesem Cookie werden in der Regel als Analyse-Werte die Unique Cookie-ID, Anzahl Ad Impressions pro Platzierung (Häufigkeit der Einblendungen), letzte Impression (relevant für Post-View-Conversions, also die Anzahl der Einblendungen der Werbung, bevor ein Klick auf diese erfolgt) sowie Opt-out-Informationen (Markierung, dass der Nutzer nicht mehr angesprochen werden möchte) gespeichert. Diese Cookies ermöglichen Facebook, Ihren Internetbrowser wiederzuerkennen."
+      },
+      {
+        "type": "p",
+        "text": "Sofern ein Nutzer bestimmte Seiten mit Facebook-Werbeanzeigen besucht und das auf seinem Computer gespeicherte Cookie noch nicht abgelaufen ist, kann Facebook erkennen, dass der Nutzer auf die Anzeige geklickt hat und zu dieser Seite weitergeleitet wurde. Wir selbst erheben und verarbeiten in den genannten Werbemaßnahmen keine personenbezogenen Daten. Wir erhalten von Facebook lediglich statistische Auswertungen zur Verfügung gestellt. Anhand dieser Auswertungen können wir erkennen, welche der eingesetzten Werbemaßnahmen besonders effektiv sind. Weitergehende Daten aus dem Einsatz der Werbemittel erhalten wir nicht, insbesondere können wir die Nutzer nicht anhand dieser Informationen identifizieren."
+      },
+      {
+        "type": "p",
+        "text": "Aufgrund der eingesetzten Marketing-Tools baut Ihr Browser automatisch eine direkte Verbindung mit dem Server von Facebook auf. Wir haben keinen Einfluss auf den Umfang und die weitere Verwendung der Daten, die durch den Einsatz dieses Tools durch Facebook erhoben werden und informieren Sie daher entsprechend unserem Kenntnisstand: Durch die Einbindung des Facebook Pixel erhält Facebook die Information, dass Sie den entsprechenden Teil unseres Internetauftritts aufgerufen oder eine Anzeige von uns angeklickt haben. Sofern Sie bei einem Dienst von Facebook registriert sind, kann Facebook den Besuch Ihrem Account zuordnen. Selbst wenn Sie nicht bei Facebook registriert sind bzw. sich nicht eingeloggt haben, besteht die Möglichkeit, dass der Anbieter Ihre IP-Adresse in Erfahrung bringt und speichert."
+      },
+      {
+        "type": "p",
+        "text": "Sie können die Teilnahme an diesem Tracking-Verfahren auf verschiedene Weise verhindern:"
+      },
+      {
+        "type": "p",
+        "text": "Wir weisen Sie darauf hin, dass Sie in diesem Fall gegebenenfalls nicht alle Funktionen dieses Angebots vollumfänglich nutzen können. Rechtsgrundlage für die Verarbeitung Ihrer Daten ist Art. 6 Abs. 1 S. 1 lit. f DS-GVO. Weitere Informationen zur Datenverarbeitung durch Facebook erhalten Sie unter https://www.facebook.com/about/privacy. Alternativ können Sie die Webseite der Network Advertising Initiative (NAI) unter https://www.networkadvertising.org besuchen."
+      },
+      {
+        "type": "p",
+        "text": "Diese Website führt weiterhin mittels Google Optimize Analysen des Nutzerverhaltens über ein sog. A/B-Testing durch. Dabei können wir Ihnen unsere Websites mit leicht variierten Inhalten anzeigen, je nach einer erfolgten Profilzuordnung. So können wir unser Angebot analysieren, regelmäßig verbessern und für Sie als Nutzer interessanter gestalten. Rechtsgrundlage für die Verwendung von Google Optimize ist Art. 6 Abs. 1 S. 1 lit. f DS-GVO."
+      },
+      {
+        "type": "p",
+        "text": "Für diese Auswertung werden Cookies auf Ihrem Computer gespeichert. Die durch das Cookie erzeugten Informationen über Ihre Benutzung dieser Website werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert. Im Falle der Aktivierung der IP-Anonymisierung auf dieser Website, wird Ihre IP-Adresse von Google jedoch innerhalb von Mitgliedstaaten der Europäischen Union oder in anderen Vertragsstaaten des Abkommens über den Europäischen Wirtschaftsraum zuvor gekürzt. Nur in Ausnahmefällen wird die volle IP-Adresse an einen Server von Google in den USA übertragen und dort gekürzt."
+      },
+      {
+        "type": "p",
+        "text": "Die Auswertung können Sie durch Löschung vorhandener Cookies und die Verhinderung der Speicherung von Cookies verhindern. Wenn Sie die Speicherung der Cookies verhindern, weisen wir darauf hin, dass Sie unsere Website gegebenenfalls nicht vollumfänglich nutzen können. Die Verhinderung der Speicherung von Cookies ist durch die Einstellung in ihrem Browser möglich. Vor Durchführung der Analysen werden die IP-Adressen gekürzt weiterverarbeitet, eine direkte Personenbeziehbarkeit kann damit ausgeschlossen werden. Die von Ihrem Browser übermittelte IP-Adresse wird nicht mit anderen von uns erhobenen Daten zusammengeführt."
+      },
+      {
+        "type": "p",
+        "text": "Informationen des Anbieters: Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Weitere Informationen zu Zweck und Umfang der Datenerhebung und ihrer Verarbeitung sowie weitere Informationen zu Ihren diesbezüglichen Rechten und Einstellungsmöglichkeiten zum Schutze Ihrer Privatsphäre erhalten Sie bei: Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland; Datenschutzbedingungen für Werbung: https://www.google.de/intl/de/policies/technologies/ads. Es gelten die Standardvertragsklauseln."
+      },
+      {
+        "type": "p",
+        "text": "Zur einfachen, schnellen und unkomplizierten Terminvereinbarung setzen wir das Tool Calendly ein. Die Nutzung von Calendly erfolgt zur Verbesserung unserer Dienstleistung für bestehende und neue Kunden. Dies stellt ein berechtigtes Interesse im Sinne von Art. 6 Abs. 1 S. 1 lit. f DS-GVO dar."
+      },
+      {
+        "type": "p",
+        "text": "Bei der Verwendung des Tools werden von Ihnen persönliche Daten wie Name, E-Mail-Adresse und Telefonnummer abgefragt. Sie haben außerdem die Möglichkeit, Ihr Anliegen darzustellen und uns weitere Informationen zur Verfügung zu stellen. Wenn Sie das Tool nutzen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Informationen gespeichert und selbstverständlich im Internet übertragen. Die Verarbeitung der eingegebenen Daten erfolgt ausschließlich auf Grundlage Ihrer Einwilligung (Art. 6 Abs. 1 S. 1 lit. a DS-GVO)."
+      },
+      {
+        "type": "p",
+        "text": "Für den Umgang mit den durch Verwendung von Calendly erfassten Daten gilt diese Datenschutzerklärung sowie die Datenschutzerklärung des Anbieters. Die Datenschutzerklärung von Calendly finden Sie unter: https://calendly.com/pages/privacy"
+      },
+      {
+        "type": "p",
+        "text": "Auf dieser Webseite werden mit der SalesViewer®-Technologie der SalesViewer® GmbH auf Grundlage berechtigter Interessen des Webseitenbetreibers (Art. 6 Abs.1 lit.f DSGVO) Daten zu Marketing-, Marktforschungs- und Optimierungszwecken gesammelt und gespeichert."
+      },
+      {
+        "type": "p",
+        "text": "Hierzu wird ein javascript-basierter Code eingesetzt, der zur Erhebung unternehmensbezogener Daten und der entsprechenden Nutzung dient. Die mit dieser Technologie erhobenen Daten werden über eine nicht rückrechenbare Einwegfunktion (sog. Hashing) verschlüsselt. Die Daten werden unmittelbar pseudonymisiert und nicht dazu benutzt, den Besucher dieser Webseite persönlich zu identifizieren."
+      },
+      {
+        "type": "p",
+        "text": "Die im Rahmen von SalesViewer® gespeicherten Daten werden gelöscht, sobald sie für ihre Zweckbestimmung nicht mehr erforderlich sind und der Löschung keine gesetzlichen Aufbewahrungspflichten entgegenstehen."
+      },
+      {
+        "type": "p",
+        "text": "Der Datenerhebung und -speicherung kann jederzeit mit Wirkung für die Zukunft widersprochen werden, indem Sie bitte diesen Link https://www.salesviewer.com/opt-out anklicken, um die Erfassung durch SalesViewer® innerhalb dieser Webseite zukünftig zu verhindern. Dabei wird ein Opt-out-Cookie für diese Webseite auf Ihrem Gerät abgelegt. Löschen Sie Ihre Cookies in diesem Browser, müssen Sie diesen Link erneut anklicken."
+      },
+      {
+        "type": "p",
+        "text": "Diese Seite nutzt zur einheitlichen Darstellung von Schriftarten so genannte Google Fonts, die von Google bereitgestellt werden. Die Google Fonts sind lokal installiert. Eine Verbindung zu Servern von Google findet dabei nicht statt."
+      },
+      {
+        "type": "p",
+        "text": "Weitere Informationen zu Google Fonts finden Sie unter https://developers.google.com/fonts/faq und in der Datenschutzerklärung von Google: https://policies.google.com/privacy?hl=de"
+      },
+      {
+        "type": "p",
+        "text": "Wir nutzen Google Signale. Damit werden in Google Analytics zusätzliche Informationen zu Nutzern erfasst, die personalisierte Anzeigen aktiviert haben (Interessen und demographische Daten) und Anzeigen können in geräteübergreifenden Remarketing-Kampagnen an diese Nutzer ausgeliefert werden."
+      },
+      {
+        "type": "p",
+        "text": "Zur Erfassung der Kontaktanfragen verwenden wir Typeform, ein Angebot der TYPEFORM S.L., Carrer Bac de Roda, 163, 08018 Barcelona, Spanien. Weitere Informationen zu den Datenschutzbestimmungen seitens des Anbieters finden Sie unter typeform.com/terms-service/"
+      },
+      {
+        "type": "p",
+        "text": "Zum Kontaktmanagement verwenden wir HubSpot, ein Angebot der HubSpot, Inc., 25 First Street, 2nd Floor, Cambridge, MA 02141 USA. Weitere Informationen zu den Datenschutzbestimmungen seitens des Anbieters finden Sie unter legal.hubspot.com/de/privacy-policy"
+      },
+      {
+        "type": "p",
+        "text": "Weitere Informationen zur Datenverarbeitung und zu Ihren Rechten finden Sie in den Datenschutzerklärungen der Anbieter: Make: https://www.make.com/en/terms-and-conditions"
+      },
+      {
+        "type": "p",
+        "text": "Sie haben das Recht, eine Bestätigung darüber zu verlangen, ob betreffende Daten verarbeitet werden und auf Auskunft über diese Daten sowie auf weitere Informationen und Kopie der Daten entsprechend den gesetzlichen Vorgaben."
+      },
+      {
+        "type": "p",
+        "text": "Sie haben entsprechend den gesetzlichen Vorgaben das Recht, die Vervollständigung der Sie betreffenden Daten oder die Berichtigung der Sie betreffenden unrichtigen Daten zu verlangen."
+      },
+      {
+        "type": "p",
+        "text": "Sie haben nach Maßgabe der gesetzlichen Bestimmungen das Recht zu verlangen, dass betreffende Daten unverzüglich gelöscht werden, bzw. alternativ nach Maßgabe der gesetzlichen Bestimmungen eine Einschränkung der Verarbeitung der Daten zu verlangen."
+      },
+      {
+        "type": "p",
+        "text": "Wir behalten uns vor, die Datenschutzerklärung zu ändern, um sie an geänderte Rechtslagen, oder bei Änderungen des Dienstes sowie der Datenverarbeitung anzupassen. Dies gilt jedoch nur bezüglich Erklärungen zur Datenverarbeitung. Sofern Einwilligungen der Nutzer erforderlich sind oder Bestandteile der Datenschutzerklärung Regelungen des Vertragsverhältnisses mit den Nutzern enthalten, erfolgen die Änderungen nur mit Zustimmung der Nutzer."
+      },
+      {
+        "type": "p",
+        "text": "Die Nutzer werden gebeten sich regelmäßig über den Inhalt der Datenschutzerklärung zu informieren."
+      },
+      {
+        "type": "p",
+        "text": "‍"
+      },
+      {
+        "type": "li",
+        "text": "Bestandsdaten (z.B. Namen, Adressen)"
+      },
+      {
+        "type": "li",
+        "text": "Kontaktdaten (z.B. E-Mail, Telefonnummern)"
+      },
+      {
+        "type": "li",
+        "text": "Inhaltsdaten (z.B. Texteingaben, Fotografien, Videos)"
+      },
+      {
+        "type": "li",
+        "text": "Nutzungsdaten (z.B. besuchte Webseiten, Interesse an Inhalten, Zugriffszeiten)"
+      },
+      {
+        "type": "li",
+        "text": "Meta-/Kommunikationsdaten (z.B. Geräte-Informationen, IP-Adressen)"
+      },
+      {
+        "type": "li",
+        "text": "Wenn Sie die Richtigkeit Ihrer bei uns gespeicherten personenbezogenen Daten bestreiten, benötigen wir in der Regel Zeit, um dies zu überprüfen. Für die Dauer der Prüfung haben Sie das Recht, die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen."
+      },
+      {
+        "type": "li",
+        "text": "Wenn die Verarbeitung Ihrer personenbezogenen Daten unrechtmäßig geschah/geschieht, können Sie statt der Löschung die Einschränkung der Datenverarbeitung verlangen."
+      },
+      {
+        "type": "li",
+        "text": "Wenn wir Ihre personenbezogenen Daten nicht mehr benötigen, Sie sie jedoch zur Ausübung, Verteidigung oder Geltendmachung von Rechtsansprüchen benötigen, haben Sie das Recht, statt der Löschung die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen."
+      },
+      {
+        "type": "li",
+        "text": "Wenn Sie einen Widerspruch nach Art. 21 Abs. 1 DSGVO eingelegt haben, muss eine Abwägung zwischen Ihren und unseren Interessen vorgenommen werden. Solange noch nicht feststeht, wessen Interessen überwiegen, haben Sie das Recht, die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen."
+      },
+      {
+        "type": "li",
+        "text": "a) durch eine entsprechende Einstellung Ihrer Browsersoftware, insbesondere führt die Unterdrückung von Drittcookies dazu, dass Sie keine Anzeigen von Drittanbietern erhalten;"
+      },
+      {
+        "type": "li",
+        "text": "b) durch Deaktivierung der interessenbezogenen Anzeigen der Anbieter, die Teil der Selbstregulierungs-Kampagne „About Ads\" sind, über den Link https://www.aboutads.info/choices, wobei diese Einstellung gelöscht wird, wenn Sie Ihre Cookies löschen;"
+      },
+      {
+        "type": "li",
+        "text": "c) unter https://www.facebook.com/ads/website_custom_audiences/ und für eingeloggte Nutzer unter https://www.facebook.com/settings/?tab=ads#_."
+      }
+    ]
+  },
+  "agb": {
+    "title": "Allgemeine Geschäftsbedingungen",
+    "meta": {
+      "title": "AGB Allgemeine Geschäftsbedingungen | Fenyx GmbH",
+      "description": ""
+    },
+    "blocks": [
+      {
+        "type": "h2",
+        "text": "Allgemeine Geschäftsbedingungen für die Nutzung der Fenyx Website"
+      },
+      {
+        "type": "h3",
+        "text": "§1 Geltungsbereich"
+      },
+      {
+        "type": "h3",
+        "text": "§2 Datenschutz"
+      },
+      {
+        "type": "h3",
+        "text": "§3 Urheberrechte und Nutzungsrechte"
+      },
+      {
+        "type": "h3",
+        "text": "§4 Haftungsausschluss"
+      },
+      {
+        "type": "h3",
+        "text": "§5 Änderungen der AGB"
+      },
+      {
+        "type": "h3",
+        "text": "§6 Schlussbestimmungen"
+      },
+      {
+        "type": "h3",
+        "text": "§7 Kontakt"
+      },
+      {
+        "type": "h2",
+        "text": "Allgemeine Geschäftsbedingungen für Mitarbeiterverkäufe"
+      },
+      {
+        "type": "h3",
+        "text": "§1 Vertragsabschluss"
+      },
+      {
+        "type": "h3",
+        "text": "§2 Preise und Zahlungsbedingungen"
+      },
+      {
+        "type": "h3",
+        "text": "§3 Lieferung und Versand"
+      },
+      {
+        "type": "h3",
+        "text": "§4 Widerrufsrecht"
+      },
+      {
+        "type": "h3",
+        "text": "§5 Eigentumsvorbehalt"
+      },
+      {
+        "type": "h3",
+        "text": "§6 Haftungsausschluss"
+      },
+      {
+        "type": "h3",
+        "text": "§7 Datenschutz"
+      },
+      {
+        "type": "h3",
+        "text": "§8 Anwendbares Recht und Gerichtsstand"
+      },
+      {
+        "type": "h3",
+        "text": "§9 Schlussbestimmungen"
+      },
+      {
+        "type": "p",
+        "text": "Im Rahmen des Mitarbeiterverkaufes werden einige Möbel mit limitierter Stückzahl angeboten. Wir gehen davon aus, dass wir für einige Produkte mehr Reservierungen als Produkte verfügbar sind. Dementsprechend gilt die Reservierung nicht als Garantie für den Erwerb. Sollte Ihnen das ausgewählte Produkt allerdings zugewiesen werden gilt die Reservierung als verbindlich."
+      },
+      {
+        "type": "li",
+        "text": "Diese Allgemeinen Geschäftsbedingungen (nachfolgend \"AGB\") gelten für alle Interaktionen und Nutzungen der Website von Fenyx (nachfolgend \"Anbieter\") unter www.fenyx-office.com durch Nutzer (nachfolgend \"Sie\")."
+      },
+      {
+        "type": "li",
+        "text": "Die Nutzung der Website ist möglich ohne dass ein Kauf oder eine vertragliche Verpflichtung zu einem Kauf besteht. Diese AGB regeln ausschließlich die nicht-kommerzielle Nutzung der Website."
+      },
+      {
+        "type": "li",
+        "text": "Abweichende Bedingungen des Nutzers erkennen wir nicht an, es sei denn, wir haben ausdrücklich ihrer Geltung zugestimmt."
+      },
+      {
+        "type": "li",
+        "text": "Der Schutz Ihrer persönlichen Daten ist uns besonders wichtig. Unsere Datenschutzpraktiken stehen im Einklang mit den geltenden datenschutzrechtlichen Bestimmungen."
+      },
+      {
+        "type": "li",
+        "text": "Personenbezogene Daten werden nur erhoben, wenn Sie uns diese von sich aus, zum Beispiel zur Durchführung einer Anfrage oder Registrierung, zur Verfügung stellen. Nähere Bestimmungen finden Sie in unserer Datenschutzerklärung auf unserer Website."
+      },
+      {
+        "type": "li",
+        "text": "Die durch den Anbieter erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des Anbieters oder jeweiligen Erstellers."
+      },
+      {
+        "type": "li",
+        "text": "Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet."
+      },
+      {
+        "type": "li",
+        "text": "Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen."
+      },
+      {
+        "type": "li",
+        "text": "Unsere Website enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen."
+      },
+      {
+        "type": "li",
+        "text": "Der Anbieter behält sich das Recht vor, diese AGB jederzeit ohne Vorankündigung zu ändern. Die geänderten Bedingungen werden den Nutzern per E-Mail zugesandt und gelten als akzeptiert, wenn der Nutzer den Diensten der Website nach Inkrafttreten der Änderungen weiterhin nutzt."
+      },
+      {
+        "type": "li",
+        "text": "Es gilt das Recht der Bundesrepublik Deutschland."
+      },
+      {
+        "type": "li",
+        "text": "Sollten einzelne Bestimmungen dieser AGB unwirksam oder undurchführbar sein oder nach Vertragsschluss unwirksam oder undurchführbar werden, bleibt davon die Wirksamkeit der AGB im Übrigen unberührt."
+      },
+      {
+        "type": "li",
+        "text": "Bei Fragen zu diesen Allgemeinen Geschäftsbedingungen wenden Sie sich bitte an uns unter info@fenyx-office.com."
+      },
+      {
+        "type": "li",
+        "text": "Durch das Absenden einer Reservierung über unseren Online-Shop geben Sie ein verbindliches Angebot auf Kauf der ausgewählten Produkte ab. Der Vertrag kommt zustande, sobald wir Ihnen die Zuteilung des reservierten Produktes nach Abschluss des Mitarbeiterverkaufs bestätigen."
+      },
+      {
+        "type": "li",
+        "text": "Eine Reservierung garantiert nicht den Erwerb des Produktes. Eine Vertragsbeziehung zwischen Ihnen und Fenyx entsteht erst mit unserer finalen Bestätigung des Erhalts des reservierten Produktes."
+      },
+      {
+        "type": "li",
+        "text": "Die auf unserer Website ausgewiesenen Preise sind in Euro angegeben und beinhalten die gesetzliche Mehrwertsteuer. Versandkosten werden separat ausgewiesen und variieren je nach Lieferadresse."
+      },
+      {
+        "type": "li",
+        "text": "Die Zahlung kann per Vorkasse, Kreditkarte, PayPal oder, sofern verfügbar, auf Rechnung erfolgen."
+      },
+      {
+        "type": "li",
+        "text": "Die Lieferung der Waren erfolgt innerhalb der in der im Shop angegebenen Fristen. Bei Lieferverzögerungen informieren wir Sie umgehend."
+      },
+      {
+        "type": "li",
+        "text": "Der Versand der Produkte erfolgt auf Risiko des Käufers. Bitte überprüfen Sie die Ware bei Lieferung auf mögliche Transportschäden und melden Sie diese gegebenenfalls sofort."
+      },
+      {
+        "type": "li",
+        "text": "Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen. Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag, an dem Sie oder ein von Ihnen benannter Dritter, der nicht der Beförderer ist, die letzte Ware in Besitz genommen haben."
+      },
+      {
+        "type": "li",
+        "text": "Die gelieferten Waren bleiben bis zur vollständigen Bezahlung Eigentum von Fenyx."
+      },
+      {
+        "type": "li",
+        "text": "Wir haften nicht für Schäden, die durch unsachgemäße Nutzung oder Behandlung der Produkte verursacht werden."
+      },
+      {
+        "type": "li",
+        "text": "Unsere Haftung für vertragliche Pflichtverletzungen sowie Schäden aus unerlaubten Handlungen ist auf Fälle von Vorsatz und grober Fahrlässigkeit beschränkt."
+      },
+      {
+        "type": "li",
+        "text": "Die Erhebung und Verarbeitung Ihrer personenbezogenen Daten erfolgt gemäß unserer Datenschutzerklärung, die auf unserer Website abrufbar ist."
+      },
+      {
+        "type": "li",
+        "text": "Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des UN-Kaufrechts."
+      },
+      {
+        "type": "li",
+        "text": "Gerichtsstand für sämtliche Streitigkeiten aus diesem Vertragsverhältnis ist, sofern gesetzlich zulässig, der Geschäftssitz von Fenyx."
+      },
+      {
+        "type": "li",
+        "text": "Sollten einzelne Bestimmungen dieser AGB unwirksam sein oder werden, bleibt die Wirksamkeit der übrigen Bestimmungen unberührt. Es gilt eine Regelung als vereinbart, die dem wirtschaftlichen Zweck der unwirksamen Bestimmung am nächsten kommt."
+      },
+      {
+        "type": "li",
+        "text": "Fenyx behält sich das Recht vor, diese AGB jederzeit zu ändern oder zu aktualisieren. Es gilt die jeweils zum Zeitpunkt Ihrer Bestellung gültige Fassung der AGB."
+      }
+    ]
+  }
+}
