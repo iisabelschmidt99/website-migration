@@ -2637,6 +2637,72 @@
   color: #dceaf5;
 }
 
+.article-detail__content {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #dceaf5;
+}
+
+.article-detail__content > * + * {
+  margin-top: 1.25rem;
+}
+
+.article-detail__content h2,
+.article-detail__content h3,
+.article-detail__content h4 {
+  margin: 0;
+  font-family: var(--font-heading, inherit);
+  font-weight: 600;
+  line-height: 1.3;
+  color: #f2f9ff;
+}
+
+.article-detail__content h2 {
+  font-size: 1.5rem;
+}
+
+.article-detail__content h3 {
+  font-size: 1.25rem;
+}
+
+.article-detail__content h4 {
+  font-size: 1.125rem;
+}
+
+.article-detail__content p,
+.article-detail__content li {
+  margin: 0;
+}
+
+.article-detail__content ul,
+.article-detail__content ol {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.article-detail__content a {
+  color: #b8ff3c;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.article-detail__content a:hover {
+  color: #d4ff7a;
+}
+
+.article-detail__content img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}
+
+.article-detail__content blockquote {
+  margin: 0;
+  padding-left: 1rem;
+  border-left: 3px solid rgba(184, 255, 60, 0.45);
+  color: #b8c9d8;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .referenzen-cases__map .de-state,
   .referenzen-cases__map .de-city {

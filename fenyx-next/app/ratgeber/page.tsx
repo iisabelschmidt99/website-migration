@@ -1,26 +1,42 @@
 import type { Metadata } from "next";
 import ArticleListingSection from "@/components/ArticleListingSection";
 import ServiceContactSection from "@/components/ServiceContactSection";
-import {
-  getRatgeberExcerpt,
-  ratgeberArticles,
-  ratgeberMeta,
-} from "@/data/ratgeber";
 import { contactContent } from "@/data/referenzen";
+import {
+  getPublishedRatgeberPosts,
+  getRatgeberExcerpt,
+  ratgeberListingMeta,
+} from "@/lib/blog";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: ratgeberMeta.title,
+  title: ratgeberListingMeta.title,
   description:
     "Fenyx Ratgeber: Expertenwissen zu nachhaltiger Büroeinrichtung, Büroplanung, Ergonomie und Kreislaufwirtschaft.",
 };
 
-export default function RatgeberPage() {
-  const items = ratgeberArticles.map((article) => ({
-    slug: article.slug,
-    title: article.title,
-    excerpt: getRatgeberExcerpt(article),
-    imageSrc: article.imageSrc,
-    href: `/ratgeber/${article.slug}`,
+function formatPublishedDate(iso?: string) {
+  if (!iso) return undefined;
+
+  return new Intl.DateTimeFormat("de-DE", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  }).format(new Date(iso));
+}
+
+export default async function RatgeberPage() {
+  const posts = await getPublishedRatgeberPosts();
+
+  const items = posts.map((post) => ({
+    slug: post.slug,
+    title: post.title,
+    excerpt: getRatgeberExcerpt(post),
+    imageSrc: post.imageSrc,
+    href: `/ratgeber/${post.slug}`,
+    tag: post.category,
+    dateLabel: formatPublishedDate(post.publishedAt),
   }));
 
   return (

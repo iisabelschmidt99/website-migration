@@ -15,7 +15,7 @@ import path from "node:path";
 
 const CSV_PATH = path.resolve(
   process.cwd(),
-  "../_reference/webflow-export/references cms download/FENYX LIVE - Referenzen - 6988d9ea184c3a10bc10d833.csv"
+  "../_reference/webflow-export/cms download/FENYX LIVE - Referenzen - 6988d9ea184c3a10bc10d833.csv"
 );
 const BUCKET = "media";
 

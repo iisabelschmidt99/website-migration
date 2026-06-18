@@ -4,7 +4,9 @@ import Link from "next/link";
 type ArticleDetailSectionProps = {
   title: string;
   imageSrc: string;
-  paragraphs: string[];
+  imageAlt?: string;
+  paragraphs?: string[];
+  bodyHtml?: string;
   backHref: string;
   backLabel: string;
   metaItems?: { label: string; value: string }[];
@@ -14,7 +16,9 @@ type ArticleDetailSectionProps = {
 export default function ArticleDetailSection({
   title,
   imageSrc,
-  paragraphs,
+  imageAlt,
+  paragraphs = [],
+  bodyHtml,
   backHref,
   backLabel,
   metaItems,
@@ -41,22 +45,31 @@ export default function ArticleDetailSection({
           <h1 className="article-detail__title">{title}</h1>
         </header>
 
-        <div className="article-detail__image-wrap">
-          <Image
-            src={imageSrc}
-            alt={title}
-            width={960}
-            height={540}
-            className="article-detail__image"
-            priority
-          />
-        </div>
+        {imageSrc ? (
+          <div className="article-detail__image-wrap">
+            <Image
+              src={imageSrc}
+              alt={imageAlt ?? title}
+              width={960}
+              height={540}
+              className="article-detail__image"
+              priority
+            />
+          </div>
+        ) : null}
 
-        <div className="article-detail__body">
-          {filteredParagraphs.map((paragraph) => (
-            <p key={paragraph.slice(0, 48)}>{paragraph}</p>
-          ))}
-        </div>
+        {bodyHtml ? (
+          <div
+            className="article-detail__body article-detail__content"
+            dangerouslySetInnerHTML={{ __html: bodyHtml }}
+          />
+        ) : (
+          <div className="article-detail__body">
+            {filteredParagraphs.map((paragraph) => (
+              <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+            ))}
+          </div>
+        )}
       </div>
     </article>
   );
