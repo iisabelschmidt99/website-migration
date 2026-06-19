@@ -17,11 +17,12 @@ export default function LogoGrid({
 }: LogoGridProps) {
   return (
     <section className="py-20 sm:py-28 bg-white" aria-labelledby="logo-grid-heading">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-20">
+      <div className="wf-padding-global">
+        <div className="wf-container-large">
+        <div className="text-center wf-max-width-large wf-align-center mb-14 sm:mb-20">
           <h2
             id="logo-grid-heading"
-            className="text-h2 sm:text-3xl lg:text-[2.75rem] font-heading tracking-fenyx mb-5 text-black"
+            className="wf-heading-h2 mb-5 text-black"
           >
             {heading}
           </h2>
@@ -53,6 +54,7 @@ export default function LogoGrid({
               />
             </div>
           ))}
+        </div>
         </div>
       </div>
     </section>

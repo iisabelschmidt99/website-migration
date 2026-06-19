@@ -122,7 +122,8 @@ export default function Header() {
 
   return (
     <header id="site-header" ref={headerRef} className={headerClass}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="wf-padding-global">
+        <div className="wf-container-large">
         <div className="flex items-center h-16 lg:h-[72px]">
           <Link
             href="/"
@@ -243,6 +244,7 @@ export default function Header() {
             </button>
           </div>
         </div>
+        </div>
       </div>
 
       <nav
@@ -252,7 +254,7 @@ export default function Header() {
         }`}
         aria-label="Mobile Navigation"
       >
-        <div className="px-4 py-4 space-y-1">
+        <div className="wf-padding-global py-4 space-y-1">
           {MEGA_MENUS.map((menu) => {
             const expanded = mobileExpanded[menu.id] ?? false;
             const links =

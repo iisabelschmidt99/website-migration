@@ -44,13 +44,15 @@ export default function PressMarquee({
       className="py-16 sm:py-20 bg-black-gradient overflow-hidden"
       aria-labelledby="bekannt-aus-heading"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16">
+      <div className="wf-padding-global mb-12 sm:mb-16">
+        <div className="wf-container-large">
         <h2
           id="bekannt-aus-heading"
-          className="text-center text-h3 sm:text-4xl lg:text-[2.75rem] font-heading tracking-fenyx text-white"
+          className="wf-text-align-center wf-heading-h3 text-white"
         >
           {heading}
         </h2>
+        </div>
       </div>
 
       <div

@@ -45,19 +45,21 @@ export default async function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-r from-[#1a1410]/92 via-[#151a12]/78 to-[#0f1410]/30" />
         </div>
 
-        <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 sm:py-36 lg:py-0">
-          <div className="max-w-2xl lg:max-w-4xl xl:max-w-5xl">
-            <h1
-              id="hero-heading"
-              className="text-white text-3xl sm:text-4xl lg:text-5xl xl:text-[3.5rem] font-black leading-[1.08] tracking-[-0.03em] mb-5"
-            >
-              Nachhaltige Bürotransformationen aus einer Hand.
-            </h1>
-            <p className="text-white text-xs sm:text-[13px] lg:text-sm leading-snug mb-10 lg:whitespace-nowrap">
-              Von digitalem Bestandsmanagement über die nachhaltige Verwertung
-              zur schlüsselfertigen Einrichtung.
-            </p>
-            <CtaButton href="/#kontakt">Kontakt aufnehmen</CtaButton>
+        <div className="relative w-full wf-padding-global py-28 sm:py-36 lg:py-0">
+          <div className="wf-container-xlarge">
+            <div className="wf-max-width-large wf-max-width-large--hero">
+              <h1
+                id="hero-heading"
+                className="wf-heading-h1 text-white mb-5"
+              >
+                Nachhaltige Bürotransformationen aus einer Hand.
+              </h1>
+              <p className="text-white wf-text-size-medium leading-snug mb-10">
+                Von digitalem Bestandsmanagement über die nachhaltige Verwertung
+                zur schlüsselfertigen Einrichtung.
+              </p>
+              <CtaButton href="/#kontakt">Kontakt aufnehmen</CtaButton>
+            </div>
           </div>
         </div>
       </section>

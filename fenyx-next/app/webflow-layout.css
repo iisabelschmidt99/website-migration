@@ -83,28 +83,36 @@
 
 .wf-heading-h2 {
   font-family: var(--font-telegraf), Arial, sans-serif;
-  font-size: 3.2rem;
+  font-size: 2.3rem;
   font-weight: 700;
   line-height: 1.2;
+  letter-spacing: -0.01em;
 }
 
 .wf-heading-h3 {
   font-family: var(--font-telegraf), Arial, sans-serif;
-  font-size: 2.4rem;
+  font-size: 2rem;
   font-weight: 700;
   line-height: 1.2;
 }
 
 .wf-heading-h4 {
   font-family: var(--font-telegraf), Arial, sans-serif;
-  font-size: 2.2rem;
+  font-size: 1.5rem;
   font-weight: 700;
   line-height: 1.4;
 }
 
+.wf-heading-h5 {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
 .wf-heading-h6 {
   font-family: var(--font-telegraf), Arial, sans-serif;
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 700;
   line-height: 1.5;
 }

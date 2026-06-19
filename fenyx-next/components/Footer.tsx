@@ -36,7 +36,8 @@ const COLUMNS = [
 export default function Footer() {
   return (
     <footer className="bg-abyss-deep border-t border-white/5 text-mist" aria-label="Seitenfuß">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
+      <div className="wf-padding-global pt-16 pb-8">
+        <div className="wf-container-large">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-12">
           {/* Kontakt + Social */}
           <div>
@@ -102,6 +103,7 @@ export default function Footer() {
               <Link href="/agb" className="hover:text-signal transition-colors">AGB</Link>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </footer>

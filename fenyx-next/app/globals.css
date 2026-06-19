@@ -931,7 +931,7 @@
 
 .inv-crosssell__heading {
   font-family: var(--font-telegraf), Arial, sans-serif;
-  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-size: clamp(2rem, 4.5vw, 2.3rem);
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
@@ -1417,7 +1417,7 @@
 .value-promise__tab-title {
   display: block;
   font-family: var(--font-telegraf), Arial, sans-serif;
-  font-size: 2.2rem;
+  font-size: 1.5rem;
   font-weight: 700;
   line-height: 1.4;
   color: #0b171f;
