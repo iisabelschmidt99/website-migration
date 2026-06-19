@@ -18,29 +18,34 @@ export default function CaseCard({
 }: CaseCardProps) {
   return (
     <article
-      className={`case-card flex flex-col lg:flex-row lg:items-stretch gap-8 lg:gap-12 bg-abyss-deep p-8 sm:p-10 lg:p-12 shadow-[0_2px_5rem_rgba(2,4,5,0.2)] ${
+      className={`case-card flex flex-col lg:flex-row lg:items-stretch gap-8 lg:gap-20 bg-abyss-deep p-8 lg:p-12 shadow-[0_2px_5rem_rgba(2,4,5,0.2)] ${
         imageLeft ? "case-card--image-left" : ""
       }`}
     >
       <div className="case-card-content flex w-full flex-col justify-between lg:max-w-[50%] lg:flex-1">
         <div>
           <p className="mb-1.5 text-sm font-bold text-white/90">{eyebrow}</p>
-          <h3 className="mb-3 font-heading text-xl tracking-[-0.02em] text-white sm:text-2xl">
+          <h3 className="wf-heading-h3 mb-3 text-white">
             {heading}
           </h3>
-          <div className="mb-4 inline-flex items-center self-start border border-white/20 px-3.5 py-1.5 text-[11px] text-white/85">
+          <div className="mb-4 inline-flex items-center self-start rounded-2xl border border-white/20 bg-abyss-deep/70 px-3 py-1 text-xs text-white/85">
             {tag}
           </div>
         </div>
 
         <div>
-          <p className="mb-4 max-w-[34rem] text-[13px] leading-relaxed text-mist">
+          <p className="mb-4 max-w-[34rem] text-sm leading-relaxed text-mist">
             {body}
           </p>
-          <div className="mb-4 grid grid-cols-3 gap-2.5 border-t border-white/10 pt-4">
-            {stats.map((stat) => (
-              <div key={stat.label}>
-                <p className="font-heading text-lg leading-tight text-white sm:text-xl">
+          <div className="case-card-stats mb-4 flex border-t border-white/10 pt-4">
+            {stats.map((stat, index) => (
+              <div
+                key={stat.label}
+                className={`flex-1 pr-6 ${
+                  index < stats.length - 1 ? "border-r border-white/10" : ""
+                }`}
+              >
+                <p className="font-heading text-2xl leading-none text-white">
                   {stat.value}
                 </p>
                 <p className="mt-1 text-[10px] leading-snug text-mist">
@@ -59,7 +64,7 @@ export default function CaseCard({
       </div>
 
       <div className="case-card-image flex w-full items-center lg:max-w-[50%] lg:flex-1">
-        <div className="case-card-image-frame relative aspect-[5/3] w-full overflow-hidden">
+        <div className="case-card-image-frame relative aspect-[3/1.8] w-full overflow-hidden rounded">
           <Image
             src={imageSrc}
             alt={imageAlt}

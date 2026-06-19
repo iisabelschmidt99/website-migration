@@ -217,3 +217,133 @@ create policy "Media: Redaktion ändert/löscht" on storage.objects
 -- FERTIG. Nächster Schritt: ersten Admin setzen (siehe README.md):
 --   update public.profiles set role = 'admin' where email = 'isabel@fenyx-office.com';
 -- ============================================================================
+
+-- ============================================================================
+-- 7) TEAM (Über-uns-Seite)
+-- ============================================================================
+create table if not exists public.team_members (
+  id                uuid primary key default gen_random_uuid(),
+  slug              text unique not null,
+  name              text not null,
+  position          text,
+  bio               text,
+  image_url         text,
+  image_alt         text,
+  linkedin_url      text,
+  email             text,
+  quote             text,
+  legend_position   text,
+  sort_order        integer not null default 0,
+  published         boolean not null default false,
+  created_at        timestamptz not null default now(),
+  updated_at        timestamptz not null default now()
+);
+
+create index if not exists team_members_published_idx on public.team_members (published, sort_order);
+
+drop trigger if exists team_members_set_updated_at on public.team_members;
+create trigger team_members_set_updated_at
+  before update on public.team_members
+  for each row execute function public.set_updated_at();
+
+-- ============================================================================
+-- 8) KUNDENSTIMMEN (Testimonials)
+-- ============================================================================
+create table if not exists public.testimonials (
+  id                uuid primary key default gen_random_uuid(),
+  slug              text unique not null,
+  name              text not null,
+  role_company      text,
+  quote             text,
+  categories        jsonb not null default '[]'::jsonb,
+  image_url         text,
+  image_alt         text,
+  logo_url          text,
+  sort_order        integer not null default 0,
+  published         boolean not null default false,
+  created_at        timestamptz not null default now(),
+  updated_at        timestamptz not null default now()
+);
+
+create index if not exists testimonials_published_idx on public.testimonials (published, sort_order);
+
+drop trigger if exists testimonials_set_updated_at on public.testimonials;
+create trigger testimonials_set_updated_at
+  before update on public.testimonials
+  for each row execute function public.set_updated_at();
+
+-- ============================================================================
+-- 9) EVENTS
+-- ============================================================================
+create table if not exists public.events (
+  id                  uuid primary key default gen_random_uuid(),
+  slug                text unique not null,
+  title               text not null,
+  hero_image_url      text,
+  hero_image_alt      text,
+  intro               text,
+  intro_info          text,
+  tags                jsonb not null default '[]'::jsonb,
+  event_date          timestamptz,
+  time_label          text,
+  location            text,
+  location_link       text,
+  fee                 text,
+  seats               text,
+  language            text,
+  format              text,
+  catering            text,
+  h2_text             text,
+  h2_paragraph        text,
+  h2_rich_text        text,
+  program_html        text,
+  host_slugs          jsonb not null default '[]'::jsonb,
+  program_image_url   text,
+  program_image_alt   text,
+  takeaways           jsonb not null default '[]'::jsonb,
+  category            text,
+  ics_url             text,
+  hubspot_form        text,
+  published           boolean not null default false,
+  published_at        timestamptz,
+  created_at          timestamptz not null default now(),
+  updated_at          timestamptz not null default now()
+);
+
+create index if not exists events_published_idx on public.events (published, event_date desc);
+
+drop trigger if exists events_set_updated_at on public.events;
+create trigger events_set_updated_at
+  before update on public.events
+  for each row execute function public.set_updated_at();
+
+-- ============================================================================
+-- 10) RLS für Team, Kundenstimmen, Events
+-- ============================================================================
+alter table public.team_members  enable row level security;
+alter table public.testimonials  enable row level security;
+alter table public.events        enable row level security;
+
+drop policy if exists "Team: öffentlich lesen (published)" on public.team_members;
+create policy "Team: öffentlich lesen (published)" on public.team_members
+  for select using (published = true or public.is_staff());
+
+drop policy if exists "Team: Redaktion schreibt" on public.team_members;
+create policy "Team: Redaktion schreibt" on public.team_members
+  for all using (public.is_staff()) with check (public.is_staff());
+
+drop policy if exists "Kundenstimmen: öffentlich lesen (published)" on public.testimonials;
+create policy "Kundenstimmen: öffentlich lesen (published)" on public.testimonials
+  for select using (published = true or public.is_staff());
+
+drop policy if exists "Kundenstimmen: Redaktion schreibt" on public.testimonials;
+create policy "Kundenstimmen: Redaktion schreibt" on public.testimonials
+  for all using (public.is_staff()) with check (public.is_staff());
+
+drop policy if exists "Events: öffentlich lesen (published)" on public.events;
+create policy "Events: öffentlich lesen (published)" on public.events
+  for select using (published = true or public.is_staff());
+
+drop policy if exists "Events: Redaktion schreibt" on public.events;
+create policy "Events: Redaktion schreibt" on public.events
+  for all using (public.is_staff()) with check (public.is_staff());

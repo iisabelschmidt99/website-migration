@@ -122,9 +122,8 @@ export default function Header() {
 
   return (
     <header id="site-header" ref={headerRef} className={headerClass}>
-      <div className="wf-padding-global">
-        <div className="wf-container-large">
-        <div className="flex items-center h-16 lg:h-[72px]">
+      <div className="site-nav-container">
+        <div className="flex w-full items-center h-16 lg:h-[72px]">
           <Link
             href="/"
             className="site-header-logo flex items-center shrink-0 self-center leading-none"
@@ -243,7 +242,6 @@ export default function Header() {
               )}
             </button>
           </div>
-        </div>
         </div>
       </div>
 

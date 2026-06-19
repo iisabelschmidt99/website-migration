@@ -1,3 +1,11 @@
+/* Webflow .nav-container – volle Breite, Logo/Menü an den Rändern */
+.site-nav-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1.25rem 1.25rem 1.25rem 1.5rem;
+}
+
 /* ── Header – transparent über Hero, solid beim Scrollen ── */
 #site-header.site-header {
   background: transparent;

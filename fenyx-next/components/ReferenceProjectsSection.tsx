@@ -19,12 +19,13 @@ export default function ReferenceProjectsSection({
   return (
     <section
       id={id}
-      className="py-20 sm:py-28 bg-white"
+      className="bg-white"
       aria-labelledby="referenz-projekte-heading"
     >
       <div className="wf-padding-global">
         <div className="wf-container-large">
-        <div className="text-center wf-max-width-large wf-align-center mb-14 sm:mb-20">
+        <div className="wf-padding-section-large">
+        <div className="text-center wf-max-width-large wf-align-center">
           <h2
             id="referenz-projekte-heading"
             className="wf-heading-h2 mb-5 text-black"
@@ -36,7 +37,10 @@ export default function ReferenceProjectsSection({
           </p>
         </div>
 
+        <div className="wf-spacer-xxlarge" aria-hidden="true" />
+
         <ReferenceScrollStack projects={projects} />
+        </div>
         </div>
       </div>
     </section>

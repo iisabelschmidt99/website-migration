@@ -35,26 +35,29 @@ export default function ServiceContactSection({
         <div className="wf-container-large">
           <div className="wf-padding-section-large">
             <div className="service-contact__grid">
-          <div className="service-contact__portrait">
-            <Image
-              src={portraitSrc}
-              alt={portraitAlt}
-              fill
-              className="object-cover object-center"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              loading="lazy"
-            />
-            <div className="service-contact__portrait-overlay" aria-hidden="true" />
-            <div className="service-contact__portrait-caption">
-              <p className="service-contact__quote">{quote}</p>
-              <div className="service-contact__person">
-                <p className="service-contact__name">{name}</p>
-                <p className="service-contact__role">{role}</p>
+              <div className="service-contact__portrait">
+                <Image
+                  src={portraitSrc}
+                  alt={portraitAlt}
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  loading="lazy"
+                />
+                <div
+                  className="service-contact__portrait-overlay"
+                  aria-hidden="true"
+                />
+                <div className="service-contact__portrait-caption">
+                  <p className="service-contact__quote">{quote}</p>
+                  <div className="service-contact__person">
+                    <p className="service-contact__name">{name}</p>
+                    <p className="service-contact__role">{role}</p>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
-          <div className="service-contact__form">
+              <div className="service-contact__form">
             <h2
               id="service-kontakt-heading"
               className="wf-heading-h2 text-white mb-6"
@@ -110,8 +113,8 @@ export default function ServiceContactSection({
               </a>
             </div>
 
-            <HubSpotForm />
-          </div>
+                <HubSpotForm />
+              </div>
             </div>
           </div>
         </div>
