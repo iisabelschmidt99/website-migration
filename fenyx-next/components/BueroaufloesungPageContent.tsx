@@ -43,7 +43,7 @@ export default function BueroaufloesungPageContent({
 
       <ImageStepsTimeline {...schritteContent} />
 
-      <StatsGrid {...statsContent} />
+      <StatsGrid {...statsContent} sectionPadding="xlarge" />
 
       <ReferenceProjectsSection
         id="referenzen"

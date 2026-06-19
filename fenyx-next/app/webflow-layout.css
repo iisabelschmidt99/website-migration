@@ -1,0 +1,266 @@
+/* Webflow layout + typography tokens (fenyx-office-dev.css) */
+
+.wf-padding-global {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.wf-container-large,
+.wf-container-xlarge {
+  width: 100%;
+  max-width: 96rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wf-padding-section-large {
+  padding-top: 10rem;
+  padding-bottom: 8rem;
+}
+
+.wf-padding-section-xlarge {
+  padding-top: 12rem;
+  padding-bottom: 12rem;
+}
+
+.wf-max-width-large {
+  width: 100%;
+  max-width: 58rem;
+}
+
+.wf-max-width-large--hero {
+  max-width: 62rem;
+}
+
+.wf-max-width-large--heading {
+  max-width: 65rem;
+}
+
+.wf-align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wf-text-align-center {
+  text-align: center;
+}
+
+.wf-text-wrap-balance {
+  text-wrap: balance;
+}
+
+.wf-spacer-xxsmall {
+  width: 100%;
+  padding-top: 0.25rem;
+}
+
+.wf-spacer-xsmall {
+  width: 100%;
+  padding-top: 0.6rem;
+}
+
+.wf-spacer-small {
+  width: 100%;
+  padding-top: 1.25rem;
+}
+
+.wf-spacer-medium {
+  width: 100%;
+  padding-top: 2rem;
+}
+
+.wf-spacer-xxlarge {
+  width: 100%;
+  padding-top: 5rem;
+}
+
+.wf-heading-h1 {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.wf-heading-h2 {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.wf-heading-h3 {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.wf-heading-h4 {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.wf-heading-h6 {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.wf-text-size-medium {
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+
+/* ── section_stats ── */
+.section_stats {
+  background-color: #c8ff00;
+  color: #000;
+}
+
+.stats_component {
+  display: flex;
+  flex-flow: column;
+}
+
+.stats_grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.stats_list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 4rem 3rem;
+  place-items: start;
+  width: 100%;
+}
+
+.stats_item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-left: 2rem;
+}
+
+.stats_number {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #000;
+}
+
+.stats_number-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.125rem;
+}
+
+/* ── section_hero (video) ── */
+.section_hero {
+  position: relative;
+  color: #f2f9ff;
+}
+
+.section_hero__video-wrap {
+  z-index: 0;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.section_hero__video-wrap video {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+
+.section_hero__overlay {
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  inset: 0;
+}
+
+.hero_content {
+  z-index: 2;
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 100svh;
+  max-height: 60rem;
+}
+
+@media (max-width: 991px) {
+  .wf-padding-section-large {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+
+  .wf-padding-section-xlarge {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+
+  .stats_number {
+    font-size: 4rem;
+  }
+
+  .stats_list {
+    gap: 2rem 2rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .wf-padding-global {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .wf-padding-section-large,
+  .wf-padding-section-xlarge {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .wf-heading-h1 {
+    font-size: 2.5rem;
+  }
+
+  .wf-heading-h2 {
+    font-size: 2rem;
+  }
+
+  .wf-heading-h3 {
+    font-size: 1.5rem;
+  }
+
+  .wf-heading-h4 {
+    font-size: 1.5rem;
+  }
+
+  .wf-spacer-xxlarge {
+    padding-top: 3rem;
+  }
+
+  .stats_list {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .stats_number {
+    font-size: 3.5rem;
+  }
+
+  .stats_item {
+    padding-left: 1.5rem;
+  }
+}

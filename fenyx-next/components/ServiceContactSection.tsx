@@ -28,11 +28,13 @@ export default function ServiceContactSection({
   return (
     <section
       id="kontakt"
-      className="service-contact bg-gradient-to-b from-black-gradient to-abyss-deep py-20 sm:py-28"
+      className="service-contact bg-gradient-to-b from-black-gradient to-abyss-deep"
       aria-labelledby="service-kontakt-heading"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="service-contact__grid">
+      <div className="wf-padding-global">
+        <div className="wf-container-large">
+          <div className="wf-padding-section-large">
+            <div className="service-contact__grid">
           <div className="service-contact__portrait">
             <Image
               src={portraitSrc}
@@ -55,7 +57,7 @@ export default function ServiceContactSection({
           <div className="service-contact__form">
             <h2
               id="service-kontakt-heading"
-              className="text-white text-2xl sm:text-3xl lg:text-4xl font-heading tracking-[-0.02em] mb-6"
+              className="wf-heading-h2 text-white mb-6"
             >
               {heading}
             </h2>
@@ -109,6 +111,8 @@ export default function ServiceContactSection({
             </div>
 
             <HubSpotForm />
+          </div>
+            </div>
           </div>
         </div>
       </div>

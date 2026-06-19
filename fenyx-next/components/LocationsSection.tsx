@@ -52,12 +52,14 @@ export default function LocationsSection({
       }`}
       aria-labelledby="locations-heading"
     >
-      <div className="max-w-[80rem] mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
-        <div className="locations-section__layout">
-          <div>
-            <h2 id="locations-heading" className="locations-section__heading">
-              {heading}
-            </h2>
+      <div className="wf-padding-global">
+        <div className="wf-container-large">
+          <div className="wf-padding-section-large">
+            <div className="locations-section__layout">
+              <div>
+                <h2 id="locations-heading" className="wf-heading-h2 locations-section__heading">
+                  {heading}
+                </h2>
 
             <ul className="locations-section__list">
               {locations.map((location) => {
@@ -139,6 +141,8 @@ export default function LocationsSection({
                   </Link>
                 );
               })}
+            </div>
+          </div>
             </div>
           </div>
         </div>

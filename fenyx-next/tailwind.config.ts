@@ -49,7 +49,7 @@ const config: Config = {
       // Heading-Größen wie im Webflow-Original (font-weight überall 700)
       fontSize: {
         "h1": ["4rem", { lineHeight: "1.1", fontWeight: "700" }],
-        "h2": ["2.3rem", { lineHeight: "1.2", letterSpacing: "-0.01em", fontWeight: "700" }],
+        "h2": ["3.2rem", { lineHeight: "1.2", fontWeight: "700" }],
         "h3": ["2rem", { lineHeight: "1.2", fontWeight: "700" }],
         "h4": ["1.5rem", { lineHeight: "1.4", fontWeight: "700" }],
         "h5": ["1.25rem", { lineHeight: "1.5", fontWeight: "700" }],
