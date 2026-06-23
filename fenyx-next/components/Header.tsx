@@ -178,7 +178,11 @@ export default function Header() {
                         <MegaMenuPanel
                           config={menu}
                           isOpen={isOpen}
-                          panelStyle={{ top: panelTop }}
+                          panelStyle={
+                            menu.layout === "simple"
+                              ? undefined
+                              : { top: panelTop }
+                          }
                         />
                       </div>
                     )}

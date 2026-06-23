@@ -111,7 +111,7 @@ export async function POST(req: Request) {
     const origin = req.headers.get("origin") ?? new URL(req.url).origin;
 
     const { data, error } = await adminClient.auth.admin.inviteUserByEmail(email, {
-      redirectTo: `${origin}/admin/login`,
+      redirectTo: `${origin}/passwort-festlegen`,
     });
 
     if (error) {

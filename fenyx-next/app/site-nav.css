@@ -340,6 +340,25 @@
   border-right: 1px solid rgba(0, 0, 0, 0.06);
 }
 
+/* Simple-Dropdown: kompakt, rechtsbündig unter dem Trigger */
+.mega-item:has(.mega-panel--simple) {
+  position: relative;
+}
+
+.mega-panel.mega-panel--simple {
+  position: absolute;
+  left: auto;
+  right: 0;
+  top: 100%;
+  width: auto;
+}
+
+.mega-panel--simple .mega-panel-full--one {
+  width: 17rem;
+  margin-left: 0;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+}
+
 .mega-panel--end .mega-panel-full--one {
   margin-left: auto;
 }
