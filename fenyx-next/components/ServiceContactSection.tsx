@@ -40,7 +40,7 @@ export default function ServiceContactSection({
                   src={portraitSrc}
                   alt={portraitAlt}
                   fill
-                  className="object-cover object-center"
+                  className="object-cover object-top"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   loading="lazy"
                 />

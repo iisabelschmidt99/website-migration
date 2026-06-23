@@ -218,6 +218,25 @@
   text-decoration: underline;
 }
 
+/* Inline-Dankesnachricht nach Absenden (dunkler Hintergrund → helle Schrift) */
+.hubspot-form .submitted-message,
+.hubspot-form .hs-form__virtual-submit,
+.hbspt-form .submitted-message {
+  display: block;
+  width: 100%;
+  padding: 1.25rem 1.5rem;
+  background-color: #132735;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #dceaf5;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.hubspot-form .submitted-message a,
+.hbspt-form .submitted-message a {
+  color: #c8ff00;
+}
+
 @media (max-width: 768px) {
   .hubspot-form .hs-form {
     grid-template-columns: 1fr;

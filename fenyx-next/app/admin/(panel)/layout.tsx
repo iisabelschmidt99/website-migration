@@ -49,7 +49,7 @@ export default async function PanelLayout({
         <p className="text-signal text-xs font-bold uppercase tracking-[0.15em] mb-6">
           Fenyx Backend
         </p>
-        <AdminNav />
+        <AdminNav isAdmin={profile?.role === "admin"} />
         <div className="mt-auto pt-6 border-t border-white/10">
           <p className="text-mist text-xs mb-2 truncate">
             {profile?.full_name || profile?.email}
