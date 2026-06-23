@@ -7,6 +7,8 @@ import InventarisierungTimeline from "@/components/InventarisierungTimeline";
 import InvCrossSellSection from "@/components/InvCrossSellSection";
 import ReferenceProjectsSection from "@/components/ReferenceProjectsSection";
 import ServiceContactSection from "@/components/ServiceContactSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
+import { getTestimonials } from "@/lib/testimonials";
 import {
   workspaceAnalyticsMeta,
   heroContent,
@@ -25,7 +27,11 @@ export const metadata: Metadata = {
   description: workspaceAnalyticsMeta.description,
 };
 
-export default function WorkspaceAnalyticsPage() {
+export const revalidate = 60;
+
+export default async function WorkspaceAnalyticsPage() {
+  const testimonials = await getTestimonials("workspace-analytics");
+
   return (
     <div className="inv-page">
       <InventarisierungHero {...heroContent} />
@@ -49,6 +55,8 @@ export default function WorkspaceAnalyticsPage() {
         heading={referenzenContent.heading}
         description={referenzenContent.description}
       />
+
+      <TestimonialsSection testimonials={testimonials} />
 
       <ServiceContactSection {...contactContent} />
     </div>

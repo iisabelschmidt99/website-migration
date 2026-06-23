@@ -7,6 +7,7 @@ import PressMarquee from "@/components/PressMarquee";
 import ReferenceProjectsSection from "@/components/ReferenceProjectsSection";
 import ContactSection from "@/components/ContactSection";
 import CtaButton from "@/components/CtaButton";
+import HomeHeroVideo from "@/components/HomeHeroVideo";
 import { getHomepageReferenceProjects } from "@/lib/references";
 
 export const revalidate = 60;
@@ -29,18 +30,7 @@ export default async function HomePage() {
         aria-labelledby="hero-heading"
       >
         <div className="absolute inset-0">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster="/assets/timeline/timeline.webp"
-            className="w-full h-full object-cover"
-            aria-hidden="true"
-          >
-            <source src="/assets/hero/Home Hero Video.mp4" type="video/mp4" />
-          </video>
+          <HomeHeroVideo />
           <div className="absolute inset-0 bg-[#2a1f12]/15" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#1a1410]/92 via-[#151a12]/78 to-[#0f1410]/30" />
         </div>

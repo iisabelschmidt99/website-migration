@@ -2,20 +2,23 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ArticleDetailSection from "@/components/ArticleDetailSection";
 import ServiceContactSection from "@/components/ServiceContactSection";
-import { getAllEventSlugs, getEvent } from "@/data/events";
+import { getAllEventSlugs, getEvent } from "@/lib/events";
 import { contactContent } from "@/data/referenzen";
+
+export const revalidate = 60;
 
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export function generateStaticParams() {
-  return getAllEventSlugs().map((slug) => ({ slug }));
+export async function generateStaticParams() {
+  const slugs = await getAllEventSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const event = getEvent(slug);
+  const event = await getEvent(slug);
   if (!event) return {};
 
   return {
@@ -26,7 +29,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function EventDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const event = getEvent(slug);
+  const event = await getEvent(slug);
 
   if (!event) {
     notFound();

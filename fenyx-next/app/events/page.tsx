@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import ArticleListingSection from "@/components/ArticleListingSection";
 import ServiceContactSection from "@/components/ServiceContactSection";
-import { eventsHero, eventsList, eventsMeta } from "@/data/events";
+import { eventsHero, eventsMeta } from "@/data/events";
+import { getAllEvents } from "@/lib/events";
 import { contactContent } from "@/data/referenzen";
 
 export const metadata: Metadata = {
@@ -11,7 +12,11 @@ export const metadata: Metadata = {
     "Seminare, Site Visits und Networking-Events für Architekten, HR und Facility Manager.",
 };
 
-export default function EventsPage() {
+// Events kommen aus Supabase (mit statischem Fallback).
+export const revalidate = 60;
+
+export default async function EventsPage() {
+  const eventsList = await getAllEvents();
   const items = eventsList.map((event) => ({
     slug: event.slug,
     title: event.title,

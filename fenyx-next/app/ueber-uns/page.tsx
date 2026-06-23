@@ -15,13 +15,20 @@ import {
   contactContent,
 } from "@/data/ueber-uns";
 import { locationsSectionContent } from "@/data/standorte";
+import { getTeamSections } from "@/lib/team";
 
 export const metadata: Metadata = {
   title: ueberUnsMeta.title,
   description: ueberUnsMeta.description,
 };
 
-export default function UeberUnsPage() {
+// Team-Mitglieder kommen aus Supabase (mit statischem Fallback) -> regelmäßig
+// neu generieren, damit Änderungen im Backend zeitnah erscheinen.
+export const revalidate = 60;
+
+export default async function UeberUnsPage() {
+  const team = await getTeamSections();
+
   return (
     <div className="inv-page">
       <VideoHero {...heroContent} />
@@ -30,9 +37,17 @@ export default function UeberUnsPage() {
 
       <ValuePromiseTabs {...valuePromiseContent} />
 
-      <TeamGridSection {...expertsContent} variant="experts" />
+      <TeamGridSection
+        heading={expertsContent.heading}
+        members={team.experts}
+        variant="experts"
+      />
 
-      <TeamGridSection {...dachTeamContent} variant="dach" />
+      <TeamGridSection
+        heading={dachTeamContent.heading}
+        members={team.dach}
+        variant="dach"
+      />
 
       <LocationsSection {...locationsSectionContent} />
 

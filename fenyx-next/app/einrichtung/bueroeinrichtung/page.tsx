@@ -8,6 +8,8 @@ import VideoFeatureSection from "@/components/VideoFeatureSection";
 import GreenBenefitsTabs from "@/components/GreenBenefitsTabs";
 import ReferenceProjectsSection from "@/components/ReferenceProjectsSection";
 import ServiceContactSection from "@/components/ServiceContactSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
+import { getTestimonials } from "@/lib/testimonials";
 import {
   bueroeinrichtungMeta,
   heroContent,
@@ -24,7 +26,11 @@ export const metadata: Metadata = {
   description: bueroeinrichtungMeta.description,
 };
 
-export default function BueroeinrichtungPage() {
+export const revalidate = 60;
+
+export default async function BueroeinrichtungPage() {
+  const testimonials = await getTestimonials("bueroeinrichtung");
+
   return (
     <div className="inv-page">
       <VideoHero {...heroContent} />
@@ -54,6 +60,8 @@ export default function BueroeinrichtungPage() {
         heading={referenzenContent.heading}
         description={referenzenContent.description}
       />
+
+      <TestimonialsSection testimonials={testimonials} />
 
       <ServiceContactSection {...contactContent} />
     </div>

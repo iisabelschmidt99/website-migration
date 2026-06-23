@@ -9,6 +9,8 @@ import InventarisierungTimeline from "@/components/InventarisierungTimeline";
 import InvCrossSellSection from "@/components/InvCrossSellSection";
 import ReferenceProjectsSection from "@/components/ReferenceProjectsSection";
 import ServiceContactSection from "@/components/ServiceContactSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
+import { getTestimonials } from "@/lib/testimonials";
 import { verwertungContact } from "@/data/verwertung-contact";
 import {
   aufbereitungMeta,
@@ -27,7 +29,11 @@ export const metadata: Metadata = {
   description: aufbereitungMeta.description,
 };
 
-export default function AufbereitungPage() {
+export const revalidate = 60;
+
+export default async function AufbereitungPage() {
+  const testimonials = await getTestimonials("aufbereitung");
+
   return (
     <div className="inv-page">
       <InventarisierungHero {...heroContent} />
@@ -55,6 +61,8 @@ export default function AufbereitungPage() {
         heading={referenzenContent.heading}
         description={referenzenContent.description}
       />
+
+      <TestimonialsSection testimonials={testimonials} />
 
       <ServiceContactSection {...verwertungContact} />
     </div>

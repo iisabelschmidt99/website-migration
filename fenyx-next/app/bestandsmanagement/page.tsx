@@ -8,6 +8,8 @@ import FeatureRowSection from "@/components/FeatureRowSection";
 import ReferenceScrollStack from "@/components/ReferenceScrollStack";
 import FaqSection from "@/components/FaqSection";
 import ServiceContactSection from "@/components/ServiceContactSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
+import { getTestimonials } from "@/lib/testimonials";
 import { bestandsmanagementReferences } from "@/data/bestandsmanagement-references";
 import { bestandsmanagementFaq } from "@/data/bestandsmanagement-faq";
 
@@ -19,7 +21,11 @@ export const metadata: Metadata = {
 
 const assetBase = "/assets/leistungen/bestandsmanagement";
 
-export default function BestandsmanagementPage() {
+export const revalidate = 60;
+
+export default async function BestandsmanagementPage() {
+  const testimonials = await getTestimonials("bestandsmanagement");
+
   return (
     <>
       <ServiceHero
@@ -140,6 +146,8 @@ export default function BestandsmanagementPage() {
       </section>
 
       <FaqSection items={bestandsmanagementFaq} dark />
+
+      <TestimonialsSection testimonials={testimonials} />
 
       <ServiceContactSection
         heading="Lassen Sie uns sichtbar machen, was bereits da ist."

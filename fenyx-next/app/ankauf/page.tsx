@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import ServiceHero from "@/components/ServiceHero";
 import FeatureRowSection from "@/components/FeatureRowSection";
 import ServiceContactSection from "@/components/ServiceContactSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
+import { getTestimonials } from "@/lib/testimonials";
 import { verwertungContact } from "@/data/verwertung-contact";
 
 
@@ -11,7 +13,11 @@ export const metadata: Metadata = {
     "Büromöbel verkaufen zum Bestpreis – Fenyx kauft Ihren Bestand an und vermarktet über Europas größtes Händlernetzwerk.",
 };
 
-export default function AnkaufPage() {
+export const revalidate = 60;
+
+export default async function AnkaufPage() {
+  const testimonials = await getTestimonials("auktionsplattform");
+
   return (
     <div className="inv-page">
       <ServiceHero
@@ -34,6 +40,8 @@ export default function AnkaufPage() {
         ctaHref="/verwertung/aufbereitung"
         ctaLabel="Mehr zur Aufbereitung"
       />
+
+      <TestimonialsSection testimonials={testimonials} />
 
       <ServiceContactSection {...verwertungContact} />
     </div>
