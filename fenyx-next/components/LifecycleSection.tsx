@@ -7,7 +7,7 @@ export default function LifecycleSection() {
   return (
     <section
       id="leistungen"
-      className="py-20 sm:py-28 bg-white overflow-hidden"
+      className="wf-padding-section-medium bg-white overflow-hidden"
       aria-labelledby="leistungen-heading"
     >
       <div className="wf-padding-global">

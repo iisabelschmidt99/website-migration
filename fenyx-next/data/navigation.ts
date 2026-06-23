@@ -21,6 +21,7 @@ export type NavCaseLink = {
 export type NavSimpleLink = {
   label: string;
   href: string;
+  sub?: string;
 };
 
 export type MegaMenuConfig = {
@@ -244,9 +245,21 @@ export const MEGA_MENUS: MegaMenuConfig[] = [
     alignEnd: true,
     services: [],
     simpleLinks: [
-      { label: "Team", href: "/ueber-uns" },
-      { label: "Ratgeber", href: "/ratgeber" },
-      { label: "News & Medien", href: "/presse-medien" },
+      {
+        label: "Team",
+        href: "/ueber-uns",
+        sub: "Mehr Über Fenyx und das Team erfahren",
+      },
+      {
+        label: "Ratgeber",
+        href: "/ratgeber",
+        sub: "Expertenwissen für nachhaltige Bürotransformationen und Kreislaufwirtschaft",
+      },
+      {
+        label: "News & Medien",
+        href: "/presse-medien",
+        sub: "Aktuelle Unternehmensnews, Ankündigungen und Medienberichte",
+      },
     ],
   },
 ];

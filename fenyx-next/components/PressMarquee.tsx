@@ -41,7 +41,7 @@ export default function PressMarquee({
   return (
     <section
       id="bekannt-aus"
-      className="py-16 sm:py-20 bg-black-gradient overflow-hidden"
+      className="wf-padding-section-small bg-black-gradient overflow-hidden"
       aria-labelledby="bekannt-aus-heading"
     >
       <div className="wf-padding-global mb-12 sm:mb-16">

@@ -16,7 +16,7 @@ export default function LogoGrid({
   logos = homepageLogos,
 }: LogoGridProps) {
   return (
-    <section className="py-20 sm:py-28 bg-white" aria-labelledby="logo-grid-heading">
+    <section className="wf-padding-section-large bg-white" aria-labelledby="logo-grid-heading">
       <div className="wf-padding-global">
         <div className="wf-container-large">
         <div className="text-center wf-max-width-large wf-align-center mb-14 sm:mb-20">

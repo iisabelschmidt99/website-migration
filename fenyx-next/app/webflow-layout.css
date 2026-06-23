@@ -18,6 +18,16 @@
   padding-bottom: 8rem;
 }
 
+.wf-padding-section-medium {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.wf-padding-section-small {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
 .wf-padding-section-xlarge {
   padding-top: 12rem;
   padding-bottom: 12rem;
@@ -83,36 +93,35 @@
 
 .wf-heading-h2 {
   font-family: var(--font-telegraf), Arial, sans-serif;
-  font-size: 2.3rem;
+  font-size: 3.2rem;
   font-weight: 700;
   line-height: 1.2;
-  letter-spacing: -0.01em;
 }
 
 .wf-heading-h3 {
   font-family: var(--font-telegraf), Arial, sans-serif;
-  font-size: 2rem;
+  font-size: 2.4rem;
   font-weight: 700;
   line-height: 1.2;
 }
 
 .wf-heading-h4 {
   font-family: var(--font-telegraf), Arial, sans-serif;
-  font-size: 1.5rem;
+  font-size: 2.2rem;
   font-weight: 700;
   line-height: 1.4;
 }
 
 .wf-heading-h5 {
   font-family: var(--font-telegraf), Arial, sans-serif;
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   font-weight: 700;
   line-height: 1.5;
 }
 
 .wf-heading-h6 {
   font-family: var(--font-telegraf), Arial, sans-serif;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 700;
   line-height: 1.5;
 }
@@ -213,6 +222,11 @@
     padding-bottom: 6rem;
   }
 
+  .wf-padding-section-medium {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
   .wf-padding-section-xlarge {
     padding-top: 8rem;
     padding-bottom: 8rem;
@@ -239,12 +253,18 @@
     padding-bottom: 4rem;
   }
 
-  .wf-heading-h1 {
-    font-size: 2.5rem;
+  .wf-padding-section-medium {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
   }
 
-  .wf-heading-h2 {
-    font-size: 2rem;
+  .wf-padding-section-small {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .wf-heading-h1 {
+    font-size: 2.5rem;
   }
 
   .wf-heading-h3 {
@@ -252,7 +272,7 @@
   }
 
   .wf-heading-h4 {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 
   .wf-spacer-xxlarge {
@@ -270,5 +290,11 @@
 
   .stats_item {
     padding-left: 1.5rem;
+  }
+}
+
+@media (max-width: 479px) {
+  .wf-heading-h2 {
+    font-size: 1.8rem;
   }
 }

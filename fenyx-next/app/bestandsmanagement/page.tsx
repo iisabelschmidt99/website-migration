@@ -5,7 +5,7 @@ import CtaButton from "@/components/CtaButton";
 import LifecycleTrack from "@/components/LifecycleTrack";
 import LeistungBleedCard from "@/components/LeistungBleedCard";
 import FeatureRowSection from "@/components/FeatureRowSection";
-import ReferenceScrollStack from "@/components/ReferenceScrollStack";
+import CaseCard from "@/components/CaseCard";
 import FaqSection from "@/components/FaqSection";
 import ServiceContactSection from "@/components/ServiceContactSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
@@ -141,7 +141,11 @@ export default async function BestandsmanagementPage() {
               Büroeinrichtung.
             </p>
           </div>
-          <ReferenceScrollStack projects={bestandsmanagementReferences} />
+          <div className="flex flex-col gap-20">
+            {bestandsmanagementReferences.map((project) => (
+              <CaseCard key={project.heading} {...project} />
+            ))}
+          </div>
         </div>
       </section>
 

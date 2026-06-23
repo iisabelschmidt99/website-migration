@@ -66,6 +66,9 @@ export default function MegaMenuPanel({
                 <li key={link.href}>
                   <Link href={link.href} className="mega-link">
                     <span className="mega-link-title">{link.label}</span>
+                    {link.sub ? (
+                      <span className="mega-link-sub">{link.sub}</span>
+                    ) : null}
                   </Link>
                 </li>
               ))}

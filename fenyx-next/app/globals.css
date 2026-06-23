@@ -69,27 +69,7 @@
   }
 }
 
-/* ── Referenz-Stack (sticky scroll, Ausblenden) ── */
-.ref-scroll-stack {
-  position: relative;
-  padding-bottom: 12vh;
-}
-
-.ref-scroll-item {
-  position: sticky;
-  top: 5.5rem;
-  min-height: 0;
-  display: flex;
-  align-items: flex-start;
-  padding-top: 0.5rem;
-  margin-bottom: 5rem;
-}
-
-.ref-scroll-item:last-child {
-  margin-bottom: 0;
-}
-
-/* Bild links bei geraden Karten (ab Index 1) */
+/* Bild links bei alternierenden Referenz-Karten */
 @media (min-width: 1024px) {
   .case-card--image-left .case-card-image {
     order: -1;
@@ -99,21 +79,6 @@
 @media (max-width: 1023px) {
   .case-card-image {
     order: -1;
-  }
-}
-
-.ref-scroll-card {
-  width: 100%;
-  will-change: transform, opacity;
-  transition: opacity 0.85s ease, transform 0.85s ease;
-  transform-origin: center top;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ref-scroll-card {
-    transform: none !important;
-    opacity: 1 !important;
-    transition: none;
   }
 }
 
