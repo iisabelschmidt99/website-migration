@@ -15,7 +15,11 @@ const inputClass =
   "w-full px-3 py-2 bg-abyss border border-white/20 text-white text-sm focus:border-signal focus:outline-none";
 const labelClass = "block text-mist text-sm mb-1.5";
 
-export default function InviteUserForm() {
+export default function InviteUserForm({
+  onSuccess,
+}: {
+  onSuccess?: () => void;
+}) {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [role, setRole] = useState<UserRole>("editor");
@@ -49,6 +53,7 @@ export default function InviteUserForm() {
       setEmail("");
       setRole("editor");
       router.refresh();
+      onSuccess?.();
     } catch {
       setMessage({ type: "err", text: "Netzwerkfehler. Bitte erneut versuchen." });
     } finally {

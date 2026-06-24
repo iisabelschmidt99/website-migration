@@ -1,11 +1,12 @@
 "use client";
 
-// Seitennavigation des Backends. Hebt den aktiven Tab hervor.
-// „Benutzer" nur für Admins (Prop vom Panel-Layout oder clientseitig nachladen).
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
+import {
+  ADMIN_FEATURE,
+  NAV_HREF_TO_PERMISSION,
+} from "@/lib/admin/adminPermissionKeys";
+import { useAdminPermissions } from "@/contexts/AdminPermissionsContext";
 
 const ITEMS = [
   { href: "/admin", label: "Übersicht" },
@@ -15,51 +16,21 @@ const ITEMS = [
   { href: "/admin/kundenstimmen", label: "Kundenstimmen" },
   { href: "/admin/events", label: "Events" },
   { href: "/admin/medien", label: "Medien / Upload" },
-  { href: "/admin/benutzer", label: "Benutzer", adminOnly: true },
+  { href: "/admin/benutzer", label: "Benutzer" },
   { href: "/admin/sicherheit", label: "Sicherheit" },
   { href: "/admin/analytics", label: "Analytics" },
 ];
 
-export default function AdminNav({ isAdmin: isAdminProp }: { isAdmin?: boolean }) {
+export default function AdminNav() {
   const pathname = usePathname();
-  const [isAdmin, setIsAdmin] = useState(isAdminProp ?? false);
+  const { can, loading } = useAdminPermissions();
 
-  // Fallback: Rolle clientseitig laden, wenn das Layout keine Prop übergibt
-  useEffect(() => {
-    if (isAdminProp !== undefined) {
-      setIsAdmin(isAdminProp);
-      return;
-    }
-
-    let cancelled = false;
-
-    async function loadRole() {
-      try {
-        const supabase = createClient();
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
-        if (!user || cancelled) return;
-
-        const { data } = await supabase
-          .from("profiles")
-          .select("role")
-          .eq("id", user.id)
-          .single();
-
-        if (!cancelled) setIsAdmin(data?.role === "admin");
-      } catch {
-        // Nav bleibt ohne Benutzer-Tab
-      }
-    }
-
-    loadRole();
-    return () => {
-      cancelled = true;
-    };
-  }, [isAdminProp]);
-
-  const visibleItems = ITEMS.filter((item) => !item.adminOnly || isAdmin);
+  const visibleItems = ITEMS.filter((item) => {
+    const perm =
+      NAV_HREF_TO_PERMISSION[item.href] ?? ADMIN_FEATURE.overview;
+    if (loading) return item.href === "/admin";
+    return can(perm);
+  });
 
   return (
     <nav className="space-y-1">

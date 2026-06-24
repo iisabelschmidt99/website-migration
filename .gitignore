@@ -1,14 +1,28 @@
 # Referenzmaterial – nur lokal als Vorlage, NICHT ins Repo
 /_reference/
 
+# Cursor (lokal); Rules optional committen, MCP-Konfig nicht
+.cursor/mcp.json
+
+# Supabase CLI Cache
+fenyx-next/supabase/.temp/
+
 # Node / Next.js
 node_modules/
 .next/
 out/
 build/
 
-# Env / Logs
-.env*.local
+# Env / Secrets (niemals committen)
+.env
+.env.local
+.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+
+# Logs
 *.log
 
 # System / Build

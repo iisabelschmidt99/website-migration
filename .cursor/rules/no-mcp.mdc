@@ -1,0 +1,33 @@
+---
+description: Kein MCP in diesem Projekt — Supabase/Cloudflare nur über CLI, Shell und REST
+alwaysApply: true
+---
+
+# Kein MCP in diesem Projekt
+
+**Für das Fenyx-Repo dürfen MCP-Tools nicht verwendet werden.** Das gilt für alle Sessions und alle Aufgaben.
+
+## Verboten
+
+- `CallMcpTool`, `FetchMcpResource`, `ListMcpResources` und jede andere MCP-Interaktion
+- Supabase MCP (`user-supabase`, `mcp.supabase.com`)
+- Cloudflare MCP, Browser MCP, Cursor App Control MCP usw. — alles, was über MCP läuft
+
+Auch wenn MCP-Server in Cursor global oder projektweise konfiguriert sind: **nicht aufrufen**.
+
+## Stattdessen verwenden
+
+| Bedarf | Werkzeug |
+|--------|----------|
+| Supabase SQL / Schema | `supabase` CLI mit `SUPABASE_ACCESS_TOKEN` aus `fenyx-next/.env.local`, oder `psql` mit `DATABASE_URL` |
+| Supabase REST | `curl` + `NEXT_PUBLIC_SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` / Anon-Key |
+| Supabase Management API | `curl` + `SUPABASE_ACCESS_TOKEN` → `https://api.supabase.com/v1/...` |
+| Cloudflare Workers | `wrangler` CLI lokal (wenn Token vorhanden) |
+| Live-Site prüfen | `curl` oder manuell im Browser — kein Browser-MCP |
+
+Credentials nur aus `fenyx-next/.env.local` lesen; **niemals** Keys oder Tokens in Commits, Rules oder Chat-Antworten vollständig ausgeben.
+
+## Projekt
+
+- Supabase-Projekt: `aadugmrnlvsmdxisaady` (`https://aadugmrnlvsmdxisaady.supabase.co`)
+- Projekt-MCP ist in `.cursor/mcp.json` absichtlich deaktiviert.
