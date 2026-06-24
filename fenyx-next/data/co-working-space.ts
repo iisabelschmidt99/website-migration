@@ -26,7 +26,7 @@ export const heroContent = {
 export const logoGridContent = {
   description:
     "Führende Co-Working Spaces in Europa haben sich für Fenyx entschieden – und profitieren von messbaren Kosteneinsparungen und zertifizierbarer Nachhaltigkeit.",
-  logos: homepageLogos.slice(0, 10),
+  logos: homepageLogos,
 };
 
 export const benefitsContent = {

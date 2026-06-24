@@ -43,13 +43,14 @@ export default async function CoWorkingSpacePageContent() {
         heading={benefitsContent.heading}
         intro={benefitsContent.intro}
         cards={benefitsContent.cards}
+        variant="dark"
       />
 
       <InventarisierungPhaseTabs
         heading={differentiationContent.heading}
         introBody={differentiationContent.intro}
         tabs={differentiationContent.tabs}
-        variant="light"
+        variant="dark"
       />
 
       <BuyOrRentSection {...buyOrRentContent} />
