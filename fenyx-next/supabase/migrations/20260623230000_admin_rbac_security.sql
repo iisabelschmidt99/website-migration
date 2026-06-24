@@ -466,7 +466,3 @@ create policy "admin_auth: kein direkter Client-Zugriff" on public.admin_auth_at
 drop policy if exists "Profil: Admin verwaltet alle" on public.profiles;
 create policy "Profil: Admin verwaltet alle" on public.profiles
   for all using (public.is_admin(auth.uid())) with check (public.is_admin(auth.uid()));
-
--- ── Fertig ─────────────────────────────────────────────────────────────────
--- Frontend nutzt get_my_admin_permissions(), AdminStaffMfaGate, user_roles.
--- Edge Function verify-admin: siehe supabase/functions/verify-admin/
