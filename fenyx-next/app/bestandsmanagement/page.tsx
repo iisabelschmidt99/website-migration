@@ -5,7 +5,7 @@ import CtaButton from "@/components/CtaButton";
 import LifecycleTrack from "@/components/LifecycleTrack";
 import LeistungBleedCard from "@/components/LeistungBleedCard";
 import FeatureRowSection from "@/components/FeatureRowSection";
-import CaseCard from "@/components/CaseCard";
+import ReferenceRevealList from "@/components/ReferenceRevealList";
 import FaqSection from "@/components/FaqSection";
 import ServiceContactSection from "@/components/ServiceContactSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
@@ -141,11 +141,7 @@ export default async function BestandsmanagementPage() {
               Büroeinrichtung.
             </p>
           </div>
-          <div className="flex flex-col gap-20">
-            {bestandsmanagementReferences.map((project) => (
-              <CaseCard key={project.heading} {...project} />
-            ))}
-          </div>
+          <ReferenceRevealList projects={bestandsmanagementReferences} />
         </div>
       </section>
 

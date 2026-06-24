@@ -4,7 +4,7 @@ import type { ReferenceProject } from "@/data/reference-projects";
 
 type CaseCardProps = ReferenceProject;
 
-/** Einzelne Referenz-Karte (Text + Bild, alternierend links/rechts). */
+/** Einzelne Referenz-Karte (Text + Bild, alternierend links/rechts) – 1:1 zu Webflow `cases_item`. */
 export default function CaseCard({
   eyebrow,
   heading,
@@ -18,33 +18,33 @@ export default function CaseCard({
 }: CaseCardProps) {
   return (
     <article
-      className={`case-card flex flex-col lg:flex-row lg:items-stretch gap-8 lg:gap-20 bg-[#10222e66] p-8 lg:p-12 shadow-[0_2px_5rem_rgba(2,4,5,0.2)] ${
+      className={`case-card flex flex-col lg:flex-row lg:items-stretch gap-8 lg:gap-20 bg-abyss-deep p-8 lg:p-12 shadow-[0_2px_5rem_rgba(2,4,5,0.2)] ${
         imageLeft ? "case-card--image-left" : ""
       }`}
     >
       <div className="case-card-content flex w-full flex-col justify-between lg:max-w-[50%] lg:flex-1">
         <div>
           <p className="mb-1.5 text-sm font-bold text-white/90">{eyebrow}</p>
-          <h3 className="wf-heading-h3 mb-3 text-white">
+          <h3 className="mb-3 font-heading text-[2rem] font-bold leading-tight text-white">
             {heading}
           </h3>
-          <div className="mb-4 inline-flex items-center self-start border border-white/20 bg-abyss-deep/70 px-3 py-1 text-xs text-white/85">
+          <div className="mb-4 inline-flex items-center self-start rounded-2xl border border-white/10 bg-abyss-deep/70 px-[9px] py-[3px] text-xs font-normal text-white">
             {tag}
           </div>
         </div>
 
         <div>
-          <p className="mb-4 max-w-[34rem] text-sm leading-relaxed text-mist">
+          <p className="mb-6 max-w-[34rem] text-sm leading-relaxed text-white/90">
             {body}
           </p>
-          <div className="case-card-stats mb-4 border-t border-white/10 pt-4">
-            <div className="grid grid-cols-3 gap-6">
+          <div className="case-card-stats mb-6">
+            <div className="flex gap-6">
               {stats.map((stat) => (
-                <div key={stat.label}>
-                  <p className="font-heading text-xl leading-none text-white">
+                <div key={stat.label} className="flex-1">
+                  <p className="font-heading text-xl font-normal leading-none text-white">
                     {stat.value}
                   </p>
-                  <p className="mt-1 text-[0.625rem] leading-snug text-mist">
+                  <p className="mt-1.5 text-[0.625rem] leading-snug text-white">
                     {stat.label}
                   </p>
                 </div>
@@ -53,7 +53,7 @@ export default function CaseCard({
           </div>
           <Link
             href={href}
-            className="inline-flex items-center justify-center self-start border border-signal px-5 py-2.5 text-[10px] font-bold uppercase tracking-[0.1em] text-signal transition-colors duration-200 hover:bg-signal hover:text-black"
+            className="inline-flex items-center justify-center self-start border border-signal px-7 py-3 text-sm font-bold uppercase text-signal transition-colors duration-200 hover:bg-signal hover:text-black"
           >
             Zum Projekt
           </Link>
