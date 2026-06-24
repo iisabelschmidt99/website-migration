@@ -26,9 +26,10 @@ async function loadStaffRoles(
     .select("role")
     .eq("user_id", userId);
 
-  if (!error && roleRows && roleRows.length > 0) {
-    return roleRows.map((r) => r.role as string);
-  }
+  const rolesFromTable =
+    !error && roleRows && roleRows.length > 0
+      ? roleRows.map((r) => r.role as string)
+      : [];
 
   const { data: profile } = await supabase
     .from("profiles")
@@ -36,7 +37,20 @@ async function loadStaffRoles(
     .eq("id", userId)
     .single();
 
-  return profile?.role ? [profile.role as string] : [];
+  const profileRole = profile?.role as string | undefined;
+
+  // Fallback: nur viewer in user_roles, aber höhere profiles.role (Invite-Bug / Backfill)
+  if (
+    profileRole &&
+    profileRole !== "viewer" &&
+    (rolesFromTable.length === 0 ||
+      (rolesFromTable.length === 1 && rolesFromTable[0] === "viewer"))
+  ) {
+    return [profileRole, ...rolesFromTable.filter((r) => r !== profileRole)];
+  }
+
+  if (rolesFromTable.length > 0) return rolesFromTable;
+  return profileRole ? [profileRole] : [];
 }
 
 export default function AdminStaffMfaGate({

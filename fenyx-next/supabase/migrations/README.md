@@ -8,12 +8,14 @@
 | `20260623230000a` | `admin_rbac_super_admin_enum` | angewendet |
 | `20260623230000` | `admin_rbac_security` | angewendet |
 | `20260624100000` | `drop_verify_admin` | angewendet |
+| `20260625120000` | `admin_rbac_backfill_and_effective_rpc` | **noch anwenden** |
 
 ## Neu anwenden (anderes Projekt)
 
 1. `20260623230000a_admin_rbac_super_admin_enum.sql` — allein ausführen
 2. `20260623230000_admin_rbac_security.sql`
 3. `20260624100000_drop_verify_admin.sql` — entfernt shared-password Rate-Limit (nicht genutzt)
+4. `20260625120000_admin_rbac_backfill_and_effective_rpc.sql` — Backfill Invite-Bug + Edit-RPC
 
 Weg ohne DB-Passwort: Management API `POST .../database/query` mit PAT.
 

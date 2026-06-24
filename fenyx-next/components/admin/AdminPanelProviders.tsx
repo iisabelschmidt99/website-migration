@@ -1,5 +1,6 @@
 "use client";
 
+import AdminPageGuard from "@/components/admin/AdminPageGuard";
 import AdminStaffMfaGate from "@/components/admin/AdminStaffMfaGate";
 import AdminNav from "@/components/admin/AdminNav";
 import LogoutButton from "@/components/admin/LogoutButton";
@@ -84,7 +85,9 @@ function AdminPanelChrome({ children }: { children: React.ReactNode }) {
           <LogoutButton />
         </div>
       </aside>
-      <main className="flex-1 p-8 max-w-5xl">{children}</main>
+      <main className="flex-1 p-8 max-w-5xl">
+        <AdminPageGuard>{children}</AdminPageGuard>
+      </main>
     </div>
   );
 }

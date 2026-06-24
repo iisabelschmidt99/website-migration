@@ -108,8 +108,9 @@ export function computeOverrides(
 
 /** Legacy-Fallback vor RBAC-Migration. */
 export function legacyPermissionsForProfileRole(
-  role: "admin" | "editor" | "viewer",
+  role: "super_admin" | "admin" | "editor" | "viewer",
 ): string[] {
+  if (role === "super_admin") return getPresetPermissionKeys("super_admin");
   if (role === "admin") return getPresetPermissionKeys("admin");
   if (role === "editor") return getPresetPermissionKeys("editor");
   return getPresetPermissionKeys("viewer");

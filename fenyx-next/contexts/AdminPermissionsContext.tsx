@@ -59,7 +59,12 @@ export function AdminPermissionsProvider({
         .eq("id", user.id)
         .single();
 
-      const role = profile?.role as "admin" | "editor" | "viewer" | undefined;
+      const role = profile?.role as
+        | "super_admin"
+        | "admin"
+        | "editor"
+        | "viewer"
+        | undefined;
       if (role) {
         setPermissions(legacyPermissionsForProfileRole(role));
       } else {
