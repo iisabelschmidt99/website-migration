@@ -247,7 +247,7 @@ export default function InviteUserForm({
         ) : (
           <p className="text-xs text-mist">
             Supabase sendet eine Einladungs-Mail mit Link zu{" "}
-            <code className="text-white/70">/passwort-festlegen</code>.
+            <code className="text-white/70">/auth/landing</code>.
           </p>
         )}
 

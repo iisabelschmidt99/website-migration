@@ -40,7 +40,7 @@ Enthält Backfill für Invite-Bug (`user_roles` vs `profiles.role`) und RPC `adm
 
 ### Neuer Backend-Nutzer
 
-**Standard (Einladungs-Mail):** `/admin/benutzer` → E-Mail + Rolle → Supabase-Einladung → `/passwort-festlegen`.
+**Standard (Einladungs-Mail):** `/admin/benutzer` → E-Mail + Rolle → Supabase-Einladung → `/auth/landing` (Klick) → `/passwort-festlegen`.
 
 **Manuell (ohne Supabase-Mail):** Checkbox „Manuell anlegen“ → generiertes oder manuelles Passwort → optional Zugangsdaten per Resend oder einmalig im Dialog kopieren.
 

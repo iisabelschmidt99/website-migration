@@ -112,7 +112,7 @@ export async function POST(req: Request) {
 
     if (mode === "invite") {
       const { data, error } = await adminClient.auth.admin.inviteUserByEmail(email, {
-        redirectTo: `${origin}/passwort-festlegen`,
+        redirectTo: `${origin}/auth/landing`,
       });
 
       if (error) {

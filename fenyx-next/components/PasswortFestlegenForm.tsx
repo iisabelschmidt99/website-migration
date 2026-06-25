@@ -1,13 +1,12 @@
 "use client";
 
-// Öffentliche Seite zum Setzen eines Passworts nach Einladungs-/Recovery-Link.
-// Wichtig: In Supabase unter Authentication -> URL Configuration müssen
-// .../passwort-festlegen URLs als Redirect URLs freigegeben sein
-// (lokal und Produktion), sonst kommt der Link nicht hier an.
+// Passwort setzen nach Klick auf /auth/landing (Hash wird hier per setSession übernommen).
+// Supabase Redirect URLs: …/auth/landing und …/passwort-festlegen freigeben.
 import { useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
+import { clearUrlHash, readHashTokens } from "@/lib/auth/hashTokens";
 
 type LinkType = "invite" | "recovery";
 
@@ -21,9 +20,12 @@ export default function PasswortFestlegenForm() {
 
   const [password, setPassword] = useState("");
   const [passwordRepeat, setPasswordRepeat] = useState("");
+  const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [resendLoading, setResendLoading] = useState(false);
+  const [resendSuccess, setResendSuccess] = useState(false);
   const [ready, setReady] = useState(false);
   const [linkInvalid, setLinkInvalid] = useState(false);
 
@@ -66,6 +68,25 @@ export default function PasswortFestlegenForm() {
         return;
       }
 
+      const hashTokens = readHashTokens();
+      if (hashTokens) {
+        const { error: sessionError } = await supabase.auth.setSession(hashTokens);
+        if (sessionError) {
+          if (!cancelled) {
+            setError(sessionError.message);
+            setLinkInvalid(true);
+            setReady(true);
+          }
+          return;
+        }
+        clearUrlHash();
+        if (!cancelled) {
+          setReady(true);
+          setLinkInvalid(false);
+        }
+        return;
+      }
+
       if (authCode) {
         const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(authCode);
         if (exchangeError) {
@@ -82,15 +103,7 @@ export default function PasswortFestlegenForm() {
         return;
       }
 
-      if (tokenHash) {
-        if (!otpType) {
-          if (!cancelled) {
-            setLinkInvalid(true);
-            setReady(true);
-          }
-          return;
-        }
-
+      if (tokenHash && otpType) {
         const { error: verifyError } = await supabase.auth.verifyOtp({
           token_hash: tokenHash,
           type: otpType,
@@ -109,52 +122,15 @@ export default function PasswortFestlegenForm() {
         return;
       }
 
-      // Fallback: Supabase legt Session oft per URL-Hash an (Implicit-Flow).
-      const { data: initialSession } = await supabase.auth.getSession();
-      if (initialSession.session) {
-        if (!cancelled) {
-          setReady(true);
-          setLinkInvalid(false);
-        }
-        return;
-      }
-
-      const sessionFromAuthEvent = await new Promise<boolean>((resolve) => {
-        const timeout = setTimeout(() => resolve(false), 8000);
-        const {
-          data: { subscription },
-        } = supabase.auth.onAuthStateChange((_event, session) => {
-          if (session) {
-            clearTimeout(timeout);
-            subscription.unsubscribe();
-            resolve(true);
-          }
-        });
-      });
-
-      if (sessionFromAuthEvent) {
-        if (!cancelled) {
-          setReady(true);
-          setLinkInvalid(false);
-        }
-        return;
-      }
-
-      for (let attempt = 0; attempt < 12; attempt++) {
-        const { data } = await supabase.auth.getSession();
-        if (data.session) {
-          if (!cancelled) {
-            setReady(true);
-            setLinkInvalid(false);
-          }
-          return;
-        }
-        await new Promise((resolve) => setTimeout(resolve, 250));
-      }
-
+      const { data: { session } } = await supabase.auth.getSession();
       if (!cancelled) {
-        setLinkInvalid(true);
-        setReady(true);
+        if (session) {
+          setReady(true);
+          setLinkInvalid(false);
+        } else {
+          setLinkInvalid(true);
+          setReady(true);
+        }
       }
     }
 
@@ -163,6 +139,38 @@ export default function PasswortFestlegenForm() {
       cancelled = true;
     };
   }, [authCode, otpType, searchParams, tokenHash]);
+
+  async function handleResend(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email.trim()) {
+      setError("Bitte E-Mail-Adresse eingeben.");
+      return;
+    }
+
+    let supabase;
+    try {
+      supabase = createClient();
+    } catch {
+      setError("Backend nicht konfiguriert – Supabase-Umgebungsvariablen fehlen.");
+      return;
+    }
+
+    setResendLoading(true);
+    setError(null);
+
+    const { error: resendError } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+      redirectTo: `${window.location.origin}/auth/landing`,
+    });
+
+    setResendLoading(false);
+
+    if (resendError) {
+      setError("Link konnte nicht gesendet werden. Bitte später erneut versuchen.");
+      return;
+    }
+
+    setResendSuccess(true);
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -195,9 +203,11 @@ export default function PasswortFestlegenForm() {
       return;
     }
 
-    setSuccess("Passwort gespeichert. Du wirst zum Backend weitergeleitet …");
+    await supabase.auth.signOut();
+
+    setSuccess("Passwort gespeichert. Du wirst zum Login weitergeleitet …");
     setTimeout(() => {
-      router.replace("/admin");
+      router.replace("/admin/login");
       router.refresh();
     }, 700);
   }
@@ -222,11 +232,42 @@ export default function PasswortFestlegenForm() {
           {!ready ? (
             <p className="text-mist text-sm">Link wird geprüft …</p>
           ) : linkInvalid ? (
-            <div className="space-y-2">
+            <div className="space-y-4">
               <p className="text-mist text-sm">
-                Dieser Link ist ungültig oder abgelaufen. Bitte eine neue Einladung anfordern.
+                Dieser Link ist ungültig oder abgelaufen. Fordere einen neuen Link an
+                oder bitte einen Administrator um eine neue Einladung.
               </p>
               {error ? <p className="text-sm text-red-400">{error}</p> : null}
+
+              {resendSuccess ? (
+                <p className="text-sm text-signal">
+                  Neuer Link wurde gesendet. Bitte Posteingang prüfen und über die
+                  Zwischenseite fortfahren.
+                </p>
+              ) : (
+                <form onSubmit={handleResend} className="space-y-3">
+                  <div>
+                    <label className="block text-mist text-sm mb-1.5" htmlFor="resend-email">
+                      E-Mail
+                    </label>
+                    <input
+                      id="resend-email"
+                      type="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="w-full px-3 py-2.5 bg-abyss-deep text-white border border-white/15 focus:border-signal outline-none"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={resendLoading}
+                    className="w-full py-3 border border-white/20 text-white text-[11px] font-bold uppercase tracking-[0.12em] hover:border-signal/50 transition disabled:opacity-60"
+                  >
+                    {resendLoading ? "Senden …" : "Neuen Link anfordern"}
+                  </button>
+                </form>
+              )}
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
