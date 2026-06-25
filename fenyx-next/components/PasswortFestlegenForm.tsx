@@ -29,6 +29,7 @@ export default function PasswortFestlegenForm() {
 
   const tokenHash = searchParams.get("token_hash");
   const typeParam = searchParams.get("type");
+  const authCode = searchParams.get("code");
   const otpType = useMemo(
     () => (isSupportedType(typeParam) ? typeParam : null),
     [typeParam],
@@ -42,6 +43,17 @@ export default function PasswortFestlegenForm() {
       setLinkInvalid(false);
       setReady(false);
 
+      const errorParam = searchParams.get("error");
+      const errorDescription = searchParams.get("error_description");
+      if (errorParam) {
+        if (!cancelled) {
+          setError(errorDescription ?? errorParam);
+          setLinkInvalid(true);
+          setReady(true);
+        }
+        return;
+      }
+
       let supabase;
       try {
         supabase = createClient();
@@ -50,6 +62,22 @@ export default function PasswortFestlegenForm() {
           setError("Backend nicht konfiguriert – Supabase-Umgebungsvariablen fehlen.");
           setLinkInvalid(true);
           setReady(true);
+        }
+        return;
+      }
+
+      if (authCode) {
+        const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(authCode);
+        if (exchangeError) {
+          if (!cancelled) {
+            setLinkInvalid(true);
+            setReady(true);
+          }
+          return;
+        }
+        if (!cancelled) {
+          setReady(true);
+          setLinkInvalid(false);
         }
         return;
       }
@@ -74,9 +102,45 @@ export default function PasswortFestlegenForm() {
           }
           return;
         }
+        if (!cancelled) {
+          setReady(true);
+          setLinkInvalid(false);
+        }
+        return;
       }
 
-      for (let attempt = 0; attempt < 8; attempt++) {
+      // Fallback: Supabase legt Session oft per URL-Hash an (Implicit-Flow).
+      const { data: initialSession } = await supabase.auth.getSession();
+      if (initialSession.session) {
+        if (!cancelled) {
+          setReady(true);
+          setLinkInvalid(false);
+        }
+        return;
+      }
+
+      const sessionFromAuthEvent = await new Promise<boolean>((resolve) => {
+        const timeout = setTimeout(() => resolve(false), 8000);
+        const {
+          data: { subscription },
+        } = supabase.auth.onAuthStateChange((_event, session) => {
+          if (session) {
+            clearTimeout(timeout);
+            subscription.unsubscribe();
+            resolve(true);
+          }
+        });
+      });
+
+      if (sessionFromAuthEvent) {
+        if (!cancelled) {
+          setReady(true);
+          setLinkInvalid(false);
+        }
+        return;
+      }
+
+      for (let attempt = 0; attempt < 12; attempt++) {
         const { data } = await supabase.auth.getSession();
         if (data.session) {
           if (!cancelled) {
@@ -85,7 +149,7 @@ export default function PasswortFestlegenForm() {
           }
           return;
         }
-        await new Promise((resolve) => setTimeout(resolve, 150));
+        await new Promise((resolve) => setTimeout(resolve, 250));
       }
 
       if (!cancelled) {
@@ -98,7 +162,7 @@ export default function PasswortFestlegenForm() {
     return () => {
       cancelled = true;
     };
-  }, [otpType, tokenHash]);
+  }, [authCode, otpType, searchParams, tokenHash]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -158,9 +222,12 @@ export default function PasswortFestlegenForm() {
           {!ready ? (
             <p className="text-mist text-sm">Link wird geprüft …</p>
           ) : linkInvalid ? (
-            <p className="text-mist text-sm">
-              Dieser Link ist ungültig oder abgelaufen. Bitte eine neue Einladung anfordern.
-            </p>
+            <div className="space-y-2">
+              <p className="text-mist text-sm">
+                Dieser Link ist ungültig oder abgelaufen. Bitte eine neue Einladung anfordern.
+              </p>
+              {error ? <p className="text-sm text-red-400">{error}</p> : null}
+            </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
