@@ -6,8 +6,8 @@
 
 [build.environment]
   NODE_VERSION = "20"
-  # NEXT_PUBLIC_* sind bewusst im Client-Bundle – kein Secret-Scan-Fehler
-  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_SUPABASE_ANON_KEY,NEXT_PUBLIC_SUPABASE_URL"
+  # NEXT_PUBLIC_* landen absichtlich im Client-Bundle — niemals als „Secret“ markieren
+  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_SUPABASE_ANON_KEY,NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_GTM_ID,NEXT_PUBLIC_ANALYTICS_INGRESS_URL"
   # In Netlify UI unter Site settings → Environment variables setzen:
   # NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY
 
