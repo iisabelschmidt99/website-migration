@@ -17,6 +17,7 @@ npm-debug.log*
 
 # env files
 .env*.local
+netlify.env.import
 
 # cloudflare deploy temp (never commit)
 scripts/.cf-mcp-*
