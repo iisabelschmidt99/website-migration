@@ -1,4 +1,8 @@
+"use client";
+
 import CtaButton from "./CtaButton";
+import { useRef } from "react";
+import { trackEvent } from "@/lib/analytics/tracker";
 
 type VideoHeroProps = {
   heading: string;
@@ -18,6 +22,8 @@ export default function VideoHero({
   videoSrc,
   posterSrc,
 }: VideoHeroProps) {
+  const startedRef = useRef(false);
+
   return (
     <section className="section_hero" aria-labelledby="video-hero-heading">
       <div className="wf-padding-global">
@@ -31,7 +37,9 @@ export default function VideoHero({
                 <div className="wf-spacer-small" aria-hidden="true" />
                 <p className="wf-text-size-medium">{description}</p>
                 <div className="wf-spacer-medium" aria-hidden="true" />
-                <CtaButton href={ctaHref}>{ctaLabel}</CtaButton>
+                <CtaButton href={ctaHref} trackId="video_hero__cta__kontakt">
+                  {ctaLabel}
+                </CtaButton>
               </div>
             </div>
           </div>
@@ -46,6 +54,14 @@ export default function VideoHero({
           playsInline
           preload="metadata"
           poster={posterSrc}
+          onPlay={() => {
+            if (startedRef.current) return;
+            startedRef.current = true;
+            trackEvent("video_start", {
+              video_id: heading.toLowerCase().replace(/\s+/g, "_"),
+              autoplay: true,
+            });
+          }}
         >
           <source src={videoSrc} type="video/mp4" />
         </video>

@@ -5,15 +5,20 @@ alwaysApply: true
 
 # Kein MCP in diesem Projekt
 
-**Für das Fenyx-Repo dürfen MCP-Tools nicht verwendet werden.** Das gilt für alle Sessions und alle Aufgaben.
+**Supabase, Browser und sonstige MCPs bleiben tabu.** Cloudflare-MCP ist die **Ausnahme**, solange keine Dashboard-API-Tokens verfügbar sind.
 
 ## Verboten
 
-- `CallMcpTool`, `FetchMcpResource`, `ListMcpResources` und jede andere MCP-Interaktion
-- Supabase MCP (`user-supabase`, `mcp.supabase.com`)
-- Cloudflare MCP, Browser MCP, Cursor App Control MCP usw. — alles, was über MCP läuft
+- Supabase MCP (`user-supabase`, `mcp.supabase.com`) — stattdessen CLI / REST / Management API
+- Browser MCP, Cursor App Control MCP usw.
 
-Auch wenn MCP-Server in Cursor global oder projektweise konfiguriert sind: **nicht aufrufen**.
+## Cloudflare — Ausnahme (keine Tokens)
+
+Wenn `CLOUDFLARE_*`-Tokens in `.env.local` leer sind: **Cloudflare MCP erlaubt** (`user-cloudflare-api`, `plugin-cloudflare-cloudflare-bindings`).
+
+Vor jedem Deploy: Account per MCP abfragen und mit User bestätigen. Siehe `.cursor/rules/cloudflare-fenyx-only.mdc`.
+
+Sobald Tokens in `.env.local` stehen: wieder nur CLI/Wrangler, kein MCP.
 
 ## Stattdessen verwenden
 
@@ -22,7 +27,7 @@ Auch wenn MCP-Server in Cursor global oder projektweise konfiguriert sind: **nic
 | Supabase SQL / Schema | `supabase` CLI mit `SUPABASE_ACCESS_TOKEN` aus `fenyx-next/.env.local`, oder `psql` mit `DATABASE_URL` |
 | Supabase REST | `curl` + `NEXT_PUBLIC_SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` / Anon-Key |
 | Supabase Management API | `curl` + `SUPABASE_ACCESS_TOKEN` → `https://api.supabase.com/v1/...` |
-| Cloudflare Workers | `wrangler` CLI lokal (wenn Token vorhanden) |
+| Cloudflare Workers | `node scripts/cf-whoami.mjs` dann `node scripts/deploy-analytics-worker-cf.mjs` — **nur** Tokens aus `.env.local`, **kein MCP** |
 | Live-Site prüfen | `curl` oder manuell im Browser — kein Browser-MCP |
 
 Credentials nur aus `fenyx-next/.env.local` lesen; **niemals** Keys oder Tokens in Commits, Rules oder Chat-Antworten vollständig ausgeben.

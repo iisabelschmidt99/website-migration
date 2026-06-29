@@ -1,5 +1,9 @@
+ "use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
+import { trackEvent } from "@/lib/analytics/tracker";
 
 export type ArticleListingItem = {
   slug: string;
@@ -23,6 +27,16 @@ export default function ArticleListingSection({
   description,
   items,
 }: ArticleListingSectionProps) {
+  const listType = items[0]?.href.startsWith("/events")
+    ? "events"
+    : items[0]?.href.startsWith("/presse-medien")
+      ? "press"
+      : "articles";
+
+  useEffect(() => {
+    trackEvent("view_item_list", { list_type: listType, item_count: items.length });
+  }, [items.length, listType]);
+
   return (
     <section className="article-listing py-20 sm:py-28 bg-abyss-deep text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,7 +50,15 @@ export default function ArticleListingSection({
         <div className="article-listing__grid" role="list">
           {items.map((item) => (
             <article key={item.slug} role="listitem" className="article-listing__card">
-              <Link href={item.href} className="article-listing__card-link">
+              <Link
+                href={item.href}
+                className="article-listing__card-link"
+                data-track-event="select_item"
+                data-track-id={`${listType}_list__grid__open_${item.slug}`}
+                data-track-item-type={listType === "articles" ? "article" : listType === "press" ? "press" : "event"}
+                data-track-item-slug={item.slug}
+                data-track-label={item.title}
+              >
                 <div className="article-listing__card-image-wrap">
                   <Image
                     src={item.imageSrc}

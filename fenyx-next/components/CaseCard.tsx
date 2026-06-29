@@ -54,6 +54,11 @@ export default function CaseCard({
           <Link
             href={href}
             className="inline-flex items-center justify-center self-start border border-signal px-7 py-3 text-sm font-bold uppercase text-signal transition-colors duration-200 hover:bg-signal hover:text-black"
+            data-track-event="select_item"
+            data-track-id={`reference_card__open__${heading.toLowerCase().replace(/\s+/g, "_")}`}
+            data-track-item-type="reference"
+            data-track-item-slug={href.split("/").filter(Boolean).at(-1)}
+            data-track-label={heading}
           >
             Zum Projekt
           </Link>

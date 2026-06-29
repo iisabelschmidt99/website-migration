@@ -21,6 +21,7 @@ import {
   type ReferenzMapEntry,
 } from "@/data/referenzen-entries";
 import { referenzEntryHref } from "@/data/referenz-case-studies";
+import { trackEvent } from "@/lib/analytics/tracker";
 
 type ReferenzenInteractiveSectionProps = {
   heading: string;
@@ -156,6 +157,13 @@ export default function ReferenzenInteractiveSection({
   }, []);
 
   useEffect(() => {
+    trackEvent("view_item_list", {
+      list_type: "references",
+      item_count: entries.length,
+    });
+  }, [entries.length]);
+
+  useEffect(() => {
     const layer = mapLayerRef.current;
     if (!layer) return;
 
@@ -235,6 +243,11 @@ export default function ReferenzenInteractiveSection({
       type,
       category: type === "partner" ? "all" : current.category,
     }));
+    trackEvent("tool_use", {
+      tool: "reference_filter",
+      action: "type_filter",
+      value: type,
+    });
   };
 
   const setCategoryFilter = (category: ReferenzFilterState["category"]) => {
@@ -242,6 +255,11 @@ export default function ReferenzenInteractiveSection({
       type: category !== "all" && current.type === "partner" ? "project" : current.type,
       category,
     }));
+    trackEvent("tool_use", {
+      tool: "reference_filter",
+      action: "category_filter",
+      value: category,
+    });
   };
 
   const handleMarkerKeyDown = (
@@ -358,7 +376,14 @@ export default function ReferenzenInteractiveSection({
                     onFocus={() => showEntry(entry, x, y)}
                     onBlur={scheduleClear}
                     onKeyDown={(event) => handleMarkerKeyDown(event, entry, x, y)}
-                    onClick={() => showEntry(entry, x, y)}
+                    onClick={() => {
+                      showEntry(entry, x, y);
+                      trackEvent("select_item", {
+                        item_type: "reference_marker",
+                        item_slug: entry.slug ?? entry.id,
+                        label: entry.company,
+                      });
+                    }}
                   >
                     <circle className="referenzen-map-marker__hit" cx={0} cy={0} r={18} />
                     <circle
@@ -437,6 +462,11 @@ export default function ReferenzenInteractiveSection({
                       <Link
                         href={calloutHref}
                         className="referenzen-cases__callout-link"
+                        data-track-event="select_item"
+                        data-track-id={`reference_map__callout__${callout.entry.slug ?? callout.entry.id}`}
+                        data-track-item-type="reference"
+                        data-track-item-slug={callout.entry.slug ?? callout.entry.id}
+                        data-track-label={callout.entry.company}
                       >
                         Referenz ansehen
                       </Link>
@@ -489,7 +519,15 @@ export default function ReferenzenInteractiveSection({
                 onMouseLeave={scheduleClear}
               >
                 {href ? (
-                  <Link href={href} className="referenzen-cases__card-link">
+                  <Link
+                    href={href}
+                    className="referenzen-cases__card-link"
+                    data-track-event="select_item"
+                    data-track-id={`reference_list__grid__${entry.slug ?? entry.id}`}
+                    data-track-item-type="reference"
+                    data-track-item-slug={entry.slug ?? entry.id}
+                    data-track-label={entry.company}
+                  >
                     {card}
                   </Link>
                 ) : (

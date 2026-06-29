@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import CtaButton from "./CtaButton";
+import { trackEvent } from "@/lib/analytics/tracker";
 
 type VideoFeatureSectionProps = {
   heading: string;
@@ -30,6 +31,7 @@ export default function VideoFeatureSection({
     if (!videoRef.current) return;
     void videoRef.current.play();
     setIsPlaying(true);
+    trackEvent("video_start", { video_id: heading.toLowerCase().replace(/\s+/g, "_") });
   };
 
   return (
@@ -80,7 +82,9 @@ export default function VideoFeatureSection({
               {heading}
             </h2>
             <p className="text-base leading-relaxed text-black/75 mb-8">{body}</p>
-            <CtaButton href={ctaHref}>{ctaLabel}</CtaButton>
+            <CtaButton href={ctaHref} trackId="video_feature__cta__kontakt">
+              {ctaLabel}
+            </CtaButton>
           </div>
         </div>
       </div>

@@ -1,0 +1,15 @@
+name = "fenyx-analytics-ingress"
+main = "src/index.ts"
+compatibility_date = "2026-06-24"
+
+[vars]
+SUPABASE_URL = "https://aadugmrnlvsmdxisaady.supabase.co"
+ALLOWED_ORIGIN = "https://www.fenyx-office.com,https://fenyx-office.com,https://fenyx-office.netlify.app,http://localhost:3000"
+
+# Secrets (wrangler secret put … — Account aus .env.local):
+# wrangler secret put SALT_SECRET
+# wrangler secret put SUPABASE_PUBLISHABLE_KEY
+# wrangler secret put SUPABASE_ANALYTICS_JWT
+#
+# account_id absichtlich NICHT hier — nur via CLOUDFLARE_ACCOUNT_ID in .env.local
+# oder: node scripts/deploy-analytics-worker-cf.mjs

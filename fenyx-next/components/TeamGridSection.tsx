@@ -72,7 +72,12 @@ export default function TeamGridSection({
                     ) : null}
                     <p className="team-card__role">{member.role}</p>
                     {member.email ? (
-                      <a href={`mailto:${member.email}`} className="team-card__email">
+                      <a
+                        href={`mailto:${member.email}`}
+                        className="team-card__email"
+                        data-track-surface="team"
+                        data-track-id={`team__email__${member.name.toLowerCase().replace(/\s+/g, "_")}`}
+                      >
                         {member.email}
                       </a>
                     ) : null}

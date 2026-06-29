@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useMemo, useState } from "react";
 import CtaButton from "./CtaButton";
+import { trackToolUse } from "@/lib/analytics/events";
 
 type Category = {
   id: string;
@@ -71,6 +72,7 @@ export default function Co2Calculator({
 
   const toggleCategory = (id: string) => {
     setSelected((current) => ({ ...current, [id]: !current[id] }));
+    trackToolUse("co2_calculator", "toggle_category", { category_id: id });
   };
 
   return (
@@ -104,7 +106,9 @@ export default function Co2Calculator({
                 <p key={paragraph.slice(0, 32)}>{paragraph}</p>
               ))}
             </div>
-            <CtaButton href={ctaHref}>{ctaLabel}</CtaButton>
+            <CtaButton href={ctaHref} trackId="mitarbeiterverkauf__co2calc__cta">
+              {ctaLabel}
+            </CtaButton>
           </div>
 
           <div className="co2-calculator__panel bg-white text-abyss-deep rounded-[10px] p-6 sm:p-8">
@@ -124,6 +128,16 @@ export default function Co2Calculator({
               value={workstationCount}
               onChange={(event) =>
                 setWorkstationCount(Number(event.target.value))
+              }
+              onMouseUp={() =>
+                trackToolUse("co2_calculator", "workstation_count_change", {
+                  workstation_count: workstationCount,
+                })
+              }
+              onTouchEnd={() =>
+                trackToolUse("co2_calculator", "workstation_count_change", {
+                  workstation_count: workstationCount,
+                })
               }
               className="co2-calculator__slider w-full"
               aria-label="Anzahl Arbeitsplätze"

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { trackEvent } from "@/lib/analytics/tracker";
 
 type Location = {
   slug: string;
@@ -75,6 +76,15 @@ export default function LocationsSection({
                       onMouseLeave={() => setActiveSlug(null)}
                       onFocus={() => setActiveSlug(location.slug)}
                       onBlur={() => setActiveSlug(null)}
+                      onClick={() =>
+                        trackEvent("location_select", {
+                          city: location.slug,
+                          label: location.city,
+                          target: location.href.includes("bueromoebel-mieten")
+                            ? "mieten"
+                            : "einrichtung",
+                        })
+                      }
                     >
                       <span className="locations-section__link-inner">
                         <LocationIcon />
@@ -131,6 +141,16 @@ export default function LocationsSection({
                     onMouseLeave={() => setActiveSlug(null)}
                     onFocus={() => setActiveSlug(location.slug)}
                     onBlur={() => setActiveSlug(null)}
+                    onClick={() =>
+                      trackEvent("location_select", {
+                        city: location.slug,
+                        label: location.city,
+                        target: location.href.includes("bueromoebel-mieten")
+                          ? "mieten"
+                          : "einrichtung",
+                        surface: "map",
+                      })
+                    }
                     tabIndex={-1}
                     aria-hidden="true"
                   >

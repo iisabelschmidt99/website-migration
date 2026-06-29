@@ -4,6 +4,8 @@
 // DOM-Manipulation und SessionStorage braucht (wie in der Webflow-Vorlage).
 
 import { useEffect } from "react";
+import { pushLead } from "@/lib/analytics/dataLayer";
+import { trackContactFormView, trackGenerateLead } from "@/lib/analytics/events";
 
 declare global {
   interface Window {
@@ -47,24 +49,10 @@ function initAutoUTM() {
   window.history.replaceState({}, "", url.toString());
 }
 
-function trackUTMAndPageHistory() {
-  const url = location.href;
-  const params = new URLSearchParams(window.location.search);
-  params.forEach((value, key) => {
-    if (key.startsWith("utm_") && !sessionStorage.getItem(key)) {
-      sessionStorage.setItem(key, value);
-    }
-  });
-  const history = JSON.parse(sessionStorage.getItem("pageHistory") || "[]");
-  if (history.length === 0 || history[history.length - 1] !== url) {
-    history.push(url);
-    sessionStorage.setItem("pageHistory", JSON.stringify(history));
-  }
-}
-
 function getAkquisekanalArt(): string {
-  const source = sessionStorage.getItem("utm_source");
-  const medium = sessionStorage.getItem("utm_medium");
+  const params = new URLSearchParams(window.location.search);
+  const source = params.get("utm_source");
+  const medium = params.get("utm_medium");
   if (!source) return "";
   const name = source.charAt(0).toUpperCase() + source.slice(1);
   const paid = ["cpc", "ppc", "paid", "paidsearch", "sem"];
@@ -74,10 +62,14 @@ function getAkquisekanalArt(): string {
   return `${name}_SEO`;
 }
 
-export default function HubSpotForm() {
+export default function HubSpotForm({
+  leadSurface = "hubspot_form",
+}: {
+  leadSurface?: string;
+}) {
   useEffect(() => {
     initAutoUTM();
-    trackUTMAndPageHistory();
+    trackContactFormView(leadSurface);
 
     const mountForm = () => {
       if (!window.hbspt) return;
@@ -102,7 +94,7 @@ export default function HubSpotForm() {
             utm_content: `utm_content-${FORM_ID}`,
           };
           for (const [param, id] of Object.entries(utmFields)) {
-            const value = sessionStorage.getItem(param);
+            const value = new URLSearchParams(window.location.search).get(param);
             if (!value) continue;
             const field = document.getElementById(id) as HTMLInputElement | null;
             if (field) field.value = value;
@@ -112,6 +104,14 @@ export default function HubSpotForm() {
             `akquisekanal_art-${FORM_ID}`
           ) as HTMLInputElement | null;
           if (akquise) akquise.value = getAkquisekanalArt();
+        },
+        onFormSubmitted: () => {
+          trackGenerateLead("contact_form", leadSurface);
+          pushLead({
+            lead_type: "contact_form",
+            lead_surface: leadSurface,
+            page_path: window.location.pathname,
+          });
         },
       });
     };
@@ -130,7 +130,7 @@ export default function HubSpotForm() {
     return () => {
       script.remove();
     };
-  }, []);
+  }, [leadSurface]);
 
   return <div id="hubspot-form-container" className="hubspot-form" />;
 }
