@@ -20,12 +20,15 @@ const MAX_EVENTS = 50;
 
 function getIngressConfig() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const apikey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  const jwt = process.env.SUPABASE_ANALYTICS_JWT || process.env.ANALYTICS_INGRESS_JWT;
-  if (!url || !apikey || !jwt) {
-    throw new Error("Analytics-Ingress-JWT, Supabase URL oder Publishable Key fehlt.");
+  const publishableKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const analyticsKey = process.env.SUPABASE_ANALYTICS_KEY;
+  const legacyJwt = process.env.SUPABASE_ANALYTICS_JWT || process.env.ANALYTICS_INGRESS_JWT;
+  const authKey = analyticsKey || legacyJwt;
+  const apikey = analyticsKey || publishableKey;
+  if (!url || !apikey || !authKey) {
+    throw new Error("Analytics-Ingress-Key, Supabase URL oder Publishable Key fehlt.");
   }
-  return { url: url.replace(/\/$/, ""), apikey, jwt };
+  return { url: url.replace(/\/$/, ""), apikey, authKey };
 }
 
 function normalizeHost(request: Request): string {
@@ -165,7 +168,7 @@ export async function POST(request: Request) {
       method: "POST",
       headers: {
         apikey: config.apikey,
-        Authorization: `Bearer ${config.jwt}`,
+        Authorization: `Bearer ${config.authKey}`,
         "Content-Type": "application/json",
         "Accept-Profile": "analytics",
         "Content-Profile": "analytics",

@@ -72,7 +72,7 @@ console.log("Worker-Script hochgeladen.");
 const secrets = {
   SALT_SECRET: env.ANALYTICS_SALT_SECRET,
   SUPABASE_PUBLISHABLE_KEY: env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-  SUPABASE_ANALYTICS_JWT: env.SUPABASE_ANALYTICS_JWT,
+  SUPABASE_ANALYTICS_KEY: env.SUPABASE_ANALYTICS_KEY,
 };
 
 for (const [name, text] of Object.entries(secrets)) {

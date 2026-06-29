@@ -1,7 +1,8 @@
 type Env = {
   SUPABASE_URL: string;
   SUPABASE_PUBLISHABLE_KEY: string;
-  SUPABASE_ANALYTICS_JWT: string;
+  SUPABASE_ANALYTICS_KEY?: string;
+  SUPABASE_ANALYTICS_JWT?: string;
   SALT_SECRET: string;
   ALLOWED_ORIGIN?: string;
 };
@@ -332,7 +333,9 @@ export default {
     if (!cors) {
       return Response.json({ error: "Ungültiger Origin." }, { status: 403 });
     }
-    if (!env.SALT_SECRET || !env.SUPABASE_PUBLISHABLE_KEY || !env.SUPABASE_ANALYTICS_JWT) {
+    const analyticsAuthKey = env.SUPABASE_ANALYTICS_KEY || env.SUPABASE_ANALYTICS_JWT;
+    const analyticsApiKey = env.SUPABASE_ANALYTICS_KEY || env.SUPABASE_PUBLISHABLE_KEY;
+    if (!env.SALT_SECRET || !analyticsApiKey || !analyticsAuthKey) {
       return Response.json({ error: "Analytics Worker nicht vollständig konfiguriert." }, { status: 503, headers: cors });
     }
     if (wantsPrivacyOptOut(request)) {
@@ -366,8 +369,8 @@ export default {
     const res = await fetch(`${env.SUPABASE_URL.replace(/\/$/, "")}/rest/v1/website_analytics_events`, {
       method: "POST",
       headers: {
-        apikey: env.SUPABASE_PUBLISHABLE_KEY,
-        Authorization: `Bearer ${env.SUPABASE_ANALYTICS_JWT}`,
+        apikey: analyticsApiKey,
+        Authorization: `Bearer ${analyticsAuthKey}`,
         "Content-Type": "application/json",
         "Accept-Profile": "analytics",
         "Content-Profile": "analytics",
