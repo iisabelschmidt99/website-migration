@@ -8,6 +8,7 @@ import "./site-nav.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ChromeGate from "@/components/ChromeGate";
+import ClientTrackers from "@/components/analytics/ClientTrackers";
 
 // ── Marken-Fonts (self-hosted, aus dem Webflow-Original) ──────────
 // Roobert = Fließtext (body). Telegraf = Überschriften (h1–h6).
@@ -53,6 +54,7 @@ export default function RootLayout({
         <ChromeGate header={<Header />} footer={<Footer />}>
           {children}
         </ChromeGate>
+        <ClientTrackers />
       </body>
     </html>
   );

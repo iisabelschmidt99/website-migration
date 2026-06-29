@@ -18,6 +18,9 @@ npm-debug.log*
 # env files
 .env*.local
 
+# cloudflare deploy temp (never commit)
+scripts/.cf-mcp-*
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

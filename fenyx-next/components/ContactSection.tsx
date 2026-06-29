@@ -50,6 +50,8 @@ export default function ContactSection() {
                   <a
                     href="mailto:anina@fenyx-office.com"
                     className="flex items-center gap-2 text-mist hover:text-signal transition-colors"
+                    data-track-surface="contact_section"
+                    data-track-id="contact_section__email__anina"
                   >
                     <svg
                       className="w-4 h-4 shrink-0"
@@ -70,6 +72,8 @@ export default function ContactSection() {
                   <a
                     href="tel:+4917623820424"
                     className="flex items-center gap-2 text-mist hover:text-signal transition-colors"
+                    data-track-surface="contact_section"
+                    data-track-id="contact_section__phone"
                   >
                     <svg
                       className="w-4 h-4 shrink-0"
@@ -89,7 +93,7 @@ export default function ContactSection() {
                   </a>
                 </div>
 
-                <HubSpotForm />
+                <HubSpotForm leadSurface="contact_section" />
               </div>
             </div>
           </div>

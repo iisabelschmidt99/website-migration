@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { trackEvent } from "@/lib/analytics/tracker";
 
 export type FaqItem = {
   question: string;
@@ -47,7 +48,15 @@ export default function FaqSection({
                   type="button"
                   className="faq-trigger"
                   aria-expanded={isOpen}
-                  onClick={() => setOpenIndex(isOpen ? null : index)}
+                  onClick={() => {
+                    setOpenIndex(isOpen ? null : index);
+                    if (!isOpen) {
+                      trackEvent("faq_open", {
+                        question_id: `faq_${index + 1}`,
+                        question: item.question,
+                      });
+                    }
+                  }}
                 >
                   {item.question}
                   <svg

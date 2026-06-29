@@ -30,10 +30,17 @@ export default function BuyOrRentSection({
           ))}
         </div>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <CtaButton href={buyHref}>Kaufen</CtaButton>
+          <CtaButton href={buyHref} trackId="audience__buy_or_rent__buy">
+            Kaufen
+          </CtaButton>
           <Link
             href={rentHref}
             className="inline-flex items-center justify-center px-8 py-4 text-[11px] font-bold uppercase tracking-[0.12em] border border-black/20 text-black hover:border-signal hover:text-signal transition-all duration-200"
+            data-track-event="tool_use"
+            data-track-id="audience__buy_or_rent__rent"
+            data-track-label="Mieten"
+            data-track-tool="buy_or_rent"
+            data-track-action="rent"
           >
             Mieten
           </Link>

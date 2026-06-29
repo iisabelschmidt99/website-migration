@@ -24,7 +24,12 @@ function PromoColumn() {
           />
         </div>
         <p className="mega-promo-title">{PROMO.title}</p>
-        <Link href={PROMO.href} className="mega-promo-btn">
+        <Link
+          href={PROMO.href}
+          className="mega-promo-btn"
+          data-track-event="cta_click"
+          data-track-id="mega_menu__promo__mehr_erfahren"
+        >
           Mehr erfahren
         </Link>
       </div>
@@ -64,7 +69,12 @@ export default function MegaMenuPanel({
             <ul className="mega-link-list">
               {config.simpleLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="mega-link">
+                  <Link
+                    href={link.href}
+                    className="mega-link"
+                    data-track-event="cta_click"
+                    data-track-id={`mega_menu__${config.id}__${link.label.toLowerCase().replace(/\s+/g, "_")}`}
+                  >
                     <span className="mega-link-title">{link.label}</span>
                     {link.sub ? (
                       <span className="mega-link-sub">{link.sub}</span>
@@ -77,7 +87,12 @@ export default function MegaMenuPanel({
             <ul className="mega-service-list">
               {config.services.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="mega-service-link">
+                  <Link
+                    href={link.href}
+                    className="mega-service-link"
+                    data-track-event="cta_click"
+                    data-track-id={`mega_menu__${config.id}__${link.label.toLowerCase().replace(/\s+/g, "_")}`}
+                  >
                     <span className="mega-service-thumb">
                       <Image
                         src={link.imageSrc}
@@ -106,7 +121,13 @@ export default function MegaMenuPanel({
             <ul className="mega-case-list">
               {config.cases.map((item) => (
                 <li key={item.title}>
-                  <Link href={item.href} className="mega-case-link">
+                  <Link
+                    href={item.href}
+                    className="mega-case-link"
+                    data-track-event="select_item"
+                    data-track-id={`mega_menu__case__${item.title.toLowerCase().replace(/\s+/g, "_")}`}
+                    data-track-label={item.title}
+                  >
                     <span className="mega-case-thumb">
                       <Image
                         src={item.imageSrc}

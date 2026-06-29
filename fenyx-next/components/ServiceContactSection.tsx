@@ -74,6 +74,8 @@ export default function ServiceContactSection({
               <a
                 href={`mailto:${email}`}
                 className="flex items-center gap-2 text-mist hover:text-signal transition-colors"
+                data-track-surface="service_contact"
+                data-track-id={`service_contact__email__${name.toLowerCase().replace(/\s+/g, "_")}`}
               >
                 <svg
                   className="w-4 h-4 shrink-0"
@@ -94,6 +96,8 @@ export default function ServiceContactSection({
               <a
                 href={`tel:${phone.replace(/\s/g, "")}`}
                 className="flex items-center gap-2 text-mist hover:text-signal transition-colors"
+                data-track-surface="service_contact"
+                data-track-id={`service_contact__phone__${name.toLowerCase().replace(/\s+/g, "_")}`}
               >
                 <svg
                   className="w-4 h-4 shrink-0"
@@ -113,7 +117,7 @@ export default function ServiceContactSection({
               </a>
             </div>
 
-                <HubSpotForm />
+                <HubSpotForm leadSurface="service_contact" />
               </div>
             </div>
           </div>

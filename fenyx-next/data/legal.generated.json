@@ -137,6 +137,22 @@
       },
       {
         "type": "h3",
+        "text": "7.0 Server-seitige Reichweitenmessung"
+      },
+      {
+        "type": "p",
+        "text": "Diese Website verwendet eine rein server-seitige Reichweitenmessung (System A). Es werden keine Cookies, kein Local Storage, kein Session Storage und keine vergleichbaren Technologien auf Ihrem Endgerät gespeichert oder ausgelesen. Insbesondere findet kein Zugriff im Sinne des § 25 Abs. 1 TDDDG statt. Verarbeitet werden ausschließlich Daten, die Ihr Browser für den Abruf der Website ohnehin überträgt (IP-Adresse vor Verarbeitung gekürzt und gehasht, reduzierte Browserkennung, aufgerufene URL, Referrer-Domain). Die pseudonyme Signatur rotiert täglich und dient ausschließlich aggregierter Reichweitenmessung."
+      },
+      {
+        "type": "p",
+        "text": "Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der technischen Reichweitenmessung und Verbesserung unseres Onlineangebots). Senden Sie den Header Sec-GPC: 1 oder DNT: 1, werden keine Analyse-Daten verarbeitet."
+      },
+      {
+        "type": "p",
+        "text": "Marketing-Tags wie Google Tag Manager oder vergleichbare Anbieter werden nur nach Ihrer Einwilligung geladen (System B). Die Einwilligung können Sie jederzeit über die Cookie-Einstellungen widerrufen."
+      },
+      {
+        "type": "h3",
         "text": "7.1 Google Analytics"
       },
       {

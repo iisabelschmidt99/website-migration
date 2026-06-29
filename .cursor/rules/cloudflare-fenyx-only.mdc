@@ -1,0 +1,33 @@
+---
+description: Cloudflare nur Fenyx-Konto — MCP wenn keine Tokens, sonst .env.local
+alwaysApply: true
+---
+
+# Cloudflare — nur Fenyx-Konto
+
+## Nie deployen ohne Bestätigung
+
+Vor jedem Cloudflare-Worker-Deploy:
+
+1. **Account prüfen** — per MCP (`user-cloudflare-api` → `execute` mit `GET /accounts`) oder `node scripts/cf-whoami.mjs`
+2. Account-Name muss **Fenyx** sein, nicht Privat/milouschoice
+3. User kurz bestätigen lassen, wenn unklar
+4. Erst dann deployen
+
+## Blockierte Account-IDs
+
+Diese ID ist **Privat/milouschoice** — kein Fenyx-Deploy:
+
+- `9ee9feaf0b2f65864cc214ad39dec127` (Admin@milouschoice.de)
+
+## Werkzeuge (Reihenfolge)
+
+**Keine Tokens in `.env.local`:** Cloudflare MCP (`user-cloudflare-api`, `plugin-cloudflare-cloudflare-bindings`).
+
+**Tokens vorhanden:** `node scripts/cf-whoami.mjs` → `node scripts/deploy-analytics-worker-cf.mjs` / wrangler mit `.env.local`.
+
+## MCP auf Fenyx umstellen
+
+Wenn MCP nur milouschoice zeigt: Cursor → Settings → MCP → `cloudflare-api` → abmelden → mit **Fenyx-Cloudflare-Login** neu verbinden.
+
+Doku: `fenyx-next/cloudflare/README.md`

@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cf:whoami": "node scripts/cf-whoami.mjs",
+    "cf:deploy-worker": "node scripts/cf-whoami.mjs && node scripts/deploy-analytics-worker-cf.mjs"
   },
   "dependencies": {
     "@opentelemetry/api": "^1.9.1",
@@ -15,7 +17,10 @@
     "next": "^16.2.9",
     "qrcode.react": "^4.2.0",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "react-svg-worldmap": "^2.0.2",
+    "recharts": "^3.9.0",
+    "web-vitals": "^5.3.0"
   },
   "devDependencies": {
     "@types/node": "20.14.10",

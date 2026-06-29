@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { trackEvent } from "@/lib/analytics/tracker";
 
 type VideoSectionProps = {
   heading: string;
@@ -25,6 +26,7 @@ export default function VideoSection({
     if (!videoRef.current || !videoSrc) return;
     void videoRef.current.play();
     setIsPlaying(true);
+    trackEvent("video_start", { video_id: heading.toLowerCase().replace(/\s+/g, "_") });
   };
 
   return (

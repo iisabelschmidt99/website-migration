@@ -127,6 +127,8 @@ export default function Header() {
           <Link
             href="/"
             className="site-header-logo flex items-center shrink-0 self-center leading-none"
+            data-track-event="cta_click"
+            data-track-id="header__logo__home"
           >
             <Image
               src="/assets/fenyx-logo-header.png"
@@ -191,7 +193,13 @@ export default function Header() {
               })}
 
               {DIRECT_LINKS.map((link) => (
-                <Link key={link.href} href={link.href} className="mega-direct-link">
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="mega-direct-link"
+                  data-track-event="cta_click"
+                  data-track-id={`header__direct__${link.label.toLowerCase().replace(/\s+/g, "_")}`}
+                >
                   {link.label}
                 </Link>
               ))}
@@ -200,6 +208,9 @@ export default function Header() {
             <Link
               href="/#kontakt"
               className="hidden sm:inline-flex items-center px-5 py-2.5 bg-signal text-black text-[11px] font-bold uppercase tracking-[0.1em] hover:brightness-95 transition-all duration-200"
+              data-track-event="cta_click"
+              data-track-id="header__cta__kontakt"
+              data-track-label="Kontakt"
             >
               Kontakt
             </Link>
@@ -286,6 +297,8 @@ export default function Header() {
                         href={link.href}
                         className="mobile-nav-link block px-3 py-2 text-white/70 hover:text-signal text-sm"
                         onClick={() => setMobileOpen(false)}
+                        data-track-event="cta_click"
+                        data-track-id={`mobile_nav__${menu.id}__${link.label.toLowerCase().replace(/\s+/g, "_")}`}
                       >
                         {link.label}
                       </Link>
@@ -302,6 +315,8 @@ export default function Header() {
               href={link.href}
               className="mobile-nav-link block px-3 py-3 text-white/70 hover:text-signal text-sm font-semibold uppercase tracking-wider"
               onClick={() => setMobileOpen(false)}
+              data-track-event="cta_click"
+              data-track-id={`mobile_nav__direct__${link.label.toLowerCase().replace(/\s+/g, "_")}`}
             >
               {link.label}
             </Link>
@@ -311,6 +326,9 @@ export default function Header() {
             href="/#kontakt"
             className="mobile-nav-link block mt-2 px-5 py-3 bg-signal text-black text-sm font-bold uppercase tracking-wider text-center hover:brightness-95 transition-all"
             onClick={() => setMobileOpen(false)}
+            data-track-event="cta_click"
+            data-track-id="mobile_nav__cta__kontakt"
+            data-track-label="Kontakt"
           >
             Kontakt
           </Link>

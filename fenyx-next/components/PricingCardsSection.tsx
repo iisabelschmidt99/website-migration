@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import CtaButton from "./CtaButton";
+import { trackToolUse } from "@/lib/analytics/events";
 
 type PricingCard = {
   title: string;
@@ -41,7 +44,15 @@ export default function PricingCardsSection({
 
         <div className="grid md:grid-cols-3 gap-6">
           {cards.map((card) => (
-            <article key={card.title} className="pricing-card">
+            <article
+              key={card.title}
+              className="pricing-card"
+              onClick={() =>
+                trackToolUse("pricing_card", "select", {
+                  card_title: card.title,
+                })
+              }
+            >
               <div className="pricing-card__media relative aspect-[4/5]">
                 <Image
                   src={card.imageSrc}
@@ -59,7 +70,9 @@ export default function PricingCardsSection({
         </div>
 
         <div className="mt-12 flex justify-center">
-          <CtaButton href={ctaHref}>{ctaLabel}</CtaButton>
+          <CtaButton href={ctaHref} trackId="bueromoebel_mieten__pricing__cta">
+            {ctaLabel}
+          </CtaButton>
         </div>
       </div>
     </section>
