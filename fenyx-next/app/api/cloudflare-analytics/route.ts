@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
 import { assertAnalyticsApiAuth } from "@/lib/admin/assertAnalyticsApiAuth";
+import { getAnalyticsServiceClient } from "@/lib/admin/analyticsServiceClient";
 import {
   CATEGORY_MAP,
   OPERATOR_MAP,
@@ -11,16 +11,6 @@ import {
 } from "@/lib/cloudflare/analytics";
 
 export const runtime = "nodejs";
-
-function serviceClient() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) throw new Error("Supabase Service Role oder URL fehlt.");
-  return createClient(url, key, {
-    auth: { autoRefreshToken: false, persistSession: false },
-    db: { schema: "analytics" },
-  });
-}
 
 function worstRobotsStatus(statusCounts: Map<number, number>): number {
   const byTier = (s: number) => (s >= 500 ? 5 : s >= 400 ? 4 : s >= 300 ? 3 : 2);
@@ -97,10 +87,19 @@ export async function GET(request: NextRequest) {
       };
 
       if (persist) {
-        const { error } = await serviceClient()
+        const db = getAnalyticsServiceClient();
+        if (!db.ok) {
+          return NextResponse.json({ configured: true, ...row, persistWarning: db.error }, { status: db.status });
+        }
+        const { error } = await db.client
           .from("cloudflare_metrics")
           .insert({ ...row, raw_payload: { sum } });
-        if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+        if (error) {
+          return NextResponse.json(
+            { configured: true, ...row, persistWarning: error.message },
+            { status: 200 },
+          );
+        }
       }
 
       return NextResponse.json({ configured: true, ...row });

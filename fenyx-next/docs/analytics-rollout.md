@@ -95,7 +95,7 @@ node scripts/setup-gtm-dev-container.mjs
 | GTM Health | `GTM_SERVICE_ACCOUNT_JSON` |
 | Cloudflare | `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ZONE_ID` |
 
-Alle Admin-APIs brauchen gültige Admin-Session **und** `SUPABASE_SERVICE_ROLE_KEY` in Netlify.
+Alle Admin-APIs brauchen gültige Admin-Session **und** `SUPABASE_SERVICE_ROLE_KEY` in Netlify (Scopes: **All** / Functions runtime, nicht nur Build).
 
 ---
 

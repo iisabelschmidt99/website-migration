@@ -3,6 +3,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import CookieSettingsLink from "@/components/analytics/CookieSettingsLink";
 
 // Footer-Spalten als Daten (gleiche Struktur wie im Header).
 const COLUMNS = [
@@ -141,6 +142,7 @@ export default function Footer() {
               >
                 Datenschutz
               </Link>
+              <CookieSettingsLink />
               <Link
                 href="/agb"
                 className="hover:text-signal transition-colors"

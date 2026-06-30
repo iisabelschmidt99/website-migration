@@ -279,7 +279,7 @@ node scripts/setup-gtm-dev-container.mjs [--publish]
 |---|---|
 | GTM Publish per Service Account | Braucht **Publish**-Berechtigung in GTM; sonst manuell in tagmanager.google.com |
 | GA4-ID im live Container | Variable im Workspace auf `G-E8XZKVVHG6` setzen + **Publish** — live `gtm.js` zeigt erst danach die neue ID |
-| Admin `/api/crux`, `/api/cloudflare-analytics` | Benötigen `SUPABASE_SERVICE_ROLE_KEY` + API-Keys in Netlify Functions |
+| Admin `/api/crux`, `/api/cloudflare-analytics` | Benötigen `SUPABASE_SERVICE_ROLE_KEY` (Netlify **Runtime**-Env) + API-Keys; fehlender Key → **503** mit Hinweis, nicht 500 |
 | CF Zone Analytics | Zone `fenyx-office.com` ggf. noch `pending` → keine GraphQL-Daten |
 | CrUX vs RUM | CrUX = aggregiertes Google-Felddata; RUM = echte Besucher-Vitals in System A |
 

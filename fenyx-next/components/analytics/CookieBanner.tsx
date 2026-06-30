@@ -13,6 +13,20 @@ export default function CookieBanner() {
 
   useEffect(() => {
     setVisible(!getConsent());
+
+    const openSettings = () => {
+      const existing = getConsent();
+      if (existing) {
+        setAnalytics(existing.analytics);
+        setMarketing(existing.marketing);
+        setPreferences(existing.preferences);
+      }
+      setSettingsOpen(true);
+      setVisible(true);
+    };
+
+    window.addEventListener("fenyx:cookie-settings", openSettings);
+    return () => window.removeEventListener("fenyx:cookie-settings", openSettings);
   }, []);
 
   function save(next: { analytics: boolean; marketing: boolean; preferences: boolean }) {
