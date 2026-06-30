@@ -40,6 +40,8 @@ node scripts/deploy-analytics-worker-cf.mjs
 
 Danach `NEXT_PUBLIC_ANALYTICS_INGRESS_URL` in Netlify setzen (Worker-URL aus Script-Output).
 
+Analytics-Doku: [`docs/analytics-systems.md`](../docs/analytics-systems.md)
+
 ## Verboten in diesem Repo
 
 - Cloudflare **MCP** (`user-cloudflare-api`) — siehe `.cursor/rules/no-mcp.mdc`

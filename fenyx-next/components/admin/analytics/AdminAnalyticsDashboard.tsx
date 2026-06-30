@@ -2,6 +2,8 @@
 
 import { useMemo, useState } from "react";
 import WorldMap from "react-svg-worldmap";
+import AiCrawlerPanel from "@/components/admin/analytics/AiCrawlerPanel";
+import CloudflareZonePanel from "@/components/admin/analytics/CloudflareZonePanel";
 import {
   Bar,
   BarChart,
@@ -204,15 +206,8 @@ export default function AdminAnalyticsDashboard({
       ) : null}
       {tab === "Tracking Health" ? <SimpleTable rows={countBy(events, (e) => e.event_type)} title="Event Breakdown" /> : null}
       {tab === "GTM Health" ? <Placeholder configured={gtmConfigured} label="GTM-Service-Account" /> : null}
-      {tab === "Cloudflare" ? <Placeholder configured={cloudflareConfigured} label="Cloudflare API Token" /> : null}
-      {tab === "AI Crawler" ? (
-        <div className="space-y-4">
-          <Placeholder configured={cloudflareConfigured} label="Cloudflare API Token" />
-          <p className="text-sm text-mist">
-            Nach Konfiguration: GPTBot, PerplexityBot, ClaudeBot, Google-Extended, Top-Pfade und robots.txt-Status.
-          </p>
-        </div>
-      ) : null}
+      {tab === "Cloudflare" ? <CloudflareZonePanel configured={cloudflareConfigured} /> : null}
+      {tab === "AI Crawler" ? <AiCrawlerPanel configured={cloudflareConfigured} /> : null}
     </div>
   );
 }

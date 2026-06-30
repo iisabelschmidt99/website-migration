@@ -193,6 +193,27 @@ async function createIfMissing(listPath, createPath, token, payload) {
   return { skipped: false, item };
 }
 
+async function upsertConstantVariable(base, token, name, value) {
+  const listPath = `${base}/variables`;
+  const existing = await findByName(listPath, token, name);
+  const payload = constantVariable(name, value);
+  if (!existing) {
+    const item = await gtmFetch(token, listPath, { method: "POST", body: JSON.stringify(payload) });
+    return { action: "created", item };
+  }
+  const current = existing.parameter?.find((p) => p.key === "value")?.value;
+  if (current === value) return { action: "unchanged", item: existing };
+  const updated = {
+    ...existing,
+    parameter: [{ type: "template", key: "value", value }],
+  };
+  const item = await gtmFetch(token, `${listPath}/${existing.variableId}`, {
+    method: "PUT",
+    body: JSON.stringify(updated),
+  });
+  return { action: "updated", item, previous: current };
+}
+
 async function main() {
   const env = loadEnvLocal();
   const targetPublicId = env.NEW_GTM_ID || env.NEXT_PUBLIC_GTM_ID;
@@ -262,8 +283,14 @@ async function main() {
   const base = `https://tagmanager.googleapis.com/tagmanager/v2/accounts/${accountId}/containers/${container.containerId}/workspaces/${workspace.workspaceId}`;
 
   if (ga4Id) {
-    await createIfMissing(`${base}/variables`, `${base}/variables`, token, constantVariable("GA4 Measurement ID", ga4Id));
-    console.log("GA4 Measurement ID Variable gesetzt.");
+    const ga4Var = await upsertConstantVariable(base, token, "GA4 Measurement ID", ga4Id);
+    console.log(
+      ga4Var.action === "updated"
+        ? `GA4 Measurement ID aktualisiert: ${ga4Var.previous} -> ${ga4Id}`
+        : ga4Var.action === "created"
+          ? "GA4 Measurement ID Variable erstellt."
+          : "GA4 Measurement ID bereits korrekt.",
+    );
   } else {
     console.log("Hinweis: GA4_MEASUREMENT_ID nicht gesetzt – Event-Tags werden übersprungen (Preview/Trigger reicht zum Test).");
   }

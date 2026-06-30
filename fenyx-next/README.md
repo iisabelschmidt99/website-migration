@@ -50,7 +50,7 @@ fenyx-next/
 2. **Unterseiten migrieren** – pro Leistung eine Seite unter der oben in `.cursorrules` definierten URL-Struktur.
 3. **Kontaktformular** an die bestehende HubSpot-Anbindung (Netlify-Funktion) hängen.
 4. **Supabase** anbinden: Blogsystem + Referenzen dynamisch.
-5. **Cookieless-Tracking** (Cloudflare) und Staging-Subdomain einrichten.
+5. **Analytics Tandem-System** — siehe [`docs/analytics-systems.md`](docs/analytics-systems.md) (System A cookielos + System B GTM/GA4).
 
 ## Hinweis zum Verhältnis zur alten Seite
 

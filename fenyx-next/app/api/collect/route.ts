@@ -17,6 +17,47 @@ import type { AnalyticsEventPayload, CollectRequestBody } from "@/lib/analytics/
 export const runtime = "nodejs";
 
 const MAX_EVENTS = 50;
+const ANALYTICS_ROW_KEYS = [
+  "session_hash",
+  "page_visit_id",
+  "event_type",
+  "page_path",
+  "page_title",
+  "page_type",
+  "service_area",
+  "audience",
+  "city",
+  "contact_person",
+  "element_id",
+  "event_data",
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_content",
+  "utm_term",
+  "gclid",
+  "fbclid",
+  "referrer_host",
+  "original_referrer",
+  "traffic_source_category",
+  "device_type",
+  "quality_flags",
+  "country_code",
+  "country_source",
+  "region_code",
+  "region",
+  "visitor_type",
+  "verified_bot",
+  "verified_bot_category",
+  "bot_classification",
+  "edge_colo",
+  "edge_asn",
+  "edge_ray",
+  "http_protocol",
+  "tls_version",
+  "user_agent",
+  "event_ts",
+] as const;
 
 function getIngressConfig() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -106,6 +147,18 @@ function sanitizeEvent(
   };
 }
 
+function normalizeRowsForPostgrest(rows: ReturnType<typeof sanitizeEvent>[]) {
+  return rows.map((row) => {
+    const normalized: Record<string, unknown> = {};
+    for (const key of ANALYTICS_ROW_KEYS) {
+      normalized[key] = row[key as keyof typeof row] ?? null;
+    }
+    normalized.event_data = row.event_data ?? {};
+    normalized.quality_flags = row.quality_flags ?? {};
+    return normalized;
+  });
+}
+
 export async function POST(request: Request) {
   if (wantsPrivacyOptOut(request)) {
     return NextResponse.json({ ok: true, action: "opt_out" });
@@ -163,7 +216,9 @@ export async function POST(request: Request) {
 
   try {
     const config = getIngressConfig();
-    const rows = events.map((event) => sanitizeEvent(event, request, sessionHash));
+    const rows = normalizeRowsForPostgrest(
+      events.map((event) => sanitizeEvent(event, request, sessionHash)),
+    );
     const res = await fetch(`${config.url}/rest/v1/website_analytics_events`, {
       method: "POST",
       headers: {

@@ -74,6 +74,47 @@ const MAX_EVENTS = 50;
 const MAX_BODY_BYTES = 256_000;
 const RATE_WINDOW_MS = 60_000;
 const RATE_MAX = 120;
+const ANALYTICS_ROW_KEYS = [
+  "session_hash",
+  "page_visit_id",
+  "event_type",
+  "page_path",
+  "page_title",
+  "page_type",
+  "service_area",
+  "audience",
+  "city",
+  "contact_person",
+  "element_id",
+  "event_data",
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_content",
+  "utm_term",
+  "gclid",
+  "fbclid",
+  "referrer_host",
+  "original_referrer",
+  "traffic_source_category",
+  "device_type",
+  "quality_flags",
+  "country_code",
+  "country_source",
+  "region_code",
+  "region",
+  "visitor_type",
+  "verified_bot",
+  "verified_bot_category",
+  "bot_classification",
+  "edge_colo",
+  "edge_asn",
+  "edge_ray",
+  "http_protocol",
+  "tls_version",
+  "user_agent",
+  "event_ts",
+] as const;
 
 const rateBuckets = new Map<string, { count: number; reset: number }>();
 
@@ -322,6 +363,18 @@ function eventToRow(event: IncomingEvent, sessionHash: string, request: Request,
   };
 }
 
+function normalizeRowsForPostgrest(rows: ReturnType<typeof eventToRow>[]) {
+  return rows.map((row) => {
+    const normalized: Record<string, unknown> = {};
+    for (const key of ANALYTICS_ROW_KEYS) {
+      normalized[key] = row[key as keyof typeof row] ?? null;
+    }
+    normalized.event_data = row.event_data ?? {};
+    normalized.quality_flags = row.quality_flags ?? {};
+    return normalized;
+  });
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const cors = corsHeaders(request, env);
@@ -364,7 +417,9 @@ export default {
 
     const sessionHash = await deriveSessionHash(request, env);
     const cf = (request as Request & { cf?: Record<string, unknown> }).cf ?? {};
-    const rows = events.map((event) => eventToRow(event, sessionHash, request, cf));
+    const rows = normalizeRowsForPostgrest(
+      events.map((event) => eventToRow(event, sessionHash, request, cf)),
+    );
 
     const res = await fetch(`${env.SUPABASE_URL.replace(/\/$/, "")}/rest/v1/website_analytics_events`, {
       method: "POST",

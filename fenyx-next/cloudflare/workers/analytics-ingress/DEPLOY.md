@@ -1,40 +1,60 @@
 # Fenyx Analytics Ingress Worker
 
-Der Worker ist der Produktionspfad für System A. Er schreibt direkt per PostgREST in
-`analytics.website_analytics_events` und nutzt dafür ein JWT mit Rolle
-`analytics_ingress`.
+Produktions-Ingress für **System A**. Empfängt Event-Batches vom Browser, reichert sie mit Cloudflare-Metadaten an und schreibt in Supabase `analytics.website_analytics_events`.
 
-## Secrets
+Vollständige Doku: [`../../../docs/analytics-systems.md`](../../../docs/analytics-systems.md)
 
-```bash
-wrangler secret put SALT_SECRET
-wrangler secret put SUPABASE_PUBLISHABLE_KEY
-wrangler secret put SUPABASE_ANALYTICS_JWT
-```
-
-Optional in `wrangler.toml` oder als Secret – **Pflicht in Produktion**:
+## Live-URL
 
 ```text
-ALLOWED_ORIGIN=https://www.fenyx-office.com,https://fenyx-office.com
+https://fenyx-analytics-ingress.isabel-98d.workers.dev
 ```
 
-Ohne `ALLOWED_ORIGIN` sind nur die Standard-Origins (fenyx-office.com + localhost) erlaubt.
-CORS schlägt fehl, wenn der Request-Origin nicht auf der Liste steht.
+Netlify: `NEXT_PUBLIC_ANALYTICS_INGRESS_URL=<URL oben>`
 
-`SUPABASE_ANALYTICS_JWT` wird mit `scripts/mint-analytics-jwt.mjs` erzeugt (90 Tage Gültigkeit).
+## Secrets (via Deploy-Script oder wrangler)
 
-## Deploy
+| Secret | Wert |
+|---|---|
+| `SALT_SECRET` | = `ANALYTICS_SALT_SECRET` aus `.env.local` |
+| `SUPABASE_PUBLISHABLE_KEY` | = `NEXT_PUBLIC_SUPABASE_ANON_KEY` |
+| `SUPABASE_ANALYTICS_KEY` | = `SUPABASE_ANALYTICS_KEY` (`sb_secret_...`, Rolle `analytics_ingress`) |
 
-```bash
-cd cloudflare/workers/analytics-ingress
-wrangler deploy
-```
-
-Danach in Netlify setzen:
+Optional:
 
 ```text
-NEXT_PUBLIC_ANALYTICS_INGRESS_URL=https://<worker-url>
+ALLOWED_ORIGIN=https://www.fenyx-office.com,https://fenyx-office.com,https://fenyx-office.netlify.app
 ```
 
-Wenn die Variable leer ist, postet der Client an `/api/collect` als direkten
-Netlify-Fallback.
+Ohne `ALLOWED_ORIGIN` gelten die Standard-Origins in `src/index.ts` (inkl. Netlify-Staging).
+
+> **Legacy:** `SUPABASE_ANALYTICS_JWT` wird als Fallback unterstützt, ist aber deprecated. Neuen Key über Supabase Management API anlegen — **nicht** selbst minten.
+
+## Deploy (empfohlen)
+
+```bash
+cd fenyx-next
+node scripts/cf-whoami.mjs
+node scripts/deploy-analytics-worker-cf.mjs
+```
+
+## Deploy (manuell)
+
+```bash
+cd fenyx-next/cloudflare/workers/analytics-ingress
+export CLOUDFLARE_API_TOKEN="$CLOUDFLARE_WORKERS_DEPLOY_TOKEN"
+npx wrangler deploy --account-id "$CLOUDFLARE_ACCOUNT_ID"
+# Secrets einzeln: wrangler secret put SALT_SECRET ...
+```
+
+## Cloudflare-Anreicherung
+
+Pro Event (nur Worker, nicht `/api/collect`):
+
+- Geo: `country_code`, `region_code`, `region`
+- Edge: `edge_colo`, `edge_asn`, `edge_ray`, `http_protocol`, `tls_version`
+- Bot: `bot_classification`, `visitor_type`, `verified_bot`
+
+## Fallback
+
+Ist `NEXT_PUBLIC_ANALYTICS_INGRESS_URL` leer, postet der Client an `/api/collect` (Netlify Function).

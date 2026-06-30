@@ -9,7 +9,7 @@
 | `20260623230000` | `admin_rbac_security` | angewendet |
 | `20260624100000` | `drop_verify_admin` | angewendet |
 | `20260625120000` | `admin_rbac_backfill_and_effective_rpc` | **noch anwenden** |
-| `20260625220000` | `analytics_tandem_system` | **noch anwenden** |
+| `20260625220000` | `analytics_tandem_system` | angewendet (Live-Events auf Staging) |
 
 ## Neu anwenden (anderes Projekt)
 
