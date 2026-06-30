@@ -1,48 +1,38 @@
-// Konzept E – „Signal Quiet" (techy, aber leise; Dark-first). URL: /e
-// Interne Design-Vorschau, nicht indexiert.
-import "./concept.css";
+// Konzept E — „Editorial Premium" (Patina-dominant + Nornorm-POV)
+// URL: /e
+// POV: „Möbel sind kein Inventar. Sie sind eine Haltung."
+// Wow: Magazine-Spread-Komposition mit Fotografie als Subjekt, mask-reveal
+// Headlines (wipe-up), scroll-linked image scale, word-by-word Reveals.
 
 import type { Metadata } from "next";
-import { getHomepageReferenceProjects } from "@/lib/references";
+import HeroEditorialPremium from "@/components/concepts/e/HeroEditorialPremium";
+import LogoGridEditorialPremium from "@/components/concepts/e/LogoGridEditorialPremium";
+import TimelineEditorialPremium from "@/components/concepts/e/TimelineEditorialPremium";
+import ReferencesEditorialPremium from "@/components/concepts/e/ReferencesEditorialPremium";
 import PressMarquee from "@/components/PressMarquee";
 import ContactSection from "@/components/ContactSection";
-import HeroSignal from "@/components/concepts/e/HeroSignal";
-import LogoGridSignal from "@/components/concepts/e/LogoGridSignal";
-import TimelineSignal from "@/components/concepts/e/TimelineSignal";
-import ReferencesSignal from "@/components/concepts/e/ReferencesSignal";
-import DebugEasterEgg from "@/components/concepts/e/DebugEasterEgg";
+import { getHomepageReferenceProjects } from "@/lib/references";
+import "./concept.css";
 
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Konzept E – Signal Quiet | Fenyx",
+  title: "Konzept E – Editorial Premium | Fenyx",
   description:
-    "Interne Design-Vorschau – dunkle, techy Signal-Quiet-Richtung der Fenyx-Startseite.",
+    "Editoriale Homepage-Vorschau — Magazine-Spread, Fotografie als Subjekt, mask-reveal Headlines, scroll-linked image scale.",
   robots: { index: false, follow: false },
 };
 
-export default async function KonzeptEPage() {
+export default async function ConceptEPage() {
   const referenceProjects = await getHomepageReferenceProjects();
-
   return (
     <>
-      <HeroSignal />
-      <LogoGridSignal />
-      <TimelineSignal />
-
-      {/* Wrapper liefern dem Debug-Overlay erkennbare Sektionsnamen. */}
-      <div data-de-section="Presse">
-        <PressMarquee />
-      </div>
-
-      <ReferencesSignal projects={referenceProjects} />
-
-      <div data-de-section="Kontakt">
-        <ContactSection />
-      </div>
-
-      {/* Global gemountetes Easter Egg – unsichtbar bis zum Konami-Code. */}
-      <DebugEasterEgg />
+      <HeroEditorialPremium />
+      <LogoGridEditorialPremium />
+      <TimelineEditorialPremium />
+      <PressMarquee />
+      <ReferencesEditorialPremium projects={referenceProjects} />
+      <ContactSection />
     </>
   );
 }

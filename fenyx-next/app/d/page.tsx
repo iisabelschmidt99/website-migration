@@ -1,38 +1,38 @@
-// Konzept D – „Architectural Quiet" (interne Design-Vorschau, URL: /d)
-// Nornorm × SpaceX: rasterbewusst, modular, ruhig, durch Material gewärmt.
-// Server-Komponente, async – Referenzprojekte werden serverseitig geladen.
-
-import "./concept.css";
+// Konzept D — „Cinematic Sequence" (SpaceX-dominant, dark-first)
+// URL: /d
+// POV: „Was schon da ist, ist nicht fertig."
+// Wow: Scroll-getriebene Section-Crossfades, word-by-word mask Reveals,
+// blur-to-sharp auf cinematic Visuals.
 
 import type { Metadata } from "next";
+import HeroCinematic from "@/components/concepts/d/HeroCinematic";
+import LogoGridCinematic from "@/components/concepts/d/LogoGridCinematic";
+import TimelineCinematic from "@/components/concepts/d/TimelineCinematic";
+import ReferencesCinematic from "@/components/concepts/d/ReferencesCinematic";
 import PressMarquee from "@/components/PressMarquee";
 import ContactSection from "@/components/ContactSection";
 import { getHomepageReferenceProjects } from "@/lib/references";
-import HeroArchitectural from "@/components/concepts/d/HeroArchitectural";
-import LogoGridArchitectural from "@/components/concepts/d/LogoGridArchitectural";
-import TimelineArchitectural from "@/components/concepts/d/TimelineArchitectural";
-import ReferencesArchitectural from "@/components/concepts/d/ReferencesArchitectural";
+import "./concept.css";
 
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Konzept D – Architectural Quiet | Fenyx",
+  title: "Konzept D – Cinematic Sequence | Fenyx",
   description:
-    "Interne Design-Vorschau (Konzept D): rasterbewusste, modulare Startseite im Stil Architectural Quiet.",
+    "Dunkle cineastische Homepage-Vorschau — scroll-getriebene Section-Crossfades, word-by-word Reveals, photorealistic Visuals.",
   robots: { index: false, follow: false },
 };
 
 export default async function ConceptDPage() {
   const referenceProjects = await getHomepageReferenceProjects();
-
   return (
-    <div className="dd-root">
-      <HeroArchitectural />
-      <LogoGridArchitectural />
-      <TimelineArchitectural />
+    <>
+      <HeroCinematic />
+      <LogoGridCinematic />
+      <TimelineCinematic />
       <PressMarquee />
-      <ReferencesArchitectural projects={referenceProjects} />
+      <ReferencesCinematic projects={referenceProjects} />
       <ContactSection />
-    </div>
+    </>
   );
 }
