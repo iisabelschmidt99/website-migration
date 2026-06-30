@@ -1,12 +1,10 @@
 import Image from "next/image";
-import homepageLogos from "@/data/homepage-logos.json";
-
-type Logo = { alt: string; src: string };
+import { curatedLogos } from "@/components/concepts/shared/logos";
 
 // Konzept E — Logo-Grid als museumswand-ähnliche Kuratierung.
 // 6 Logos groß auf mist-soft, mit Caption und dünnem Raster. Hover = Grayscale → Farbe.
 
-const CURATED = (homepageLogos as Logo[]).slice(0, 6);
+const CURATED = curatedLogos(6);
 
 export default function LogoGridEditorialPremium() {
   return (

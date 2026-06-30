@@ -12,6 +12,7 @@ import ReferencesArchitectural from "@/components/concepts/f/ReferencesArchitect
 import PressMarquee from "@/components/PressMarquee";
 import ContactSection from "@/components/ContactSection";
 import { getHomepageReferenceProjects } from "@/lib/references";
+import "@/components/concepts/shared/anim.css";
 import "./concept.css";
 
 export const revalidate = 60;

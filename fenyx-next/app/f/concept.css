@@ -89,6 +89,26 @@
   }
 }
 
+/* Hero above-the-fold → zeitbasierter Einstieg statt scroll-timeline. */
+.df-hero .df-words .df-word__inner {
+  animation: df-word-in 900ms var(--df-ease) both;
+  animation-timeline: auto;
+  animation-delay: calc(var(--df-i, 0) * 60ms + 250ms);
+}
+.df-hero .df-reveal {
+  animation: df-reveal-in 800ms var(--df-ease) both;
+  animation-timeline: auto;
+  animation-delay: var(--df-delay, 0ms);
+}
+@keyframes df-word-in {
+  from { transform: translateY(110%); }
+  to   { transform: translateY(0); }
+}
+@keyframes df-reveal-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 /* ── Generic Reveal ────────────────────────────────────────────────────── */
 .df-reveal { will-change: transform, opacity; }
 @supports not (animation-timeline: view()) {
@@ -305,7 +325,7 @@
 .df-logos__grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0;
+  gap: 0.5rem;
 }
 @media (min-width: 768px) {
   .df-logos__grid { grid-template-columns: repeat(4, 1fr); }
@@ -318,19 +338,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(2rem, 4vw, 3rem) 1rem;
-  border-right: 1px solid var(--df-rule-light);
-  border-bottom: 1px solid var(--df-rule-light);
+  padding: clamp(1.5rem, 3vw, 2.25rem) 1rem;
   min-height: 7rem;
-  transition: background-color 300ms ease;
+  /* Heller Chip → Original-Logos sauber, kein Invert-Block. */
+  background: var(--df-mist-soft);
+  border: 1px solid rgba(11, 23, 31, 0.06);
+  transition: transform 300ms var(--df-ease), box-shadow 300ms var(--df-ease);
 }
 .df-logo-cell:hover {
-  background: rgba(200, 255, 0, 0.05);
-}
-.df-logo-cell:nth-child(4n) { border-right: none; }
-@media (min-width: 1024px) {
-  .df-logo-cell:nth-child(4n) { border-right: 1px solid var(--df-rule-light); }
-  .df-logo-cell:nth-child(7n) { border-right: none; }
+  transform: translateY(-3px);
+  box-shadow: 0 0.875rem 1.75rem rgba(2, 4, 5, 0.45);
 }
 .df-logo-cell__img {
   max-height: 2.25rem;
@@ -338,13 +355,13 @@
   width: auto;
   height: auto;
   object-fit: contain;
-  filter: grayscale(1) brightness(0) invert(1);
-  opacity: 0.4;
+  filter: grayscale(1);
+  opacity: 0.7;
   transition: opacity 300ms ease, filter 300ms ease;
 }
 .df-logo-cell:hover .df-logo-cell__img {
   opacity: 1;
-  filter: grayscale(0.3) brightness(0) invert(1);
+  filter: grayscale(0);
 }
 .df-logo-cell__caption {
   position: absolute;
@@ -356,13 +373,13 @@
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--df-signal);
+  color: var(--df-ink-soft);
   text-align: center;
   opacity: 0;
   transition: opacity 200ms ease;
 }
 .df-logo-cell:hover .df-logo-cell__caption {
-  opacity: 1;
+  opacity: 0.7;
 }
 
 /* ── Timeline (3 numbered Kapitel mit spec-fill, alternating bg) ────────── */
@@ -597,21 +614,36 @@
   .df-ref-tile--wide { grid-column: span 2; }
   .df-ref-tile--tall { grid-row: span 2; }
 }
-.df-ref-tile__img {
+.df-ref-tile__media {
   position: absolute;
   inset: 0;
-  width: 100%;
+  z-index: 0;
   height: 100%;
+  width: 100%;
 }
-.df-ref-tile__img img {
-  width: 100%;
-  height: 100%;
+.df-ref-tile__img {
   object-fit: cover;
   object-position: center;
   transition: transform 700ms var(--df-ease);
 }
-.df-ref-tile:hover .df-ref-tile__img img {
-  transform: scale(1.04);
+.df-ref-tile:hover .df-ref-tile__img {
+  transform: scale(1.05);
+}
+/* Kachel hebt sich beim Hover dezent an. */
+.df-ref-tile {
+  transition: transform 300ms var(--df-ease), box-shadow 300ms var(--df-ease);
+}
+.df-ref-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 1.5rem 3rem rgba(2, 4, 5, 0.35);
+}
+.df-ref-tile__eyebrow,
+.df-ref-tile__kpi {
+  transition: transform 300ms var(--df-ease);
+}
+.df-ref-tile:hover .df-ref-tile__company {
+  color: var(--df-signal);
+  transition: color 300ms var(--df-ease);
 }
 .df-ref-tile__scrim {
   position: absolute;

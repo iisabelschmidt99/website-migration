@@ -27,11 +27,6 @@ export default function HeroCinematic() {
       </div>
       <div className="dd-hero__scrim" aria-hidden="true" />
 
-      <div className="dd-hero__meta">
-        <span className="dd-hero__meta-tag">Fenyx · Konzept D</span>
-        <span>Cinematic Sequence</span>
-      </div>
-
       <div className="dd-hero__content">
         <p className="dd-hero__eyebrow">Nachhaltige Bürotransformation</p>
         <WordReveal

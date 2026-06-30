@@ -15,6 +15,10 @@ import {
 const LIGHT_HEADER_PATHS = [
   "/bestandsmanagement/digitale-inventarisierung",
   "/bestandsmanagement/projektmanagement",
+  // Konzept-Vorschauen mit hellem Hero (mist-soft) – transparenter Header
+  // mit weißer Schrift wäre dort unlesbar.
+  "/e",
+  "/f",
 ];
 
 export default function Header() {
@@ -30,7 +34,9 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [panelTop, setPanelTop] = useState<number>(0);
 
-  const isLightHeader = LIGHT_HEADER_PATHS.some((p) => pathname.startsWith(p));
+  const isLightHeader = LIGHT_HEADER_PATHS.some(
+    (p) => pathname === p || pathname.startsWith(`${p}/`),
+  );
   const isMenuOpen = openId !== null || mobileOpen;
 
   const updateScrollState = useCallback(() => {

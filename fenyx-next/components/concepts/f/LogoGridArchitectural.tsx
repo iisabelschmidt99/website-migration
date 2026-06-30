@@ -1,13 +1,11 @@
 import Image from "next/image";
-import homepageLogos from "@/data/homepage-logos.json";
-
-type Logo = { alt: string; src: string };
+import { curatedLogos, validHomepageLogos } from "@/components/concepts/shared/logos";
 
 // Konzept F — 7-Spalten Logo-Grid auf abyss mit Hover-Caption.
-// Dünne Trennlinien, Hover = dezenter Signal-Hauch + Caption-Label.
+// Logos auf hellen Chips (Originalfarbe, kein Invert → keine Blöcke).
 
-const GRID = (homepageLogos as Logo[]).slice(0, 14);
-const TOTAL = (homepageLogos as Logo[]).length;
+const GRID = curatedLogos(14);
+const TOTAL = validHomepageLogos.length;
 
 // Caption = simplified company name aus alt (z.B. "Logo: X" → "X").
 function toCaption(alt: string): string {

@@ -16,10 +16,6 @@ export default function HeroEditorialPremium() {
       aria-labelledby="de-hero-heading"
     >
       <div className="de-hero__copy">
-        <div className="de-hero__meta" aria-hidden="true">
-          <span className="de-hero__meta-tag">Fenyx · Konzept E</span>
-          <span>Editorial Premium</span>
-        </div>
         <p className="de-hero__eyebrow">Nachhaltige Bürotransformation</p>
         <WordReveal
           tag="h1"

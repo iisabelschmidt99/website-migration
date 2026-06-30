@@ -26,10 +26,6 @@ export default function HeroArchitectural() {
       </div>
 
       <div className="df-hero__copy">
-        <div className="df-hero__meta" aria-hidden="true">
-          <span className="df-hero__meta-tag">Fenyx · Konzept F</span>
-          <span>Architectural POV</span>
-        </div>
         <p className="df-hero__index">
           <span className="df-hero__index-num">01 / 03</span>
           <span>Nachhaltige Bürotransformation</span>

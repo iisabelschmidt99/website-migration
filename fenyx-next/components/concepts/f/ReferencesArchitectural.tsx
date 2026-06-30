@@ -1,41 +1,37 @@
 "use client";
 
-// Konzept F — Bento-Referenzen mit echten Photos + großem KPI pro Kachel.
-// Variierende Span-Größen (big/wide/tall), Hover = image scale 1.04.
+// Konzept F — Referenzen als technisches Bento-Raster.
+// Kacheln treten gestaffelt mit Scale+Clip ein, KPI zählt hoch, Hover hebt
+// die Kachel an + zoomt das Bild + blendet die Caption ein.
+// Element-Animation: Stagger (Kacheln), ClipReveal (scale), CountUp, Hover.
 
 import Image from "next/image";
 import Link from "next/link";
+import { CountUp, ClipReveal, Stagger, Rise, splitKpi } from "@/components/concepts/shared/anim";
 import type { ReferenceProject } from "@/data/reference-projects";
 
-type ReferencesArchitecturalProps = {
-  projects: ReferenceProject[];
-};
+type Props = { projects: ReferenceProject[] };
 
-// Bento-Rhythmus für bis zu 6 Kacheln.
-const SPAN_BY_INDEX = ["big", "wide", "", "tall", "wide", ""] as const;
+// Bento-Rhythmus: variierende Kachelgrößen (max. 6).
+const SPAN = ["big", "wide", "", "tall", "wide", ""] as const;
 
-export default function ReferencesArchitectural({
-  projects,
-}: ReferencesArchitecturalProps) {
+export default function ReferencesArchitectural({ projects }: Props) {
   const tiles = projects.slice(0, 6);
 
   return (
-    <section
-      className="df-refs df-root"
-      aria-labelledby="df-refs-heading"
-    >
+    <section className="df-refs df-root" aria-labelledby="df-refs-heading">
       <div className="df-refs__intro">
-        <p className="df-refs__eyebrow">
+        <Rise tag="p" className="df-refs__eyebrow">
           <span>03 / 03 — Ergebnisse aus der Praxis</span>
-        </p>
-        <h2 id="df-refs-heading" className="df-refs__heading">
-          Was bleibt, wenn ein Büro neu gedacht wird.
-        </h2>
+        </Rise>
+        <Rise tag="h2" className="df-refs__heading" delay={120}>
+          <span id="df-refs-heading">Was bleibt, wenn ein Büro neu gedacht wird.</span>
+        </Rise>
       </div>
 
-      <div className="df-refs__grid">
+      <Stagger className="df-refs__grid" step={110} y={36}>
         {tiles.map((project, index) => {
-          const span = SPAN_BY_INDEX[index] ?? "";
+          const span = SPAN[index] ?? "";
           const kpi = project.stats[0];
           const slug = project.href.split("/").filter(Boolean).at(-1);
           return (
@@ -43,7 +39,7 @@ export default function ReferencesArchitectural({
               key={project.href}
               href={project.href}
               data-span={span || undefined}
-              className={`df-ref-tile ${span ? `df-ref-tile--${span}` : ""}`}
+              className={`df-ref-tile anim-stagger ${span ? `df-ref-tile--${span}` : ""}`}
               aria-label={`Referenz ${project.heading} ansehen`}
               data-track-event="select_item"
               data-track-id={`df_reference__open__${slug}`}
@@ -51,41 +47,38 @@ export default function ReferencesArchitectural({
               data-track-item-slug={slug}
               data-track-label={project.heading}
             >
-              <div className="df-ref-tile__img">
+              <ClipReveal
+                className="df-ref-tile__media"
+                direction="scale"
+                durationMs={1000}
+              >
                 <Image
                   src={project.imageSrc}
                   alt={project.imageAlt}
                   fill
-                  className="object-cover object-center"
-                  sizes={
-                    span === "big"
-                      ? "(max-width: 768px) 100vw, 50vw"
-                      : span === "wide" || span === "tall"
-                        ? "(max-width: 768px) 100vw, 25vw"
-                        : "(max-width: 768px) 100vw, 25vw"
-                  }
+                  className="object-cover object-center df-ref-tile__img"
+                  sizes={span === "big" ? "(max-width: 768px) 100vw, 50vw" : "(max-width: 768px) 100vw, 25vw"}
                   loading="lazy"
                 />
-              </div>
+              </ClipReveal>
               <div className="df-ref-tile__scrim" aria-hidden="true" />
               <div className="df-ref-tile__body">
                 <p className="df-ref-tile__eyebrow">{project.eyebrow}</p>
                 <h3 className="df-ref-tile__company">{project.heading}</h3>
-                {kpi && (
-                  <div className="df-ref-tile__kpi">
-                    <span className="df-ref-tile__kpi-value">
-                      {kpi.value}
-                    </span>
-                    <span className="df-ref-tile__kpi-label">
-                      {kpi.label}
-                    </span>
-                  </div>
-                )}
+                {kpi && (() => {
+                  const { number, caption } = splitKpi(kpi);
+                  return (
+                    <div className="df-ref-tile__kpi">
+                      <CountUp className="df-ref-tile__kpi-value" value={number} />
+                      <span className="df-ref-tile__kpi-label">{caption}</span>
+                    </div>
+                  );
+                })()}
               </div>
             </Link>
           );
         })}
-      </div>
+      </Stagger>
     </section>
   );
 }

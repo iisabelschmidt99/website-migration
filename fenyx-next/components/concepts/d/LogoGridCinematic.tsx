@@ -1,12 +1,10 @@
 import Image from "next/image";
-import homepageLogos from "@/data/homepage-logos.json";
-
-type Logo = { alt: string; src: string };
+import { curatedLogos } from "@/components/concepts/shared/logos";
 
 // Konzept D — Logo-Grid als kuratierte Museumswand.
-// 6 Logos groß, mit Caption und dünnem Raster. Hover = dezenter Signal-Hauch.
+// 6 Logos groß auf hellen Chips (Originalfarbe, kein Invert → keine Blöcke).
 
-const CURATED = (homepageLogos as Logo[]).slice(0, 6);
+const CURATED = curatedLogos(6);
 
 export default function LogoGridCinematic() {
   return (

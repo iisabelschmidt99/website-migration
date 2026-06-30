@@ -12,6 +12,7 @@ import ReferencesEditorialPremium from "@/components/concepts/e/ReferencesEditor
 import PressMarquee from "@/components/PressMarquee";
 import ContactSection from "@/components/ContactSection";
 import { getHomepageReferenceProjects } from "@/lib/references";
+import "@/components/concepts/shared/anim.css";
 import "./concept.css";
 
 export const revalidate = 60;
