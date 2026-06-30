@@ -50,7 +50,6 @@
   will-change: transform;
 }
 
-.de-hero__bg :global(img),
 .de-hero__bg img {
   object-fit: cover;
 }
