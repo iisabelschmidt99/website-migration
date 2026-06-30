@@ -1,0 +1,677 @@
+/* =============================================================================
+   Konzept E – „Signal Quiet"
+   Dunkel, zurückhaltend, techy. SpaceX-Mission-Control-Stimmung: tiefes
+   Navy-Schwarz, dünne Signal-Linien, Wireframe-Anklang, scroll-getriebene
+   Motion. Nur .de-* Klassen. Farben kommen aus zentralen CSS-Variablen, die
+   die Tailwind-Tokens spiegeln (kein verstreutes Hex im Layout-Code).
+   ============================================================================= */
+
+/* --- Token-Spiegel: einmal definiert, überall via var() genutzt ------------- */
+.de-hero,
+.de-logo-grid,
+.de-timeline,
+.de-refs,
+.de-debug {
+  --de-abyss: #132735;
+  --de-abyss-deep: #0b171f;
+  --de-black: #020405;
+  --de-signal: #c8ff00;
+  --de-mist: #8da4ba;
+  --de-mist-soft: #dceaf5;
+}
+
+/* Monospace-anmutende Caption (Roobert mit weitem Tracking, Versalien) */
+.de-eyebrow {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  line-height: 1;
+}
+
+/* =============================================================================
+   HERO
+   ============================================================================= */
+.de-hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  background-color: var(--de-abyss-deep);
+  isolation: isolate;
+}
+
+.de-hero__bg {
+  position: absolute;
+  inset: -8% 0 0 0;
+  z-index: -2;
+  will-change: transform;
+}
+
+.de-hero__bg :global(img),
+.de-hero__bg img {
+  object-fit: cover;
+}
+
+/* Dunkles Overlay (rgba(11,23,31,0.85)) */
+.de-hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(
+      to top,
+      var(--de-abyss-deep) 4%,
+      color-mix(in srgb, var(--de-abyss-deep) 85%, transparent) 55%,
+      color-mix(in srgb, var(--de-abyss-deep) 70%, transparent) 100%
+    );
+}
+
+/* Feines Signal-Raster (3rem-Zellen, 5 % Deckkraft) – Mission-Control-Anmutung */
+.de-hero__grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--de-signal) 1px, transparent 1px),
+    linear-gradient(90deg, var(--de-signal) 1px, transparent 1px);
+  background-size: 3rem 3rem;
+  opacity: 0.05;
+  mask-image: radial-gradient(120% 90% at 50% 100%, #000 30%, transparent 80%);
+}
+
+/* Versions-Tag oben links */
+.de-hero__tag {
+  position: absolute;
+  top: clamp(1.25rem, 3vw, 2.25rem);
+  left: 5%;
+  z-index: 2;
+  color: color-mix(in srgb, var(--de-signal) 60%, transparent);
+}
+
+.de-hero__content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding-bottom: clamp(4rem, 9vh, 7rem);
+  padding-top: clamp(7rem, 18vh, 11rem);
+}
+
+.de-hero__headline {
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+  font-size: clamp(2.75rem, 8vw, 5.75rem);
+  color: #fff;
+  margin: 0 0 1.5rem;
+  max-width: 18ch;
+}
+
+.de-hero__line {
+  display: block;
+  opacity: 0;
+  transform: translateY(0.5em);
+  animation: de-line-in 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+.de-hero__line:nth-child(1) { animation-delay: 0.1s; }
+.de-hero__line:nth-child(2) { animation-delay: 0.3s; }
+.de-hero__line:nth-child(3) { animation-delay: 0.5s; }
+
+@keyframes de-line-in {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.de-hero__sub {
+  max-width: 46ch;
+  font-size: clamp(1rem, 1.4vw, 1.125rem);
+  line-height: 1.55;
+  margin: 0 0 2.25rem;
+}
+
+/* Scroll-Fortschritt unten rechts (1px dünne Linie, füllt sich) */
+.de-hero__progress {
+  position: absolute;
+  right: 5%;
+  bottom: clamp(1.5rem, 4vh, 2.5rem);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.de-hero__progress-label {
+  color: color-mix(in srgb, var(--de-mist) 70%, transparent);
+}
+
+.de-hero__progress-track {
+  width: clamp(96px, 14vw, 168px);
+  height: 1px;
+  background: color-mix(in srgb, var(--de-mist) 22%, transparent);
+  overflow: hidden;
+}
+
+.de-hero__progress-fill {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--de-signal);
+  transform: scaleX(var(--de-scroll, 0));
+  transform-origin: left;
+}
+
+@supports (animation-timeline: scroll()) {
+  .de-hero__progress-fill {
+    transform-origin: left;
+    animation: de-fill-x linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
+@keyframes de-fill-x {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* =============================================================================
+   LOGO-GRID
+   ============================================================================= */
+.de-logo-grid {
+  background-color: var(--de-abyss);
+}
+
+.de-logo-cell {
+  position: relative;
+  aspect-ratio: 16 / 9;
+}
+
+/* Signal-Punkt oben rechts beim Hover */
+.de-logo-cell__dot {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 5px;
+  height: 5px;
+  background: var(--de-signal);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.de-logo-cell:hover .de-logo-cell__dot,
+.de-logo-cell:focus-within .de-logo-cell__dot {
+  opacity: 1;
+}
+
+.de-logo-cell__img {
+  filter: brightness(0) invert(1);
+  opacity: 0.4;
+  transition: opacity 0.2s ease;
+}
+
+.de-logo-cell:hover .de-logo-cell__img,
+.de-logo-cell:focus-within .de-logo-cell__img {
+  opacity: 1;
+}
+
+/* =============================================================================
+   TIMELINE
+   ============================================================================= */
+.de-timeline {
+  position: relative;
+  background-color: var(--de-abyss-deep);
+}
+
+/* Fixierter, numerischer Fortschritt links (statt grüner SVG-Linie) */
+.de-timeline__progress {
+  position: fixed;
+  left: clamp(1rem, 2.5vw, 2rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.de-timeline__progress.is-active {
+  opacity: 1;
+}
+
+.de-timeline__progress-num {
+  font-variant-numeric: tabular-nums;
+  color: var(--de-signal);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+}
+
+.de-timeline__progress-track {
+  width: 1px;
+  height: clamp(120px, 22vh, 220px);
+  background: color-mix(in srgb, var(--de-mist) 20%, transparent);
+  position: relative;
+}
+
+.de-timeline__progress-fill {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 100%;
+  width: 1px;
+  background: var(--de-signal);
+  transform: scaleY(var(--de-progress, 0));
+  transform-origin: top;
+}
+
+.de-timeline__progress-cap {
+  writing-mode: vertical-rl;
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--de-mist) 60%, transparent);
+}
+
+/* Kapitel */
+.de-timeline__chapter {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.de-timeline__index {
+  position: absolute;
+  top: clamp(1.5rem, 4vw, 3rem);
+  right: clamp(1.25rem, 4vw, 3.5rem);
+  z-index: 1;
+  margin: 0;
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-weight: 700;
+  font-size: clamp(3.5rem, 11vw, 10rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--de-signal) 55%, transparent);
+  pointer-events: none;
+  user-select: none;
+}
+
+.de-timeline__media {
+  position: relative;
+  overflow: hidden;
+  min-height: 56vw;
+}
+
+@media (min-width: 1024px) {
+  .de-timeline__media {
+    min-height: 100%;
+  }
+}
+
+.de-timeline__media-img {
+  object-fit: cover;
+  transform: scale(1.05);
+  transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  will-change: transform;
+}
+
+.de-timeline__media-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--de-abyss-deep) 75%, transparent),
+    transparent 45%
+  );
+  pointer-events: none;
+}
+
+.de-timeline__panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.de-timeline__chapter.is-visible .de-timeline__panel {
+  opacity: 1;
+  transform: none;
+}
+
+.de-timeline__chapter.is-visible .de-timeline__media-img {
+  transform: scale(1);
+}
+
+.de-timeline__title {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: #fff;
+  font-size: clamp(1.75rem, 3.4vw, 2.4rem);
+  margin: 0.75rem 0 1.25rem;
+}
+
+.de-timeline__body {
+  color: var(--de-mist-soft);
+  line-height: 1.6;
+  max-width: 42ch;
+  margin: 0 0 2rem;
+}
+
+/* Spec-Tabelle */
+.de-spec {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.de-spec__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.875rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.de-spec__label {
+  color: color-mix(in srgb, var(--de-mist) 90%, #fff);
+}
+
+.de-spec__value {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-weight: 700;
+  color: var(--de-signal);
+  text-align: right;
+  font-size: 1.0625rem;
+}
+
+/* =============================================================================
+   REFERENZEN (Horizontal-Rail)
+   ============================================================================= */
+.de-refs {
+  background-color: var(--de-abyss-deep);
+  overflow: hidden;
+}
+
+.de-refs__rule {
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--de-signal) 50%, transparent),
+    transparent
+  );
+}
+
+.de-refs__rail {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 5%;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 0.5rem;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 3%,
+    #000 92%,
+    transparent
+  );
+}
+
+.de-refs__rail::-webkit-scrollbar {
+  display: none;
+}
+
+.de-refs__card {
+  flex: 0 0 300px;
+  scroll-snap-align: start;
+}
+
+@media (min-width: 640px) {
+  .de-refs__card {
+    flex-basis: 380px;
+  }
+}
+
+.de-refs__card-media {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--de-abyss);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.de-refs__card-img {
+  object-fit: cover;
+  transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.de-refs__card:hover .de-refs__card-img,
+.de-refs__card:focus-within .de-refs__card-img {
+  transform: scale(1.03);
+}
+
+.de-refs__card-tag {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 1;
+  color: color-mix(in srgb, var(--de-signal) 80%, transparent);
+  background: color-mix(in srgb, var(--de-abyss-deep) 70%, transparent);
+  padding: 0.35rem 0.55rem;
+  backdrop-filter: blur(2px);
+}
+
+.de-refs__card-kpi {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-weight: 700;
+  color: var(--de-signal);
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+/* Pfeil-Buttons */
+.de-refs__nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--de-mist-soft);
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.de-refs__nav:hover:not(:disabled) {
+  color: var(--de-signal);
+  border-color: var(--de-signal);
+}
+
+.de-refs__nav:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* =============================================================================
+   DEBUG-OVERLAY (Easter Egg)
+   ============================================================================= */
+.de-debug {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: color-mix(in srgb, var(--de-abyss-deep) 95%, transparent);
+  backdrop-filter: blur(6px);
+  animation: de-debug-in 0.25s ease both;
+}
+
+@keyframes de-debug-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.de-debug__panel {
+  width: 100%;
+  max-width: 32rem;
+  border: 1px solid color-mix(in srgb, var(--de-signal) 35%, transparent);
+  background:
+    linear-gradient(
+      var(--de-signal) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, var(--de-signal) 1px, transparent 1px);
+  background-size: 2rem 2rem;
+  background-color: var(--de-black);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
+}
+
+.de-debug__inner {
+  background: color-mix(in srgb, var(--de-black) 92%, transparent);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.de-debug__title {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--de-signal);
+  font-size: clamp(1.75rem, 5vw, 3.2rem);
+  margin: 0 0 1.5rem;
+}
+
+.de-debug__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.625rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.de-debug__key {
+  color: var(--de-mist);
+}
+
+.de-debug__val {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-variant-numeric: tabular-nums;
+  color: var(--de-mist-soft);
+}
+
+.de-debug__swatches {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1.25rem 0 0.5rem;
+}
+
+.de-debug__swatch {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  align-items: flex-start;
+}
+
+.de-debug__chip {
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.de-debug__chip--abyss { background: var(--de-abyss); }
+.de-debug__chip--abyss-deep { background: var(--de-abyss-deep); }
+.de-debug__chip--signal { background: var(--de-signal); }
+.de-debug__chip--mist { background: var(--de-mist); }
+.de-debug__chip--mist-soft { background: var(--de-mist-soft); }
+
+.de-debug__hint {
+  margin-top: 1.5rem;
+  color: color-mix(in srgb, var(--de-mist) 70%, transparent);
+}
+
+.de-debug__close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--de-mist-soft);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.de-debug__close:hover {
+  color: var(--de-signal);
+  border-color: var(--de-signal);
+}
+
+/* =============================================================================
+   REDUCED MOTION – nicht-essenzielle Animationen aus
+   ============================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .de-hero__line {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .de-hero__progress-fill {
+    animation: none;
+  }
+
+  .de-hero__bg {
+    transform: none !important;
+  }
+
+  .de-timeline__media-img,
+  .de-timeline__panel {
+    transition: none;
+  }
+
+  .de-timeline__panel {
+    opacity: 1;
+    transform: none;
+  }
+
+  .de-timeline__media-img {
+    transform: scale(1);
+  }
+
+  .de-refs__card-img {
+    transition: none;
+  }
+
+  /* Easter Egg erscheint weiterhin – nur ohne Einblend-Animation */
+  .de-debug {
+    animation: none;
+  }
+}
