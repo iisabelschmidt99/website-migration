@@ -88,7 +88,7 @@ export default function ReferencesArchitectural({
             </div>
             <Link
               href="/referenzen"
-              className="dd-focus group inline-flex items-center gap-2 font-sans text-[11px] font-bold uppercase tracking-[0.18em] text-mist transition-colors hover:text-signal"
+              className="dd-focus group inline-flex min-h-[44px] items-center gap-2 py-2 font-sans text-[11px] font-bold uppercase tracking-[0.18em] text-mist transition-colors hover:text-signal"
             >
               Alle Referenzen
               <svg
@@ -136,11 +136,11 @@ export default function ReferencesArchitectural({
                   />
                   <div className="dd-tile__scrim" aria-hidden="true" />
                   <div className="dd-tile__body">
-                    <p className="font-sans text-[10px] font-bold uppercase tracking-[0.18em] text-mist-soft/80">
+                    <p className="font-sans text-[11px] font-bold uppercase tracking-[0.18em] text-mist-soft/80">
                       {project.eyebrow}
                     </p>
                     <p
-                      className={`mt-1 font-heading tracking-[-0.02em] text-white ${
+                      className={`mt-1 font-heading font-bold tracking-[-0.02em] text-white ${
                         isBig ? "text-2xl" : "text-lg"
                       }`}
                     >
@@ -149,7 +149,7 @@ export default function ReferencesArchitectural({
                     {kpi && (
                       <div className="mt-4 flex items-baseline gap-2">
                         <span
-                          className={`font-heading leading-none text-signal ${
+                          className={`font-heading font-bold tabular-nums leading-none text-signal ${
                             isBig ? "text-5xl" : "text-3xl"
                           }`}
                         >

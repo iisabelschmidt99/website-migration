@@ -182,6 +182,7 @@
 
 .dd-tl-track {
   position: relative;
+  overflow-x: clip;
 }
 
 /* Mittige 1px-Linie, nur ab lg sichtbar */
@@ -327,7 +328,7 @@
   align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.625rem 0;
+  padding: 0.5rem 0;
   border-bottom: 1px solid color-mix(in srgb, var(--dd-mist) 18%, transparent);
 }
 
@@ -341,6 +342,7 @@
   font-weight: 700;
   color: white;
   text-align: right;
+  font-variant-numeric: tabular-nums;
 }
 
 /* =====================================================================

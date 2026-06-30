@@ -165,7 +165,7 @@ export default function TimelineSignal() {
 
                 <Link
                   href={ch.href}
-                  className="group mt-8 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.12em] text-white transition-colors hover:text-signal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-abyss-deep"
+                  className="group mt-8 inline-flex min-h-[44px] items-center gap-2 py-2 text-sm font-semibold uppercase tracking-[0.12em] text-white transition-colors hover:text-signal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-abyss-deep"
                 >
                   Mehr erfahren
                   <svg

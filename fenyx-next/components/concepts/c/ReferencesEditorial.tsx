@@ -90,7 +90,7 @@ export default function ReferencesEditorial({
                   <div className="grid gap-10 lg:grid-cols-[1.4fr_0.6fr] lg:gap-16">
                     <div>
                       <p className="dc-eyebrow mb-5">{project.eyebrow}</p>
-                      <h3 className="dc-ref-title mb-7">{project.heading}</h3>
+                      <h3 className="dc-chapter-title mb-7">{project.heading}</h3>
                       <p className="dc-body mb-9">{project.body}</p>
                       <Link
                         href={project.href}

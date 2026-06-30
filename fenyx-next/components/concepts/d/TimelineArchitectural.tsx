@@ -273,11 +273,11 @@ export default function TimelineArchitectural() {
 
                 <Link
                   href={chapter.href}
-                  className="dd-focus group mt-8 inline-flex items-center gap-2 font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-signal transition-all duration-200 hover:gap-3"
+                  className="dd-focus group mt-8 inline-flex min-h-[44px] items-center gap-2 py-2 font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-signal transition-colors duration-200"
                 >
                   Mehr erfahren
                   <svg
-                    className="h-4 w-4"
+                    className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"

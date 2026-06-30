@@ -174,7 +174,7 @@ export default function DebugEasterEgg() {
             ))}
           </div>
 
-          <p className="de-debug__hint de-eyebrow">Press ESC to close</p>
+          <p className="de-debug__hint de-eyebrow">ESC zum Schließen</p>
         </div>
       </div>
     </div>

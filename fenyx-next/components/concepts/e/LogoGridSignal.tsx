@@ -19,18 +19,18 @@ export default function LogoGridSignal() {
       <div className="wf-padding-global">
         <div className="wf-container-large">
           <div className="flex items-center gap-4 mb-10 sm:mb-12">
-            <p className="de-eyebrow text-signal/60">Trusted by</p>
+            <p className="de-eyebrow text-signal/60">Vertraut von</p>
             <span className="h-px flex-1 bg-white/10" aria-hidden="true" />
           </div>
           <h2 id="de-logos-heading" className="sr-only">
             Unternehmen, die auf Fenyx vertrauen
           </h2>
 
-          <ul className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 border-t border-l border-white/[0.08]">
+          <ul className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 border-t border-l border-white/10">
             {LOGOS.map((logo) => (
               <li
                 key={logo.src}
-                className="de-logo-cell flex items-center justify-center border-b border-r border-white/[0.08] px-5 py-7"
+                className="de-logo-cell flex items-center justify-center border-b border-r border-white/10 px-4 py-8"
               >
                 <span className="de-logo-cell__dot" aria-hidden="true" />
                 <Image

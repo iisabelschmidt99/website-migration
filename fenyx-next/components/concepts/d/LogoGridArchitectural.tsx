@@ -24,14 +24,14 @@ export default function LogoGridArchitectural() {
           <div className="dd-rule--mist dd-rule mb-6" aria-hidden="true" />
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="dd-eyebrow text-abyss/55">
+              <p className="dd-eyebrow text-abyss/70">
                 <span className="dd-eyebrow__num">02 / 03</span>
                 <span aria-hidden="true">—</span>
                 <span>Partner</span>
               </p>
               <h2
                 id="dd-logos-heading"
-                className="mt-4 max-w-[28ch] font-heading text-2xl leading-tight tracking-[-0.02em] text-abyss sm:text-3xl"
+                className="mt-4 max-w-[28ch] font-heading text-h3 leading-tight tracking-[-0.02em] text-abyss"
               >
                 Weltweit führenden Unternehmen vertrauen auf Fenyx.
               </h2>
@@ -56,14 +56,14 @@ export default function LogoGridArchitectural() {
 
           {/* Abschluss-Regel mit Zählung links + Link rechts */}
           <div className="mt-px flex items-center justify-between border-t border-mist/15 pt-5">
-            <span className="dd-eyebrow text-abyss/45">
+            <span className="dd-eyebrow text-abyss/70">
               <span className="dd-eyebrow__num">01 — 07</span>
               <span aria-hidden="true">/</span>
               <span>{(homepageLogos as Logo[]).length} Partner</span>
             </span>
             <Link
               href="/referenzen"
-              className="dd-focus group inline-flex items-center gap-2 font-sans text-[11px] font-bold uppercase tracking-[0.18em] text-abyss transition-colors hover:text-abyss/60"
+              className="dd-focus group inline-flex min-h-[44px] items-center gap-2 py-2 font-sans text-[11px] font-bold uppercase tracking-[0.18em] text-abyss transition-colors hover:text-abyss/70"
             >
               Alle Partner
               <svg
