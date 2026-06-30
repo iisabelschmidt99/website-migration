@@ -1,117 +1,123 @@
-# Fenyx /concepts — Audit & Empfehlung
+# Fenyx /concepts — Audit & Empfehlung v2
 
-3 Homepage-Konzepte als Vorschau-Routen `/c`, `/d`, `/e`. Alle ruhig & reduziert, unterschiedlich stark in Emotion vs. „techy". Vergleich inkl. Live-Seite `/` und V3-Vorschau `/b` als Baseline.
+4 Homepage-Konzepte als Vorschau-Routen `/c`, `/d`, `/e`, `/f`. Vergleich inkl. Live-Seite `/` und V3-Vorschau `/b` als Baseline.
 
-Branch: `feat/homepage-v3-preview-b`. Alle Routen `noindex`.
+Branch: `feat/homepage-v3-preview-b`. Alle Routen `noindex`. Build grün für `/b /c /d /e /f`.
 
 ---
 
 ## Baseline: `/` (Live) und `/b` (V3-Vorschau)
 
 ### `/` — Live-Startseite
-- **Stack:** `HomeHeroVideo` (Video-Hintergrund, warmtoniger Overlay) → `LogoGrid` (14-Spalten, dicht) → `LifecycleSection` (grüne SVG-Scroll-Linie, 3 Karten, Mitte-Box „Optimierte Flächennutzung") → `PressMarquee` → `ReferenceProjectsSection` (weiß, dunkle Karten, scroll-Fade-Skala) → `ContactSection`.
-- **Wirkung:** Bewährt, funktional, aber visuell viel auf einmal. Mitte-Box bricht die Timeline-Story. 14-Spalten-Logo-Raster wirkt „Social-Proof-Mauer" statt kuratiert. Keine deutliche Marken-Entwicklung.
-- **AI-slop-Risiko:** Niedrig (echte Fotos, eigene Markenfarben). Aber: generische SaaS-Card-Soup bei Referenzen, keine starke Typo-POV.
+- **Stack:** Video-Hero → 14-Spalten-LogoGrid → LifecycleSection (grüne SVG-Linie, 3 Karten, Mitte-Box) → PressMarquee → ReferenceProjectsSection → ContactSection
+- **Wirkung:** Bewährt, funktional, visuell viel auf einmal. Mitte-Box bricht Timeline-Story. Generische SaaS-Card-Soup bei Referenzen.
+- **AI-slop-Risiko:** Niedrig (echte Fotos), aber keine starke Typo-POV.
 
-### `/b` — V3 „Signal" ( Duplicate-Repo, wiederhergestellt)
-- **Stack:** `DesignV3HeroCanvas` (~600 Zeilen Canvas-Wireframe, Drag-to-Rotate) → `DesignV3KpiSwitcher` (Tabs, Count-up) → `LogoGrid` → 3× `DesignV3ServiceSection` (Vollbild-Split, SpaceX-Spec-Table, Scroll-Reveal) → `DesignV3PressRow` → `DesignV3ImpactStrip` (Endlos-Scroll, hardcoded Array) → `ContactSection`.
-- **Wirkung:** Techy & mutig, aber laut. Canvas-Hero ist ein Effekt-Spiel, Referenzen sind hardcoded statt datengetrieben.Entspricht nicht dem Briefing „ruhig & reduziert".
-- **AI-slop-Risiko:** Mittel (Techy-Effekte könnten als „zu viel" gelesen werden).
-
----
-
-## Konzepte im Vergleich
-
-| Dimension | `/c` Editorial Quiet | `/d` Architectural Quiet | `/e` Signal Quiet |
-|---|---|---|---|
-| **Position** | am emotionalsten, am wenigsten techy | balanciert | am techy, trotzdem ruhig |
-| **Inspiration** | Patina Berlin × Nornorm × Augustus | Nornorm × SpaceX | SpaceX × Augustus |
-| **Hintergrund** | Warmes Papier (`#f3ede2`) | `mist-soft` + abyss-Panel | `abyss-deep` (dark-first) |
-| **Hero** | Oversized Telegraf 3-Zeiler, Papier-Stillleben subtil | Split: Axonometrie-Bild links, Text rechts, `01 / 03` Eyebrow | Dark, Signal-Grid-Overlay, 3-Zeilen-Stagger, Scroll-Progress-Balken |
-| **Logo-Grid** | 5-6 Logos groß, kuratiert, „Ausgewählte Partnerschaften" | 7-Spalten mit dünnen Trennlinien, Hover = warmer Hauch | Outline-Logos, 7-Spalten, Hover = Signal-Punkt |
-| **Timeline** | 3 Kapitel, römische Zahlen (I, II, III), dezente Trennlinie, Single-Column | Behält grüne SVG-Linie (Fenyx-DNA), 1px, quadratische Punkte, spec-table | Kein SVG — numerischer Progress-Indikator links, Outline-Index `01/02/03` |
-| **Referenzen** | Editorial-Stack: 16:9-Bild + 1 KPI groß, single-column | Bento-Grid mit variierenden Kacheln, 1 KPI prominent | Horizontale Scroll-Rail mit Snap, keine Endlos-Schleife |
-| **Motion** | CSS `animation-timeline: view()`, IntersectionObserver-Fallback, 600ms sanfte Fade-Ins | Scroll-getriebene SVG-Linie, Parallax 8%, IO-Fallback | Scroll-driven + Scroll-Listener, Progress-Fill, parallax |
-| **Easter Egg** | – | – | Konami-Code öffnet „FENYX DEBUG"-Overlay (Scroll %, aktive Section, Token-Swatches, ESC) |
-| **Typo-POV** | Stärkste — oversized Display + 62ch Body, römische Zahlen | Absicht da, Ausführung lose — h2-Skala wackelt, Tabular-nums nur partiell | Sauber — mono-feel Eyebrows (0.16em), Tabular-nums, outline-Index |
-| **Kontrast** | 6–13:1 auf warmem Papier (beste) | 2 FAILs vor Fix (3.6:1, 2.7:1) → nach Fix 5.7:1 | 7–15:1 auf dark, 1 Borderline vor Fix (4.19:1) → nach Fix 7:1 |
-| **A11y** | Vor Fix: keine Focus-Styles → nach Fix: dc-link focus-visible + min-h-44 | Vor Fix: 3 Touch-Targets <44px, 1 Layout-Shift-Hover → nach Fix behoben | Beste Coverage — signal focus-rings überall, Easter-egg fully accessible |
-| **AI-slop-Score** | Sehr niedrig — komplett abseits jeglicher Template | Niedrig — Nornorm × SpaceX trifft es | Niedrig, aber „Trusted by"-Phrase war SaaS-Tell (→ „Vertraut von") |
+### `/b` — V3 „Signal" (Duplicate-Repo)
+- **Stack:** Canvas-Wireframe-Hero → KPI-Switcher → 3× ServiceSection (SpaceX-spec) → PressRow → ImpactStrip (hardcoded) → ContactSection
+- **Wirkung:** Techy & mutig, aber laut. Canvas-Hero ist Effekt-Spiel. Entspricht nicht „ruhig & reduziert".
+- **AI-slop-Risiko:** Mittel.
 
 ---
 
-## Audit-Ergebnisse (alle 4 Pass Bars)
+## 4 Konzepte im Vergleich
 
-| Bar | `/c` | `/d` | `/e` |
-|---|---|---|---|
-| **1. Nicht AI-made** | PASS | PASS | PASS (mit Brand-Fix) |
-| **2. Detail & Craft** | PASS (nach Spacing-Fix) | PASS (nach Kontrast + Hover + Touch-Fixes) | PASS (nach Border + Hint-Fixes) |
-| **3. Typo-POV** | PASS — stärkste | PASS — nach font-bold + tabular-nums + h2-Scale-Fix | PASS — sauberste |
-| **4. Responsive + A11y** | PASS — nach focus-visible + min-h-44 | PASS — nach Touch-Targets + overflow-clip | PASS — bereits stark, Touch-Target-Fix für 1 Link |
-
-**Alle 3 Routen clear alle 4 Bars nach Merge-Phase.** Build erfolgreich, dev-Server rendert alle Routen HTTP 200.
+| Dimension | `/c` Editorial Quiet | `/d` Cinematic Sequence | `/e` Editorial Premium | `/f` Architectural POV |
+|---|---|---|---|---|
+| **Status** | Alt-Entwurf (stehen gelassen) | NEU Rework | NEU Rework | NEU |
+| **Inspiration** | Patina × Nornorm | **SpaceX-dominant** | **Patina-dominant** + Nornorm-POV | **Nornorm-dominant** + Augustus + SpaceX-spec |
+| **Farbe** | Warmes Papier (off-brand) | `abyss-deep` dark-first, signal accent | `mist-soft` light + `abyss` ink + signal accent | Alternating `abyss` / `mist-soft` / `abyss-deep` |
+| **POV-Headline** | „Nachhaltige Bürotransformationen aus einer Hand." (beschreibend) | **„Was schon da ist, ist nicht fertig."** | **„Möbel sind kein Inventar. Sie sind eine Haltung."** | **„Büromöbel sind keine Ausgabe. Sie sind eine Entscheidung."** |
+| **Hero** | Oversized Telegraf auf Papier-Textur | Full-viewport cinematic, blur-to-sharp BG, word-by-word headline, scroll-progress line | Magazine-Spread: Typo links, skulpturaler Stuhl als Subjekt rechts | Split: Architektur-Bild links, numbered POV-Typo rechts |
+| **Logo-Grid** | 5-6 Logos groß, kuratiert | 6-Cell Museumswand auf abyss, signal-hover-tint | 6-Cell Museumswand auf mist-soft, grayscale→color | 7-Spalten auf abyss, hover-reveal Company-Caption |
+| **Timeline** | 3 chapters, römische Zahlen, single-column | **3 full-viewport cineastic chapters mit scroll-driven crossfades** | 3 magazine-spread chapters, 4:5 portrait photography, römische Zahlen | 3 numbered chapters, alternating bg, **scroll-linked spec-fill (signal underline wächst 0→100% pro row, gestaffelt)** |
+| **Referenzen** | Editorial-Stack, 1 KPI groß | Cineastic single-column, Pull-Quotes, 1 KPI, 16:11 photography | Editorial stack, 4:5 portrait, Pull-Quotes, signal-outline KPI | **Bento-Grid** mit varying tile sizes (big/wide/tall), 1 KPI pro Kachel |
+| **Animation-Craft** | Baseline fade+stagger | **ALL-OUT:** word-by-word mask reveals, blur-to-sharp, scroll-driven section crossfades, scroll-progress | **ALL-OUT:** word-by-word mask reveals, scroll-linked image scale, staggered reveals | **ALL-OUT:** word-by-word mask reveals, scroll-linked spec-fill, staggered reveals, hover scale |
+| **Wow-Moment** | Roman numerals (nicht wow) | **Scroll-driven Section-Crossfades** — jede Section ist cineastischer Moment der in den nächsten fade-t | **Mask-reveal Headlines + Fotografie-als-Subjekt** Komposition | **Scroll-linked spec-fill** + POV-Headline + numbered sections |
+| **Marken-Treue** | Niedrig (off-brand Papier) | Hoch (abyss+signal) | Hoch (mist-soft+abyss+signal) | Hoch (alternating brand tokens) |
+| **Photorealistic Visuals** | Abstract (alt) | **Ja** — cineastic office blue-hour, hands-on-tablet, re-furnished golden hour | **Ja** — skulpturaler Stuhl, Notizbuch-Overhead, Desk-Ensemble | **Ja** — architektonisches Büro, exploded Möbel-System, modulare Wand |
+| **AI-slop-Risiko** | Mittel (abstract) | Niedrig (cinematic POV) | Niedrig (editorial POV) | Niedrig (architectural POV) |
 
 ---
 
-## applying Fixes (Commit `40b3ccb` + `a72d8f2`)
+## Animation-Craft — was ALL-OUT bedeutet (alle 3 neuen)
 
-### Priority 1 — A11y + Kontrast (kritisch)
-- `CtaButton` shared: `focus-visible:ring-2 ring-signal ring-offset-abyss-deep` (alle 3 Hero-CTAs)
-- `/c` `.dc-link`: `:focus-visible` Outline + `min-height: 44px`
-- `/d` LogoGrid: `text-abyss/55,/45` → `/70` (WCAG 3.6:1, 2.7:1 → 5.7:1)
-- `/d` „Mehr erfahren": `hover:gap-3` (Layout-Shift) → Arrow `translate-x-1`
-- `/d` References: `text-[10px]` → `text-[11px]`
-- `/d` 3 Standalone-Links: `min-h-[44px] py-2`
-- `/e` Timeline-Link: `min-h-[44px] py-2`
-- `/e` Debug-Hint: `color-mix mist 70%` → full `mist` (4.19:1 → 7:1)
-- `/e` Borders: `white/[0.08]` → `white/10`, `0.06` → `0.1`
-- `/d` `dd-tl-track`: `overflow-x: clip` (100vw-Horizontal-Scroll-Gefahr)
+### Word-by-word Mask-Reveal
+Headlines splitten in Wörter. Jedes Wort gewrappt in `<span class="dX-word"><span class="dX-word__inner">wort</span></span>`. Inner translates `translateY(110%) → 0` mit `overflow: hidden` outer. Stagger 55ms pro Wort. Easing `cubic-bezier(0.22, 1, 0.36, 1)` (premium, smooth). Duration 900ms.
 
-### Priority 2 — Typografie
-- `/d` References: `font-bold` auf Tile-Title + KPI (Telegraf 400 → 700)
-- `/d` + `/e`: `tabular-nums` auf Spec-Values + KPIs
-- `/c` References: `h3` `dc-ref-title` → `dc-chapter-title` + Clamp-Max 3.4rem → 2.6rem (h2/h3-Hierarchie)
-- `/c` KPI: `tabular-nums`
+### CSS Scroll-Driven (`animation-timeline: view()`)
+Alle Reveals nutzen nativ CSS scroll-driven animations wo unterstützt (Chrome 115+, Safari 17.4+). `@supports`-Gate: Browser ohne Support bekommen IntersectionObserver-Fallback mit `.is-visible`-Klasse. Beide Render-Pfade identisch.
 
-### Priority 3 — Brand
-- `/e` LogoGrid: „Trusted by" → „Vertraut von"
-- `/e` Debug: „Press ESC to close" → „ESC zum Schließen"
+### `/d`-spezifisch: Scroll-driven Section-Crossfades
+Timeline-Kapitel sind `min-h-screen`. BG + Content haben jeweils `animation-timeline: view()` mit `animation-range: cover 0% cover 100%`. BG faded `0 → 1 → 1 → 0` über scroll range, Content `0 → 1 → 1 → 0` mit translate-y. Resultat: Kapitel crossfaden ineinander wie SpaceX mission sequence.
 
-### Priority 4 — Spacing-Rhythmus
-- `/c` gap 0.55rem → 0.5rem, padding 0.6rem → 0.5rem
-- `/d` padding 0.625rem → 0.5rem
-- `/e` padding 0.875rem → 1rem, 0.35/0.55 → 0.5/0.5, 0.625 → 0.5, gap 0.375 → 0.5
+### `/d`-spezifisch: Blur-to-Sharp
+Hero + Timeline-BGs starten mit `filter: blur(14px)` + `scale(1.08)` + `opacity: 0`. Animieren zu `blur(0) scale(1) opacity: 1` über 1.4s. GPU-cost bewusst akzeptiert für cineastisches Premium-Feeling auf wenigen Schlüssel-Images.
 
-### Zusatz
-- `/e` `concept.css`: `:global(img)` Syntaxfehler entfernt (ungültig in globalen CSS-Dateien)
+### `/d`-spezifisch: Scroll-Progress Line
+1px signal-Farb-Linie am Hero-Bottom. `animation-timeline: scroll()` mit `animation-range: root 0% root 100%` lässt sie `scaleX(0) → scaleX(1)` wachsen über gesamten Page-Scroll.
+
+### `/e`-spezifisch: Scroll-linked Image Scale
+Bilder starten `scale(1.06) opacity: 0`, animieren zu `scale(1) opacity: 1` über 1.4s via `animation-timeline: view()`. Photography-als-Subjekt bleibt ruhig, kein Blur (bright editorial).
+
+### `/f`-spezifisch: Scroll-linked Spec-Fill (Wow-Moment)
+Pro Spec-Value wächst eine 1px signal-Unterline von `width: 0 → 100%` beim Scrollen. `animation-timeline: view()` mit `animation-range: entry 15% entry 85%`. `animation-delay: calc(var(--df-i) * 80ms)` staffelt pro Spec-Row. Resultat: Spec-Table „füllt sich" mit Signal-Underlines beim Scrollen — SpaceX-Engineering-Feel.
+
+### `prefers-reduced-motion`
+Alle Animationen haben `@media (prefers-reduced-motion: reduce)` Block der alles auf `animation: none; transition: none; transform: none; opacity: 1` setzt. Inhalte sofort sichtbar.
+
+---
+
+## Marken-Treue
+
+Alle 3 neuen Routen (`/d /e /f`) bleiben in Fenyx-Markenfarben:
+- `abyss` #132735, `abyss-deep` #0b171f
+- `signal` #c8ff00
+- `mist` #8da4ba, `mist-soft` #dceaf5
+- `black-gradient` #020405
+
+Keine neuen Hex-Werte, keine off-brand Paletten (Gegensatz zu alt-`/c` mit warmem Papier).
+
+Fonts: Telegraf (`font-heading`) für Display, Roobert (`font-sans`) für Body. Keine Google-CDN-Imports, keine Inter/Roboto/Space Grotesk.
 
 ---
 
 ## Empfehlung
 
-### Wenn ihr eine Richtung ausbaut, unsere Reihenfolge:
+### Reihenfolge nach Briefing-Treue + Wow-Faktor:
 
-1. **`/c` Editorial Quiet** — Beste Balance aus Briefing-Treue („ruhig, reduziert, introvertiert, dezente Animationen") und eigenständigem Marken-Charakter. Stärkste Typo-POV, beste Kontrast-Werte, keine Techy-Effekte die stören. Skaliert am besten auf Unterseiten, weil das Editoriale-Prinzip auf jede Section anwendbar ist. Patina-Berlin-Inspiration passt zur Fenyx-Marke (Bestand, Aufbereitung, Wertschätzung).
+1. **`/d` Cinematic Sequence** — Stärkste Umsetzung des Briefings: dunkel, cineastisch, SpaceX-Narrative mit scroll-driven Crossfades als Wow-Moment. POV-Headline „Was schon da ist, ist nicht fertig." ist marken-trächtig. Premium-Feeling durch Blur-to-Sharp + Word-Reveals. **Empfehlung für Haupt-Richtung.**
 
-2. **`/d` Architectural Quiet** — „Safe but elevated". Behält die grüne Lifecycle-Linie als Marken-DNA bei (Switch von rund → quadratisch, 1px). Nornorm × SpaceX gibt Struktur ohne Lautstärke. Gut für B2B-Trust-Signal. Wenn ihr euch nicht sicher seid, ist `/d` die risikoärmste Wahl.
+2. **`/f` Architectural POV** — Strong POV-Headline + Nornorm-Numbering + SpaceX-spec-fill als Wow-Moment. Alternating abyss/mist-soft gibt Struktur-Rhythmus. Bento-Referenzen sind可信lich mit echten Photos. **Empfehlung für Alternative wenn /d zu dunkel.**
 
-3. **`/e` Signal Quiet** — Mutigste, techy-ste Variante. Easter-egg (Konami → Debug-Overlay) ist ein echtes Brand-Detail, kein Gimmick. Aber: dark-first ist ein starker Schritt weg von der aktuellen warmen Live-Seite. Passt wenn Fenyx sich als „Tech-Plattform" positionieren will, weniger wenn „Bestand & Aufbereitung" im Fokus steht.
+3. **`/e` Editorial Premium** — Patina-Magazine-Spread mit Fotografie-als-Subjekt. Helles mist-soft Kontrast zu /d. Mask-Reveal Headlines elegant. **Empfehlung für dritte Option wenn Licht gewünscht.**
+
+4. **`/c` Editorial Quiet** — Stehen gelassen per Request. Warmes Papier ist off-brand — nur als Referenz-Exploration behalten.
+
+### Was die neuen vs alten Konzepte besser machen
+- **POV-Headlines** statt Beschreibung (Nornorm-Lektion umgesetzt)
+- **Photorealistic Visuals** statt abstract (Briefing-Weckruf umgesetzt)
+- **ALL-OUT Animation-Craft** mit word-by-word mask reveals, scroll-driven crossfades, scroll-linked spec-fill — nicht nur baseline fade+stagger
+- **Marken-Treue** — abyss/signal/mist statt off-brand Papier
+- **Wow-Momente** pro Richtung identifiziert und umgesetzt (nicht viele kleine Effekte)
+- **Echte Reworks** der wiederkehrenden Module (Hero, Logo, Timeline, Referenzen) — nicht Umsortierung wie alt-`/d`
 
 ### Nächste Schritte nach Richtungswahl
 - Gewählte Richtung → Produktion `/` (nicht Preview-Route)
-- Wiederverwendbare Module (Hero, Logo, Timeline, References) → `components/` (ohne `concepts/{richtung}/` Prefix)
+- Wiederverwendbare Module → `components/` (ohne `concepts/{richtung}/` Prefix)
 - Bestandsmanagement-Detailseite in gewählter Richtung bauen
-- Visuelle Produktion: Die generierten Konzept-Visuals sind Platzhalter — für Produktion echte Fotos der Fenyx-Teams/Möbel/Bestandsaufnahme verwenden (Briefing: „we do not have internal visuals right now")
-- `/b` und `/c`–`/e` können nach Produktion entfernt werden
+- Visuelle Produktion: photorealistic Generierungen ersetzen durch echte Fenyx-Fotos (Teams, Möbel, Bestandsaufnahme)
+- `/b /c /d /e /f` können nach Produktion entfernt werden
 
 ---
 
-## Stack & Konventionen (alle 3 Routen)
+## Stack & Konventionen (alle 4 Konzepte)
 - Tailwind-Tokens: `abyss`, `abyss-deep`, `signal`, `mist`, `mist-soft`, `black-gradient`
 - Fonts: Roobert (Body), Telegraf (Display) via `var(--font-roobert)` / `var(--font-telegraf)`
 - Eckige Ecken (kein `rounded`)
-- CSS-Namespaces: `.dc-*` (`/c`), `.dd-*` (`/d`), `.de-*` (`/e`) in jeweils eigener `app/{route}/concept.css`
-- Motion: CSS `animation-timeline: view()` mit `@supports`-Gate, IntersectionObserver-Fallback, `prefers-reduced-motion` überall respektiert
+- CSS-Namespaces: `.dc-*` (`/c`), `.dd-*` (`/d`), `.de-*` (`/e`), `.df-*` (`/f`) in jeweils eigener `app/{route}/concept.css`
+- Motion: CSS `animation-timeline: view()` / `scroll()` mit `@supports`-Gate, IntersectionObserver-Fallback, `prefers-reduced-motion` überall respektiert
 - Shared Chrome unangetastet: `Header`, `Footer`, `ClientTrackers`, `layout.tsx`, Analytics, Admin, Auth
 - Daten: `getHomepageReferenceProjects()` (kein hardcoded Array)
-- Build: `npm run build` grün für `/b /c /d /e`
+- Build: `npm run build` grün für `/b /c /d /e /f`
+- Dev: `npm run dev` → http://localhost:3000/{c,d,e,f}
