@@ -1,0 +1,486 @@
+/* =====================================================================
+   Konzept D – „Architectural Quiet"
+   Nornorm × SpaceX: rasterbewusst, modular, ruhig, durch Material gewärmt.
+   Alle Klassen sind mit .dd- präfixiert und nur auf /d aktiv.
+   Farben kommen aus CSS-Variablen (Spiegel der Tailwind-Tokens),
+   damit keine rohen Hex-Werte im JSX stehen.
+   ===================================================================== */
+
+.dd-root {
+  --dd-signal: #c8ff00;
+  --dd-abyss: #132735;
+  --dd-abyss-deep: #0b171f;
+  --dd-mist: #8da4ba;
+  --dd-mist-soft: #dceaf5;
+}
+
+/* ── Architektonisches Eyebrow (monospace-Gefühl in Roobert) ──────────── */
+.dd-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.6875rem; /* 11px */
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  line-height: 1;
+}
+
+.dd-eyebrow__num {
+  font-variant-numeric: tabular-nums;
+  color: var(--dd-signal);
+}
+
+/* Dünne 1px-Regel als Sektions-Marker (Signal bei 20 %) */
+.dd-rule {
+  height: 1px;
+  width: 100%;
+  background-color: color-mix(in srgb, var(--dd-signal) 22%, transparent);
+}
+
+.dd-rule--mist {
+  background-color: color-mix(in srgb, var(--dd-mist) 30%, transparent);
+}
+
+/* Lesbare Zeilenlänge für Fließtext */
+.dd-measure {
+  max-width: 68ch;
+}
+
+/* =====================================================================
+   01 — HERO
+   ===================================================================== */
+.dd-hero {
+  background-color: var(--dd-abyss);
+}
+
+.dd-hero__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 1024px) {
+  .dd-hero__grid {
+    grid-template-columns: 1fr 1fr;
+    min-height: 100svh;
+  }
+}
+
+.dd-hero__media {
+  position: relative;
+  overflow: hidden;
+  min-height: 18rem;
+  aspect-ratio: 4 / 3;
+}
+
+@media (min-width: 1024px) {
+  .dd-hero__media {
+    aspect-ratio: auto;
+    min-height: 100svh;
+  }
+}
+
+/* Bild ragt 8 % nach unten heraus, damit Parallax Spielraum hat */
+.dd-hero__img {
+  position: absolute;
+  inset: -8% 0 -8% 0;
+  height: 116%;
+  width: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+.dd-hero__copy {
+  background-color: var(--dd-mist-soft);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Text-Einblendung mit 200 ms Verzögerung (nur clientseitig aktiv) */
+.dd-hero__reveal {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .dd-hero.dd-js .dd-hero__reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;
+  }
+  .dd-hero.dd-js.dd-in .dd-hero__reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* =====================================================================
+   02 — LOGO-GRID (7 Spalten, dünne Trenner)
+   ===================================================================== */
+.dd-logo-grid {
+  background-color: white;
+}
+
+.dd-logo-cells {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid color-mix(in srgb, var(--dd-mist) 18%, transparent);
+  border-left: 1px solid color-mix(in srgb, var(--dd-mist) 18%, transparent);
+}
+
+@media (min-width: 640px) {
+  .dd-logo-cells {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .dd-logo-cells {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+}
+
+.dd-logo-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 6rem;
+  padding: 1rem 1.25rem;
+  border-right: 1px solid color-mix(in srgb, var(--dd-mist) 18%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--dd-mist) 18%, transparent);
+  transition: background-color 0.2s ease;
+}
+
+.dd-logo-cell:hover {
+  /* warmer, heller Hauch beim Hover (mist-soft bei 40 %) */
+  background-color: color-mix(in srgb, var(--dd-mist-soft) 45%, transparent);
+}
+
+.dd-logo-cell__img {
+  max-height: 2rem;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.55;
+  transition: opacity 0.2s ease, filter 0.2s ease;
+}
+
+.dd-logo-cell:hover .dd-logo-cell__img {
+  opacity: 1;
+  filter: grayscale(0);
+}
+
+/* =====================================================================
+   03 — TIMELINE (grüne Scroll-Linie, eckige Punkte)
+   ===================================================================== */
+.dd-timeline {
+  background-color: var(--dd-abyss-deep);
+}
+
+.dd-tl-track {
+  position: relative;
+}
+
+/* Mittige 1px-Linie, nur ab lg sichtbar */
+.dd-tl-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 8px;
+  height: 100%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.dd-tl-svg {
+  display: block;
+  width: 8px;
+  height: 100%;
+  overflow: visible;
+}
+
+.dd-tl-path {
+  stroke: var(--dd-signal);
+  stroke-opacity: 0.6;
+  stroke-width: 1;
+  fill: none;
+}
+
+/* Eckige Punkte (statt rund) */
+.dd-tl-dot {
+  fill: var(--dd-signal);
+  opacity: 0.2;
+  transition: opacity 0.3s ease;
+}
+
+.dd-tl-dot.is-active {
+  opacity: 1;
+}
+
+.dd-tl-chapter {
+  position: relative;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  min-height: clamp(22rem, 60svh, 40rem);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.dd-tl-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.dd-tl-img {
+  object-fit: cover;
+  object-position: center;
+}
+
+.dd-tl-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  /* dunkler Verlauf für Lesbarkeit, links stärker */
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--dd-abyss-deep) 88%, transparent) 0%,
+    color-mix(in srgb, var(--dd-abyss-deep) 55%, transparent) 45%,
+    color-mix(in srgb, var(--dd-abyss-deep) 20%, transparent) 100%
+  );
+}
+
+.dd-tl-chapter[data-align="right"] .dd-tl-scrim {
+  background: linear-gradient(
+    270deg,
+    color-mix(in srgb, var(--dd-abyss-deep) 88%, transparent) 0%,
+    color-mix(in srgb, var(--dd-abyss-deep) 55%, transparent) 45%,
+    color-mix(in srgb, var(--dd-abyss-deep) 20%, transparent) 100%
+  );
+}
+
+.dd-tl-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 96rem;
+  margin: 0 auto;
+  padding: 2rem 5%;
+  display: flex;
+}
+
+.dd-tl-chapter[data-align="right"] .dd-tl-inner {
+  justify-content: flex-end;
+}
+
+/* Schlankes Panel, viel Weißraum */
+.dd-tl-panel {
+  width: 100%;
+  max-width: 30rem;
+  background-color: color-mix(in srgb, var(--dd-abyss-deep) 82%, transparent);
+  backdrop-filter: blur(2px);
+  border: 1px solid color-mix(in srgb, var(--dd-mist) 14%, transparent);
+  padding: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .dd-tl-panel {
+    padding: 2.5rem;
+  }
+}
+
+/* Nummerierte Kapitel-Anzeige 01 → 02 → 03 */
+.dd-tl-steps {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--dd-mist) 80%, transparent);
+}
+
+.dd-tl-steps__n {
+  font-variant-numeric: tabular-nums;
+}
+
+.dd-tl-steps__n--active {
+  color: var(--dd-signal);
+}
+
+/* Spec-Tabelle (SpaceX-Stil, aber wärmer) */
+.dd-spec {
+  margin: 0;
+  border-top: 1px solid color-mix(in srgb, var(--dd-mist) 18%, transparent);
+}
+
+.dd-spec__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.625rem 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--dd-mist) 18%, transparent);
+}
+
+.dd-spec__label {
+  font-size: 0.8125rem;
+  color: color-mix(in srgb, var(--dd-mist) 92%, transparent);
+}
+
+.dd-spec__value {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: white;
+  text-align: right;
+}
+
+/* =====================================================================
+   04 — REFERENZEN (Bento-Grid)
+   ===================================================================== */
+.dd-refs {
+  background-color: var(--dd-abyss);
+}
+
+.dd-bento {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .dd-bento {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: 14rem;
+  }
+}
+
+.dd-tile {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  min-height: 16rem;
+  background-color: var(--dd-abyss-deep);
+}
+
+@media (min-width: 768px) {
+  .dd-tile {
+    min-height: 0;
+  }
+  .dd-tile[data-span="big"] {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  .dd-tile[data-span="wide"] {
+    grid-column: span 2;
+  }
+  .dd-tile[data-span="full"] {
+    grid-column: 1 / -1;
+  }
+}
+
+.dd-tile__img {
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.dd-tile__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    transparent 30%,
+    color-mix(in srgb, var(--dd-abyss-deep) 78%, transparent) 100%
+  );
+  transition: background 0.3s ease;
+}
+
+.dd-tile:hover .dd-tile__img {
+  transform: scale(1.03);
+}
+
+.dd-tile:hover .dd-tile__scrim {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--dd-abyss-deep) 25%, transparent) 0%,
+    color-mix(in srgb, var(--dd-abyss-deep) 88%, transparent) 100%
+  );
+}
+
+.dd-tile__body {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  bottom: 0;
+  padding: 1.5rem;
+}
+
+/* =====================================================================
+   Reveal-Utilities
+   - Primär: CSS Scroll-Driven Animations (@supports-Gate)
+   - Fallback: IntersectionObserver setzt .dd-io-on (per JS, nur wenn
+     animation-timeline NICHT unterstützt wird) und .dd-in beim Sichtbarwerden
+   - prefers-reduced-motion: alles sichtbar, keine Bewegung
+   ===================================================================== */
+.dd-reveal {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .dd-reveal {
+      opacity: 0;
+      animation: dd-reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 38%;
+    }
+  }
+
+  .dd-io-on .dd-reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition-delay: var(--dd-delay, 0ms);
+  }
+  .dd-io-on .dd-reveal.dd-in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes dd-reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Sichtbare Fokus-Ringe für Tastatur-Navigation */
+.dd-focus:focus-visible {
+  outline: 2px solid var(--dd-signal);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dd-hero__img,
+  .dd-tile__img {
+    transition: none;
+  }
+  .dd-tl-dot {
+    opacity: 1;
+  }
+}
