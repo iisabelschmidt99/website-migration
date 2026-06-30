@@ -1,0 +1,270 @@
+/* ============================================================================
+   Konzept C – „Editorial Quiet"
+   Eigene Stildatei (KEIN Eingriff in app/globals.css). Alle Klassen sind mit
+   `dc-` (design-concept) gescoped, damit nichts in andere Konzepte (/b, /)
+   ausblutet.
+
+   2026-Trends, die hier bewusst eingesetzt werden:
+   - CSS Scroll-Driven Animations (animation-timeline: view()) hinter einem
+     @supports-Gate, damit moderne Browser ohne JS animieren.
+   - IntersectionObserver-Fallback (components/concepts/c/EditorialReveal.tsx)
+     für ältere Browser.
+   - Es werden ausschließlich `transform` und `opacity` animiert (GPU-freundlich).
+   - Editoriales Scrollytelling: nur wenige, hochwertige Elemente bewegen sich –
+     Zurückhaltung statt lauter Motion.
+   ========================================================================== */
+
+.dc {
+  /* Papier-/Patina-Palette als CSS-Variablen – kein hartkodiertes Hex im TSX.
+     Das tiefe Marineblau ist das Marken-Ink (entspricht dem Token `abyss`),
+     das Signalgrün bleibt der einzige Akzent. */
+  --dc-paper: #f3ede2;        /* warmes Papier */
+  --dc-paper-warm: #efe6d6;   /* etwas wärmerer Ton */
+  --dc-paper-deep: #e8ddca;   /* gealtertes Papier / Patina */
+  --dc-ink: #132735;          /* = abyss, Marken-Ink */
+  --dc-ink-soft: #3d5263;     /* gedämpfter Fließtext (Kontrast > 4.5:1 auf Papier) */
+  --dc-rule: rgba(19, 39, 53, 0.16);
+  --dc-rule-strong: rgba(19, 39, 53, 0.32);
+  --dc-signal: #c8ff00;       /* = signal */
+  --dc-measure: 62ch;         /* Lesebreite klar < 75ch */
+
+  background-color: var(--dc-paper);
+  color: var(--dc-ink);
+}
+
+/* ── Editoriale Typografie-Helfer ─────────────────────────────────────────── */
+
+.dc-eyebrow {
+  display: inline-block;
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dc-ink-soft);
+}
+
+.dc-display {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+  color: var(--dc-ink);
+  /* Überdimensionierte Editorial-Headline, größer als text-h1 (4rem). */
+  font-size: clamp(2.75rem, 7.5vw, 6rem);
+}
+
+.dc-chapter-title {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  color: var(--dc-ink);
+  font-size: clamp(2rem, 4.6vw, 3.4rem);
+}
+
+.dc-ref-title {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--dc-ink);
+  font-size: clamp(2rem, 5vw, 3.6rem);
+}
+
+.dc-body {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.78;
+  color: var(--dc-ink-soft);
+  max-width: var(--dc-measure);
+}
+
+.dc-lede {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: clamp(1.125rem, 1.8vw, 1.375rem);
+  line-height: 1.6;
+  color: var(--dc-ink-soft);
+  max-width: 46ch;
+}
+
+/* Römische Kapitel-Marker (ersetzen die grüne SVG-Linie des Originals). */
+.dc-numeral {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: var(--dc-ink);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+/* Inline-Statistiken als Fließtext (keine eigenen Stat-Blöcke). */
+.dc-stats {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--dc-ink);
+}
+.dc-stats__value {
+  font-weight: 600;
+  color: var(--dc-ink);
+}
+.dc-stats__sep {
+  color: var(--dc-rule-strong);
+  padding: 0 0.6rem;
+}
+
+/* Editorialer Text-Link mit Pfeil (statt Button). */
+.dc-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--dc-ink);
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--dc-rule-strong);
+  transition: color 200ms ease, border-color 200ms ease;
+}
+.dc-link:hover {
+  color: var(--dc-ink-soft);
+  border-color: var(--dc-ink);
+}
+.dc-link svg {
+  transition: transform 200ms ease;
+}
+.dc-link:hover svg {
+  transform: translateX(4px);
+}
+
+/* Dünne redaktionelle Trennlinie. */
+.dc-rule {
+  height: 1px;
+  border: 0;
+  background: var(--dc-rule);
+}
+
+/* ── Hero ──────────────────────────────────────────────────────────────── */
+
+.dc-hero {
+  position: relative;
+  background-color: var(--dc-paper);
+  overflow: hidden;
+}
+/* Warmer Schleier über dem Hintergrundbild – die Typografie bleibt der Fokus. */
+.dc-hero__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(125% 95% at 78% 12%, rgba(243, 237, 226, 0.35), rgba(243, 237, 226, 0.9) 62%),
+    linear-gradient(180deg, rgba(243, 237, 226, 0.82) 0%, var(--dc-paper) 88%);
+}
+.dc-hero__img {
+  object-fit: cover;
+  opacity: 0.55;
+  filter: saturate(0.92);
+}
+
+/* ── Logo-Wand (Museumswand-Gefühl) ───────────────────────────────────────── */
+
+.dc-logo-grid {
+  background-color: var(--dc-paper-warm);
+}
+.dc-logo {
+  opacity: 0.6;
+  filter: grayscale(1);
+  transition: opacity 220ms ease, filter 220ms ease;
+}
+.dc-logo:hover {
+  opacity: 1;
+  filter: grayscale(0);
+}
+
+/* ── Timeline / Referenzen Hintergründe ───────────────────────────────────── */
+
+.dc-timeline { background-color: var(--dc-paper); }
+.dc-refs { background-color: var(--dc-paper-deep); }
+
+.dc-caption {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: var(--dc-ink-soft);
+}
+
+/* Großer, prominenter Einzel-KPI in den Referenzen. */
+.dc-kpi__value {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--dc-ink);
+  font-size: clamp(2.75rem, 6vw, 4.5rem);
+}
+.dc-kpi__label {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--dc-ink-soft);
+  max-width: 22ch;
+}
+
+/* ── Scroll-Reveal ───────────────────────────────────────────────────────── */
+/* Grundzustand: leicht versetzt & transparent. */
+.dc-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  will-change: opacity, transform;
+}
+
+/* Moderne Browser: scroll-gesteuert, gestaffelt über `animation-range`. */
+@supports (animation-timeline: view()) {
+  .dc-reveal {
+    animation: dc-reveal-in linear both;
+    animation-timeline: view();
+    animation-range: entry 4% cover 24%;
+  }
+}
+
+/* Fallback (EditorialReveal.tsx setzt .is-visible per IntersectionObserver). */
+.dc-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+  transition: opacity 600ms ease, transform 600ms ease;
+  transition-delay: calc(var(--dc-i, 0) * 100ms);
+}
+
+@keyframes dc-reveal-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Hero-Headline: zeilenweiser Auftritt beim Laden (zeitbasiert, kein Scroll). */
+.dc-rise {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: dc-rise-in 900ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  animation-delay: calc(var(--dc-i, 0) * 140ms);
+}
+@keyframes dc-rise-in {
+  to { opacity: 1; transform: none; }
+}
+
+/* prefers-reduced-motion: alle nicht-essenziellen Animationen deaktivieren. */
+@media (prefers-reduced-motion: reduce) {
+  .dc-reveal,
+  .dc-reveal.is-visible,
+  .dc-rise {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .dc-link svg,
+  .dc-logo {
+    transition: none !important;
+  }
+}
