@@ -62,9 +62,17 @@
   max-width: 100%;
   padding: 0;
 }
+/* Gleiche Schriftgrößen wie dg-intro */
 .dg-ticker .df-ticker__heading,
-.dg-ticker__heading { text-align: left; }
-.dg-ticker__body { text-align: left; }
+.dg-ticker__heading {
+  text-align: left;
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  max-width: 20ch;
+}
+.dg-ticker__body {
+  text-align: left;
+  font-size: clamp(1rem, 1.3vw, 1.125rem);
+}
 
 /* Logos breiter */
 .dg-ticker .df-ticker__cell {
