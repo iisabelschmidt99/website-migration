@@ -17,7 +17,7 @@ export default function CtaButton({
   trackId,
 }: CtaButtonProps) {
   const base =
-    "inline-flex items-center justify-center px-8 py-4 text-[11px] font-bold uppercase tracking-[0.12em] transition-all duration-200";
+    "inline-flex items-center justify-center px-8 py-4 text-[11px] font-bold uppercase tracking-[0.12em] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-abyss-deep";
   const styles =
     variant === "primary"
       ? "bg-signal text-black hover:brightness-95"

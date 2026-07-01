@@ -1,0 +1,673 @@
+/* ════════════════════════════════════════════════════════════════════════
+   KONZEPT D — „Cinematic Sequence"
+   SpaceX-dominant · dark-first · scroll-getriebene Crossfades · word-by-word
+   ════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --dd-abyss: #132735;
+  --dd-abyss-deep: #0b171f;
+  --dd-signal: #c8ff00;
+  --dd-mist: #8da4ba;
+  --dd-mist-soft: #dceaf5;
+  --dd-black: #020405;
+  --dd-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── Reset für /d-Scope ────────────────────────────────────────────────── */
+.dd-root { background: var(--dd-abyss-deep); color: var(--dd-mist-soft); }
+.dd-root * { box-sizing: border-box; }
+
+/* ── Word-by-word Mask-Reveal ──────────────────────────────────────────── */
+.dd-words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.28em;
+  margin: 0;
+  padding: 0;
+}
+.dd-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  /* vermeidet clipping bei descenders (g, y, p, q) */
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+.dd-word__inner {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* Fallback (kein animation-timeline): JS toggle .is-visible */
+@supports not (animation-timeline: view()) {
+  .dd-word__inner {
+    transform: translateY(110%);
+    transition: transform 900ms var(--dd-ease);
+    transition-delay: calc(var(--dd-i, 0) * 55ms + var(--dd-delay, 0ms));
+  }
+  .dd-words.is-visible .dd-word__inner {
+    transform: translateY(0);
+  }
+}
+
+/* Native scroll-driven: jedes Wort eigene Timeline mit index-basiertem Delay */
+@supports (animation-timeline: view()) {
+  .dd-words .dd-word__inner {
+    animation: dd-word-in 900ms var(--dd-ease) both;
+    animation-timeline: view();
+    animation-range: entry 5% entry 75%;
+    animation-delay: calc(var(--dd-i, 0) * 55ms);
+  }
+  @keyframes dd-word-in {
+    from { transform: translateY(110%); }
+    to   { transform: translateY(0); }
+  }
+}
+
+/* ── Blur-to-Sharp Image-Reveal ────────────────────────────────────────── */
+.dd-img {
+  will-change: filter, transform;
+}
+@supports not (animation-timeline: view()) {
+  .dd-img {
+    filter: blur(14px);
+    transform: scale(1.08);
+    opacity: 0;
+    transition: filter 1.4s var(--dd-ease), transform 1.4s var(--dd-ease), opacity 1.2s ease;
+    transition-delay: var(--dd-delay, 0ms);
+  }
+  .dd-img.is-visible {
+    filter: blur(0);
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@supports (animation-timeline: view()) {
+  .dd-img {
+    animation: dd-img-sharp linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 85%;
+  }
+  @keyframes dd-img-sharp {
+    from { filter: blur(14px); transform: scale(1.08); opacity: 0; }
+    to   { filter: blur(0);    transform: scale(1);    opacity: 1; }
+  }
+}
+
+/* Hero liegt above-the-fold → scroll-driven "entry" feuert nie. Daher
+   zeitbasierter Einstieg beim Laden (überschreibt die view()-Timeline). */
+.dd-hero .dd-words .dd-word__inner {
+  animation: dd-word-in 900ms var(--dd-ease) both;
+  animation-timeline: auto;
+  animation-delay: calc(var(--dd-i, 0) * 60ms + 250ms);
+}
+.dd-hero .dd-reveal {
+  animation: dd-reveal-in 800ms var(--dd-ease) both;
+  animation-timeline: auto;
+  animation-delay: var(--dd-delay, 0ms);
+}
+@keyframes dd-word-in {
+  from { transform: translateY(110%); }
+  to   { transform: translateY(0); }
+}
+@keyframes dd-reveal-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Generic Reveal (fade + slight translate-y) ────────────────────────── */
+.dd-reveal {
+  will-change: transform, opacity;
+}
+@supports not (animation-timeline: view()) {
+  .dd-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 900ms var(--dd-ease), transform 900ms var(--dd-ease);
+    transition-delay: var(--dd-delay, 0ms);
+  }
+  .dd-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@supports (animation-timeline: view()) {
+  .dd-reveal {
+    animation: dd-reveal-in linear both;
+    animation-timeline: view();
+    animation-range: entry 5% entry 80%;
+    animation-delay: var(--dd-delay, 0ms);
+  }
+  @keyframes dd-reveal-in {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* ── Hero ──────────────────────────────────────────────────────────────── */
+.dd-hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  background: var(--dd-abyss-deep);
+}
+.dd-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.dd-hero__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.dd-hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(180deg, rgba(11,23,31,0.55) 0%, rgba(11,23,31,0.2) 35%, rgba(11,23,31,0.85) 100%),
+    linear-gradient(90deg, rgba(11,23,31,0.6) 0%, transparent 50%);
+  pointer-events: none;
+}
+.dd-hero__content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: clamp(4rem, 10vw, 8rem) clamp(1.5rem, 5vw, 6rem) clamp(5rem, 12vw, 9rem);
+  max-width: 80rem;
+}
+.dd-hero__eyebrow {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dd-signal);
+  margin: 0 0 2rem;
+}
+.dd-hero__headline {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: clamp(2.5rem, 7vw, 6rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  color: #fff;
+  margin: 0 0 2.5rem;
+  max-width: 18ch;
+}
+.dd-hero__sub {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: clamp(1rem, 1.4vw, 1.125rem);
+  line-height: 1.65;
+  color: var(--dd-mist-soft);
+  margin: 0 0 2.5rem;
+  max-width: 46ch;
+}
+.dd-hero__cta-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.dd-hero__meta {
+  position: absolute;
+  top: clamp(1.5rem, 4vw, 3rem);
+  left: clamp(1.5rem, 5vw, 6rem);
+  right: clamp(1.5rem, 5vw, 6rem);
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(220, 234, 245, 0.55);
+}
+.dd-hero__meta-tag { color: var(--dd-signal); }
+
+/* Scroll-Progress-Line am Hero-Bottom (signal, 1px) */
+.dd-hero__progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: var(--dd-signal);
+  z-index: 3;
+  width: 0;
+}
+@supports (animation-timeline: scroll()) {
+  .dd-hero__progress {
+    animation: dd-progress-grow linear both;
+    animation-timeline: scroll();
+    animation-range: root 0% root 100%;
+    width: 100%;
+    transform-origin: left;
+    transform: scaleX(0);
+  }
+  @keyframes dd-progress-grow {
+    to { transform: scaleX(1); }
+  }
+}
+
+/* ── Logo-Grid (Reactive Magnetic, dicht wie Live-/b, keine Kästen) ─────── */
+.dd-mlogos {
+  background: var(--dd-mist-soft);
+  overflow: visible;
+  border-top: 1px solid rgba(19, 39, 53, 0.08);
+  border-bottom: 1px solid rgba(19, 39, 53, 0.08);
+}
+.dd-mlogos__caption {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dd-abyss);
+  margin: 0 0 3rem;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+.dd-mlogos__caption::after {
+  content: "";
+  flex: 1;
+  min-width: 3rem;
+  height: 1px;
+  background: rgba(19, 39, 53, 0.18);
+}
+.dd-mlogos__hint {
+  color: rgba(19, 39, 53, 0.45);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+.dd-mlogos__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0.75rem 0;
+  display: grid;
+  width: 100%;
+  overflow: visible;
+  /* minmax(0,1fr) verhindert Grid-Blowout durch Logo-Minwidths → kein Abschneiden rechts. */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 1rem;
+  row-gap: 2rem;
+}
+@media (min-width: 640px) {
+  .dd-mlogos__grid {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    column-gap: 1.75rem;
+    row-gap: 2.75rem;
+  }
+}
+@media (min-width: 1024px) {
+  .dd-mlogos__grid {
+    grid-template-columns: repeat(14, minmax(0, 1fr));
+  }
+}
+.dd-mlogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.25rem;
+  padding: 0 0.5rem;
+  background: transparent;
+  border: none;
+  transform-origin: center center;
+  will-change: transform;
+  transition: transform 140ms linear;
+}
+.dd-mlogo__img {
+  max-height: 2.25rem;
+  max-width: 4.25rem;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  pointer-events: none;
+}
+.dd-mlogos__grid:focus-within .dd-mlogo {
+  outline: none;
+}
+.dd-mlogo:focus-visible {
+  outline: 2px solid var(--dd-signal);
+  outline-offset: 4px;
+}
+
+/* prefers-reduced-motion: statisches Grid, keine Skala. */
+@media (prefers-reduced-motion: reduce) {
+  .dd-mlogo {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ── Timeline (3 cineastische Vollbild-Kapitel mit Crossfade) ──────────── */
+.dd-timeline {
+  background: var(--dd-abyss-deep);
+  position: relative;
+}
+.dd-tl-chapter {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.dd-tl-chapter__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.dd-tl-chapter__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.dd-tl-chapter__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(11,23,31,0.92) 0%, rgba(11,23,31,0.55) 45%, rgba(11,23,31,0.15) 100%);
+}
+@media (max-width: 767px) {
+  .dd-tl-chapter__scrim {
+    background: linear-gradient(180deg, rgba(11,23,31,0.4) 0%, rgba(11,23,31,0.92) 100%);
+  }
+}
+.dd-tl-chapter__content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: clamp(4rem, 10vw, 8rem) clamp(1.5rem, 5vw, 6rem);
+}
+.dd-tl-chapter__index {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: clamp(5rem, 12vw, 10rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(200, 255, 0, 0.35);
+  margin: 0 0 2rem;
+}
+.dd-tl-chapter__eyebrow {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dd-signal);
+  margin: 0 0 1.5rem;
+}
+.dd-tl-chapter__title {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: #fff;
+  margin: 0 0 2rem;
+  max-width: 16ch;
+}
+.dd-tl-chapter__body {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: clamp(1rem, 1.3vw, 1.125rem);
+  line-height: 1.7;
+  color: var(--dd-mist-soft);
+  margin: 0 0 2.5rem;
+  max-width: 48ch;
+}
+.dd-tl-chapter__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 44px;
+  padding: 0.5rem 0;
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dd-signal);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 200ms ease, border-color 200ms ease;
+}
+.dd-tl-chapter__link:hover {
+  color: #fff;
+  border-color: var(--dd-signal);
+}
+.dd-tl-chapter__link svg {
+  transition: transform 200ms ease;
+}
+.dd-tl-chapter__link:hover svg {
+  transform: translateX(4px);
+}
+
+/* Scroll-Driven Crossfade: BG + Content fades in/out über scroll range */
+@supports (animation-timeline: view()) {
+  .dd-tl-chapter__bg {
+    animation: dd-chapter-bg linear both;
+    animation-timeline: view();
+    animation-range: cover 0% cover 100%;
+  }
+  @keyframes dd-chapter-bg {
+    0%   { opacity: 0; transform: scale(1.08); }
+    15%  { opacity: 1; }
+    85%  { opacity: 1; }
+    100% { opacity: 0; transform: scale(1); }
+  }
+  .dd-tl-chapter__content {
+    animation: dd-chapter-content linear both;
+    animation-timeline: view();
+    animation-range: cover 0% cover 100%;
+  }
+  @keyframes dd-chapter-content {
+    0%   { opacity: 0; transform: translateY(30px); }
+    20%  { opacity: 1; transform: translateY(0); }
+    80%  { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-30px); }
+  }
+}
+@supports not (animation-timeline: view()) {
+  .dd-tl-chapter__bg {
+    opacity: 0;
+    transition: opacity 1.2s ease;
+  }
+  .dd-tl-chapter__bg.is-visible { opacity: 1; }
+}
+
+/* ── Referenzen (cineastischer Showcase: große Frames, KPI-Count, Parallax) ─ */
+.dd-refs {
+  background: var(--dd-abyss-deep);
+  padding: clamp(5rem, 12vw, 9rem) 0 clamp(4rem, 8vw, 6rem);
+}
+.dd-refs__intro {
+  max-width: 84rem;
+  margin: 0 auto clamp(3rem, 6vw, 5rem);
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+}
+.dd-refs__eyebrow {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dd-signal);
+  margin: 0 0 1.5rem;
+}
+.dd-refs__heading {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: #fff;
+  margin: 0;
+  max-width: 18ch;
+}
+.dd-refs__list {
+  display: flex;
+  flex-direction: column;
+}
+/* Jede Referenz ist eine große, fast bildschirmfüllende Frame-Reihe. */
+.dd-ref {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: stretch;
+  min-height: 80svh;
+  border-top: 1px solid rgba(220, 234, 245, 0.08);
+}
+.dd-ref:last-child { border-bottom: 1px solid rgba(220, 234, 245, 0.08); }
+@media (min-width: 1024px) {
+  .dd-ref {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+  .dd-ref--flip .dd-ref__media { order: 2; }
+}
+.dd-ref__media {
+  position: relative;
+  min-height: 50svh;
+  background: var(--dd-abyss);
+}
+@media (min-width: 1024px) {
+  .dd-ref__media { min-height: 80svh; }
+}
+.dd-ref__img {
+  transition: transform 900ms var(--dd-ease);
+}
+.dd-ref:hover .dd-ref__img { transform: scale(1.04); }
+.dd-ref__media-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(11,23,31,0.25) 0%, rgba(11,23,31,0.55) 100%);
+  pointer-events: none;
+}
+.dd-ref__index {
+  position: absolute;
+  top: clamp(1.5rem, 3vw, 2.5rem);
+  left: clamp(1.5rem, 3vw, 2.5rem);
+  z-index: 2;
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(200, 255, 0, 0.5);
+  font-variant-numeric: tabular-nums;
+}
+.dd-ref__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: clamp(2.5rem, 5vw, 4.5rem) clamp(1.5rem, 5vw, 4rem);
+}
+.dd-ref__eyebrow {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dd-signal);
+  margin: 0;
+}
+.dd-ref__company {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: #fff;
+  margin: 0;
+}
+.dd-ref__kpi {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(220, 234, 245, 0.14);
+  border-bottom: 1px solid rgba(220, 234, 245, 0.14);
+}
+.dd-ref__kpi-value {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: var(--dd-signal);
+  font-variant-numeric: tabular-nums;
+}
+.dd-ref__kpi-label {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--dd-mist);
+  max-width: 22ch;
+}
+.dd-ref__quote {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: clamp(1rem, 1.3vw, 1.125rem);
+  line-height: 1.65;
+  color: var(--dd-mist-soft);
+  margin: 0;
+  max-width: 42ch;
+}
+.dd-ref__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.5rem 0;
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 1px solid var(--dd-signal);
+  align-self: flex-start;
+  transition: color 200ms ease;
+}
+.dd-ref__link:hover { color: var(--dd-signal); }
+.dd-ref__link svg { transition: transform 200ms ease; }
+.dd-ref__link:hover svg { transform: translateX(4px); }
+
+/* ── Focus states (a11y) ───────────────────────────────────────────────── */
+.dd-tl-chapter__link:focus-visible,
+.dd-ref__link:focus-visible {
+  outline: 2px solid var(--dd-signal);
+  outline-offset: 4px;
+}
+
+/* ── Reduced Motion (alle Effekte aus, Inhalte sofort sichtbar) ────────── */
+@media (prefers-reduced-motion: reduce) {
+  .dd-word__inner,
+  .dd-img,
+  .dd-reveal,
+  .dd-tl-chapter__bg,
+  .dd-tl-chapter__content,
+  .dd-hero__progress {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+}
