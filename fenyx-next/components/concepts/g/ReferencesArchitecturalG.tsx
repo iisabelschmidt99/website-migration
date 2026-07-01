@@ -31,11 +31,14 @@ export default function ReferencesArchitecturalG({ projects }: Props) {
   return (
     <section className="df-refs dg-refs df-root" aria-labelledby="dg-refs-heading">
       <div className="df-refs__intro">
-        <Rise tag="p" className="df-refs__eyebrow dg-refs__eyebrow">
-          <span>03 / 03 — Ergebnisse aus der Praxis</span>
+        <Rise tag="h2" className="df-refs__heading dg-refs__heading" delay={80}>
+          <span id="dg-refs-heading">Unsere Kunden setzen neue Standards für Nachhaltigkeit.</span>
         </Rise>
-        <Rise tag="h2" className="df-refs__heading dg-refs__heading" delay={120}>
-          <span id="dg-refs-heading">Was bleibt, wenn ein Büro neu gedacht wird.</span>
+        <Rise tag="p" className="dg-refs__body" delay={180}>
+          <span>
+            Führende Unternehmen aus diversen Branchen und mit individuellen Anforderungen
+            setzen auf die Zusammenarbeit mit Fenyx.
+          </span>
         </Rise>
       </div>
 

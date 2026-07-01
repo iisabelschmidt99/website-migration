@@ -10,7 +10,7 @@
 import type { Metadata } from "next";
 import HomeHeroVideo from "@/components/HomeHeroVideo";
 import CtaButton from "@/components/CtaButton";
-import LogoGridArchitectural from "@/components/concepts/f/LogoGridArchitectural";
+import LogoGridArchitecturalG from "@/components/concepts/g/LogoGridArchitecturalG";
 import TimelineCinematic from "@/components/concepts/d/TimelineCinematic";
 import PressMarquee from "@/components/PressMarquee";
 import ReferencesArchitecturalG from "@/components/concepts/g/ReferencesArchitecturalG";
@@ -61,8 +61,28 @@ export default async function ConceptGPage() {
         </div>
       </section>
 
-      {/* ── Logos (f) ─────────────────────────────────────────────── */}
-      <LogoGridArchitectural />
+      {/* ── Logos (g) ─────────────────────────────────────────────── */}
+      <LogoGridArchitecturalG />
+
+      {/* ── Intro vor Timeline: weiß ──────────────────────────────── */}
+      <section className="dg-intro" aria-labelledby="dg-intro-heading">
+        <div className="dg-intro__inner wf-padding-global">
+          <div className="wf-container-large">
+            <h2 id="dg-intro-heading" className="dg-intro__heading">
+              Wenn Nachhaltigkeit sich auch wirtschaftlich lohnt.
+            </h2>
+            <p className="dg-intro__body">
+              Nachhaltige Bürotransformation bedeutet mehr als Produktzertifikate.
+              Mit Fenyx gewinnen Sie einen Partner, der Kosteneinsparungen messbar macht,
+              Nachhaltigkeit transparent dokumentiert und Ihr Projekt strukturiert begleitet
+              – von der Analyse bis zur Umsetzung.
+            </p>
+            <a href="/g#kontakt" className="dg-intro__cta">
+              Kontakt aufnehmen <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </section>
 
       {/* ── Timeline (d) ──────────────────────────────────────────── */}
       <TimelineCinematic />
