@@ -31,9 +31,10 @@ const rows = splitRows(shuffledLogos(20260702), ROWS);
 const DRIFT_DURATIONS_S = [170, 220, 270];
 
 // Scroll-Parallax: ein Versatz für die gesamte Wand, einer für den Text.
-// Bewusst subtil – zu starker Versatz erzeugt eine Lücke am unteren Rand.
-const WALL_DRIFT_PX = -70;
-const COPY_DRIFT_PX = 14;
+// Deutlich spürbar – Wand gleitet nach oben, Text leicht nach unten →
+// sichtbare Tiefenbewegung. Ganz Wand (nicht pro Reihe).
+const WALL_DRIFT_PX = -140;
+const COPY_DRIFT_PX = 28;
 
 export default function LogoWallHorizontal() {
   const sectionRef = useRef<HTMLElement | null>(null);

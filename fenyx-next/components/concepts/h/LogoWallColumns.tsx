@@ -25,9 +25,9 @@ const cols = splitRows(shuffledLogos(20260703), COLUMNS);
 
 const DRIFT_DURATIONS_S = [200, 250, 300];
 
-// Bewusst subtil – zu starker Versatz erzeugt eine Lücke am unteren Rand.
-const WALL_DRIFT_PX = -70;
-const COPY_DRIFT_PX = 14;
+// Deutlich spürbar – Wand gleitet nach oben, Text leicht nach unten.
+const WALL_DRIFT_PX = -140;
+const COPY_DRIFT_PX = 28;
 
 export default function LogoWallColumns() {
   const sectionRef = useRef<HTMLElement | null>(null);
