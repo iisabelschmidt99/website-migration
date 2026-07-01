@@ -1,8 +1,8 @@
 /* ════════════════════════════════════════════════════════════════════════
-   KONZEPT G — Mix: Video-Hero + Logos (f) + Timeline (d) + Referenzen (f)
+   KONZEPT G — Overrides für den Mix aus Video-Hero, d, f
    ════════════════════════════════════════════════════════════════════════ */
 
-/* Hero-Übergang: untere Kante des Video-Heros nahtlos zum nächsten Abschnitt */
+/* ── Hero: untere Kante nahtlos zum nächsten Abschnitt ──────────────────── */
 .dg-hero-fade {
   position: absolute;
   inset: 0;
@@ -16,4 +16,54 @@
   right: 0;
   height: 30%;
   background: linear-gradient(to bottom, transparent, var(--dd-abyss-deep, #0b171f));
+}
+
+/* ── LogoGrid: „bewegen Sie den Cursor" ausblenden ──────────────────────── */
+.dg-page .df-ticker__meta { display: none; }
+
+/* ── Timeline (d): Indexzahlen (01 / 02 / 03) ausblenden ───────────────── */
+.dg-page .dd-tl-chapter__index { display: none; }
+
+/* ── Referenzen: schwarzer Hintergrund, helle Überschriften ─────────────── */
+.dg-refs.df-refs {
+  background: #000;
+}
+.dg-refs .df-refs__eyebrow {
+  color: rgba(220, 234, 245, 0.55);
+}
+.dg-refs .df-refs__eyebrow::after {
+  background: rgba(220, 234, 245, 0.15);
+}
+.dg-refs .df-refs__heading {
+  color: #fff;
+}
+
+/* ── ContactSection: weißer Hintergrund + dunkle Texte ──────────────────── */
+.dg-contact-wrap .service-contact {
+  background: #fff;
+}
+.dg-contact-wrap .service-contact .wf-heading-h2 {
+  color: #132735 !important;
+}
+.dg-contact-wrap .service-contact__quote,
+.dg-contact-wrap .service-contact__name,
+.dg-contact-wrap .service-contact__role {
+  color: #132735;
+}
+.dg-contact-wrap .text-mist {
+  color: #3d5263 !important;
+}
+.dg-contact-wrap .hover\:text-signal:hover {
+  color: #c8ff00 !important;
+}
+/* Formular-Labels und Input-Styling auf hellem BG */
+.dg-contact-wrap input,
+.dg-contact-wrap textarea,
+.dg-contact-wrap select {
+  background: #f0f4f8;
+  color: #132735;
+  border-color: rgba(19, 39, 53, 0.2);
+}
+.dg-contact-wrap label {
+  color: #3d5263;
 }
