@@ -1,43 +1,104 @@
-# Analytics Tandem-System — Rollout
+# Analytics — Rollout-Checkliste
 
-## Live ohne externe Credentials
+Technische Referenz: [`analytics-systems.md`](./analytics-systems.md)
 
-- Migration `20260625220000_analytics_tandem_system.sql` anwenden.
-- `ANALYTICS_SALT_SECRET`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` und
-  `SUPABASE_ANALYTICS_JWT` in Netlify setzen.
-- Der Client postet an `/api/collect`; die Route schreibt direkt in Supabase
-  (`analytics.website_analytics_events`), ohne Supabase Edge Function.
-- Cookiebanner ist aktiv; GTM bleibt ohne `NEXT_PUBLIC_GTM_ID` aus.
+## Status Staging (`fenyx-office.netlify.app`)
 
-## Cloudflare Worker
+| Komponente | Status |
+|---|---|
+| System A — Cloudflare Worker | Live (`fenyx-analytics-ingress.isabel-98d.workers.dev`) |
+| System A — `/api/collect` Fallback | Live |
+| System A — Supabase Events | Live (E2E bestätigt) |
+| System B — GTM Container | Live (`GTM-WVXV6MS4`) |
+| System B — Consent-Gating | Live (kein GTM ohne Accept) |
+| System B — GA4 Collect | Live nach Publish; Measurement ID = **`G-E8XZKVVHG6`** |
+| Admin CrUX / CF Tabs | Env-abhängig (`SUPABASE_SERVICE_ROLE_KEY`, API-Keys) |
 
-1. `SUPABASE_JWT_SECRET` lokal setzen.
-2. `node scripts/mint-analytics-jwt.mjs` ausführen.
-3. Worker-Secrets setzen:
+---
+
+## 1. Supabase
 
 ```bash
-wrangler secret put SALT_SECRET
-wrangler secret put SUPABASE_PUBLISHABLE_KEY
-wrangler secret put SUPABASE_ANALYTICS_JWT
+# Migration anwenden (falls noch nicht geschehen)
+# 20260625220000_analytics_tandem_system.sql
 ```
 
-4. `cloudflare/workers/analytics-ingress` deployen.
-5. Worker-URL als `NEXT_PUBLIC_ANALYTICS_INGRESS_URL` in Netlify setzen.
+Analytics Secret Key anlegen (Rolle `analytics_ingress`) → `SUPABASE_ANALYTICS_KEY=sb_secret_...`
 
-## System B / GTM
+---
 
-- `NEXT_PUBLIC_GTM_ID` erst setzen, wenn der Container bereit ist.
-- GTM lädt nur nach Consent.
-- Optional später: `NEXT_PUBLIC_GTM_BASE_URL` auf sGTM-Subdomain setzen.
+## 2. Netlify Environment
 
-## Dormant Dashboards
+Pflicht für System A:
 
-| Tab | Benötigte Variable |
+```env
+SUPABASE_ANALYTICS_KEY=sb_secret_...
+ANALYTICS_SALT_SECRET=<64 hex chars>
+NEXT_PUBLIC_ANALYTICS_INGRESS_URL=https://fenyx-analytics-ingress.isabel-98d.workers.dev
+```
+
+Pflicht für System B:
+
+```env
+NEXT_PUBLIC_GTM_ID=GTM-WVXV6MS4
+```
+
+Bereits vorhanden (nicht erneut importieren): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`.
+
+Import-Hilfe: `netlify.env.import` (lokal, gitignored).
+
+`NEXT_PUBLIC_*` **nicht** als Netlify-Secret markieren — sonst Secrets-Scan-Fehler. Ausnahmen in Root-`netlify.toml` → `SECRETS_SCAN_OMIT_KEYS`.
+
+---
+
+## 3. Cloudflare Worker
+
+```bash
+cd fenyx-next
+node scripts/cf-whoami.mjs          # muss Fenyx-Account zeigen
+node scripts/deploy-analytics-worker-cf.mjs
+```
+
+Setzt automatisch: `SALT_SECRET`, `SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_ANALYTICS_KEY`.
+
+---
+
+## 4. GTM / GA4
+
+1. `.env.local`: `GTM_SERVICE_ACCOUNT_JSON`, `NEXT_PUBLIC_GA4_MEASUREMENT_ID=G-E8XZKVVHG6`
+2. Workspace sync:
+
+```bash
+node scripts/setup-gtm-dev-container.mjs
+```
+
+3. **Veröffentlichen** — per `--publish` (Service Account braucht Publish-Recht) **oder** manuell in [tagmanager.google.com](https://tagmanager.google.com) → Container `GTM-WVXV6MS4` → Senden → Publish
+4. Prüfen: `curl -s "https://www.googletagmanager.com/gtm.js?id=GTM-WVXV6MS4" | grep G-E8XZKVVHG6`
+
+---
+
+## 5. Smoke-Test
+
+1. Seite öffnen mit `?utm_source=smoke_test`
+2. Cookie-Banner → Alle akzeptieren
+3. 2–3 Seiten klicken, scrollen, CTA testen
+4. Supabase: `analytics.website_analytics_events` WHERE `utm_source = 'smoke_test'`
+5. Browser-Netzwerk: Worker POST → 200; GA4 `g/collect` mit `tid=G-E8XZKVVHG6`
+
+---
+
+## 6. Admin-Dashboards (optional)
+
+| Tab | Variable |
 |---|---|
-| CrUX / Field CWV | `GOOGLE_CWV_API_KEY` |
+| CrUX / Field CWV | `GOOGLE_CRUX_API_KEY` oder `GOOGLE_CWV_API_KEY` |
 | GTM Health | `GTM_SERVICE_ACCOUNT_JSON` |
-| Cloudflare + AI Crawler | `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ZONE_ID` |
+| Cloudflare | `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ZONE_ID` |
 
-## Datenschutz
+Alle Admin-APIs brauchen gültige Admin-Session **und** `SUPABASE_SERVICE_ROLE_KEY` in Netlify (Scopes: **All** / Functions runtime, nicht nur Build).
 
-Zusätzlich `/datenschutz` um Reichweitenmessung und System-B-Hinweis ergänzen.
+---
+
+## 7. Datenschutz
+
+`/datenschutz` um Hinweise auf cookielose Reichweitenmessung (System A) und einwilligungsbasiertes Marketing-Tracking (System B) ergänzen. Siehe [`analytics-lia.md`](./analytics-lia.md).

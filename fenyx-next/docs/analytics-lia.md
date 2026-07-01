@@ -10,8 +10,8 @@ Kampagnen und Kontaktwege zu verbessern.
 ## System A
 
 Die First-Party-Reichweitenmessung speichert keine Cookies, keinen Local Storage
-und keinen Session Storage. Der Browser sendet nur Ereignisse mit Seitenpfad,
-Event-Typ und Kontext. Die Session-Signatur entsteht serverseitig aus:
+und keinen Session Storage für Tracking-Zwecke. Der Browser sendet nur Ereignisse
+mit Seitenpfad, Event-Typ und Kontext. Die Session-Signatur entsteht serverseitig aus:
 
 ```text
 SHA256(HMAC(SALT_SECRET, UTC-Datum) | IP/24 | reduzierte Browserkennung | Host)[0:16]
@@ -21,6 +21,15 @@ SHA256(HMAC(SALT_SECRET, UTC-Datum) | IP/24 | reduzierte Browserkennung | Host)[
 - Die Signatur rotiert täglich.
 - `Sec-GPC: 1` und `DNT: 1` führen zu Opt-out vor Hash-Bildung.
 - System-A-Daten werden nicht an Werbenetzwerke geteilt.
+
+Am Cloudflare-Ingress werden zusätzlich **aggregierte Netzwerk-Metadaten** ergänzt
+(Land, Region/Bundesland, Rechenzentrum, ASN, Bot-Einstufung). Es werden keine
+Roh-IP-Adressen und keine punktgenauen Geo-Koordinaten gespeichert.
+
+Core Web Vitals werden als anonyme Performance-Events (`web_vital`) erfasst —
+echte Besucher-Messwerte, nicht das aggregierte Google-CrUX-Felddata.
+
+Technische Details: [`analytics-systems.md`](./analytics-systems.md).
 
 ## Rechtsgrundlage
 
