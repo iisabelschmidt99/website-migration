@@ -36,13 +36,28 @@
 /* ── Timeline (g): Indexzahlen ausblenden, Typografie tauschen ──────────── */
 .dg-page .dd-tl-chapter__index { display: none; }
 
-/* Slogan (war eyebrow): klein + neongrün */
+/* Scrim: neutral + heller, lädt zu transparent aus (statt blau) */
+.dg-page .dd-tl-chapter__scrim {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.72) 0%,
+    rgba(0, 0, 0, 0.32) 45%,
+    transparent 100%
+  );
+}
+@media (max-width: 767px) {
+  .dg-page .dd-tl-chapter__scrim {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.78) 100%);
+  }
+}
+
+/* Slogan (war eyebrow): klein + weiß */
 .dg-tl__slogan {
   font-size: clamp(0.75rem, 1vw, 0.875rem);
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: none;
-  color: #c8ff00;
+  color: #fff;
   margin-bottom: 0.75rem;
 }
 /* Service-Name (war title): groß + weiß */
