@@ -16,16 +16,17 @@
   background: linear-gradient(to bottom, transparent, var(--dd-abyss-deep, #0b171f));
 }
 
-/* ── Logo-Ticker: schwarzer Hintergrund + helle Texte ───────────────────── */
+/* ── Logo-Ticker: schwarzer Hintergrund, Zellen transparent ─────────────── */
 .dg-ticker.df-ticker {
   background: #000;
 }
 .dg-ticker .df-ticker__heading {
   color: #fff;
 }
-.dg-ticker .df-ticker__img {
-  filter: brightness(0) invert(1);
-  opacity: 0.75;
+/* Zellen transparent statt weiß → Logos sichtbar auf dunklem BG */
+.dg-ticker .df-ticker__cell {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.08);
 }
 .dg-ticker__body {
   font-family: var(--font-roobert), Arial, sans-serif;
@@ -36,8 +37,22 @@
   max-width: 52ch;
 }
 
-/* ── Timeline (d): Indexzahlen ausblenden ───────────────────────────────── */
+/* ── Timeline (g): Indexzahlen ausblenden, Typografie tauschen ──────────── */
 .dg-page .dd-tl-chapter__index { display: none; }
+
+/* Slogan (war eyebrow): klein + neongrün */
+.dg-tl__slogan {
+  font-size: clamp(0.75rem, 1vw, 0.875rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: none;
+  color: #c8ff00;
+  margin-bottom: 0.75rem;
+}
+/* Service-Name (war title): groß + weiß */
+.dg-tl__service-name {
+  font-size: clamp(2.25rem, 5.5vw, 4.5rem) !important;
+}
 
 /* ── Intro-Section vor Timeline: weißer Hintergrund ────────────────────── */
 .dg-intro {
@@ -84,9 +99,20 @@
   border-color: #c8ff00;
 }
 
-/* ── Referenzen: weißer Hintergrund + dunkle Texte ─────────────────────── */
+/* ── Referenzen: weißer Hintergrund + dunkle Texte, breiter ────────────── */
 .dg-refs.df-refs {
   background: #fff;
+}
+/* Raster volle Breite + größere Kacheln */
+.dg-refs .df-refs__grid {
+  max-width: 100%;
+  padding: 0 clamp(1.5rem, 4vw, 3rem);
+  gap: 1rem;
+}
+@media (min-width: 768px) {
+  .dg-refs .df-refs__grid {
+    grid-auto-rows: 28rem;
+  }
 }
 .dg-refs .df-refs__eyebrow {
   color: #3d5263;
@@ -107,28 +133,4 @@
   max-width: 56ch;
 }
 
-/* ── ContactSection: weißer Hintergrund + dunkle Texte ──────────────────── */
-.dg-contact-wrap .service-contact {
-  background: #fff;
-}
-.dg-contact-wrap .service-contact .wf-heading-h2 {
-  color: #132735 !important;
-}
-.dg-contact-wrap .service-contact__quote,
-.dg-contact-wrap .service-contact__name,
-.dg-contact-wrap .service-contact__role {
-  color: #132735;
-}
-.dg-contact-wrap .text-mist {
-  color: #3d5263 !important;
-}
-.dg-contact-wrap input,
-.dg-contact-wrap textarea,
-.dg-contact-wrap select {
-  background: #f0f4f8;
-  color: #132735;
-  border-color: rgba(19, 39, 53, 0.2);
-}
-.dg-contact-wrap label {
-  color: #3d5263;
-}
+/* ContactSection: Original-Farben (kein Override) */

@@ -11,7 +11,7 @@ import type { Metadata } from "next";
 import HomeHeroVideo from "@/components/HomeHeroVideo";
 import CtaButton from "@/components/CtaButton";
 import LogoGridArchitecturalG from "@/components/concepts/g/LogoGridArchitecturalG";
-import TimelineCinematic from "@/components/concepts/d/TimelineCinematic";
+import TimelineCinematicG from "@/components/concepts/g/TimelineCinematicG";
 import PressMarquee from "@/components/PressMarquee";
 import ReferencesArchitecturalG from "@/components/concepts/g/ReferencesArchitecturalG";
 import ContactSection from "@/components/ContactSection";
@@ -84,8 +84,8 @@ export default async function ConceptGPage() {
         </div>
       </section>
 
-      {/* ── Timeline (d) ──────────────────────────────────────────── */}
-      <TimelineCinematic />
+      {/* ── Timeline (g) ──────────────────────────────────────────── */}
+      <TimelineCinematicG />
 
       {/* ── Bekannt aus – Presse ──────────────────────────────────── */}
       <PressMarquee />
@@ -93,10 +93,8 @@ export default async function ConceptGPage() {
       {/* ── Referenzen: 6 Kacheln, schwarz (g) ───────────────────── */}
       <ReferencesArchitecturalG projects={referenceProjects} />
 
-      {/* ── Kontakt: weißer Hintergrund ───────────────────────────── */}
-      <div className="dg-contact-wrap">
-        <ContactSection />
-      </div>
+      {/* ── Kontakt ───────────────────────────────────────────────── */}
+      <ContactSection />
     </div>
   );
 }
