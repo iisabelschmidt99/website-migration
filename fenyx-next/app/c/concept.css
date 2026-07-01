@@ -173,19 +173,85 @@
   filter: saturate(0.92);
 }
 
-/* ── Logo-Wand (Museumswand-Gefühl) ───────────────────────────────────────── */
+/* ── Logo-Index (Colophon, alphabetisch, alle Partner) ───────────────────── */
 
-.dc-logo-grid {
+.dc-logo-index {
   background-color: var(--dc-paper-warm);
 }
-.dc-logo {
-  opacity: 0.6;
+.dc-logo-index__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  padding-bottom: 1.75rem;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid var(--dc-rule);
+}
+.dc-logo-index__count {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  color: var(--dc-ink-soft);
+  margin: 0;
+}
+.dc-logo-index__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+@media (min-width: 640px) {
+  .dc-logo-index__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .dc-logo-index__grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 1280px) {
+  .dc-logo-index__grid { grid-template-columns: repeat(4, 1fr); }
+}
+.dc-logo-index__item {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1rem 0.6rem;
+  border-bottom: 1px solid var(--dc-rule);
+  min-height: 3.25rem;
+  transition: background-color 220ms ease;
+}
+.dc-logo-index__item:hover {
+  background-color: rgba(19, 39, 53, 0.03);
+}
+.dc-logo-index__img {
+  flex: 0 0 auto;
+  width: auto;
+  height: 1.5rem;
+  max-width: 5.5rem;
+  object-fit: contain;
+  opacity: 0.5;
   filter: grayscale(1);
   transition: opacity 220ms ease, filter 220ms ease;
 }
-.dc-logo:hover {
+.dc-logo-index__item:hover .dc-logo-index__img {
   opacity: 1;
   filter: grayscale(0);
+}
+.dc-logo-index__name {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--dc-ink-soft);
+  letter-spacing: 0.01em;
+  transition: color 220ms ease;
+}
+.dc-logo-index__item:hover .dc-logo-index__name {
+  color: var(--dc-ink);
+}
+.dc-logo-index__item:focus-within {
+  outline: 2px solid var(--dc-ink);
+  outline-offset: -2px;
 }
 
 /* ── Timeline / Referenzen Hintergründe ───────────────────────────────────── */
@@ -271,7 +337,7 @@
     transform: none !important;
   }
   .dc-link svg,
-  .dc-logo {
+  .dc-logo-index__img {
     transition: none !important;
   }
 }

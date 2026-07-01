@@ -255,79 +255,97 @@
   }
 }
 
-/* ── Logo-Grid (Museumswand, kuratiert) ────────────────────────────────── */
-.dd-logos {
-  background: var(--dd-abyss-deep);
+/* ── Logo-Grid (Reactive Magnetic, dicht, originale Farben) ──────────────── */
+.dd-mlogos {
+  background: var(--dd-mist-soft);
   padding: clamp(5rem, 12vw, 9rem) 0;
   border-top: 1px solid rgba(220, 234, 245, 0.06);
   border-bottom: 1px solid rgba(220, 234, 245, 0.06);
 }
-.dd-logos__inner {
-  max-width: 80rem;
+.dd-mlogos__inner {
+  max-width: 84rem;
   margin: 0 auto;
   padding: 0 clamp(1.5rem, 5vw, 4rem);
 }
-.dd-logos__caption {
+.dd-mlogos__caption {
   font-family: var(--font-roobert), Arial, sans-serif;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--dd-signal);
+  color: var(--dd-abyss);
   margin: 0 0 3rem;
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: 1rem;
 }
-.dd-logos__caption::after {
+.dd-mlogos__caption::after {
   content: "";
   flex: 1;
   height: 1px;
-  background: rgba(220, 234, 245, 0.12);
+  background: rgba(19, 39, 53, 0.18);
 }
-.dd-logos__grid {
+.dd-mlogos__hint {
+  color: rgba(19, 39, 53, 0.45);
+  letter-spacing: 0.18em;
+}
+.dd-mlogos__grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  /* Verstärkt den magnetischen Eindruck: Zellen dürfen leicht
+     übergreifen, ohne das Layout zu brechen. */
+  row-gap: 0.25rem;
 }
 @media (min-width: 768px) {
-  .dd-logos__grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  .dd-mlogos__grid { grid-template-columns: repeat(7, 1fr); gap: 0.6rem; }
 }
 @media (min-width: 1024px) {
-  .dd-logos__grid {
-    grid-template-columns: repeat(6, 1fr);
-  }
+  .dd-mlogos__grid { grid-template-columns: repeat(10, 1fr); gap: 0.7rem; }
 }
-.dd-logos__cell {
+@media (min-width: 1280px) {
+  .dd-mlogos__grid { grid-template-columns: repeat(14, 1fr); }
+}
+.dd-mlogo {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(1.75rem, 3.5vw, 2.5rem) clamp(1rem, 2vw, 1.75rem);
-  min-height: 8rem;
-  /* Heller Chip: Original-Logos zeigen sich sauber, kein Invert-Block. */
-  background: var(--dd-mist-soft);
-  border: 1px solid rgba(11, 23, 31, 0.06);
-  transition: transform 300ms var(--dd-ease), box-shadow 300ms var(--dd-ease);
+  height: 4.5rem;
+  padding: 0 0.5rem;
+  background: #fff;
+  border: 1px solid rgba(19, 39, 53, 0.06);
+  /* transform wird per JS gesetzt; Origin = Center für magnetische Skala. */
+  transform-origin: center center;
+  will-change: transform;
+  transition: transform 140ms linear, box-shadow 220ms ease;
+  /* Sanfter Übergang, wenn der Cursor das Feld verlässt. */
 }
-.dd-logos__cell:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 1rem 2rem rgba(2, 4, 5, 0.4);
+.dd-mlogo:hover {
+  box-shadow: 0 0.5rem 1.25rem rgba(11, 23, 31, 0.14);
+  z-index: 2;
 }
-.dd-logos__img {
-  max-height: 2.5rem;
-  max-width: 9rem;
+.dd-mlogo__img {
+  max-height: 1.75rem;
+  max-width: 6rem;
   width: auto;
   height: auto;
   object-fit: contain;
-  filter: grayscale(1);
-  opacity: 0.7;
-  transition: opacity 300ms ease, filter 300ms ease;
+  pointer-events: none;
 }
-.dd-logos__cell:hover .dd-logos__img {
-  opacity: 1;
-  filter: grayscale(0);
+.dd-mlogos__grid:focus-within .dd-mlogo {
+  outline: none;
+}
+.dd-mlogo:focus-visible {
+  outline: 2px solid var(--dd-signal);
+  outline-offset: 2px;
+}
+
+/* prefers-reduced-motion: statisches Grid, keine Skala. */
+@media (prefers-reduced-motion: reduce) {
+  .dd-mlogo {
+    transform: none !important;
+    transition: none !important;
+  }
 }
 
 /* ── Timeline (3 cineastische Vollbild-Kapitel mit Crossfade) ──────────── */
@@ -635,10 +653,6 @@
 .dd-ref__link:focus-visible {
   outline: 2px solid var(--dd-signal);
   outline-offset: 4px;
-}
-.dd-logos__cell:focus-within {
-  outline: 2px solid var(--dd-signal);
-  outline-offset: -2px;
 }
 
 /* ── Reduced Motion (alle Effekte aus, Inhalte sofort sichtbar) ────────── */

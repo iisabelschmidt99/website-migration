@@ -273,27 +273,28 @@
 }
 .df-hero__meta-tag { color: var(--df-ink); font-weight: 700; }
 
-/* ── Logo-Grid (7-Spalten, dünn getrennt, Hover-Caption) ───────────────── */
-.df-logos {
+/* ── Logo-Ticker (3 Reihen, infinite scroll, pause-on-hover) ─────────────── */
+.df-ticker {
   background: var(--df-abyss);
   padding: clamp(5rem, 12vw, 9rem) 0;
+  overflow: hidden;
 }
-.df-logos__inner {
-  max-width: 80rem;
+.df-ticker__inner {
+  max-width: 90rem;
   margin: 0 auto;
   padding: 0 clamp(1.5rem, 5vw, 4rem);
 }
-.df-logos__header {
+.df-ticker__head {
   display: flex;
-  align-items: baseline;
+  align-items: flex-end;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 1.5rem 2rem;
   flex-wrap: wrap;
-  margin: 0 0 4rem;
+  margin: 0 0 3.5rem;
   padding-bottom: 2rem;
   border-bottom: 1px solid var(--df-rule-light);
 }
-.df-logos__eyebrow {
+.df-ticker__eyebrow {
   font-family: var(--font-roobert), Arial, sans-serif;
   font-size: 0.75rem;
   font-weight: 600;
@@ -302,7 +303,7 @@
   color: var(--df-signal);
   margin: 0;
 }
-.df-logos__heading {
+.df-ticker__heading {
   font-family: var(--font-telegraf), Arial, sans-serif;
   font-size: clamp(1.5rem, 3vw, 2.25rem);
   font-weight: 700;
@@ -312,74 +313,99 @@
   margin: 0.5rem 0 0;
   max-width: 28ch;
 }
-.df-logos__count {
+.df-ticker__meta {
   font-family: var(--font-roobert), Arial, sans-serif;
   font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  letter-spacing: 0.06em;
   color: var(--df-mist);
   margin: 0;
-  font-variant-numeric: tabular-nums;
+  max-width: 24ch;
+  text-align: right;
 }
-.df-logos__grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.5rem;
+.df-ticker__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  /* Maskierung: Reihen blenden an den Rändern weich aus. */
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 6%,
+    #000 94%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 6%,
+    #000 94%,
+    transparent 100%
+  );
 }
-@media (min-width: 768px) {
-  .df-logos__grid { grid-template-columns: repeat(4, 1fr); }
+.df-ticker__row {
+  display: flex;
+  width: max-content;
+  /* Zwei Tracks nebeneinander → nahtloser Loop bei translateX -50%. */
+  will-change: transform;
+  animation: df-tick var(--df-row-duration, 40s) linear infinite;
 }
-@media (min-width: 1024px) {
-  .df-logos__grid { grid-template-columns: repeat(7, 1fr); }
+.df-ticker__row--rtl { animation-name: df-tick-rtl; }
+.df-ticker__row--ltr { animation-name: df-tick-ltr; }
+.df-ticker__row:hover {
+  animation-play-state: paused;
 }
-.df-logo-cell {
-  position: relative;
+.df-ticker__track {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-shrink: 0;
+  gap: 0.75rem;
+}
+.df-ticker__cell {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(1.5rem, 3vw, 2.25rem) 1rem;
-  min-height: 7rem;
-  /* Heller Chip → Original-Logos sauber, kein Invert-Block. */
+  height: 4.5rem;
+  min-width: 9rem;
+  padding: 0 1rem;
   background: var(--df-mist-soft);
   border: 1px solid rgba(11, 23, 31, 0.06);
-  transition: transform 300ms var(--df-ease), box-shadow 300ms var(--df-ease);
 }
-.df-logo-cell:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0.875rem 1.75rem rgba(2, 4, 5, 0.45);
-}
-.df-logo-cell__img {
-  max-height: 2.25rem;
-  max-width: 8rem;
+.df-ticker__img {
+  max-height: 1.75rem;
+  max-width: 6.5rem;
   width: auto;
   height: auto;
   object-fit: contain;
-  filter: grayscale(1);
-  opacity: 0.7;
-  transition: opacity 300ms ease, filter 300ms ease;
+  pointer-events: none;
 }
-.df-logo-cell:hover .df-logo-cell__img {
-  opacity: 1;
-  filter: grayscale(0);
+@keyframes df-tick-ltr {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
 }
-.df-logo-cell__caption {
-  position: absolute;
-  bottom: 0.5rem;
-  left: 0.5rem;
-  right: 0.5rem;
-  font-family: var(--font-roobert), Arial, sans-serif;
-  font-size: 0.5625rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--df-ink-soft);
-  text-align: center;
-  opacity: 0;
-  transition: opacity 200ms ease;
+@keyframes df-tick-rtl {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
-.df-logo-cell:hover .df-logo-cell__caption {
-  opacity: 0.7;
+.df-ticker__cell:focus-visible {
+  outline: 2px solid var(--df-signal);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .df-ticker__row {
+    animation: none !important;
+    transform: none !important;
+    /* Static fallback: alle Reihen stacked, kein Overflow-Versteck. */
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .df-ticker__rows {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  /* Zweiter (duplizierter) Track wird ausgeblendet, kein Loop nötig. */
+  .df-ticker__row > .df-ticker__track + .df-ticker__track { display: none; }
 }
 
 /* ── Timeline (3 numbered Kapitel mit spec-fill, alternating bg) ────────── */
@@ -711,10 +737,6 @@
 .df-ref-tile:focus-visible {
   outline: 2px solid var(--df-signal);
   outline-offset: 4px;
-}
-.df-logo-cell:focus-within {
-  outline: 2px solid var(--df-signal);
-  outline-offset: -2px;
 }
 
 /* ── Reduced Motion ────────────────────────────────────────────────────── */

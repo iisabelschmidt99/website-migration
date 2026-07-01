@@ -1,63 +1,74 @@
 import Image from "next/image";
-import { curatedLogos, validHomepageLogos } from "@/components/concepts/shared/logos";
+import { shuffledLogos, splitRows, validHomepageLogos } from "@/components/concepts/shared/logos";
 
-// Konzept F — 7-Spalten Logo-Grid auf abyss mit Hover-Caption.
-// Logos auf hellen Chips (Originalfarbe, kein Invert → keine Blöcke).
+/**
+* Konzept F – Infinite Logo-Ticker.
+*
+* Alle Partner in 3 horizontalen Ticker-Reihen, verschiedene Geschwindigkeiten
+* + Richtungen. Pause on Hover. Architektonisch-dynamisch, fühlt sich „lebendig"
+* an ohne pro-Logo-Spielerei.
+*
+* Reihen aus deterministischem Shuffle (SSR/CSR-stabil). Inhalte werden pro
+* Reihe dupliziert, damit der Loop nahtlos ist (translateX 0 → -50%).
+* Server-Komponente (reine CSS-Animation).
+*/
 
-const GRID = curatedLogos(14);
-const TOTAL = validHomepageLogos.length;
-
-// Caption = simplified company name aus alt (z.B. "Logo: X" → "X").
-function toCaption(alt: string): string {
-  return alt
-    .replace(/^Logo:\s*/i, "")
-    .replace(/^Logo\s+/i, "")
-    .replace(/\s+logo$/i, "")
-    .trim()
-    .split(/\s+/)
-    .slice(0, 2)
-    .join(" ");
-}
+const ROWS = 3;
+const rows = splitRows(shuffledLogos(20260701), ROWS);
 
 export default function LogoGridArchitectural() {
   return (
-    <section
-      className="df-logos"
-      aria-labelledby="df-logos-heading"
-    >
-      <div className="df-logos__inner">
-        <div className="df-logos__header">
+    <section className="df-ticker" aria-labelledby="df-ticker-heading">
+      <div className="df-ticker__inner">
+        <header className="df-ticker__head">
           <div>
-            <p className="df-logos__eyebrow">02 / 03 — Partner</p>
-            <h2
-              id="df-logos-heading"
-              className="df-logos__heading"
-            >
-              Weltweit führenden Unternehmen vertrauen auf Fenyx.
+            <p className="df-ticker__eyebrow">02 / 03 — Partner</p>
+            <h2 id="df-ticker-heading" className="df-ticker__heading">
+              {validHomepageLogos.length} Marken weltweit vertrauen auf Fenyx.
             </h2>
           </div>
-          <p className="df-logos__count">
-            {TOTAL} Partner
-          </p>
-        </div>
+          <p className="df-ticker__meta">— bewegen Sie den Cursor über eine Reihe zum Pausieren</p>
+        </header>
 
-        <ul className="df-logos__grid" role="list">
-          {GRID.map((logo) => (
-            <li key={logo.src} className="df-logo-cell">
-              <Image
-                src={logo.src}
-                alt={logo.alt}
-                width={140}
-                height={36}
-                loading="lazy"
-                className="df-logo-cell__img"
-              />
-              <span className="df-logo-cell__caption">
-                {toCaption(logo.alt)}
-              </span>
-            </li>
+        <div className="df-ticker__rows">
+          {rows.map((rowLogos, r) => (
+            <div
+              key={r}
+              className={`df-ticker__row df-ticker__row--${r % 2 === 0 ? "ltr" : "rtl"}`}
+              style={{ "--df-row-duration": `${38 + r * 14}s` } as React.CSSProperties}
+            >
+              {/* Inhalt doppeln für nahtlosen Loop. */}
+              <ul className="df-ticker__track" role="list" aria-hidden={false}>
+                {rowLogos.map((logo) => (
+                  <li key={logo.src} className="df-ticker__cell">
+                    <Image
+                      src={logo.src}
+                      alt={logo.alt}
+                      width={130}
+                      height={36}
+                      loading="lazy"
+                      className="df-ticker__img"
+                    />
+                  </li>
+                ))}
+              </ul>
+              <ul className="df-ticker__track" role="list" aria-hidden>
+                {rowLogos.map((logo) => (
+                  <li key={`${logo.src}-dup`} className="df-ticker__cell">
+                    <Image
+                      src={logo.src}
+                      alt={logo.alt}
+                      width={130}
+                      height={36}
+                      loading="lazy"
+                      className="df-ticker__img"
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   );
