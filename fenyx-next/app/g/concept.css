@@ -23,11 +23,7 @@
 .dg-ticker .df-ticker__heading {
   color: #fff;
 }
-/* Zellen transparent statt weiß → Logos sichtbar auf dunklem BG */
-.dg-ticker .df-ticker__cell {
-  background: transparent;
-  border-color: rgba(255, 255, 255, 0.08);
-}
+/* Zellen bleiben weiß – nur der Section-Hintergrund ist schwarz */
 .dg-ticker__body {
   font-family: var(--font-roobert), Arial, sans-serif;
   font-size: clamp(0.9375rem, 1.2vw, 1.0625rem);
@@ -53,6 +49,11 @@
 .dg-tl__service-name {
   font-size: clamp(2.25rem, 5.5vw, 4.5rem) !important;
 }
+
+/* ── Logo-Ticker: Heading + Body linksbündig ────────────────────────────── */
+.dg-ticker .df-ticker__head { align-items: flex-start; }
+.dg-ticker .df-ticker__heading { text-align: left; }
+.dg-ticker__body { text-align: left; }
 
 /* ── Intro-Section vor Timeline: weißer Hintergrund ────────────────────── */
 .dg-intro {
@@ -99,7 +100,7 @@
   border-color: #c8ff00;
 }
 
-/* ── Referenzen: weißer Hintergrund + dunkle Texte, breiter ────────────── */
+/* ── Referenzen: weißer Hintergrund + dunkle Texte, breiter, Intro zentriert ── */
 .dg-refs.df-refs {
   background: #fff;
 }
@@ -132,5 +133,12 @@
   margin: 1rem 0 0;
   max-width: 56ch;
 }
+/* Referenzen-Intro: zentriert */
+.dg-refs .df-refs__intro {
+  text-align: center;
+  align-items: center;
+}
+.dg-refs .df-refs__heading { max-width: 100%; }
+.dg-refs .dg-refs__body { max-width: 62ch; margin-left: auto; margin-right: auto; }
 
 /* ContactSection: Original-Farben (kein Override) */
