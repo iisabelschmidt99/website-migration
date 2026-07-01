@@ -1,0 +1,19 @@
+/* ════════════════════════════════════════════════════════════════════════
+   KONZEPT G — Mix: Video-Hero + Logos (f) + Timeline (d) + Referenzen (f)
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* Hero-Übergang: untere Kante des Video-Heros nahtlos zum nächsten Abschnitt */
+.dg-hero-fade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.dg-hero-fade::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: linear-gradient(to bottom, transparent, var(--dd-abyss-deep, #0b171f));
+}
