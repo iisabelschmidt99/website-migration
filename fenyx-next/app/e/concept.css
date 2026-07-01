@@ -247,8 +247,10 @@
 }
 
 /* ── Logo-Galerie (asymmetrisch, Grayscale → Color, alle Partner) ────────── */
+/* Weiß statt mist-soft: einige Logo-Assets haben selbst einen weißen
+   Hintergrund eingebrannt – auf mist-soft wirken die dann wie eigene Kästen. */
 .de-gal {
-  background: var(--de-mist-soft);
+  background: #fff;
   padding: clamp(5rem, 12vw, 9rem) 0;
   border-top: 1px solid var(--de-rule);
   border-bottom: 1px solid var(--de-rule);
@@ -331,8 +333,8 @@
   width: auto;
   height: auto;
   object-fit: contain;
-  filter: grayscale(1);
-  opacity: 0.5;
+  filter: grayscale(0);
+  opacity: 1;
   transition: opacity 320ms ease, filter 320ms ease, transform 320ms ease;
 }
 .de-gal__cell--big .de-gal__img {
@@ -341,8 +343,8 @@
 }
 .de-gal__cell--wide .de-gal__img { max-width: 9rem; }
 .de-gal__cell:hover .de-gal__img {
-  opacity: 1;
-  filter: grayscale(0);
+  opacity: 0.6;
+  filter: grayscale(1);
   transform: scale(1.06);
 }
 .de-gal__cell:focus-visible {

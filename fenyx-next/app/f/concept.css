@@ -347,7 +347,7 @@
   width: max-content;
   /* Zwei Tracks nebeneinander → nahtloser Loop bei translateX -50%. */
   will-change: transform;
-  animation: df-tick var(--df-row-duration, 40s) linear infinite;
+  animation: df-tick var(--df-row-duration, 75s) linear infinite;
 }
 .df-ticker__row--rtl { animation-name: df-tick-rtl; }
 .df-ticker__row--ltr { animation-name: df-tick-ltr; }
@@ -369,7 +369,7 @@
   height: 4.5rem;
   min-width: 9rem;
   padding: 0 1rem;
-  background: var(--df-mist-soft);
+  background: #fff;
   border: 1px solid rgba(11, 23, 31, 0.06);
 }
 .df-ticker__img {

@@ -255,17 +255,12 @@
   }
 }
 
-/* ── Logo-Grid (Reactive Magnetic, dicht, originale Farben) ──────────────── */
+/* ── Logo-Grid (Reactive Magnetic, dicht wie Live-/b, keine Kästen) ─────── */
 .dd-mlogos {
   background: var(--dd-mist-soft);
-  padding: clamp(5rem, 12vw, 9rem) 0;
-  border-top: 1px solid rgba(220, 234, 245, 0.06);
-  border-bottom: 1px solid rgba(220, 234, 245, 0.06);
-}
-.dd-mlogos__inner {
-  max-width: 84rem;
-  margin: 0 auto;
-  padding: 0 clamp(1.5rem, 5vw, 4rem);
+  overflow: visible;
+  border-top: 1px solid rgba(19, 39, 53, 0.08);
+  border-bottom: 1px solid rgba(19, 39, 53, 0.08);
 }
 .dd-mlogos__caption {
   font-family: var(--font-roobert), Arial, sans-serif;
@@ -277,59 +272,65 @@
   margin: 0 0 3rem;
   display: flex;
   align-items: baseline;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
 }
 .dd-mlogos__caption::after {
   content: "";
   flex: 1;
+  min-width: 3rem;
   height: 1px;
   background: rgba(19, 39, 53, 0.18);
 }
 .dd-mlogos__hint {
   color: rgba(19, 39, 53, 0.45);
   letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
 }
 .dd-mlogos__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0.75rem 0;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.5rem;
-  /* Verstärkt den magnetischen Eindruck: Zellen dürfen leicht
-     übergreifen, ohne das Layout zu brechen. */
-  row-gap: 0.25rem;
+  width: 100%;
+  overflow: visible;
+  /* minmax(0,1fr) verhindert Grid-Blowout durch Logo-Minwidths → kein Abschneiden rechts. */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 1rem;
+  row-gap: 2rem;
 }
-@media (min-width: 768px) {
-  .dd-mlogos__grid { grid-template-columns: repeat(7, 1fr); gap: 0.6rem; }
+@media (min-width: 640px) {
+  .dd-mlogos__grid {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    column-gap: 1.75rem;
+    row-gap: 2.75rem;
+  }
 }
 @media (min-width: 1024px) {
-  .dd-mlogos__grid { grid-template-columns: repeat(10, 1fr); gap: 0.7rem; }
-}
-@media (min-width: 1280px) {
-  .dd-mlogos__grid { grid-template-columns: repeat(14, 1fr); }
+  .dd-mlogos__grid {
+    grid-template-columns: repeat(14, minmax(0, 1fr));
+  }
 }
 .dd-mlogo {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 4.5rem;
+  height: 2.25rem;
   padding: 0 0.5rem;
-  background: #fff;
-  border: 1px solid rgba(19, 39, 53, 0.06);
-  /* transform wird per JS gesetzt; Origin = Center für magnetische Skala. */
+  background: transparent;
+  border: none;
   transform-origin: center center;
   will-change: transform;
-  transition: transform 140ms linear, box-shadow 220ms ease;
-  /* Sanfter Übergang, wenn der Cursor das Feld verlässt. */
-}
-.dd-mlogo:hover {
-  box-shadow: 0 0.5rem 1.25rem rgba(11, 23, 31, 0.14);
-  z-index: 2;
+  transition: transform 140ms linear;
 }
 .dd-mlogo__img {
-  max-height: 1.75rem;
-  max-width: 6rem;
+  max-height: 2.25rem;
+  max-width: 4.25rem;
   width: auto;
   height: auto;
   object-fit: contain;
+  object-position: center;
   pointer-events: none;
 }
 .dd-mlogos__grid:focus-within .dd-mlogo {
@@ -337,7 +338,7 @@
 }
 .dd-mlogo:focus-visible {
   outline: 2px solid var(--dd-signal);
-  outline-offset: 2px;
+  outline-offset: 4px;
 }
 
 /* prefers-reduced-motion: statisches Grid, keine Skala. */

@@ -35,7 +35,7 @@ export default function LogoGridArchitectural() {
             <div
               key={r}
               className={`df-ticker__row df-ticker__row--${r % 2 === 0 ? "ltr" : "rtl"}`}
-              style={{ "--df-row-duration": `${38 + r * 14}s` } as React.CSSProperties}
+              style={{ "--df-row-duration": `${75 + r * 30}s` } as React.CSSProperties}
             >
               {/* Inhalt doppeln für nahtlosen Loop. */}
               <ul className="df-ticker__track" role="list" aria-hidden={false}>

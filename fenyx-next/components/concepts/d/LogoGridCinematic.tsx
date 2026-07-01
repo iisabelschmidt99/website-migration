@@ -7,7 +7,7 @@ import { validHomepageLogos } from "@/components/concepts/shared/logos";
 /**
 * Konzept D – Reactive Magnetic Logo-Grid.
 *
-* Dichtes Raster (wie Live-/b, originale Markenfarben auf heller Fläche).
+* Dichtes Raster wie Live-/b — Logos direkt auf mist-soft, ohne Kästen.
 * Wow: jedes Logo skaliert je nach Cursor-Nähe – nah = größer, fern = kleiner.
 * Magnetfeld-Feeling wie macOS Dock.
 *
@@ -107,26 +107,28 @@ export default function LogoGridCinematic() {
   }, []);
 
   return (
-    <section className="dd-mlogos" aria-labelledby="dd-mlogos-heading">
-      <div className="dd-mlogos__inner">
-        <p className="dd-mlogos__caption">
-          <span id="dd-mlogos-heading">Partnerschaften</span>
-          <span className="dd-mlogos__hint">— bewegen Sie den Cursor</span>
-        </p>
-        <ul className="dd-mlogos__grid" role="list" ref={gridRef}>
-          {LOGOS.map((logo) => (
-            <li key={logo.src} className="dd-mlogo">
-              <Image
-                src={logo.src}
-                alt={logo.alt}
-                width={110}
-                height={36}
-                loading="lazy"
-                className="dd-mlogo__img"
-              />
-            </li>
-          ))}
-        </ul>
+    <section className="dd-mlogos wf-padding-section-large" aria-labelledby="dd-mlogos-heading">
+      <div className="wf-padding-global">
+        <div className="wf-container-large">
+          <p className="dd-mlogos__caption">
+            <span id="dd-mlogos-heading">Partnerschaften</span>
+            <span className="dd-mlogos__hint">— bewegen Sie den Cursor</span>
+          </p>
+          <ul className="dd-mlogos__grid" role="list" ref={gridRef}>
+            {LOGOS.map((logo) => (
+              <li key={logo.src} className="dd-mlogo">
+                <Image
+                  src={logo.src}
+                  alt={logo.alt}
+                  width={68}
+                  height={36}
+                  loading="lazy"
+                  className="dd-mlogo__img"
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );
