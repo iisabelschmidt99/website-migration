@@ -10,21 +10,22 @@ const rows = splitRows(shuffledLogos(20260701), ROWS);
 export default function LogoGridArchitecturalG() {
   return (
     <section className="df-ticker dg-ticker" aria-labelledby="dg-ticker-heading">
-      <div className="df-ticker__inner">
-        <header className="df-ticker__head">
-          <div>
-            <h2 id="dg-ticker-heading" className="df-ticker__heading">
-              Diese und viele weitere Unternehmen vertrauen bereits auf Fenyx.
-            </h2>
-            <p className="dg-ticker__body">
-              Führende Unternehmen aus verschiedenen Branchen haben sich für nachhaltige
-              Bürolösungen von Fenyx entschieden und profitieren von messbaren
-              Kosteneinsparungen und zertifizierbarer Nachhaltigkeit.
-            </p>
-          </div>
-        </header>
+      {/* Gleiche Container-Struktur wie dg-intro für exaktes Alignment */}
+      <div className="dg-ticker__head-wrap wf-padding-global">
+        <div className="wf-container-large">
+          <h2 id="dg-ticker-heading" className="df-ticker__heading dg-ticker__heading">
+            Diese und viele weitere Unternehmen vertrauen bereits auf Fenyx.
+          </h2>
+          <p className="dg-ticker__body">
+            Führende Unternehmen aus verschiedenen Branchen haben sich für nachhaltige
+            Bürolösungen von Fenyx entschieden und profitieren von messbaren
+            Kosteneinsparungen und zertifizierbarer Nachhaltigkeit.
+          </p>
+        </div>
+      </div>
+      <div className="df-ticker__inner dg-ticker__rows-wrap">
 
-        <div className="df-ticker__rows">
+          <div className="df-ticker__rows">
           {rows.map((rowLogos, r) => (
             <div
               key={r}
