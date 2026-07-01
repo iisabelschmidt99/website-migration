@@ -22,6 +22,7 @@ import "../d/concept.css";
 import "../f/concept.css";
 import "../g/concept.css";
 import "../h/concept.css";
+import "./concept.css";
 
 export const revalidate = 60;
 
@@ -67,13 +68,31 @@ export default async function ConceptJPage() {
       {/* ── Logos: H-Depth-Wand ───────────────────────────────────── */}
       <LogoWallColumns />
 
-      {/* ── Timeline (g) überlappt die Logo-Wand ──────────────────── */}
-      <div className="dh-timeline-overlap">
-        <TimelineCinematicG
-          bestandImageSrc="/assets/concepts/g/bestandsmanagement-laptop.png"
-          einrichtungImageSrc="/assets/concepts/f/f-hero.png"
-        />
-      </div>
+      {/* ── Intro nach Logos: schwarz auf weiß ─────────────────────── */}
+      <section className="dg-intro" aria-labelledby="dj-intro-heading">
+        <div className="dg-intro__inner wf-padding-global">
+          <div className="wf-container-large">
+            <h2 id="dj-intro-heading" className="dg-intro__heading">
+              Wenn Nachhaltigkeit sich auch wirtschaftlich lohnt.
+            </h2>
+            <p className="dg-intro__body">
+              Nachhaltige Bürotransformation bedeutet mehr als Produktzertifikate.
+              Mit Fenyx gewinnen Sie einen Partner, der Kosteneinsparungen messbar macht,
+              Nachhaltigkeit transparent dokumentiert und Ihr Projekt strukturiert begleitet
+              – von der Analyse bis zur Umsetzung.
+            </p>
+            <a href="/j#kontakt" className="dg-intro__cta">
+              Kontakt aufnehmen <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Timeline (g) ──────────────────────────────────────────── */}
+      <TimelineCinematicG
+        bestandImageSrc="/assets/concepts/g/bestandsmanagement-laptop.png"
+        einrichtungImageSrc="/assets/concepts/f/f-hero.png"
+      />
 
       {/* ── Bekannt aus – Presse ──────────────────────────────────── */}
       <PressMarquee />
