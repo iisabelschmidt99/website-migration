@@ -49,10 +49,18 @@ const CHAPTERS: Chapter[] = [
   },
 ];
 
-export default function TimelineCinematicG() {
+export default function TimelineCinematicG({
+  einrichtungImageSrc = "/assets/concepts/d/d-refs.png",
+}: {
+  /** Optional: überschreibt das Bild des dritten Kapitels (Schlüsselfertige Einrichtung). */
+  einrichtungImageSrc?: string;
+} = {}) {
+  const chapters = CHAPTERS.map((c, i) =>
+    i === 2 ? { ...c, imageSrc: einrichtungImageSrc } : c,
+  );
   return (
     <section className="dd-timeline" aria-label="Leistungen in drei Kapiteln">
-      {CHAPTERS.map((chapter) => (
+      {chapters.map((chapter) => (
         <article
           key={chapter.index}
           className="dd-tl-chapter"
