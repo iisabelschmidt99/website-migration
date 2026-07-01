@@ -17,9 +17,11 @@ const STATIC_SIXTH: ReferenceProject = {
   href: "/referenzen/ernst-klett-verlag",
   heading: "Ernst Klett Verlag",
   eyebrow: "Büroauflösung",
+  tag: "Ganzheitliche Verwertung",
+  body: "Vollständige Abwicklung von der Erstbesichtigung bis zur lückenlosen Übergabedokumentation.",
   imageSrc: "/assets/Referenzen/ernst-klett-verlag.webp",
   imageAlt: "Büroauflösung beim Ernst Klett Verlag.",
-  stats: ["0 % Restentsorgungskosten"],
+  stats: [{ value: "0 %", label: "Restentsorgungskosten" }],
 };
 
 export default function ReferencesArchitecturalG({ projects }: Props) {
