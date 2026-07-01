@@ -13,12 +13,10 @@
   display: none;
 }
 
-/* ── Intro überlappt die Logo-Wand (Logos verschwinden dahinter) ────────── */
-/* Weiße Schrift auf schwarzem Grund */
+/* ── Intro: normaler oberer Rand, kein Überlapp mehr ────────────────────── */
 .dg-page .dg-intro {
   position: relative;
   z-index: 5;
-  margin-top: -22vh;
   background: #000;
 }
 .dg-page .dg-intro__heading {
@@ -26,7 +24,7 @@
   color: #fff;
 }
 .dg-page .dg-intro__inner {
-  padding-top: 0;
+  padding-top: clamp(4rem, 9vw, 7rem);
 }
 .dg-page .dg-intro__body {
   color: rgba(255, 255, 255, 0.72);
