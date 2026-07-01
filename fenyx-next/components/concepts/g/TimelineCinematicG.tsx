@@ -52,14 +52,18 @@ const CHAPTERS: Chapter[] = [
 export default function TimelineCinematicG({
   einrichtungImageSrc = "/assets/concepts/d/d-refs.png",
   bestandImageSrc = "/assets/concepts/d/d-timeline.png",
+  verwertungImageSrc = "/assets/timeline/verwertung-besichtigung.webp",
 }: {
   /** Optional: überschreibt das Bild des dritten Kapitels (Schlüsselfertige Einrichtung). */
   einrichtungImageSrc?: string;
   /** Optional: überschreibt das Bild des ersten Kapitels (Digitales Bestandsmanagement). */
   bestandImageSrc?: string;
+  /** Optional: überschreibt das Bild des zweiten Kapitels (Ganzheitliche Verwertung). */
+  verwertungImageSrc?: string;
 } = {}) {
   const chapters = CHAPTERS.map((c, i) => {
     if (i === 0) return { ...c, imageSrc: bestandImageSrc };
+    if (i === 1) return { ...c, imageSrc: verwertungImageSrc };
     if (i === 2) return { ...c, imageSrc: einrichtungImageSrc };
     return c;
   });

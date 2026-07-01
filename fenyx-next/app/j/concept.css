@@ -9,3 +9,11 @@
 .dg-page .dh-wall-cell {
   height: clamp(7rem, 12vw, 10rem);
 }
+
+/* ── Intro überlappt die Logo-Wand (Logos verschwinden dahinter) ────────── */
+.dg-page .dg-intro {
+  position: relative;
+  z-index: 5;
+  margin-top: -22vh;
+  background: #fff;
+}
