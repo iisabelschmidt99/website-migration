@@ -26,6 +26,8 @@ export type CanonicalWebsiteSession = {
   bot_classification: BotClassification;
   is_bot: boolean;
   reached_lead: boolean;
+  lead_surface: string | null;
+  lead_service_area: string | null;
   page_history: PageHistoryEntry[];
   edge_colo: string | null;
   edge_asn: number | null;
@@ -97,6 +99,8 @@ export function buildCanonicalSessions(
       bot_classification: bot,
       is_bot: bot !== "human",
       reached_lead: j?.reached_lead === true || (f?.leads ?? 0) > 0,
+      lead_surface: j?.lead_surface ?? null,
+      lead_service_area: j?.lead_service_area ?? null,
       page_history: history,
       edge_colo: j?.edge_colo ?? null,
       edge_asn: j?.edge_asn ?? null,

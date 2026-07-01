@@ -554,7 +554,7 @@ export default function AiCrawlControlDashboard({ configured }: { configured: bo
         ))}
       </select>
       <div className="ml-auto flex flex-wrap items-center gap-2">
-        <DateRangeSelector value={dateRange} onChange={setDateRange} />
+        <DateRangeSelector value={dateRange} onChange={setDateRange} label="Zeitraum" />
         <button
           type="button"
           onClick={fetchAll}

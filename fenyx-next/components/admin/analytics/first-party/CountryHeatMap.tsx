@@ -33,23 +33,28 @@ export default function CountryHeatMap({
   const [viewMode, setViewMode] = useState<"map" | "table">("map");
   const [mapScope, setMapScope] = useState<"world" | "dach">("world");
 
+  const knownCountries = useMemo(
+    () => data.filter((country) => country.country_code !== "UNKNOWN"),
+    [data],
+  );
+
   const mapData = useMemo(
     () =>
-      data.map((d) => ({
+      knownCountries.map((d) => ({
         country: d.country_code.toLowerCase(),
         value: d.sessions,
       })) as DataItem[],
-    [data],
+    [knownCountries],
   );
-  const top5 = data.slice(0, 5);
+  const top5 = knownCountries.slice(0, 5);
   const stats = useMemo(() => {
-    const top = data[0];
+    const top = knownCountries[0];
     return {
-      countries: data.length,
+      countries: knownCountries.length,
       topCode: top?.country_code ?? "—",
       topShare: top && totalSessions ? Math.round((top.sessions / totalSessions) * 100) : 0,
     };
-  }, [data, totalSessions]);
+  }, [knownCountries, totalSessions]);
 
   const toggleBtn = (active: boolean) =>
     active ? "bg-signal text-black" : "border border-white/10 text-mist";
@@ -130,7 +135,7 @@ export default function CountryHeatMap({
           <tbody>
             {data.map((row) => (
               <tr key={row.country_code} className="border-b border-white/5">
-                <td className="py-2 text-white">{flag(row.country_code)} {COUNTRY_NAMES[row.country_code] ?? row.country_code}</td>
+                <td className="py-2 text-white">{flag(row.country_code)} {row.country_name}</td>
                 <td className="py-2 text-right text-mist-soft">{row.sessions.toLocaleString("de-DE")}</td>
                 <td className="py-2 text-right text-mist">{totalSessions ? Math.round((row.sessions / totalSessions) * 100) : 0}%</td>
               </tr>

@@ -1,7 +1,48 @@
 import type { CanonicalWebsiteSession } from "./websiteCanonicalAnalytics";
 import type { EventRow, FunnelSessionRow } from "./dashboardTypes";
-import { format, parseISO, startOfDay } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { de } from "date-fns/locale";
+
+const COUNTRY_NAMES: Record<string, string> = {
+  DE: "Deutschland",
+  AT: "Österreich",
+  CH: "Schweiz",
+  US: "USA",
+  GB: "Großbritannien",
+  FR: "Frankreich",
+  NL: "Niederlande",
+  IT: "Italien",
+  ES: "Spanien",
+  PL: "Polen",
+};
+
+/** Fasst aufeinanderfolgende identische Pfade (nach Query-Strip) zu einem Schritt zusammen. */
+export function collapseConsecutivePaths(paths: string[]): string[] {
+  const result: string[] = [];
+  for (const raw of paths) {
+    const path = raw.split("?")[0] || "/";
+    if (result.length === 0 || result[result.length - 1] !== path) {
+      result.push(path);
+    }
+  }
+  return result;
+}
+
+export function countSinglePageSessions(sessions: CanonicalWebsiteSession[]): number {
+  return sessions.filter((session) => {
+    if (!session.page_history.length) return true;
+    return collapseConsecutivePaths(session.page_history.map((page) => page.path)).length <= 1;
+  }).length;
+}
+
+export function isHumanEvent(event: EventRow): boolean {
+  const bot = event.bot_classification;
+  return bot !== "verified_bot" && bot !== "suspected_bot";
+}
+
+export function humanEvents(events: EventRow[]): EventRow[] {
+  return events.filter(isHumanEvent);
+}
 
 export function countByKey(items: string[]): { name: string; value: number }[] {
   const map = new Map<string, number>();
@@ -49,15 +90,28 @@ export function dailyEventTrend(events: EventRow[], eventType: string): { day: s
 export function countryMetrics(sessions: CanonicalWebsiteSession[]) {
   const map = new Map<string, { sessions: number; leads: number }>();
   for (const s of sessions) {
-    const code = (s.country_code ?? "unknown").toUpperCase();
+    const raw = s.country_code?.trim();
+    const code = raw ? raw.toUpperCase() : "UNKNOWN";
     const cur = map.get(code) ?? { sessions: 0, leads: 0 };
     cur.sessions += 1;
     if (s.reached_lead) cur.leads += 1;
     map.set(code, cur);
   }
   return [...map.entries()]
-    .map(([country_code, v]) => ({ country_code, country_name: country_code, sessions: v.sessions, leads: v.leads }))
+    .map(([country_code, v]) => ({
+      country_code,
+      country_name:
+        country_code === "UNKNOWN" ? "Unbekannt" : (COUNTRY_NAMES[country_code] ?? country_code),
+      sessions: v.sessions,
+      leads: v.leads,
+    }))
     .sort((a, b) => b.sessions - a.sessions);
+}
+
+export function topKnownCountry(
+  countries: ReturnType<typeof countryMetrics>,
+): ReturnType<typeof countryMetrics>[number] | undefined {
+  return countries.find((country) => country.country_code !== "UNKNOWN");
 }
 
 export function regionMetrics(sessions: CanonicalWebsiteSession[]) {
@@ -506,12 +560,17 @@ export function funnelKpis(sessions: CanonicalWebsiteSession[], funnel: FunnelSe
 }
 
 export function hourlyEventCounts(events: EventRow[]): { hour: string; page_view: number; consent_update: number; gtm_loaded: number }[] {
-  const map = new Map<string, { page_view: number; consent_update: number; gtm_loaded: number }>();
+  const map = new Map<string, { label: string; page_view: number; consent_update: number; gtm_loaded: number }>();
   for (const e of events) {
     if (!e.event_ts) continue;
-    const hour = format(startOfDay(parseISO(e.event_ts)), "HH:00");
-    const key = format(parseISO(e.event_ts), "yyyy-MM-dd HH:00");
-    const cur = map.get(key) ?? { page_view: 0, consent_update: 0, gtm_loaded: 0 };
+    const ts = parseISO(e.event_ts);
+    const key = format(ts, "yyyy-MM-dd HH:00");
+    const cur = map.get(key) ?? {
+      label: format(ts, "d. HH:mm", { locale: de }),
+      page_view: 0,
+      consent_update: 0,
+      gtm_loaded: 0,
+    };
     if (e.event_type === "page_view") cur.page_view += 1;
     if (e.event_type === "consent_update") cur.consent_update += 1;
     if (e.event_type === "gtm_loaded") cur.gtm_loaded += 1;
@@ -520,5 +579,10 @@ export function hourlyEventCounts(events: EventRow[]): { hour: string; page_view
   return [...map.entries()]
     .sort((a, b) => a[0].localeCompare(b[0]))
     .slice(-48)
-    .map(([hour, v]) => ({ hour: hour.slice(11), ...v }));
+    .map(([, v]) => ({
+      hour: v.label,
+      page_view: v.page_view,
+      consent_update: v.consent_update,
+      gtm_loaded: v.gtm_loaded,
+    }));
 }

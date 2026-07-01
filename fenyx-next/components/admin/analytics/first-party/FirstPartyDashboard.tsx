@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import TabNav from "@/components/admin/analytics/ui/TabNav";
 import OverviewTab from "./OverviewTab";
 import WebsiteSessionExplorer from "./WebsiteSessionExplorer";
@@ -11,11 +11,9 @@ import TrafficTab from "./TrafficTab";
 import LeadsTab from "./LeadsTab";
 import PerformanceTab from "./PerformanceTab";
 import UxSignalsTab from "./UxSignalsTab";
-import type { DateRange } from "@/components/admin/analytics/DateRangeSelector";
-import { filterByDateRange } from "@/components/admin/analytics/DateRangeSelector";
 import type { AnalyticsHubProps } from "@/lib/analytics/dashboardTypes";
+import { humanEvents } from "@/lib/analytics/dashboardMetrics";
 import { buildCanonicalSessions, humanSessions } from "@/lib/analytics/websiteCanonicalAnalytics";
-import { useState } from "react";
 
 const FP_TABS = [
   { id: "overview", label: "Overview" },
@@ -35,23 +33,15 @@ export default function FirstPartyDashboard({
   events,
   journeys,
   funnel,
-  dateRange,
   cruxConfigured,
-}: AnalyticsHubProps & { dateRange: DateRange; cruxConfigured: boolean }) {
+}: AnalyticsHubProps & { cruxConfigured: boolean }) {
   const [tab, setTab] = useState<FpTab>("overview");
 
-  const filteredEvents = useMemo(
-    () => filterByDateRange(events, dateRange, "event_ts"),
-    [events, dateRange],
-  );
-  const filteredJourneys = useMemo(
-    () => filterByDateRange(journeys, dateRange, "updated_at"),
-    [journeys, dateRange],
-  );
+  const humanEventRows = useMemo(() => humanEvents(events), [events]);
 
   const canonical = useMemo(
-    () => humanSessions(buildCanonicalSessions(filteredJourneys, funnel)),
-    [filteredJourneys, funnel],
+    () => humanSessions(buildCanonicalSessions(journeys, funnel)),
+    [journeys, funnel],
   );
 
   return (
@@ -59,15 +49,15 @@ export default function FirstPartyDashboard({
       <TabNav tabs={[...FP_TABS]} active={tab} onChange={setTab} />
       {tab === "overview" ? <OverviewTab sessions={canonical} /> : null}
       {tab === "sessions" ? <WebsiteSessionExplorer sessions={canonical} /> : null}
-      {tab === "pages" ? <PagesTab events={filteredEvents} /> : null}
+      {tab === "pages" ? <PagesTab events={humanEventRows} /> : null}
       {tab === "paths" ? <PathsTab sessions={canonical} /> : null}
-      {tab === "ctas" ? <CtasTab events={filteredEvents} /> : null}
-      {tab === "traffic" ? <TrafficTab sessions={canonical} events={filteredEvents} /> : null}
+      {tab === "ctas" ? <CtasTab events={humanEventRows} /> : null}
+      {tab === "traffic" ? <TrafficTab sessions={canonical} events={humanEventRows} /> : null}
       {tab === "leads" ? <LeadsTab sessions={canonical} /> : null}
       {tab === "performance" ? (
-        <PerformanceTab events={filteredEvents} sessions={canonical} cruxConfigured={cruxConfigured} />
+        <PerformanceTab events={humanEventRows} sessions={canonical} cruxConfigured={cruxConfigured} />
       ) : null}
-      {tab === "ux" ? <UxSignalsTab events={filteredEvents} /> : null}
+      {tab === "ux" ? <UxSignalsTab events={humanEventRows} /> : null}
     </div>
   );
 }

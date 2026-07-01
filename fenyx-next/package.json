@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "test:analytics:e2e": "node scripts/test-analytics-e2e.mjs",
+    "test:analytics:screenshots": "node scripts/capture-analytics-screenshots.mjs",
     "cf:whoami": "node scripts/cf-whoami.mjs",
     "cf:deploy-worker": "node scripts/cf-whoami.mjs && node scripts/deploy-analytics-worker-cf.mjs"
   },

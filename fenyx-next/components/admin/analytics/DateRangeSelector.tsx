@@ -1,63 +1,66 @@
 "use client";
 
-export type DateRange = { from: Date; to: Date; label: string };
+import { useRouter, useSearchParams } from "next/navigation";
+import {
+  RANGE_PRESETS,
+  type DateRange,
+  type RangePresetId,
+  getDefaultDateRange,
+  parseRangePreset,
+  presetToRange,
+  rangePresetToDateRange,
+} from "@/lib/analytics/dateRange";
 
-const PRESETS: { label: string; hours: number }[] = [
-  { label: "Heute", hours: 24 },
-  { label: "7 Tage", hours: 24 * 7 },
-  { label: "30 Tage", hours: 24 * 30 },
-  { label: "90 Tage", hours: 24 * 90 },
-];
+export type { DateRange, RangePresetId };
+export {
+  RANGE_PRESETS,
+  getDefaultDateRange,
+  parseRangePreset,
+  presetToRange,
+  rangePresetToDateRange,
+  resolveRangeHours,
+} from "@/lib/analytics/dateRange";
 
-export function getDefaultDateRange(): DateRange {
-  const to = new Date();
-  const from = new Date(Date.now() - 24 * 60 * 60 * 1000);
-  return { from, to, label: "Letzte 24 Stunden" };
-}
+type Props = {
+  value?: DateRange;
+  onChange?: (range: DateRange) => void;
+  label?: string;
+};
 
-export function presetToRange(hours: number, label: string): DateRange {
-  const to = new Date();
-  const from = new Date(Date.now() - hours * 60 * 60 * 1000);
-  return { from, to, label };
-}
+export default function DateRangeSelector({ value, onChange, label = "Zeitraum · First-Party" }: Props) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const isControlled = value != null && onChange != null;
+  const activePreset = isControlled
+    ? (RANGE_PRESETS.find((preset) => preset.label === value.label) ?? RANGE_PRESETS[0])
+    : parseRangePreset(searchParams.get("range"));
 
-export default function DateRangeSelector({
-  value,
-  onChange,
-}: {
-  value: DateRange;
-  onChange: (range: DateRange) => void;
-}) {
+  const setRange = (id: RangePresetId) => {
+    const preset = parseRangePreset(id);
+    if (isControlled) {
+      onChange(presetToRange(preset.hours, preset.label));
+      return;
+    }
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("range", id);
+    router.replace(`/admin/analytics?${params.toString()}`);
+  };
+
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <span className="text-xs uppercase tracking-[0.12em] text-mist">Zeitraum</span>
-      {PRESETS.map((p) => (
+      <span className="text-xs uppercase tracking-[0.12em] text-mist">{label}</span>
+      {RANGE_PRESETS.map((preset) => (
         <button
-          key={p.label}
+          key={preset.id}
           type="button"
-          onClick={() => onChange(presetToRange(p.hours, p.label))}
+          onClick={() => setRange(preset.id)}
           className={`px-3 py-1.5 text-xs font-bold uppercase tracking-[0.1em] ${
-            value.label === p.label ? "bg-signal text-black" : "border border-white/10 text-mist"
+            activePreset.id === preset.id ? "bg-signal text-black" : "border border-white/10 text-mist"
           }`}
         >
-          {p.label}
+          {preset.label}
         </button>
       ))}
     </div>
   );
-}
-
-export function filterByDateRange<T>(
-  items: T[],
-  range: DateRange,
-  key: keyof T,
-): T[] {
-  const fromMs = range.from.getTime();
-  const toMs = range.to.getTime();
-  return items.filter((item) => {
-    const raw = item[key] as string | null | undefined;
-    if (!raw) return true;
-    const t = new Date(raw).getTime();
-    return t >= fromMs && t <= toMs;
-  });
 }

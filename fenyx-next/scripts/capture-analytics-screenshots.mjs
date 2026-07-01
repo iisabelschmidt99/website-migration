@@ -22,6 +22,9 @@ const SHOTS = [
   { file: "04-first-party-paths", url: `${BASE}/admin/analytics?group=first-party`, clickTab: "Paths" },
   { file: "04b-first-party-performance", url: `${BASE}/admin/analytics?group=first-party`, clickTab: "Performance" },
   { file: "04c-first-party-ux", url: `${BASE}/admin/analytics?group=first-party`, clickTab: "UX Signals" },
+  { file: "04d-first-party-leads", url: `${BASE}/admin/analytics?group=first-party`, clickTab: "Leads" },
+  { file: "04e-first-party-overview-30d", url: `${BASE}/admin/analytics?group=first-party&range=30d` },
+  { file: "04f-first-party-paths-90d", url: `${BASE}/admin/analytics?group=first-party&range=90d`, clickTab: "Paths" },
   { file: "05-third-party-gtm", url: `${BASE}/admin/analytics?group=third-party&tab=gtm` },
   { file: "06-third-party-tracking", url: `${BASE}/admin/analytics?group=third-party&tab=tracking` },
   { file: "07-cloudflare-zone", url: `${BASE}/admin/analytics?group=cloudflare&tab=zone` },
@@ -206,7 +209,7 @@ async function captureAll(cookieName, session) {
         returnByValue: true,
       });
 
-      const probeVal = probe.result?.value ?? {};
+      const probeVal = (probe.result?.result ?? probe.result)?.value ?? {};
       const png = await send("Page.captureScreenshot", { format: "png", fromSurface: true });
       const file = path.join(OUT, `${shot.file}.png`);
       writeFileSync(file, Buffer.from(png.result.data, "base64"));

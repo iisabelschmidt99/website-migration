@@ -1,10 +1,19 @@
 import { Suspense } from "react";
 import AnalyticsHub from "@/components/admin/analytics/AnalyticsHub";
+import { resolveRangeHours } from "@/lib/analytics/dateRange";
 import { createClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
 
-export default async function AdminAnalytics() {
+type PageProps = {
+  searchParams: Promise<{ range?: string; group?: string; tab?: string }>;
+};
+
+export default async function AdminAnalytics({ searchParams }: PageProps) {
+  const params = await searchParams;
+  const rangeKey = params.range ?? "1d";
+  const fromIso = new Date(Date.now() - resolveRangeHours(rangeKey) * 60 * 60 * 1000).toISOString();
+
   const supabase = await createClient();
   const [eventsResult, funnelResult, journeysResult] = await Promise.all([
     supabase
@@ -13,6 +22,7 @@ export default async function AdminAnalytics() {
       .select(
         "session_hash,page_visit_id,event_ts,event_type,page_path,page_type,service_area,traffic_source_category,device_type,country_code,region_code,event_data,quality_flags,bot_classification",
       )
+      .gte("event_ts", fromIso)
       .order("event_ts", { ascending: false })
       .limit(8000),
     supabase
@@ -21,6 +31,7 @@ export default async function AdminAnalytics() {
       .select(
         "session_hash,status,primary_service_area,traffic_source_category,device_type,country_code,region_code,bot_classification,page_views,cta_clicks,contact_form_views,leads",
       )
+      .gte("updated_at", fromIso)
       .order("updated_at", { ascending: false })
       .limit(3000),
     supabase
@@ -29,7 +40,8 @@ export default async function AdminAnalytics() {
       .select(
         "session_hash,landing_page,landing_time,original_referrer,utm_source,utm_medium,utm_campaign,gclid,fbclid,traffic_source_category,device_type,country_code,region_code,region,bot_classification,verified_bot,page_history,web_vitals,reached_lead,lead_surface,lead_service_area,consent_analytics,consent_marketing,edge_colo,edge_asn,updated_at",
       )
-      .order("updated_at", { ascending: false })
+      .gte("landing_time", fromIso)
+      .order("landing_time", { ascending: false })
       .limit(5000),
   ]);
 
@@ -52,6 +64,7 @@ export default async function AdminAnalytics() {
           events={(eventsResult.data ?? []) as never}
           journeys={(journeysResult.data ?? []) as never}
           funnel={(funnelResult.data ?? []) as never}
+          rangeKey={rangeKey}
           cruxConfigured={Boolean(process.env.GOOGLE_CWV_API_KEY || process.env.GOOGLE_CRUX_API_KEY)}
           gtmConfigured={Boolean(process.env.NEXT_PUBLIC_GTM_ID)}
           cloudflareConfigured={Boolean(process.env.CLOUDFLARE_API_TOKEN && process.env.CLOUDFLARE_ZONE_ID)}

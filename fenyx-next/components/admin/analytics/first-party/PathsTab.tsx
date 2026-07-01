@@ -2,9 +2,14 @@
 
 import { useMemo } from "react";
 import TabIntro from "@/components/admin/analytics/ui/TabIntro";
+import MetricRow from "@/components/admin/analytics/ui/MetricRow";
 import EnhancedPathAnalysis from "./EnhancedPathAnalysis";
 import type { CanonicalWebsiteSession } from "@/lib/analytics/websiteCanonicalAnalytics";
-import { buildDropOffPages, buildEntryPageMetrics } from "@/lib/analytics/dashboardMetrics";
+import {
+  buildDropOffPages,
+  buildEntryPageMetrics,
+  countSinglePageSessions,
+} from "@/lib/analytics/dashboardMetrics";
 
 function shortPath(path: string): string {
   if (path.length <= 48) return path;
@@ -14,6 +19,7 @@ function shortPath(path: string): string {
 export default function PathsTab({ sessions }: { sessions: CanonicalWebsiteSession[] }) {
   const entryPages = useMemo(() => buildEntryPageMetrics(sessions).slice(0, 15), [sessions]);
   const dropOffs = useMemo(() => buildDropOffPages(sessions).slice(0, 10), [sessions]);
+  const singlePageCount = useMemo(() => countSinglePageSessions(sessions), [sessions]);
   const leadHashes = useMemo(
     () => new Set(sessions.filter((session) => session.reached_lead).map((session) => session.session_hash)),
     [sessions],
@@ -25,6 +31,21 @@ export default function PathsTab({ sessions }: { sessions: CanonicalWebsiteSessi
         title="Pfade & Journeys"
         description="Welche Seitenfolgen führen zu Leads — und wo brechen Besucher ohne Lead ab?"
         hint="Nicht einzelne Seiten-Views (→ Pages), sondern Reihenfolgen über mehrere Seiten in einer Session."
+      />
+
+      <MetricRow
+        items={[
+          { label: "Sessions", value: sessions.length },
+          { label: "Ein-Seiten (Bounce)", value: singlePageCount },
+          { label: "Multi-Seiten", value: Math.max(0, sessions.length - singlePageCount) },
+          {
+            label: "Bounce-Rate",
+            value: sessions.length
+              ? `${Math.round((singlePageCount / sessions.length) * 1000) / 10}%`
+              : "0%",
+          },
+          { label: "Mit Lead", value: sessions.filter((session) => session.reached_lead).length },
+        ]}
       />
 
       <EnhancedPathAnalysis sessions={sessions} completedSessionHashes={leadHashes} />

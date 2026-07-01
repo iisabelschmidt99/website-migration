@@ -71,6 +71,7 @@ export type AnalyticsHubProps = {
   events: EventRow[];
   journeys: JourneySessionRow[];
   funnel: FunnelSessionRow[];
+  rangeKey?: string;
   cruxConfigured: boolean;
   gtmConfigured: boolean;
   cloudflareConfigured: boolean;

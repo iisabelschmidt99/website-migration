@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { collapseConsecutivePaths } from "@/lib/analytics/dashboardMetrics";
 import type { CanonicalWebsiteSession } from "@/lib/analytics/websiteCanonicalAnalytics";
 
 type FilterType = "all" | "converted" | "abandoned";
@@ -64,7 +65,11 @@ export default function EnhancedPathAnalysis({
       if (filter === "converted" && !isConverted) continue;
       if (filter === "abandoned" && isConverted) continue;
 
-      const simplifiedPaths = session.page_history.slice(0, 5).map((page) => page.path.split("?")[0]);
+      const simplifiedPaths = collapseConsecutivePaths(
+        session.page_history.slice(0, 5).map((page) => page.path),
+      );
+      if (simplifiedPaths.length < 2) continue;
+
       const patternKey = simplifiedPaths.join(" → ");
 
       if (!patterns.has(patternKey)) {

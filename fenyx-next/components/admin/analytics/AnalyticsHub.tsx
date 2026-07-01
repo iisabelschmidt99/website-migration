@@ -1,8 +1,8 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import DateRangeSelector, { getDefaultDateRange, type DateRange } from "./DateRangeSelector";
+import DateRangeSelector from "./DateRangeSelector";
 import TabNav from "./ui/TabNav";
 import FirstPartyDashboard from "./first-party/FirstPartyDashboard";
 import ZoneOverviewPanel from "./cloudflare/ZoneOverviewPanel";
@@ -37,7 +37,6 @@ export default function AnalyticsHub(props: AnalyticsHubProps) {
   const searchParams = useSearchParams();
   const group = (searchParams.get("group") as GroupId) || "first-party";
   const subTab = searchParams.get("tab") ?? "";
-  const [dateRange, setDateRange] = useState<DateRange>(getDefaultDateRange);
 
   const setGroup = useCallback(
     (g: GroupId, defaultTab?: string) => {
@@ -87,14 +86,18 @@ export default function AnalyticsHub(props: AnalyticsHubProps) {
         ))}
       </div>
 
-      <DateRangeSelector value={dateRange} onChange={setDateRange} />
-
       {group === "first-party" ? (
-        <FirstPartyDashboard {...props} dateRange={dateRange} cruxConfigured={props.cruxConfigured} />
+        <>
+          <DateRangeSelector />
+          <FirstPartyDashboard {...props} cruxConfigured={props.cruxConfigured} />
+        </>
       ) : null}
 
       {group === "third-party" ? (
         <div className="space-y-6">
+          <p className="text-xs text-mist">
+            Third-Party-Daten sind live (GTM API) bzw. ohne Zeitraum-Filter (Tracking Health · letzte Events).
+          </p>
           <TabNav tabs={[...TP_TABS]} active={tpTab} onChange={setSubTab} />
           {tpTab === "gtm" ? <GtmHealthPanel configured={props.gtmConfigured} /> : null}
           {tpTab === "tracking" ? <TrackingHealthPanel events={props.events} /> : null}
@@ -103,6 +106,9 @@ export default function AnalyticsHub(props: AnalyticsHubProps) {
 
       {group === "cloudflare" ? (
         <div className="space-y-6">
+          <p className="text-xs text-mist">
+            Cloudflare-Daten nutzen eigene Zeitfenster (Zone Overview: 24h Live-API).
+          </p>
           <TabNav tabs={[...CF_TABS]} active={cfTab} onChange={setSubTab} />
           {cfTab === "zone" ? <ZoneOverviewPanel configured={props.cloudflareConfigured} /> : null}
           {cfTab === "ai-crawl" ? <AiCrawlControlDashboard configured={props.cloudflareConfigured} /> : null}
