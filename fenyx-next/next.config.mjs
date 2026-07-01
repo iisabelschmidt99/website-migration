@@ -1,3 +1,5 @@
+import { exportRedirects } from "./redirects.data.mjs";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -69,6 +71,8 @@ const nextConfig = {
         permanent: true,
       },
       ...cityRedirects,
+      // 301-Redirects aus dem SEO-Export (fenyx-live-2026-06-26.csv), auf Live-Routen aufgelöst.
+      ...exportRedirects,
     ];
   },
 };

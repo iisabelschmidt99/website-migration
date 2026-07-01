@@ -9,11 +9,13 @@ type LifecycleTrackProps = {
   children: React.ReactNode;
   /** Anzahl grüner Punkte entlang der Linie (Standard: 3). */
   dotCount?: number;
+  className?: string;
 };
 
 export default function LifecycleTrack({
   children,
   dotCount = 3,
+  className = "",
 }: LifecycleTrackProps) {
   const trackRef = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
@@ -75,10 +77,32 @@ export default function LifecycleTrack({
       }
 
       const drawnLength = pathLengthRef.current * progress;
+      const viewportCenter = window.innerHeight / 2;
+      const cards = getCards();
+      let landedIndex = -1;
+      let landedDist = Infinity;
+
+      cards.forEach((card, i) => {
+        const cardRect = card.getBoundingClientRect();
+        const cardCenter = cardRect.top + cardRect.height / 2;
+        const dist = Math.abs(cardCenter - viewportCenter);
+        if (dist < landedDist) {
+          landedDist = dist;
+          landedIndex = i;
+        }
+      });
+
+      const isLanded = landedDist < window.innerHeight * 0.28;
+
       getDots().forEach((dot, i) => {
         const isActive =
           reducedMotion || drawnLength >= dotPositionsRef.current[i] - 8;
         dot.classList.toggle("is-active", isActive);
+        dot.classList.toggle(
+          "is-landed",
+          isLanded && i === landedIndex && isActive,
+        );
+        dot.setAttribute("r", isLanded && i === landedIndex ? "7" : "5");
       });
     }
 
@@ -120,7 +144,11 @@ export default function LifecycleTrack({
   }, []);
 
   return (
-    <div id="lifecycle-track" ref={trackRef} className="relative">
+    <div
+      id="lifecycle-track"
+      ref={trackRef}
+      className={`relative${className ? ` ${className}` : ""}`}
+    >
       <div className="lifecycle-line hidden lg:block" aria-hidden="true">
         <svg className="lifecycle-svg" xmlns="http://www.w3.org/2000/svg">
           <path ref={pathRef} id="lifecycle-path" d="M 2 0 L 2 100" />

@@ -347,3 +347,93 @@ create policy "Events: öffentlich lesen (published)" on public.events
 drop policy if exists "Events: Redaktion schreibt" on public.events;
 create policy "Events: Redaktion schreibt" on public.events
   for all using (public.is_staff()) with check (public.is_staff());
+
+-- ============================================================================
+-- 11) LANDING PAGES – Standort/Location (Einrichtung LPs, Ankauf LPs)
+-- Eine generische Tabelle für beide Collections (Spalte `collection`).
+-- ============================================================================
+create table if not exists public.landing_locations (
+  id                uuid primary key default gen_random_uuid(),
+  collection        text not null,                 -- z.B. 'einrichtung-standorte' | 'ankauf'
+  slug              text not null,
+  title             text,
+  h1                text,
+  hero_image_url    text,
+  hero_image_alt    text,
+  meta_title        text,
+  meta_description  text,
+  section1_html     text,                           -- Sektion 1 RTE (HTML aus Webflow)
+  section2_html     text,                           -- Sektion 2 RTE (HTML)
+  map_embed         text,                           -- Google-Maps-iFrame (roh, optional)
+  schema_markup     text,                           -- JSON-LD
+  published         boolean not null default false,
+  published_at      timestamptz,
+  sort_order        integer not null default 0,
+  created_at        timestamptz not null default now(),
+  updated_at        timestamptz not null default now(),
+  unique (collection, slug)                         -- Slug „aachen" existiert je Collection
+);
+
+create index if not exists landing_locations_pub_idx
+  on public.landing_locations (collection, published, sort_order);
+
+drop trigger if exists landing_locations_set_updated_at on public.landing_locations;
+create trigger landing_locations_set_updated_at
+  before update on public.landing_locations
+  for each row execute function public.set_updated_at();
+
+alter table public.landing_locations enable row level security;
+
+drop policy if exists "Landing-Standorte: öffentlich lesen (published)" on public.landing_locations;
+create policy "Landing-Standorte: öffentlich lesen (published)" on public.landing_locations
+  for select using (published = true or public.is_staff());
+
+drop policy if exists "Landing-Standorte: Redaktion schreibt" on public.landing_locations;
+create policy "Landing-Standorte: Redaktion schreibt" on public.landing_locations
+  for all using (public.is_staff()) with check (public.is_staff());
+
+-- ============================================================================
+-- 12) LANDING PAGES – Themen (Büroauflösungen, Büroeinrichtungen, Büromöbel kaufen, Büroplanung)
+-- Artikelartige SEO-Seiten mit Rich-Text + inline-FAQ. Generische Tabelle.
+-- ============================================================================
+create table if not exists public.landing_topics (
+  id                uuid primary key default gen_random_uuid(),
+  collection        text not null,        -- 'bueroaufloesung' | 'bueroeinrichtung' | 'kauf' | 'bueroplanung'
+  slug              text not null,
+  title             text,
+  meta_title        text,
+  meta_description  text,
+  main_image_url    text,
+  main_image_alt    text,
+  post_summary      text,
+  author            text,
+  body_html         text,                  -- kombinierte rte-Felder (HTML)
+  faq_title         text,
+  faq_description   text,
+  faq               jsonb not null default '[]'::jsonb,  -- {question, answer}[]
+  schema_markup     text,
+  published         boolean not null default false,
+  published_at      timestamptz,
+  sort_order        integer not null default 0,
+  created_at        timestamptz not null default now(),
+  updated_at        timestamptz not null default now(),
+  unique (collection, slug)
+);
+
+create index if not exists landing_topics_pub_idx
+  on public.landing_topics (collection, published, sort_order);
+
+drop trigger if exists landing_topics_set_updated_at on public.landing_topics;
+create trigger landing_topics_set_updated_at
+  before update on public.landing_topics
+  for each row execute function public.set_updated_at();
+
+alter table public.landing_topics enable row level security;
+
+drop policy if exists "Landing-Themen: öffentlich lesen (published)" on public.landing_topics;
+create policy "Landing-Themen: öffentlich lesen (published)" on public.landing_topics
+  for select using (published = true or public.is_staff());
+
+drop policy if exists "Landing-Themen: Redaktion schreibt" on public.landing_topics;
+create policy "Landing-Themen: Redaktion schreibt" on public.landing_topics
+  for all using (public.is_staff()) with check (public.is_staff());

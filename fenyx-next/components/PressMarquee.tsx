@@ -6,6 +6,10 @@ type Logo = { alt: string; src: string };
 type PressMarqueeProps = {
   heading?: string;
   logos?: Logo[];
+  /** Zusätzliche Section-Klassen (z. B. weniger Abstand oben). */
+  className?: string;
+  /** Hintergrund-Token, Standard: bg-black-gradient */
+  bgClassName?: string;
 };
 
 function LogoRow({ logos, hidden }: { logos: Logo[]; hidden?: boolean }) {
@@ -37,11 +41,13 @@ function LogoRow({ logos, hidden }: { logos: Logo[]; hidden?: boolean }) {
 export default function PressMarquee({
   heading = "Fenyx ist bekannt aus",
   logos = pressLogos,
+  className = "",
+  bgClassName = "bg-black-gradient",
 }: PressMarqueeProps) {
   return (
     <section
       id="bekannt-aus"
-      className="wf-padding-section-small bg-black-gradient overflow-hidden"
+      className={`wf-padding-section-small overflow-hidden ${bgClassName} ${className}`.trim()}
       aria-labelledby="bekannt-aus-heading"
     >
       <div className="wf-padding-global mb-12 sm:mb-16">

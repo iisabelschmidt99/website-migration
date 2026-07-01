@@ -8,6 +8,7 @@ export default function LifecycleSection() {
     <section
       id="leistungen"
       className="wf-padding-section-medium bg-white overflow-hidden"
+      style={{ paddingBottom: 0 }}
       aria-labelledby="leistungen-heading"
     >
       <div className="wf-padding-global">
@@ -49,17 +50,6 @@ export default function LifecycleSection() {
           href="/bestandsmanagement"
           align="left"
         />
-
-        <div className="wf-padding-global my-6 lg:my-8">
-          <div className="max-w-md mx-auto p-6 sm:p-8 bg-abyss-deep border border-white/10 text-white text-center">
-            <h3 className="wf-heading-h4 mb-2">Optimierte Flächennutzung</h3>
-            <p className="text-mist text-sm leading-relaxed">
-              Unterschätzte Potenziale in Ihrer Bürofläche werden sichtbar und
-              in greifbare Handlungsfelder übersetzt, um Räume effektiver zu
-              gestalten.
-            </p>
-          </div>
-        </div>
 
         <LifecycleCard
           id="verwertung"
