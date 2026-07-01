@@ -26,7 +26,14 @@ const STATIC_SIXTH: ReferenceProject = {
 
 export default function ReferencesArchitecturalG({ projects }: Props) {
   const base = projects.slice(0, 5);
-  const tiles = (base.length < 6 ? [...base, STATIC_SIXTH] : projects.slice(0, 6)).map(
+  const ordered = (base.length < 6 ? [...base, STATIC_SIXTH] : projects.slice(0, 6));
+  // Universal (Index 3) und Reneo (Index 0) tauschen
+  if (ordered.length > 3) {
+    const tmp = ordered[0];
+    ordered[0] = ordered[3];
+    ordered[3] = tmp;
+  }
+  const tiles = ordered.map(
     (p) =>
       p.href.includes("reneo-group")
         ? {
@@ -70,7 +77,8 @@ export default function ReferencesArchitecturalG({ projects }: Props) {
                   alt={project.imageAlt}
                   fill
                   className="object-cover object-center df-ref-tile__img"
-                  sizes={span === "big" ? "(max-width: 768px) 100vw, 50vw" : "(max-width: 768px) 100vw, 25vw"}
+                  sizes={span === "big" ? "(max-width: 768px) 100vw, 60vw" : "(max-width: 768px) 100vw, 30vw"}
+                  quality={100}
                   loading="lazy"
                 />
               </ClipReveal>
