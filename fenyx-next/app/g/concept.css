@@ -50,10 +50,21 @@
   font-size: clamp(2.25rem, 5.5vw, 4.5rem) !important;
 }
 
-/* ── Logo-Ticker: Heading + Body linksbündig ────────────────────────────── */
+/* ── Logo-Ticker: gleicher Container wie Intro-Section ──────────────────── */
+.dg-ticker .df-ticker__inner {
+  max-width: 96rem;
+  padding-left: 5%;
+  padding-right: 5%;
+}
 .dg-ticker .df-ticker__head { align-items: flex-start; }
 .dg-ticker .df-ticker__heading { text-align: left; }
 .dg-ticker__body { text-align: left; }
+
+/* Logos breiter */
+.dg-ticker .df-ticker__cell {
+  min-width: 12rem;
+  padding: 0 1.5rem;
+}
 
 /* ── Intro-Section vor Timeline: weißer Hintergrund ────────────────────── */
 .dg-intro {
