@@ -26,7 +26,16 @@ const STATIC_SIXTH: ReferenceProject = {
 
 export default function ReferencesArchitecturalG({ projects }: Props) {
   const base = projects.slice(0, 5);
-  const tiles = base.length < 6 ? [...base, STATIC_SIXTH] : projects.slice(0, 6);
+  const tiles = (base.length < 6 ? [...base, STATIC_SIXTH] : projects.slice(0, 6)).map(
+    (p) =>
+      p.href.includes("reneo-group")
+        ? {
+            ...p,
+            imageSrc: "/assets/Referenzen/reneo-reception.png",
+            imageAlt: "Empfangsbereich der Reneo Group mit reneo-Logo an der Wand.",
+          }
+        : p,
+  );
 
   return (
     <section className="df-refs dg-refs df-root" aria-labelledby="dg-refs-heading">
