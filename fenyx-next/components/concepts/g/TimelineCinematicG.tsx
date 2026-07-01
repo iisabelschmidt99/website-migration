@@ -51,13 +51,18 @@ const CHAPTERS: Chapter[] = [
 
 export default function TimelineCinematicG({
   einrichtungImageSrc = "/assets/concepts/d/d-refs.png",
+  bestandImageSrc = "/assets/concepts/d/d-timeline.png",
 }: {
   /** Optional: überschreibt das Bild des dritten Kapitels (Schlüsselfertige Einrichtung). */
   einrichtungImageSrc?: string;
+  /** Optional: überschreibt das Bild des ersten Kapitels (Digitales Bestandsmanagement). */
+  bestandImageSrc?: string;
 } = {}) {
-  const chapters = CHAPTERS.map((c, i) =>
-    i === 2 ? { ...c, imageSrc: einrichtungImageSrc } : c,
-  );
+  const chapters = CHAPTERS.map((c, i) => {
+    if (i === 0) return { ...c, imageSrc: bestandImageSrc };
+    if (i === 2) return { ...c, imageSrc: einrichtungImageSrc };
+    return c;
+  });
   return (
     <section className="dd-timeline" aria-label="Leistungen in drei Kapiteln">
       {chapters.map((chapter) => (
