@@ -1,72 +1,87 @@
 "use client";
 
 import { useMemo } from "react";
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
-import ChartCard from "@/components/admin/analytics/ui/ChartCard";
-import FenyxTooltip from "@/components/admin/analytics/ui/FenyxTooltip";
+import TabIntro from "@/components/admin/analytics/ui/TabIntro";
+import EnhancedPathAnalysis from "./EnhancedPathAnalysis";
 import type { CanonicalWebsiteSession } from "@/lib/analytics/websiteCanonicalAnalytics";
-import { SIGNAL } from "@/components/admin/analytics/ui/chartTheme";
+import { buildDropOffPages, buildEntryPageMetrics } from "@/lib/analytics/dashboardMetrics";
+
+function shortPath(path: string): string {
+  if (path.length <= 48) return path;
+  return `…${path.slice(-46)}`;
+}
 
 export default function PathsTab({ sessions }: { sessions: CanonicalWebsiteSession[] }) {
-  const entryPages = useMemo(() => {
-    const map = new Map<string, { total: number; engaged: number; leads: number }>();
-    for (const s of sessions) {
-      const path = s.landing_page || "/";
-      const cur = map.get(path) ?? { total: 0, engaged: 0, leads: 0 };
-      cur.total += 1;
-      if (s.status !== "bounced") cur.engaged += 1;
-      if (s.reached_lead) cur.leads += 1;
-      map.set(path, cur);
-    }
-    return [...map.entries()]
-      .map(([path, v]) => ({
-        path,
-        total: v.total,
-        engagedPct: v.total ? Math.round((v.engaged / v.total) * 100) : 0,
-        leadPct: v.total ? Math.round((v.leads / v.total) * 100) : 0,
-      }))
-      .sort((a, b) => b.total - a.total)
-      .slice(0, 15);
-  }, [sessions]);
-
-  const dropOffs = useMemo(() => {
-    const map = new Map<string, number>();
-    for (const s of sessions) {
-      if (s.reached_lead || s.status === "bounced") continue;
-      const last = s.page_history[s.page_history.length - 1]?.path ?? s.landing_page;
-      if (last) map.set(last, (map.get(last) ?? 0) + 1);
-    }
-    return [...map.entries()].map(([path, count]) => ({ path, count })).sort((a, b) => b.count - a.count).slice(0, 10);
-  }, [sessions]);
+  const entryPages = useMemo(() => buildEntryPageMetrics(sessions).slice(0, 15), [sessions]);
+  const dropOffs = useMemo(() => buildDropOffPages(sessions).slice(0, 10), [sessions]);
+  const leadHashes = useMemo(
+    () => new Set(sessions.filter((session) => session.reached_lead).map((session) => session.session_hash)),
+    [sessions],
+  );
 
   return (
     <div className="space-y-6">
+      <TabIntro
+        title="Pfade & Journeys"
+        description="Welche Seitenfolgen führen zu Leads — und wo brechen Besucher ohne Lead ab?"
+        hint="Nicht einzelne Seiten-Views (→ Pages), sondern Reihenfolgen über mehrere Seiten in einer Session."
+      />
+
+      <EnhancedPathAnalysis sessions={sessions} completedSessionHashes={leadHashes} />
+
       <div className="border border-white/10 bg-white/[0.02] p-5">
-        <h3 className="mb-4 text-sm font-semibold text-white">Einstiegsseiten</h3>
-        <div className="space-y-3">
-          {entryPages.map((p) => (
-            <div key={p.path}>
-              <div className="mb-1 flex justify-between text-xs text-mist">
-                <span className="truncate text-mist-soft">{p.path}</span>
-                <span>{p.total} Sessions</span>
+        <h3 className="mb-1 text-sm font-semibold text-white">Drop-off Seiten</h3>
+        <p className="mb-4 text-xs text-mist">Letzte Seite vor Session-Ende — ohne Lead und ohne Bounce.</p>
+        {dropOffs.length === 0 ? (
+          <p className="py-8 text-center text-sm text-mist">Noch keine Drop-off-Daten.</p>
+        ) : (
+          <div className="space-y-2">
+            {dropOffs.map((row, idx) => (
+              <div key={row.page} className="flex items-center gap-3 border border-white/5 bg-abyss-deep p-3">
+                <span className="flex h-6 w-6 items-center justify-center bg-signal/15 text-xs font-bold text-signal">
+                  {idx + 1}
+                </span>
+                <code className="min-w-0 flex-1 truncate border border-white/10 px-2 py-1 text-xs text-mist-soft">
+                  {shortPath(row.page)}
+                </code>
+                <span className="text-sm font-semibold text-white">{row.count}</span>
               </div>
-              <div className="flex h-2 overflow-hidden bg-abyss-deep">
-                <div className="bg-signal" style={{ width: `${p.leadPct}%` }} title={`Lead ${p.leadPct}%`} />
-                <div className="bg-mist/40" style={{ width: `${Math.max(0, p.engagedPct - p.leadPct)}%` }} title={`Engaged ${p.engagedPct}%`} />
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
-      <ChartCard title="Drop-off Seiten (ohne Lead)" height={280}>
-        <BarChart data={dropOffs.map((d) => ({ name: d.path.slice(0, 30), count: d.count }))}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#ffffff18" />
-          <XAxis dataKey="name" tick={{ fill: "#8da4ba", fontSize: 10 }} interval={0} angle={-20} textAnchor="end" height={60} />
-          <YAxis tick={{ fill: "#8da4ba", fontSize: 11 }} />
-          <FenyxTooltip />
-          <Bar dataKey="count" fill={SIGNAL} name="Sessions" />
-        </BarChart>
-      </ChartCard>
+
+      <div className="border border-white/10 bg-white/[0.02] p-5">
+        <h3 className="mb-1 text-sm font-semibold text-white">Einstiegsseiten</h3>
+        <p className="mb-4 text-xs text-mist">Landing Pages mit Engagement- und Lead-Rate.</p>
+        {entryPages.length === 0 ? (
+          <p className="py-8 text-center text-sm text-mist">Noch keine Einstiegsdaten.</p>
+        ) : (
+          <div className="space-y-3">
+            {entryPages.map((entry, idx) => (
+              <div key={entry.page} className="border border-white/5 bg-abyss-deep p-3">
+                <div className="mb-2 flex items-center gap-3">
+                  <span className="flex h-6 w-6 items-center justify-center bg-signal/15 text-xs font-bold text-signal">
+                    {idx + 1}
+                  </span>
+                  <code className="min-w-0 flex-1 truncate border border-white/10 px-2 py-1 text-xs text-mist-soft">
+                    {shortPath(entry.page)}
+                  </code>
+                  <span className="text-sm font-semibold text-white">{entry.sessions} Sessions</span>
+                </div>
+                <div className="ml-9 flex flex-wrap gap-2 text-xs">
+                  <span className="border border-white/10 px-2 py-1 text-mist">
+                    Engaged {entry.engagedPct}%
+                  </span>
+                  <span className="border border-signal/40 bg-signal/10 px-2 py-1 text-signal">
+                    Leads {entry.leads} ({entry.leadPct}%)
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

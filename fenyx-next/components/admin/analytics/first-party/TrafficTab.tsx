@@ -1,10 +1,12 @@
 "use client";
 
 import { useMemo } from "react";
-import { Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import ChartCard from "@/components/admin/analytics/ui/ChartCard";
 import FenyxTooltip from "@/components/admin/analytics/ui/FenyxTooltip";
-import { CHART_COLORS, SIGNAL } from "@/components/admin/analytics/ui/chartTheme";
+import DevicePieChart from "@/components/admin/analytics/ui/DevicePieChart";
+import TabIntro from "@/components/admin/analytics/ui/TabIntro";
+import { SIGNAL } from "@/components/admin/analytics/ui/chartTheme";
 import type { CanonicalWebsiteSession } from "@/lib/analytics/websiteCanonicalAnalytics";
 import type { EventRow } from "@/lib/analytics/dashboardTypes";
 
@@ -67,6 +69,11 @@ export default function TrafficTab({
 
   return (
     <div className="space-y-6">
+      <TabIntro
+        title="Traffic Quality"
+        description="Session-Tiefe, Bot-Anteil und Engagement nach Traffic-Quelle."
+        hint="Bot vs. Human basiert auf Event-Klassifikation am Edge — nicht identisch mit Session-Filter im Explorer."
+      />
       <div className="grid gap-6 lg:grid-cols-2">
         <ChartCard title="Session-Tiefe (Seiten/Session)" height={260}>
           <BarChart data={qualityHist}>
@@ -78,14 +85,7 @@ export default function TrafficTab({
           </BarChart>
         </ChartCard>
         <ChartCard title="Bot vs. Human (Events)" height={260}>
-          <PieChart>
-            <Pie data={bots} dataKey="value" nameKey="name" outerRadius={90}>
-              {bots.map((_, i) => (
-                <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
-              ))}
-            </Pie>
-            <FenyxTooltip />
-          </PieChart>
+          <DevicePieChart data={bots} />
         </ChartCard>
       </div>
       <div className="border border-white/10 bg-white/[0.02] p-5">

@@ -11,7 +11,7 @@ export default async function AdminAnalytics() {
       .schema("analytics")
       .from("website_analytics_events")
       .select(
-        "session_hash,event_ts,event_type,page_path,page_type,service_area,traffic_source_category,device_type,country_code,region_code,event_data,quality_flags,bot_classification",
+        "session_hash,page_visit_id,event_ts,event_type,page_path,page_type,service_area,traffic_source_category,device_type,country_code,region_code,event_data,quality_flags,bot_classification",
       )
       .order("event_ts", { ascending: false })
       .limit(8000),

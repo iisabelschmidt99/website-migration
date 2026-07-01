@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import ChartCard from "@/components/admin/analytics/ui/ChartCard";
 import FenyxTooltip from "@/components/admin/analytics/ui/FenyxTooltip";
+import TabIntro from "@/components/admin/analytics/ui/TabIntro";
 import { SIGNAL } from "@/components/admin/analytics/ui/chartTheme";
 import type { CanonicalWebsiteSession } from "@/lib/analytics/websiteCanonicalAnalytics";
 import { dailySessionTrend } from "@/lib/analytics/dashboardMetrics";
@@ -36,6 +37,11 @@ export default function LeadsTab({ sessions }: { sessions: CanonicalWebsiteSessi
 
   return (
     <div className="space-y-6">
+      <TabIntro
+        title="Leads"
+        description="Echte Lead-Ereignisse (Formular, Telefon, E-Mail) — nicht CTA-Klicks."
+        hint="CTA-Engagement ohne Lead siehe Tab „CTAs“."
+      />
       <ChartCard title="Leads pro Tag" height={260}>
         <BarChart data={daily}>
           <CartesianGrid strokeDasharray="3 3" stroke="#ffffff18" />

@@ -64,7 +64,9 @@ export default function FirstPartyDashboard({
       {tab === "ctas" ? <CtasTab events={filteredEvents} /> : null}
       {tab === "traffic" ? <TrafficTab sessions={canonical} events={filteredEvents} /> : null}
       {tab === "leads" ? <LeadsTab sessions={canonical} /> : null}
-      {tab === "performance" ? <PerformanceTab events={filteredEvents} cruxConfigured={cruxConfigured} /> : null}
+      {tab === "performance" ? (
+        <PerformanceTab events={filteredEvents} sessions={canonical} cruxConfigured={cruxConfigured} />
+      ) : null}
       {tab === "ux" ? <UxSignalsTab events={filteredEvents} /> : null}
     </div>
   );

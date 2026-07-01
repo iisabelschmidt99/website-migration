@@ -3,6 +3,7 @@
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import ChartCard from "@/components/admin/analytics/ui/ChartCard";
 import FenyxTooltip from "@/components/admin/analytics/ui/FenyxTooltip";
+import TabIntro from "@/components/admin/analytics/ui/TabIntro";
 import { SIGNAL } from "@/components/admin/analytics/ui/chartTheme";
 import type { EventRow } from "@/lib/analytics/dashboardTypes";
 
@@ -20,6 +21,11 @@ export default function CtasTab({ events }: { events: EventRow[] }) {
 
   return (
     <div className="space-y-6">
+      <TabIntro
+        title="CTA Performance"
+        description="Klicks auf getrackte Call-to-Action-Elemente — Intent-Signale, keine Formular-Leads."
+        hint="Echte Leads (Formular, Telefon, E-Mail) siehe Tab „Leads“."
+      />
       <ChartCard title="CTA Performance" height={320}>
         <BarChart data={rows.slice(0, 12)} layout="vertical" margin={{ left: 120 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#ffffff18" />

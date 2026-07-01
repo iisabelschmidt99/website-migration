@@ -20,6 +20,8 @@ const SHOTS = [
   { file: "02-first-party-sessions", url: `${BASE}/admin/analytics?group=first-party`, clickTab: "Sessions" },
   { file: "03-first-party-pages", url: `${BASE}/admin/analytics?group=first-party`, clickTab: "Pages" },
   { file: "04-first-party-paths", url: `${BASE}/admin/analytics?group=first-party`, clickTab: "Paths" },
+  { file: "04b-first-party-performance", url: `${BASE}/admin/analytics?group=first-party`, clickTab: "Performance" },
+  { file: "04c-first-party-ux", url: `${BASE}/admin/analytics?group=first-party`, clickTab: "UX Signals" },
   { file: "05-third-party-gtm", url: `${BASE}/admin/analytics?group=third-party&tab=gtm` },
   { file: "06-third-party-tracking", url: `${BASE}/admin/analytics?group=third-party&tab=tracking` },
   { file: "07-cloudflare-zone", url: `${BASE}/admin/analytics?group=cloudflare&tab=zone` },

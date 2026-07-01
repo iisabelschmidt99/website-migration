@@ -52,6 +52,7 @@ export type FunnelSessionRow = {
 
 export type EventRow = {
   session_hash?: string;
+  page_visit_id?: string;
   event_type: string;
   event_ts?: string;
   page_path: string;

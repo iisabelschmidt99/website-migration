@@ -1,10 +1,12 @@
 "use client";
 
-import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, Legend, XAxis, YAxis } from "recharts";
 import ChartCard from "@/components/admin/analytics/ui/ChartCard";
 import FenyxTooltip from "@/components/admin/analytics/ui/FenyxTooltip";
 import MetricRow from "@/components/admin/analytics/ui/MetricRow";
-import { CHART_COLORS, SIGNAL } from "@/components/admin/analytics/ui/chartTheme";
+import { SIGNAL } from "@/components/admin/analytics/ui/chartTheme";
+import DevicePieChart from "@/components/admin/analytics/ui/DevicePieChart";
+import TabIntro from "@/components/admin/analytics/ui/TabIntro";
 import CountryHeatMap from "./CountryHeatMap";
 import type { CanonicalWebsiteSession } from "@/lib/analytics/websiteCanonicalAnalytics";
 import { countryMetrics, dailySessionTrend, regionMetrics } from "@/lib/analytics/dashboardMetrics";
@@ -25,6 +27,11 @@ export default function OverviewTab({ sessions }: { sessions: CanonicalWebsiteSe
 
   return (
     <div className="space-y-6">
+      <TabIntro
+        title="Überblick"
+        description="Sessions, Engagement und Herkunft im gewählten Zeitraum — cookieloses First-Party-Tracking."
+        hint="Detailansichten: Seiten = einzelne URLs · Pfade = Seitenfolgen in einer Session."
+      />
       <MetricRow
         items={[
           { label: "Sessions", value: sessions.length },
@@ -64,14 +71,7 @@ export default function OverviewTab({ sessions }: { sessions: CanonicalWebsiteSe
           </BarChart>
         </ChartCard>
         <ChartCard title="Geräte" className="lg:col-span-2" height={280}>
-          <PieChart>
-            <Pie data={devices} dataKey="value" nameKey="name" outerRadius={90} label={({ name, percent }) => `${name} ${((percent ?? 0) * 100).toFixed(0)}%`}>
-              {devices.map((_, i) => (
-                <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
-              ))}
-            </Pie>
-            <FenyxTooltip />
-          </PieChart>
+          <DevicePieChart data={devices} />
         </ChartCard>
       </div>
 
