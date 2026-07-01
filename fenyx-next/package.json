@@ -14,12 +14,18 @@
     "@opentelemetry/api": "^1.9.1",
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.108.2",
+    "@types/react-simple-maps": "^3.0.6",
+    "@types/topojson-client": "^3.1.5",
+    "date-fns": "^4.4.0",
+    "lucide-react": "^1.22.0",
     "next": "^16.2.9",
     "qrcode.react": "^4.2.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
+    "react-simple-maps": "^3.0.0",
     "react-svg-worldmap": "^2.0.2",
     "recharts": "^3.9.0",
+    "topojson-client": "^3.1.0",
     "web-vitals": "^5.3.0"
   },
   "devDependencies": {
