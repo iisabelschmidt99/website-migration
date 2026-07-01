@@ -17,3 +17,10 @@
   margin-top: -22vh;
   background: #fff;
 }
+/* Heading sitzt flush am oberen Rand der weißen Section → kein Spalt */
+.dg-page .dg-intro__inner {
+  padding-top: 0;
+}
+.dg-page .dg-intro__heading {
+  margin-top: 0;
+}
