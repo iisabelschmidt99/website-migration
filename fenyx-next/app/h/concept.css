@@ -1,0 +1,785 @@
+/* ════════════════════════════════════════════════════════════════════════
+   KONZEPT F — „Architectural POV"
+   Nornorm × Augustus × SpaceX · alternating abyss/mist-soft · scroll spec-fill
+   ════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --dh-abyss: #132735;
+  --dh-abyss-deep: #0b171f;
+  --dh-signal: #c8ff00;
+  --dh-mist: #8da4ba;
+  --dh-mist-soft: #dceaf5;
+  --dh-mist-soft-deep: #c8d8e8;
+  --dh-ink: #132735;
+  --dh-ink-soft: #3d5263;
+  --dh-rule: rgba(19, 39, 53, 0.14);
+  --dh-rule-strong: rgba(19, 39, 53, 0.32);
+  --dh-rule-light: rgba(220, 234, 245, 0.12);
+  --dh-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── Scope-Reset ───────────────────────────────────────────────────────── */
+.dh-root * { box-sizing: border-box; }
+
+/* ── Word-by-word Mask-Reveal ──────────────────────────────────────────── */
+.dh-words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.28em;
+  margin: 0;
+  padding: 0;
+}
+.dh-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+.dh-word__inner {
+  display: inline-block;
+  will-change: transform;
+}
+@supports not (animation-timeline: view()) {
+  .dh-word__inner {
+    transform: translateY(110%);
+    transition: transform 900ms var(--dh-ease);
+    transition-delay: calc(var(--dh-i, 0) * 55ms + var(--dh-delay, 0ms));
+  }
+  .dh-words.is-visible .dh-word__inner {
+    transform: translateY(0);
+  }
+}
+@supports (animation-timeline: view()) {
+  .dh-words .dh-word__inner {
+    animation: dh-word-in 900ms var(--dh-ease) both;
+    animation-timeline: view();
+    animation-range: entry 5% entry 75%;
+    animation-delay: calc(var(--dh-i, 0) * 55ms);
+  }
+  @keyframes dh-word-in {
+    from { transform: translateY(110%); }
+    to   { transform: translateY(0); }
+  }
+}
+
+/* ── Image-Reveal ──────────────────────────────────────────────────────── */
+.dh-img { will-change: transform, opacity; }
+@supports not (animation-timeline: view()) {
+  .dh-img {
+    transform: scale(1.06);
+    opacity: 0;
+    transition: transform 1.4s var(--dh-ease), opacity 1.2s ease;
+    transition-delay: var(--dh-delay, 0ms);
+  }
+  .dh-img.is-visible {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@supports (animation-timeline: view()) {
+  .dh-img {
+    animation: dh-img-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 85%;
+  }
+  @keyframes dh-img-in {
+    from { transform: scale(1.06); opacity: 0; }
+    to   { transform: scale(1);    opacity: 1; }
+  }
+}
+
+/* Hero above-the-fold → zeitbasierter Einstieg statt scroll-timeline. */
+.dh-hero .dh-words .dh-word__inner {
+  animation: dh-word-in 900ms var(--dh-ease) both;
+  animation-timeline: auto;
+  animation-delay: calc(var(--dh-i, 0) * 60ms + 250ms);
+}
+.dh-hero .dh-reveal {
+  animation: dh-reveal-in 800ms var(--dh-ease) both;
+  animation-timeline: auto;
+  animation-delay: var(--dh-delay, 0ms);
+}
+@keyframes dh-word-in {
+  from { transform: translateY(110%); }
+  to   { transform: translateY(0); }
+}
+@keyframes dh-reveal-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Generic Reveal ────────────────────────────────────────────────────── */
+.dh-reveal { will-change: transform, opacity; }
+@supports not (animation-timeline: view()) {
+  .dh-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 900ms var(--dh-ease), transform 900ms var(--dh-ease);
+    transition-delay: var(--dh-delay, 0ms);
+  }
+  .dh-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@supports (animation-timeline: view()) {
+  .dh-reveal {
+    animation: dh-reveal-in linear both;
+    animation-timeline: view();
+    animation-range: entry 5% entry 80%;
+    animation-delay: var(--dh-delay, 0ms);
+  }
+  @keyframes dh-reveal-in {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* ── Scroll-linked Spec-Fill (das Wow-Moment) ──────────────────────────── */
+/* Pro Spec-Value wächst eine 1px Signal-Unterline von 0 → 100% beim Scrollen,
+   gestaffelt nach Index. Auf dark + light Sektionen einsetzbar. */
+.dh-spec__value {
+  position: relative;
+  display: inline-block;
+}
+.dh-spec__value::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 1px;
+  width: 0;
+  background: var(--dh-signal);
+  will-change: width;
+}
+@supports not (animation-timeline: view()) {
+  .dh-spec__value::after {
+    transition: width 900ms var(--dh-ease);
+    transition-delay: calc(var(--dh-i, 0) * 80ms + var(--dh-delay, 0ms));
+  }
+  .dh-spec.is-visible .dh-spec__value::after {
+    width: 100%;
+  }
+}
+@supports (animation-timeline: view()) {
+  .dh-spec__value::after {
+    animation: dh-spec-fill linear both;
+    animation-timeline: view();
+    animation-range: entry 15% entry 85%;
+    animation-delay: calc(var(--dh-i, 0) * 80ms);
+  }
+  @keyframes dh-spec-fill {
+    from { width: 0; }
+    to   { width: 100%; }
+  }
+}
+
+/* ── Hero (Split: Architektur-Bild links, POV-Typografie rechts) ────────── */
+.dh-hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: 1fr;
+  background: var(--dh-mist-soft);
+  overflow: hidden;
+}
+@media (min-width: 1024px) {
+  .dh-hero { grid-template-columns: 1fr 1fr; }
+}
+.dh-hero__media {
+  position: relative;
+  min-height: 50vh;
+  overflow: hidden;
+  background: var(--dh-mist-soft-deep);
+}
+@media (min-width: 1024px) {
+  .dh-hero__media { min-height: 100svh; }
+}
+.dh-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.dh-hero__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(5rem, 10vw, 8rem) clamp(1.5rem, 5vw, 4rem);
+  position: relative;
+}
+.dh-hero__index {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dh-ink-soft);
+  margin: 0 0 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.dh-hero__index-num {
+  color: var(--dh-ink);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.dh-hero__index::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--dh-rule);
+}
+.dh-hero__headline {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: clamp(2.25rem, 5.5vw, 4.75rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  color: var(--dh-ink);
+  margin: 0 0 2rem;
+  max-width: 16ch;
+}
+.dh-hero__sub {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: clamp(1rem, 1.3vw, 1.125rem);
+  line-height: 1.65;
+  color: var(--dh-ink-soft);
+  margin: 0 0 2.5rem;
+  max-width: 42ch;
+}
+.dh-hero__cta-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.dh-hero__meta {
+  position: absolute;
+  top: clamp(1.5rem, 4vw, 3rem);
+  right: clamp(1.5rem, 5vw, 4rem);
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dh-ink-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+.dh-hero__meta-tag { color: var(--dh-ink); font-weight: 700; }
+
+/* ── Cinematic Depth Columns (6 vertikale Bahnen, einheitlich scharf) ─────
+   Alle Logos uniform scharf (kein Blur auf den Logos, keine pro-Spalte-
+   Deckkraft). Bokeh lebt nur als backdrop-filter-Fleck HINTER dem Text
+   (.dh-wall-scrim). Echter Scroll-Parallax (JS): EIN Versatz für die
+   gesamte Wand (.dh-wall-cols), Text bekommt leichten Gegendrift.
+   Zusätzlich langsamer vertikaler Auto-Drift pro Spalte (ambient). ── */
+.dh-wall-spacer {
+  position: relative;
+  background: #fff;
+}
+.dh-wall-sticky {
+  position: relative;
+  height: 110vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+  background: #fff;
+}
+/* Parallax-Ziel: JS setzt translateY auf diesen Container (ganze Wand). */
+.dh-wall-cols {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 0 clamp(1rem, 4vw, 3rem);
+  will-change: transform;
+}
+/* Alle Spalten uniform scharf – kein Blur, keine Deckkraft-Reduktion. */
+.dh-wall-col {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+}
+.dh-wall-col-inner {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  will-change: transform;
+  animation: dh-wall-tick-up var(--dh-col-duration, 240s) linear infinite;
+}
+.dh-wall-col-inner--down { animation-name: dh-wall-tick-down; }
+@keyframes dh-wall-tick-up {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-50%); }
+}
+@keyframes dh-wall-tick-down {
+  from { transform: translateY(-50%); }
+  to   { transform: translateY(0); }
+}
+.dh-wall-track {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: center;
+  gap: clamp(2rem, 4vw, 4rem);
+}
+.dh-wall-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: clamp(8rem, 14vw, 12rem);
+  width: 100%;
+  padding: 0 0.5rem;
+}
+.dh-wall-img {
+  max-height: 75%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Scrim: weißer Fleck NUR hinter dem Text. Kleinerer Radius, leicht
+   transparent, Falloff zu den Rändern. */
+.dh-wall-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(
+    40% 32% at 50% 50%,
+    rgba(255, 255, 255, 0.88) 0%,
+    rgba(255, 255, 255, 0.88) 32%,
+    rgba(255, 255, 255, 0.4) 58%,
+    rgba(255, 255, 255, 0) 88%
+  );
+  pointer-events: none;
+}
+
+/* Parallax-Ziel: JS setzt leichten Gegendrift auf den Text. */
+.dh-wall-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 44rem;
+  text-align: center;
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+  will-change: transform;
+}
+.dh-wall-eyebrow {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dh-ink-soft);
+  margin: 0 0 1.25rem;
+}
+.dh-wall-heading {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--dh-ink);
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dh-wall-sticky {
+    height: auto;
+    padding: clamp(4rem, 10vw, 7rem) 0;
+  }
+  .dh-wall-cols {
+    position: relative;
+    inset: auto;
+    height: 24rem;
+    transform: none !important;
+  }
+  .dh-wall-col-inner {
+    animation: none !important;
+    transform: none !important;
+  }
+  .dh-wall-col-inner > .dh-wall-track + .dh-wall-track { display: none; }
+  .dh-wall-copy { transform: none !important; }
+}
+
+/* ── Timeline-Overlap: das nächste Kapitel gleitet über die Wand ─── */
+.dh-timeline-overlap {
+  position: relative;
+  z-index: 2;
+  margin-top: -10vh;
+}
+.dh-timeline-overlap::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: clamp(4rem, 10vw, 7rem);
+  z-index: 3;
+  background: linear-gradient(180deg, rgba(2, 4, 5, 0.5) 0%, rgba(2, 4, 5, 0) 100%);
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dh-timeline-overlap { margin-top: 0; }
+  .dh-timeline-overlap::before { display: none; }
+}
+
+/* ── Timeline (3 numbered Kapitel mit spec-fill, alternating bg) ────────── */
+.dh-timeline { position: relative; }
+.dh-tl-chapter {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: 100svh;
+  align-items: center;
+}
+@media (min-width: 1024px) {
+  .dh-tl-chapter { grid-template-columns: 1fr 1fr; }
+}
+.dh-tl-chapter--dark { background: var(--dh-abyss); color: var(--dh-mist-soft); }
+.dh-tl-chapter--light { background: var(--dh-mist-soft); color: var(--dh-ink); }
+.dh-tl-chapter--deep { background: var(--dh-abyss-deep); color: var(--dh-mist-soft); }
+
+.dh-tl-chapter__media {
+  position: relative;
+  min-height: 50vh;
+  overflow: hidden;
+}
+@media (min-width: 1024px) {
+  .dh-tl-chapter__media { min-height: 100svh; }
+}
+.dh-tl-chapter__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.dh-tl-chapter__body {
+  padding: clamp(4rem, 8vw, 6rem) clamp(1.5rem, 5vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+}
+.dh-tl-chapter__index {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: clamp(5rem, 10vw, 8rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  margin: 0 0 1rem;
+  font-variant-numeric: tabular-nums;
+}
+.dh-tl-chapter--dark .dh-tl-chapter__index,
+.dh-tl-chapter--deep .dh-tl-chapter__index {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(200, 255, 0, 0.4);
+}
+.dh-tl-chapter--light .dh-tl-chapter__index {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(19, 39, 53, 0.3);
+}
+.dh-tl-chapter__eyebrow {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin: 0;
+}
+.dh-tl-chapter--dark .dh-tl-chapter__eyebrow,
+.dh-tl-chapter--deep .dh-tl-chapter__eyebrow { color: var(--dh-signal); }
+.dh-tl-chapter--light .dh-tl-chapter__eyebrow { color: var(--dh-ink-soft); }
+
+.dh-tl-chapter__title {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 0;
+  max-width: 14ch;
+}
+.dh-tl-chapter--dark .dh-tl-chapter__title,
+.dh-tl-chapter--deep .dh-tl-chapter__title { color: #fff; }
+.dh-tl-chapter--light .dh-tl-chapter__title { color: var(--dh-ink); }
+
+.dh-tl-chapter__body-text {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: clamp(1rem, 1.3vw, 1.125rem);
+  line-height: 1.7;
+  margin: 0;
+  max-width: 42ch;
+}
+.dh-tl-chapter--dark .dh-tl-chapter__body-text,
+.dh-tl-chapter--deep .dh-tl-chapter__body-text { color: var(--dh-mist-soft); }
+.dh-tl-chapter--light .dh-tl-chapter__body-text { color: var(--dh-ink-soft); }
+
+.dh-spec {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 1rem 0 0;
+  padding: 0;
+  border-top: 1px solid currentColor;
+}
+.dh-spec__row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 1.5rem;
+  padding: 0.875rem 0;
+  border-bottom: 1px solid currentColor;
+}
+.dh-spec__label {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 0;
+  opacity: 0.7;
+}
+.dh-spec__value {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.dh-tl-chapter--dark .dh-spec__value,
+.dh-tl-chapter--deep .dh-spec__value { color: #fff; }
+.dh-tl-chapter--light .dh-spec__value { color: var(--dh-ink); }
+
+.dh-tl-chapter__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.5rem 0;
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  align-self: flex-start;
+  margin-top: 1rem;
+  transition: color 200ms ease, border-color 200ms ease;
+}
+.dh-tl-chapter--dark .dh-tl-chapter__link,
+.dh-tl-chapter--deep .dh-tl-chapter__link {
+  color: var(--dh-signal);
+  border-color: var(--dh-signal);
+}
+.dh-tl-chapter--dark .dh-tl-chapter__link:hover,
+.dh-tl-chapter--deep .dh-tl-chapter__link:hover {
+  color: #fff;
+  border-color: #fff;
+}
+.dh-tl-chapter--light .dh-tl-chapter__link {
+  color: var(--dh-ink);
+  border-color: var(--dh-ink);
+}
+.dh-tl-chapter--light .dh-tl-chapter__link:hover {
+  color: var(--dh-signal);
+  border-color: var(--dh-signal);
+}
+.dh-tl-chapter__link svg { transition: transform 200ms ease; }
+.dh-tl-chapter__link:hover svg { transform: translateX(4px); }
+
+/* ── Referenzen (Bento mit echten Photos + großem KPI) ─────────────────── */
+.dh-refs {
+  background: var(--dh-mist-soft);
+  padding: clamp(5rem, 12vw, 9rem) 0;
+}
+.dh-refs__intro {
+  max-width: 80rem;
+  margin: 0 auto clamp(4rem, 8vw, 6rem);
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+}
+.dh-refs__eyebrow {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dh-ink-soft);
+  margin: 0 0 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.dh-refs__eyebrow::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--dh-rule);
+}
+.dh-refs__heading {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--dh-ink);
+  margin: 0;
+  max-width: 18ch;
+}
+.dh-refs__grid {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+@media (min-width: 768px) {
+  .dh-refs__grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 22rem;
+  }
+}
+.dh-ref-tile {
+  position: relative;
+  overflow: hidden;
+  background: var(--dh-abyss);
+  text-decoration: none;
+  display: block;
+  min-height: 22rem;
+}
+@media (min-width: 768px) {
+  .dh-ref-tile { min-height: 0; }
+  .dh-ref-tile--big { grid-column: span 2; grid-row: span 2; }
+  .dh-ref-tile--wide { grid-column: span 2; }
+  .dh-ref-tile--tall { grid-row: span 2; }
+}
+.dh-ref-tile__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  height: 100%;
+  width: 100%;
+}
+.dh-ref-tile__img {
+  object-fit: cover;
+  object-position: center;
+  transition: transform 700ms var(--dh-ease);
+}
+.dh-ref-tile:hover .dh-ref-tile__img {
+  transform: scale(1.05);
+}
+/* Kachel hebt sich beim Hover dezent an. */
+.dh-ref-tile {
+  transition: transform 300ms var(--dh-ease), box-shadow 300ms var(--dh-ease);
+}
+.dh-ref-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 1.5rem 3rem rgba(2, 4, 5, 0.35);
+}
+.dh-ref-tile__eyebrow,
+.dh-ref-tile__kpi {
+  transition: transform 300ms var(--dh-ease);
+}
+.dh-ref-tile:hover .dh-ref-tile__company {
+  color: var(--dh-signal);
+  transition: color 300ms var(--dh-ease);
+}
+.dh-ref-tile__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(11, 23, 31, 0.2) 0%,
+    rgba(11, 23, 31, 0.85) 100%
+  );
+  z-index: 1;
+}
+.dh-ref-tile__body {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  pointer-events: none;
+}
+.dh-ref-tile__eyebrow {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dh-mist-soft);
+  margin: 0 0 0.75rem;
+  opacity: 0.85;
+}
+.dh-ref-tile__company {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: clamp(1.25rem, 2.5vw, 1.875rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin: 0 0 0.75rem;
+}
+.dh-ref-tile__kpi {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+.dh-ref-tile__kpi-value {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--dh-signal);
+  font-variant-numeric: tabular-nums;
+}
+.dh-ref-tile__kpi-label {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  color: var(--dh-mist-soft);
+  max-width: 18ch;
+}
+
+/* ── Focus states ──────────────────────────────────────────────────────── */
+.dh-tl-chapter__link:focus-visible,
+.dh-ref-tile:focus-visible {
+  outline: 2px solid var(--dh-signal);
+  outline-offset: 4px;
+}
+
+/* ── Reduced Motion ────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .dh-word__inner,
+  .dh-img,
+  .dh-reveal,
+  .dh-spec__value::after,
+  .dh-ref-tile__img img {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    width: 100% !important;
+  }
+}

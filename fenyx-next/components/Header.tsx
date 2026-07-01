@@ -19,6 +19,8 @@ const LIGHT_HEADER_PATHS = [
   // mit weißer Schrift wäre dort unlesbar.
   "/e",
   "/f",
+  "/i",
+  "/h",
 ];
 
 export default function Header() {

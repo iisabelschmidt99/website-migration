@@ -1,0 +1,797 @@
+/* ════════════════════════════════════════════════════════════════════════
+   KONZEPT F — „Architectural POV"
+   Nornorm × Augustus × SpaceX · alternating abyss/mist-soft · scroll spec-fill
+   ════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --di-abyss: #132735;
+  --di-abyss-deep: #0b171f;
+  --di-signal: #c8ff00;
+  --di-mist: #8da4ba;
+  --di-mist-soft: #dceaf5;
+  --di-mist-soft-deep: #c8d8e8;
+  --di-ink: #132735;
+  --di-ink-soft: #3d5263;
+  --di-rule: rgba(19, 39, 53, 0.14);
+  --di-rule-strong: rgba(19, 39, 53, 0.32);
+  --di-rule-light: rgba(220, 234, 245, 0.12);
+  --di-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── Scope-Reset ───────────────────────────────────────────────────────── */
+.di-root * { box-sizing: border-box; }
+
+/* ── Word-by-word Mask-Reveal ──────────────────────────────────────────── */
+.di-words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.28em;
+  margin: 0;
+  padding: 0;
+}
+.di-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+.di-word__inner {
+  display: inline-block;
+  will-change: transform;
+}
+@supports not (animation-timeline: view()) {
+  .di-word__inner {
+    transform: translateY(110%);
+    transition: transform 900ms var(--di-ease);
+    transition-delay: calc(var(--di-i, 0) * 55ms + var(--di-delay, 0ms));
+  }
+  .di-words.is-visible .di-word__inner {
+    transform: translateY(0);
+  }
+}
+@supports (animation-timeline: view()) {
+  .di-words .di-word__inner {
+    animation: di-word-in 900ms var(--di-ease) both;
+    animation-timeline: view();
+    animation-range: entry 5% entry 75%;
+    animation-delay: calc(var(--di-i, 0) * 55ms);
+  }
+  @keyframes di-word-in {
+    from { transform: translateY(110%); }
+    to   { transform: translateY(0); }
+  }
+}
+
+/* ── Image-Reveal ──────────────────────────────────────────────────────── */
+.di-img { will-change: transform, opacity; }
+@supports not (animation-timeline: view()) {
+  .di-img {
+    transform: scale(1.06);
+    opacity: 0;
+    transition: transform 1.4s var(--di-ease), opacity 1.2s ease;
+    transition-delay: var(--di-delay, 0ms);
+  }
+  .di-img.is-visible {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@supports (animation-timeline: view()) {
+  .di-img {
+    animation: di-img-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 85%;
+  }
+  @keyframes di-img-in {
+    from { transform: scale(1.06); opacity: 0; }
+    to   { transform: scale(1);    opacity: 1; }
+  }
+}
+
+/* Hero above-the-fold → zeitbasierter Einstieg statt scroll-timeline. */
+.di-hero .di-words .di-word__inner {
+  animation: di-word-in 900ms var(--di-ease) both;
+  animation-timeline: auto;
+  animation-delay: calc(var(--di-i, 0) * 60ms + 250ms);
+}
+.di-hero .di-reveal {
+  animation: di-reveal-in 800ms var(--di-ease) both;
+  animation-timeline: auto;
+  animation-delay: var(--di-delay, 0ms);
+}
+@keyframes di-word-in {
+  from { transform: translateY(110%); }
+  to   { transform: translateY(0); }
+}
+@keyframes di-reveal-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Generic Reveal ────────────────────────────────────────────────────── */
+.di-reveal { will-change: transform, opacity; }
+@supports not (animation-timeline: view()) {
+  .di-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 900ms var(--di-ease), transform 900ms var(--di-ease);
+    transition-delay: var(--di-delay, 0ms);
+  }
+  .di-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@supports (animation-timeline: view()) {
+  .di-reveal {
+    animation: di-reveal-in linear both;
+    animation-timeline: view();
+    animation-range: entry 5% entry 80%;
+    animation-delay: var(--di-delay, 0ms);
+  }
+  @keyframes di-reveal-in {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* ── Scroll-linked Spec-Fill (das Wow-Moment) ──────────────────────────── */
+/* Pro Spec-Value wächst eine 1px Signal-Unterline von 0 → 100% beim Scrollen,
+   gestaffelt nach Index. Auf dark + light Sektionen einsetzbar. */
+.di-spec__value {
+  position: relative;
+  display: inline-block;
+}
+.di-spec__value::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 1px;
+  width: 0;
+  background: var(--di-signal);
+  will-change: width;
+}
+@supports not (animation-timeline: view()) {
+  .di-spec__value::after {
+    transition: width 900ms var(--di-ease);
+    transition-delay: calc(var(--di-i, 0) * 80ms + var(--di-delay, 0ms));
+  }
+  .di-spec.is-visible .di-spec__value::after {
+    width: 100%;
+  }
+}
+@supports (animation-timeline: view()) {
+  .di-spec__value::after {
+    animation: di-spec-fill linear both;
+    animation-timeline: view();
+    animation-range: entry 15% entry 85%;
+    animation-delay: calc(var(--di-i, 0) * 80ms);
+  }
+  @keyframes di-spec-fill {
+    from { width: 0; }
+    to   { width: 100%; }
+  }
+}
+
+/* ── Hero (Split: Architektur-Bild links, POV-Typografie rechts) ────────── */
+.di-hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: 1fr;
+  background: var(--di-mist-soft);
+  overflow: hidden;
+}
+@media (min-width: 1024px) {
+  .di-hero { grid-template-columns: 1fr 1fr; }
+}
+.di-hero__media {
+  position: relative;
+  min-height: 50vh;
+  overflow: hidden;
+  background: var(--di-mist-soft-deep);
+}
+@media (min-width: 1024px) {
+  .di-hero__media { min-height: 100svh; }
+}
+.di-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.di-hero__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(5rem, 10vw, 8rem) clamp(1.5rem, 5vw, 4rem);
+  position: relative;
+}
+.di-hero__index {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--di-ink-soft);
+  margin: 0 0 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.di-hero__index-num {
+  color: var(--di-ink);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.di-hero__index::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--di-rule);
+}
+.di-hero__headline {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: clamp(2.25rem, 5.5vw, 4.75rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  color: var(--di-ink);
+  margin: 0 0 2rem;
+  max-width: 16ch;
+}
+.di-hero__sub {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: clamp(1rem, 1.3vw, 1.125rem);
+  line-height: 1.65;
+  color: var(--di-ink-soft);
+  margin: 0 0 2.5rem;
+  max-width: 42ch;
+}
+.di-hero__cta-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.di-hero__meta {
+  position: absolute;
+  top: clamp(1.5rem, 4vw, 3rem);
+  right: clamp(1.5rem, 5vw, 4rem);
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--di-ink-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+.di-hero__meta-tag { color: var(--di-ink); font-weight: 700; }
+
+/* ── Cinematic Depth Wall (3 große Reihen, einheitlich scharf) ───────────
+   Alle Logos uniform scharf (kein Blur auf den Logos, keine pro-Reihe-
+   Deckkraft). Bokeh lebt nur als backdrop-filter-Fleck HINTER dem Text
+   (.di-wall-scrim) – dort verwaschen, überall sonst scharf.
+
+   Echter Scroll-Parallax (JS, siehe LogoWallHorizontal.tsx): EIN Versatz
+   für die gesamte Wand (.di-wall-rows), Text bekommt leichten Gegendrift.
+   Zusätzlich langsamer horizontaler Auto-Drift pro Reihe (ambient). ── */
+.di-wall-spacer {
+  position: relative;
+  background: #fff;
+}
+.di-wall-sticky {
+  position: relative;
+  height: 118vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+  background: #fff;
+}
+/* Parallax-Ziel: JS setzt translateY auf diesen Container (ganze Wand). */
+.di-wall-rows {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0;
+  padding: clamp(1.5rem, 3vw, 2rem) 0;
+  will-change: transform;
+}
+/* Reihen mit expliziter Höhe (statt flex:1 + height:100% — das resolve in
+   Flexbox nicht zuverlässig). space-between verteilt die 3 dicken Bänder
+   über die volle Containerhöhe → Wand wirkt voll, nicht leer. */
+.di-wall-row {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+.di-wall-row-inner {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  height: clamp(13rem, 24vw, 19rem);
+  will-change: transform;
+  animation: di-wall-tick-ltr var(--di-row-duration, 200s) linear infinite;
+}
+.di-wall-row-inner--rtl { animation-name: di-wall-tick-rtl; }
+@keyframes di-wall-tick-ltr {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+@keyframes di-wall-tick-rtl {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.di-wall-track {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: clamp(2.5rem, 5vw, 5rem);
+}
+/* Zellen füllen die Reihe (row-inner hat jetzt definite Höhe). */
+.di-wall-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-width: clamp(13rem, 19vw, 18rem);
+  padding: 0 0.25rem;
+}
+.di-wall-img {
+  max-height: 50%;
+  max-width: 62%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Scrim: weißer Fleck NUR hinter dem Text. Kleinerer Radius, leicht
+   transparent (Logos scheinen leicht durch), Falloff zu den Rändern. */
+.di-wall-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(
+    40% 32% at 50% 50%,
+    rgba(255, 255, 255, 0.88) 0%,
+    rgba(255, 255, 255, 0.88) 32%,
+    rgba(255, 255, 255, 0.4) 58%,
+    rgba(255, 255, 255, 0) 88%
+  );
+  pointer-events: none;
+}
+
+/* Parallax-Ziel: JS setzt leichten Gegendrift auf den Text. */
+.di-wall-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 44rem;
+  text-align: center;
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+  will-change: transform;
+}
+.di-wall-eyebrow {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--di-ink-soft);
+  margin: 0 0 1.25rem;
+}
+.di-wall-heading {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--di-ink);
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Kein Parallax, kein Autoplay – statische, sofort sichtbare Wand. */
+  .di-wall-sticky {
+    height: auto;
+    padding: clamp(4rem, 10vw, 7rem) 0;
+  }
+  .di-wall-rows {
+    position: relative;
+    inset: auto;
+    gap: 1rem;
+    transform: none !important;
+  }
+  .di-wall-row { flex: 0 0 auto; }
+  .di-wall-row-inner {
+    animation: none !important;
+    transform: none !important;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .di-wall-row-inner > .di-wall-track + .di-wall-track { display: none; }
+  .di-wall-copy { transform: none !important; }
+}
+
+/* ── Timeline-Overlap: das nächste Kapitel gleitet über die Wand ────────
+   Wrapper aus app/i/page.tsx um <TimelineArchitectural />. Kleiner
+   negativer margin-top zieht den Block leicht nach oben, so dass die
+   Timeline die untere Hälfte der Wand überdeckt. ── */
+.di-timeline-overlap {
+  position: relative;
+  z-index: 2;
+  margin-top: -10vh;
+}
+.di-timeline-overlap::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: clamp(4rem, 10vw, 7rem);
+  z-index: 3;
+  background: linear-gradient(180deg, rgba(2, 4, 5, 0.5) 0%, rgba(2, 4, 5, 0) 100%);
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .di-timeline-overlap { margin-top: 0; }
+  .di-timeline-overlap::before { display: none; }
+}
+
+/* ── Timeline (3 numbered Kapitel mit spec-fill, alternating bg) ────────── */
+.di-timeline { position: relative; }
+.di-tl-chapter {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: 100svh;
+  align-items: center;
+}
+@media (min-width: 1024px) {
+  .di-tl-chapter { grid-template-columns: 1fr 1fr; }
+}
+.di-tl-chapter--dark { background: var(--di-abyss); color: var(--di-mist-soft); }
+.di-tl-chapter--light { background: var(--di-mist-soft); color: var(--di-ink); }
+.di-tl-chapter--deep { background: var(--di-abyss-deep); color: var(--di-mist-soft); }
+
+.di-tl-chapter__media {
+  position: relative;
+  min-height: 50vh;
+  overflow: hidden;
+}
+@media (min-width: 1024px) {
+  .di-tl-chapter__media { min-height: 100svh; }
+}
+.di-tl-chapter__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.di-tl-chapter__body {
+  padding: clamp(4rem, 8vw, 6rem) clamp(1.5rem, 5vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+}
+.di-tl-chapter__index {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: clamp(5rem, 10vw, 8rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  margin: 0 0 1rem;
+  font-variant-numeric: tabular-nums;
+}
+.di-tl-chapter--dark .di-tl-chapter__index,
+.di-tl-chapter--deep .di-tl-chapter__index {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(200, 255, 0, 0.4);
+}
+.di-tl-chapter--light .di-tl-chapter__index {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(19, 39, 53, 0.3);
+}
+.di-tl-chapter__eyebrow {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin: 0;
+}
+.di-tl-chapter--dark .di-tl-chapter__eyebrow,
+.di-tl-chapter--deep .di-tl-chapter__eyebrow { color: var(--di-signal); }
+.di-tl-chapter--light .di-tl-chapter__eyebrow { color: var(--di-ink-soft); }
+
+.di-tl-chapter__title {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 0;
+  max-width: 14ch;
+}
+.di-tl-chapter--dark .di-tl-chapter__title,
+.di-tl-chapter--deep .di-tl-chapter__title { color: #fff; }
+.di-tl-chapter--light .di-tl-chapter__title { color: var(--di-ink); }
+
+.di-tl-chapter__body-text {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: clamp(1rem, 1.3vw, 1.125rem);
+  line-height: 1.7;
+  margin: 0;
+  max-width: 42ch;
+}
+.di-tl-chapter--dark .di-tl-chapter__body-text,
+.di-tl-chapter--deep .di-tl-chapter__body-text { color: var(--di-mist-soft); }
+.di-tl-chapter--light .di-tl-chapter__body-text { color: var(--di-ink-soft); }
+
+.di-spec {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 1rem 0 0;
+  padding: 0;
+  border-top: 1px solid currentColor;
+}
+.di-spec__row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 1.5rem;
+  padding: 0.875rem 0;
+  border-bottom: 1px solid currentColor;
+}
+.di-spec__label {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 0;
+  opacity: 0.7;
+}
+.di-spec__value {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.di-tl-chapter--dark .di-spec__value,
+.di-tl-chapter--deep .di-spec__value { color: #fff; }
+.di-tl-chapter--light .di-spec__value { color: var(--di-ink); }
+
+.di-tl-chapter__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.5rem 0;
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  align-self: flex-start;
+  margin-top: 1rem;
+  transition: color 200ms ease, border-color 200ms ease;
+}
+.di-tl-chapter--dark .di-tl-chapter__link,
+.di-tl-chapter--deep .di-tl-chapter__link {
+  color: var(--di-signal);
+  border-color: var(--di-signal);
+}
+.di-tl-chapter--dark .di-tl-chapter__link:hover,
+.di-tl-chapter--deep .di-tl-chapter__link:hover {
+  color: #fff;
+  border-color: #fff;
+}
+.di-tl-chapter--light .di-tl-chapter__link {
+  color: var(--di-ink);
+  border-color: var(--di-ink);
+}
+.di-tl-chapter--light .di-tl-chapter__link:hover {
+  color: var(--di-signal);
+  border-color: var(--di-signal);
+}
+.di-tl-chapter__link svg { transition: transform 200ms ease; }
+.di-tl-chapter__link:hover svg { transform: translateX(4px); }
+
+/* ── Referenzen (Bento mit echten Photos + großem KPI) ─────────────────── */
+.di-refs {
+  background: var(--di-mist-soft);
+  padding: clamp(5rem, 12vw, 9rem) 0;
+}
+.di-refs__intro {
+  max-width: 80rem;
+  margin: 0 auto clamp(4rem, 8vw, 6rem);
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+}
+.di-refs__eyebrow {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--di-ink-soft);
+  margin: 0 0 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.di-refs__eyebrow::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--di-rule);
+}
+.di-refs__heading {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--di-ink);
+  margin: 0;
+  max-width: 18ch;
+}
+.di-refs__grid {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+@media (min-width: 768px) {
+  .di-refs__grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 22rem;
+  }
+}
+.di-ref-tile {
+  position: relative;
+  overflow: hidden;
+  background: var(--di-abyss);
+  text-decoration: none;
+  display: block;
+  min-height: 22rem;
+}
+@media (min-width: 768px) {
+  .di-ref-tile { min-height: 0; }
+  .di-ref-tile--big { grid-column: span 2; grid-row: span 2; }
+  .di-ref-tile--wide { grid-column: span 2; }
+  .di-ref-tile--tall { grid-row: span 2; }
+}
+.di-ref-tile__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  height: 100%;
+  width: 100%;
+}
+.di-ref-tile__img {
+  object-fit: cover;
+  object-position: center;
+  transition: transform 700ms var(--di-ease);
+}
+.di-ref-tile:hover .di-ref-tile__img {
+  transform: scale(1.05);
+}
+/* Kachel hebt sich beim Hover dezent an. */
+.di-ref-tile {
+  transition: transform 300ms var(--di-ease), box-shadow 300ms var(--di-ease);
+}
+.di-ref-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 1.5rem 3rem rgba(2, 4, 5, 0.35);
+}
+.di-ref-tile__eyebrow,
+.di-ref-tile__kpi {
+  transition: transform 300ms var(--di-ease);
+}
+.di-ref-tile:hover .di-ref-tile__company {
+  color: var(--di-signal);
+  transition: color 300ms var(--di-ease);
+}
+.di-ref-tile__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(11, 23, 31, 0.2) 0%,
+    rgba(11, 23, 31, 0.85) 100%
+  );
+  z-index: 1;
+}
+.di-ref-tile__body {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  pointer-events: none;
+}
+.di-ref-tile__eyebrow {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--di-mist-soft);
+  margin: 0 0 0.75rem;
+  opacity: 0.85;
+}
+.di-ref-tile__company {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: clamp(1.25rem, 2.5vw, 1.875rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin: 0 0 0.75rem;
+}
+.di-ref-tile__kpi {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+.di-ref-tile__kpi-value {
+  font-family: var(--font-telegraf), Arial, sans-serif;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--di-signal);
+  font-variant-numeric: tabular-nums;
+}
+.di-ref-tile__kpi-label {
+  font-family: var(--font-roobert), Arial, sans-serif;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  color: var(--di-mist-soft);
+  max-width: 18ch;
+}
+
+/* ── Focus states ──────────────────────────────────────────────────────── */
+.di-tl-chapter__link:focus-visible,
+.di-ref-tile:focus-visible {
+  outline: 2px solid var(--di-signal);
+  outline-offset: 4px;
+}
+
+/* ── Reduced Motion ────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .di-word__inner,
+  .di-img,
+  .di-reveal,
+  .di-spec__value::after,
+  .di-ref-tile__img img {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    width: 100% !important;
+  }
+}
