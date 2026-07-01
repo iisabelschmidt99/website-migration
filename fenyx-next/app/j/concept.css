@@ -2,25 +2,40 @@
    KONZEPT J — eigene Overrides
    ════════════════════════════════════════════════════════════════════════ */
 
-/* ── Logo-Wand: Logos kleiner ───────────────────────────────────────────── */
+/* ── Logo-Wand: Logos kleiner, „02 / 03 — Partner" ausblenden ───────────── */
 .dg-page .dh-wall-img {
   max-height: 55%;
 }
 .dg-page .dh-wall-cell {
   height: clamp(7rem, 12vw, 10rem);
 }
+.dg-page .dh-wall-eyebrow {
+  display: none;
+}
 
 /* ── Intro überlappt die Logo-Wand (Logos verschwinden dahinter) ────────── */
+/* Weiße Schrift auf schwarzem Grund */
 .dg-page .dg-intro {
   position: relative;
   z-index: 5;
   margin-top: -22vh;
-  background: #fff;
-}
-/* Heading sitzt flush am oberen Rand der weißen Section → kein Spalt */
-.dg-page .dg-intro__inner {
-  padding-top: 0;
+  background: #000;
 }
 .dg-page .dg-intro__heading {
   margin-top: 0;
+  color: #fff;
 }
+.dg-page .dg-intro__inner {
+  padding-top: 0;
+}
+.dg-page .dg-intro__body {
+  color: rgba(255, 255, 255, 0.72);
+}
+.dg-page .dg-intro__cta {
+  color: #fff;
+  border-bottom-color: #c8ff00;
+}
+.dg-page .dg-intro__cta:hover {
+  color: #c8ff00;
+}
+
