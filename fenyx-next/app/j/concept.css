@@ -37,3 +37,13 @@
   color: #c8ff00;
 }
 
+/* ── Timeline: Bestandsmanagement-Bild (Kapitel 1) weniger zoomen,
+      mehr vom Laptop/Scene zeigen und nach oben versetzen ───────────────── */
+.dg-page .dd-timeline .dd-tl-chapter:first-child .dd-tl-chapter__bg {
+  background: #0b171f;
+}
+.dg-page .dd-timeline .dd-tl-chapter:first-child .dd-tl-chapter__bg img {
+  object-fit: contain;
+  object-position: center 18%;
+}
+
