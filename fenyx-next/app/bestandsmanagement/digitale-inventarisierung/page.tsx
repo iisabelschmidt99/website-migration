@@ -8,7 +8,7 @@ import InventarisierungTimeline from "@/components/InventarisierungTimeline";
 import InvCrossSellSection from "@/components/InvCrossSellSection";
 import ReferenceProjectsSection from "@/components/ReferenceProjectsSection";
 import FaqSection from "@/components/FaqSection";
-import ServiceContactSection from "@/components/ServiceContactSection";
+import SurveyContactSection from "@/components/SurveyContactSection";
 import CtaButton from "@/components/CtaButton";
 import {
   digitaleInventarisierungMeta,
@@ -122,7 +122,7 @@ export default function DigitaleInventarisierungPage() {
 
       <FaqSection items={digitaleInventarisierungFaq} dark />
 
-      <ServiceContactSection {...contactContent} />
+      <SurveyContactSection {...contactContent} />
     </div>
   );
 }

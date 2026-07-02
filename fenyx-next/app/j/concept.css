@@ -206,3 +206,27 @@
   }
 }
 
+/* ── Timeline-Überschriften (Service-Namen) schwarz — Test ──────────────── */
+.dg-page .dd-timeline .dd-tl-chapter__title,
+.dg-page .dd-timeline .dd-tl-chapter__title * {
+  color: #000 !important;
+}
+
+/* ── Kontaktformular: mehr Hover-Reaktion ──────────────────────────────── */
+.dg-page #kontakt .service-contact__form {
+  transition: transform 0.25s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.dg-page #kontakt .service-contact__form:hover {
+  transform: translateY(-4px);
+  border-color: rgba(200, 255, 0, 0.28);
+  box-shadow: 0 40px 90px -40px rgba(200, 255, 0, 0.4);
+}
+/* Felder reagieren schon beim Hover (nicht erst beim Fokus) */
+.dg-page #kontakt .hubspot-form .hs-form-field input[type="text"]:hover,
+.dg-page #kontakt .hubspot-form .hs-form-field input[type="email"]:hover,
+.dg-page #kontakt .hubspot-form .hs-form-field input[type="tel"]:hover,
+.dg-page #kontakt .hubspot-form .hs-form-field textarea:hover {
+  border-color: rgba(200, 255, 0, 0.5);
+  background-color: rgba(11, 23, 31, 0.9);
+}
+
