@@ -82,6 +82,7 @@ export default function TimelineCinematicG({
               fill
               className="object-cover object-center"
               sizes="100vw"
+              quality={90}
               loading="lazy"
             />
           </div>
