@@ -44,8 +44,8 @@ export default function LifecycleSection() {
             "⌀ 42% höhere Ankaufsangebote",
             "⌀ 29% bessere Wiederverwertungsrate",
           ]}
-          imageSrc="/assets/timeline/Home-Digitales-Bestandsmanagement.webp"
-          imageAlt="Person, die eine Smartphone-App nutzt, um eine Kategorie aus Optionen wie Bürostuhl, anderer Stuhl, Tisch und Aufbewahrung auszuwählen."
+          imageSrc="/assets/timeline/fenyx-laptop-mix.png"
+          imageAlt="Laptop auf einem Konferenztisch, der die Fenyx-Plattform mit dem digitalen Bürobestand und Möbelkategorien zeigt."
           href="/bestandsmanagement"
           align="left"
         />
