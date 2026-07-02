@@ -1,33 +1,59 @@
 "use client";
 
 // Variante B des Kontaktformulars — verzweigter Wizard (siehe
-// Kontaktformular_AB-Test_Plan.md). Frontend-Prototyp: das Absenden ist noch
-// NICHT an HubSpot angebunden. Bei Freigabe: Antworten (siehe buildPayload)
-// per HubSpot Forms-API in das Backend-Formular B einspeisen und
-// trackGenerateLead / pushLead auslösen (vgl. HubSpotForm.tsx).
+// Kontaktformular_AB-Test_Plan.md, angepasst). Frontend-Prototyp: das Absenden
+// ist noch NICHT an HubSpot angebunden. Bei Freigabe: buildPayload() per HubSpot
+// Forms-API in das Backend-Formular B einspeisen + trackGenerateLead / pushLead.
 
 import Image from "next/image";
 import { useMemo, useRef, useState } from "react";
 
 type Option = { value: string; label: string };
+type SelectKey = "kundentyp" | "interesse" | "arbeitsplaetze" | "zeithorizont";
+
 type SelectStep = {
   kind: "select";
-  key: "kundentyp" | "interesse" | "arbeitsplaetze" | "verwertungsart" | "zeithorizont";
+  key: SelectKey;
   question: string;
   hint?: string;
   options: Option[];
 };
+type SizeStep = { kind: "size" };
 type ContactStep = { kind: "contact"; privat: boolean };
-type FlowStep = SelectStep | ContactStep;
+type FlowStep = SelectStep | SizeStep | ContactStep;
 
-type Answers = Partial<Record<SelectStep["key"], string>>;
+type Answers = Partial<Record<SelectKey, string>>;
+type Groesse = { unit: "m2" | "ap"; value: number };
 
 const INTERESSE_OPTIONS: Option[] = [
-  { value: "einrichten", label: "Büro einrichten" },
-  { value: "mieten", label: "Möbel mieten" },
-  { value: "kaufen", label: "Möbel kaufen" },
-  { value: "verwerten", label: "Bestand aufnehmen oder verwerten" },
+  { value: "einrichten", label: "Büro einrichten (Miete / Kauf)" },
+  { value: "verwerten", label: "Büro räumen, verwerten oder umziehen" },
+  { value: "bestand", label: "Bürobestand aufnehmen und digitalisieren" },
+  { value: "unsicher", label: "Ich bin mir noch unsicher – beraten Sie mich" },
 ];
+
+const AP_EINRICHTEN: Option[] = [
+  { value: "bis20", label: "Bis 20" },
+  { value: "20-50", label: "20 – 50" },
+  { value: "50-150", label: "50 – 150" },
+  { value: "ueber150", label: "Mehr als 150" },
+];
+const AP_VERWERTEN: Option[] = [
+  { value: "0-50", label: "0 – 50" },
+  { value: "50-100", label: "50 – 100" },
+  { value: "ueber100", label: "Mehr als 100" },
+];
+const ZEITHORIZONT: Option[] = [
+  { value: "asap", label: "So schnell wie möglich" },
+  { value: "1-3", label: "In 1 – 3 Monaten" },
+  { value: "3-6", label: "In 3 – 6 Monaten" },
+  { value: "stoebern", label: "Erstmal stöbern" },
+];
+
+const SIZE_BOUNDS = {
+  m2: { min: 20, max: 2000, step: 20, def: 300, unit: "m²" },
+  ap: { min: 5, max: 500, step: 5, def: 50, unit: "Arbeitsplätze" },
+} as const;
 
 /** Baut die Schrittfolge dynamisch aus den bisherigen Antworten (Verzweigung). */
 function buildFlow(a: Answers): FlowStep[] {
@@ -41,60 +67,57 @@ function buildFlow(a: Answers): FlowStep[] {
         { value: "privat", label: "Privatkunde" },
       ],
     },
-    {
-      kind: "select",
-      key: "interesse",
-      question: "Worum geht es?",
-      options: INTERESSE_OPTIONS,
-    },
   ];
+  if (!a.kundentyp) return flow;
+
+  flow.push({
+    kind: "select",
+    key: "interesse",
+    question: "Worum geht es?",
+    options: INTERESSE_OPTIONS,
+  });
 
   if (a.kundentyp === "privat") {
     flow.push({ kind: "contact", privat: true });
     return flow;
   }
-  if (a.kundentyp !== "geschaeft") return flow; // noch nicht gewählt
+  if (!a.interesse) return flow;
 
-  if (a.interesse === "verwerten") {
-    flow.push({
-      kind: "select",
-      key: "verwertungsart",
-      question: "Welche Art der Verwertung passt?",
-      options: [
-        { value: "ankauf", label: "Ankauf" },
-        { value: "spende", label: "Spende" },
-        { value: "aufbereitung", label: "Aufbereitung" },
-        { value: "inventarisierung", label: "Inventarisierung" },
-      ],
-    });
-  } else if (a.interesse) {
+  if (a.interesse === "einrichten") {
     flow.push({
       kind: "select",
       key: "arbeitsplaetze",
       question: "Wie viele Arbeitsplätze umfasst Ihr Büro?",
-      options: [
-        { value: "bis20", label: "Bis 20" },
-        { value: "20-50", label: "20 – 50" },
-        { value: "50-150", label: "50 – 150" },
-        { value: "ueber150", label: "Mehr als 150" },
-      ],
+      options: AP_EINRICHTEN,
     });
+    flow.push({
+      kind: "select",
+      key: "zeithorizont",
+      question: "Wann soll es losgehen?",
+      options: ZEITHORIZONT,
+    });
+    flow.push({ kind: "contact", privat: false });
+  } else if (a.interesse === "verwerten") {
+    flow.push({
+      kind: "select",
+      key: "arbeitsplaetze",
+      question: "Wie viele Arbeitsplätze umfasst das Objekt?",
+      options: AP_VERWERTEN,
+    });
+    flow.push({
+      kind: "select",
+      key: "zeithorizont",
+      question: "Wann soll es losgehen?",
+      options: ZEITHORIZONT,
+    });
+    flow.push({ kind: "contact", privat: false });
+  } else if (a.interesse === "bestand") {
+    flow.push({ kind: "size" });
+    flow.push({ kind: "contact", privat: false });
   } else {
-    return flow; // Interesse noch offen
+    // unsicher – direkt zur Beratung
+    flow.push({ kind: "contact", privat: false });
   }
-
-  flow.push({
-    kind: "select",
-    key: "zeithorizont",
-    question: "Wann soll es losgehen?",
-    options: [
-      { value: "asap", label: "So schnell wie möglich" },
-      { value: "1-3", label: "In 1 – 3 Monaten" },
-      { value: "3-6", label: "In 3 – 6 Monaten" },
-      { value: "stoebern", label: "Erstmal stöbern" },
-    ],
-  });
-  flow.push({ kind: "contact", privat: false });
   return flow;
 }
 
@@ -119,6 +142,7 @@ export default function SurveyContactSection({
 }: SurveyContactSectionProps) {
   const [answers, setAnswers] = useState<Answers>({});
   const [stepIndex, setStepIndex] = useState(0);
+  const [groesse, setGroesse] = useState<Groesse>({ unit: "m2", value: 300 });
   const [contact, setContact] = useState({
     name: "",
     company: "",
@@ -135,18 +159,16 @@ export default function SurveyContactSection({
     ? 100
     : Math.round((clampedIndex / flow.length) * 100);
 
-  function chooseOption(stepKey: SelectStep["key"], value: string) {
+  function chooseOption(stepKey: SelectKey, value: string) {
     const nextAnswers: Answers = { ...answers, [stepKey]: value };
-    // Nachgelagerte Antworten verwerfen, wenn eine frühere Weiche neu gestellt wird
     if (stepKey === "kundentyp") {
       delete nextAnswers.interesse;
       delete nextAnswers.arbeitsplaetze;
-      delete nextAnswers.verwertungsart;
       delete nextAnswers.zeithorizont;
     }
     if (stepKey === "interesse") {
       delete nextAnswers.arbeitsplaetze;
-      delete nextAnswers.verwertungsart;
+      delete nextAnswers.zeithorizont;
     }
     setAnswers(nextAnswers);
 
@@ -157,23 +179,43 @@ export default function SurveyContactSection({
     }, 260);
   }
 
+  function goNext() {
+    if (advanceTimer.current) clearTimeout(advanceTimer.current);
+    setStepIndex((i) => Math.min(i + 1, flow.length - 1));
+  }
   function back() {
     if (advanceTimer.current) clearTimeout(advanceTimer.current);
     setStepIndex((i) => Math.max(0, i - 1));
   }
 
+  function setUnit(unit: Groesse["unit"]) {
+    setGroesse({ unit, value: SIZE_BOUNDS[unit].def });
+  }
+
+  const bounds = SIZE_BOUNDS[groesse.unit];
+  const groesseLabel =
+    groesse.value >= bounds.max
+      ? `${bounds.max}+ ${bounds.unit}`
+      : `${groesse.value} ${bounds.unit}`;
+
   const contactValid =
     contact.name.trim() !== "" && /\S+@\S+\.\S+/.test(contact.email);
 
   function buildPayload() {
-    const projektart =
-      answers.interesse === "verwerten" ? "Liquidierung" : "Einrichtung";
+    const projektartMap: Record<string, string> = {
+      einrichten: "Einrichtung",
+      verwerten: "Liquidierung",
+      bestand: "Bestandsaufnahme",
+      unsicher: "Unklar",
+    };
     return {
-      kundentyp: answers.kundentyp === "privat" ? "Privatkunde" : "Geschäftskunde",
+      kundentyp:
+        answers.kundentyp === "privat" ? "Privatkunde" : "Geschäftskunde",
       interesse: answers.interesse ?? "",
-      projektart,
+      projektart: projektartMap[answers.interesse ?? ""] ?? "",
       arbeitsplaetze: answers.arbeitsplaetze ?? "",
-      verwertungsart: answers.verwertungsart ?? "",
+      bueroGroesse:
+        answers.interesse === "bestand" ? groesseLabel : "",
       zeithorizont: answers.zeithorizont ?? "",
       ...contact,
     };
@@ -263,7 +305,7 @@ export default function SurveyContactSection({
                     </h3>
                     <p className="survey__done-text">
                       {answers.kundentyp === "privat"
-                        ? "Wir leiten Ihre Anfrage an unseren Partner Office for Sale weiter – er meldet sich zeitnah bei Ihnen. Bei Fragen erreichen Sie uns direkt:"
+                        ? "Wir leiten Ihre Anfrage an einen ausgewählten Partner weiter – er meldet sich zeitnah bei Ihnen. Bei Fragen erreichen Sie uns direkt:"
                         : "Wir haben Ihre Angaben erhalten und melden uns in Kürze mit einem passenden Vorschlag. Bei Eile erreichen Sie uns direkt:"}
                     </p>
                     <div className="survey__done-links">
@@ -277,8 +319,8 @@ export default function SurveyContactSection({
                       <div className="survey__disclaimer" role="note">
                         <strong>Hinweis:</strong> Wir bedienen ausschließlich
                         Geschäftskunden. Für private Anliegen arbeiten wir mit
-                        unserem Partner <em>Office for Sale</em> zusammen – wir
-                        leiten Ihre Anfrage gerne dorthin weiter.
+                        einem ausgewählten Partner zusammen – wir leiten Ihre
+                        Anfrage gerne dorthin weiter.
                       </div>
                     )}
                     <h3 className="survey__question">
@@ -329,6 +371,56 @@ export default function SurveyContactSection({
                         }
                         autoComplete="tel"
                       />
+                    </div>
+                  </div>
+                ) : step.kind === "size" ? (
+                  <div className="survey__panel" key="size">
+                    <h3 className="survey__question">Wie groß ist Ihr Büro?</h3>
+                    <p className="survey__hint">
+                      Geben Sie die Fläche oder die Zahl der Arbeitsplätze an –
+                      eine grobe Schätzung genügt.
+                    </p>
+                    <div className="survey__unit-toggle" role="group">
+                      <button
+                        type="button"
+                        className={`survey__unit-btn${
+                          groesse.unit === "m2" ? " is-active" : ""
+                        }`}
+                        aria-pressed={groesse.unit === "m2"}
+                        onClick={() => setUnit("m2")}
+                      >
+                        Fläche (m²)
+                      </button>
+                      <button
+                        type="button"
+                        className={`survey__unit-btn${
+                          groesse.unit === "ap" ? " is-active" : ""
+                        }`}
+                        aria-pressed={groesse.unit === "ap"}
+                        onClick={() => setUnit("ap")}
+                      >
+                        Arbeitsplätze
+                      </button>
+                    </div>
+                    <div className="survey__slider-value">{groesseLabel}</div>
+                    <input
+                      type="range"
+                      className="survey__slider"
+                      min={bounds.min}
+                      max={bounds.max}
+                      step={bounds.step}
+                      value={groesse.value}
+                      onChange={(e) =>
+                        setGroesse({
+                          unit: groesse.unit,
+                          value: Number(e.target.value),
+                        })
+                      }
+                      aria-label="Bürogröße"
+                    />
+                    <div className="survey__slider-scale">
+                      <span>{bounds.min}</span>
+                      <span>{bounds.max}+</span>
                     </div>
                   </div>
                 ) : (
@@ -383,6 +475,14 @@ export default function SurveyContactSection({
                         disabled={!contactValid}
                       >
                         Absenden
+                      </button>
+                    ) : step.kind === "size" ? (
+                      <button
+                        type="button"
+                        className="survey__next"
+                        onClick={goNext}
+                      >
+                        Weiter →
                       </button>
                     ) : (
                       <span className="survey__hint-inline">
