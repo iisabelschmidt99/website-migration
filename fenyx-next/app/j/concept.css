@@ -2,15 +2,22 @@
    KONZEPT J — eigene Overrides
    ════════════════════════════════════════════════════════════════════════ */
 
-/* ── Logo-Wand: Logos kleiner, „02 / 03 — Partner" ausblenden ───────────── */
-.dg-page .dh-wall-img {
-  max-height: 55%;
+/* ── Logo-Grid (Original-Homepage): leichter Hover auf Logos ─────────────── */
+.dj-logo-grid [role="listitem"] img {
+  transition: transform 0.28s ease, opacity 0.28s ease;
 }
-.dg-page .dh-wall-cell {
-  height: clamp(7rem, 12vw, 10rem);
+.dj-logo-grid [role="listitem"]:hover img {
+  transform: scale(1.06) translateY(-2px);
+  opacity: 0.82;
 }
-.dg-page .dh-wall-eyebrow {
-  display: none;
+@media (prefers-reduced-motion: reduce) {
+  .dj-logo-grid [role="listitem"] img {
+    transition: none;
+  }
+  .dj-logo-grid [role="listitem"]:hover img {
+    transform: none;
+    opacity: 1;
+  }
 }
 
 /* ── Intro: normaler oberer Rand, kein Überlapp mehr ────────────────────── */
@@ -35,15 +42,5 @@
 }
 .dg-page .dg-intro__cta:hover {
   color: #c8ff00;
-}
-
-/* ── Timeline: Bestandsmanagement-Bild (Kapitel 1) weniger zoomen,
-      mehr vom Laptop/Scene zeigen und nach oben versetzen ───────────────── */
-.dg-page .dd-timeline .dd-tl-chapter:first-child .dd-tl-chapter__bg {
-  background: #0b171f;
-}
-.dg-page .dd-timeline .dd-tl-chapter:first-child .dd-tl-chapter__bg img {
-  object-fit: contain;
-  object-position: center 18%;
 }
 

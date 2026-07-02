@@ -1,7 +1,7 @@
-// Konzept J — Mix-Version (Kopie von /g, mit H-Logo-Wand + H-Hero-Bild)
+// Konzept J — Mix-Version (Kopie von /g, mit Original-LogoGrid + H-Hero-Bild)
 // URL: /j
 // Hero:       Original-Video-Hero (wie g)
-// Logos:      LogoWallColumns (h) – Depth Columns mit Scroll-Parallax
+// Logos:      LogoGrid (Original-Homepage) mit leichtem Hover
 // Timeline:   TimelineCinematicG (g), überlappt die Logo-Wand (dh-timeline-overlap),
 //             Bild „Schlüsselfertige Einrichtung" = H-Hero-Bild (f-hero.png)
 // Press:      PressMarquee (shared)
@@ -11,7 +11,7 @@
 import type { Metadata } from "next";
 import HomeHeroVideo from "@/components/HomeHeroVideo";
 import CtaButton from "@/components/CtaButton";
-import LogoWallColumns from "@/components/concepts/h/LogoWallColumns";
+import LogoGrid from "@/components/LogoGrid";
 import TimelineCinematicG from "@/components/concepts/g/TimelineCinematicG";
 import PressMarquee from "@/components/PressMarquee";
 import ReferencesArchitecturalG from "@/components/concepts/g/ReferencesArchitecturalG";
@@ -21,7 +21,6 @@ import "@/components/concepts/shared/anim.css";
 import "../d/concept.css";
 import "../f/concept.css";
 import "../g/concept.css";
-import "../h/concept.css";
 import "./concept.css";
 
 export const revalidate = 60;
@@ -29,7 +28,7 @@ export const revalidate = 60;
 export const metadata: Metadata = {
   title: "Konzept J – Mix | Fenyx",
   description:
-    "Mix-Vorschau: Video-Hero, Logo-Wand (h), Timeline mit Überlapp, Referenzen (g).",
+    "Mix-Vorschau: Video-Hero, Logo-Grid (Original), Timeline, Referenzen (g).",
   robots: { index: false, follow: false },
 };
 
@@ -53,7 +52,11 @@ export default async function ConceptJPage() {
           <div className="wf-container-xlarge">
             <div className="wf-max-width-large wf-max-width-large--hero">
               <h1 id="dj-hero-heading" className="wf-heading-h1 text-white mb-5">
-                Nachhaltige Bürotransformationen aus einer Hand.
+                Nachhaltige
+                <br />
+                Bürotransformationen
+                <br />
+                aus einer Hand.
               </h1>
               <p className="text-white wf-text-size-medium leading-snug mb-10">
                 Von digitalem Bestandsmanagement über die nachhaltige Verwertung
@@ -65,8 +68,10 @@ export default async function ConceptJPage() {
         </div>
       </section>
 
-      {/* ── Logos: H-Depth-Wand ───────────────────────────────────── */}
-      <LogoWallColumns />
+      {/* ── Logos: Original-Homepage-Grid ───────────────────────────── */}
+      <div className="dj-logo-grid">
+        <LogoGrid />
+      </div>
 
       {/* ── Intro nach Logos: schwarz auf weiß ─────────────────────── */}
       <section className="dg-intro" aria-labelledby="dj-intro-heading">
@@ -90,9 +95,9 @@ export default async function ConceptJPage() {
 
       {/* ── Timeline (g) ──────────────────────────────────────────── */}
       <TimelineCinematicG
-        bestandImageSrc="/assets/timeline/fenyx-laptop-mix.png"
-        verwertungImageSrc="/assets/concepts/g/verwertung-aussenlift.png"
-        einrichtungImageSrc="/assets/concepts/f/f-hero.png"
+        bestandImageSrc="/assets/concepts/j/bestandsmanagement.png"
+        verwertungImageSrc="/assets/concepts/j/verwertung-lift.png"
+        einrichtungImageSrc="/assets/concepts/j/einrichtung.png"
       />
 
       {/* ── Bekannt aus – Presse ──────────────────────────────────── */}
