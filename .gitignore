@@ -1,6 +1,9 @@
 # Referenzmaterial – nur lokal als Vorlage, NICHT ins Repo
 /_reference/
 
+# Quell-Ebenen fürs Bild-Kompositing (lokal, NICHT ins Repo)
+fenyx-next/public/assets/timeline/_src/
+
 # Cursor (lokal); Rules optional committen, MCP-Konfig nicht
 .cursor/mcp.json
 
