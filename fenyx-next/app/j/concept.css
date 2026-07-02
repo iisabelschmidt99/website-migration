@@ -206,12 +206,6 @@
   }
 }
 
-/* ── Timeline-Überschriften (Service-Namen) schwarz — Test ──────────────── */
-.dg-page .dd-timeline .dd-tl-chapter__title,
-.dg-page .dd-timeline .dd-tl-chapter__title * {
-  color: #000 !important;
-}
-
 /* ── Kontaktformular: mehr Hover-Reaktion ──────────────────────────────── */
 .dg-page #kontakt .service-contact__form {
   transition: transform 0.25s ease, box-shadow 0.3s ease, border-color 0.3s ease;
