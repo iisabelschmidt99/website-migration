@@ -267,11 +267,13 @@ export default function SurveyContactSection({
               <div className="service-contact__form survey">
                 <p className="survey__eyebrow">In unter einer Minute</p>
                 <h2 id="survey-kontakt-heading" className="survey__headline">
-                  Was dürfen wir für Sie tun?
+                  Was dürfen wir <span className="survey__hl">für Sie</span>{" "}
+                  tun?
                 </h2>
                 <p className="survey__subline">
-                  Ein paar Klicks genügen – wir melden uns mit einem passenden
-                  Vorschlag für Ihr Büro.
+                  Ein paar Klicks genügen – wir melden uns mit einem{" "}
+                  <span className="survey__hl">passenden Vorschlag</span> für Ihr
+                  Büro.
                 </p>
 
                 {!submitted && (
