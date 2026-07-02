@@ -3733,20 +3733,20 @@
    Interaktives Umfrage-Kontaktformular (SurveyContactSection)
    ════════════════════════════════════════════════════════════════════════ */
 
-/* Formular als hervorgehobene, hoverbare Karte */
+/* Formular als hervorgehobene, hoverbare Karte (heller, weißer Schatten) */
 .survey {
   position: relative;
   padding: clamp(1.5rem, 3vw, 2.75rem);
   border-radius: 26px;
-  background: rgba(200, 255, 0, 0.04);
-  border: 1.5px solid rgba(200, 255, 0, 0.2);
-  box-shadow: 0 30px 80px -40px rgba(200, 255, 0, 0.32);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 30px 80px -40px rgba(255, 255, 255, 0.22);
   transition: transform 0.3s ease, box-shadow 0.35s ease, border-color 0.35s ease;
 }
 .survey:hover {
   transform: translateY(-5px);
-  border-color: rgba(200, 255, 0, 0.42);
-  box-shadow: 0 46px 110px -44px rgba(200, 255, 0, 0.55);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 46px 110px -44px rgba(255, 255, 255, 0.35);
 }
 
 /* Wichtige Wörter hervorheben */

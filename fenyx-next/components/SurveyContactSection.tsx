@@ -247,7 +247,8 @@ export default function SurveyContactSection({
                   src={portraitSrc}
                   alt={portraitAlt}
                   fill
-                  className="object-cover object-top"
+                  className="object-cover"
+                  style={{ objectPosition: "center 30%" }}
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   loading="lazy"
                 />
