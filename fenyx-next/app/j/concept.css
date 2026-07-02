@@ -44,13 +44,14 @@
   color: #c8ff00;
 }
 
-/* ── Timeline /j: weiter rauszoomen (ohne dunkle Ränder), hellere Scrims ─── */
+/* ── Timeline /j: Bild exakt formatfüllend (kein Overscale), hellere Scrims ─ */
 .dg-page .dd-timeline .dd-tl-chapter__bg img {
-  /* Größeres Bild-Fenster → mehr Motiv sichtbar, kein scale + Letterboxing */
-  width: 112% !important;
-  height: 112% !important;
-  left: -6% !important;
-  top: -6% !important;
+  /* 100% statt 112%: object-fit cover füllt ohnehin randlos. Ohne den 12%-
+     Overscale muss die Quelldatei weniger hochskaliert werden → schärfer. */
+  width: 100% !important;
+  height: 100% !important;
+  left: 0 !important;
+  top: 0 !important;
   max-width: none;
   transform: none;
   object-fit: cover;
