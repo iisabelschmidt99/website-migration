@@ -190,10 +190,9 @@
       ausrichten, Scrim passend spiegeln (nur Desktop, mobil bleibt vertikal) ─ */
 .dg-page .dd-timeline .dd-tl-chapter:nth-child(2) .dd-tl-chapter__content {
   text-align: right;
-}
-.dg-page .dd-timeline .dd-tl-chapter:nth-child(2) .dd-tl-chapter__title,
-.dg-page .dd-timeline .dd-tl-chapter:nth-child(2) .dd-tl-chapter__body {
-  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 @media (min-width: 768px) {
   .dg-page .dd-timeline .dd-tl-chapter:nth-child(2) .dd-tl-chapter__scrim {
