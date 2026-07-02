@@ -53,6 +53,11 @@
   transform: scale(0.82);
   transform-origin: center center;
 }
+/* Verwertung: neues Weitwinkel-Bild ohne extra Scale */
+.dg-page .dd-timeline .dd-tl-chapter:nth-child(2) .dd-tl-chapter__bg img {
+  transform: none;
+  object-position: center center;
+}
 @media (prefers-reduced-motion: reduce) {
   .dg-page .dd-timeline .dd-tl-chapter__bg img {
     transform: none;
