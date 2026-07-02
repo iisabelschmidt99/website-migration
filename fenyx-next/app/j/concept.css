@@ -44,23 +44,53 @@
   color: #c8ff00;
 }
 
-/* ── Timeline: etwas herauszoomen (weniger Crop), dunkler Rand bei Letterboxing ──
-      Hinweis: Schärfe kommt erst mit Bildern ab ca. 2560×1440 px ─────────────── */
-.dg-page .dd-timeline .dd-tl-chapter__bg {
-  background: #0b171f;
-}
+/* ── Timeline /j: weiter rauszoomen (ohne dunkle Ränder), hellere Scrims ─── */
 .dg-page .dd-timeline .dd-tl-chapter__bg img {
-  transform: scale(0.82);
-  transform-origin: center center;
-}
-/* Verwertung: neues Weitwinkel-Bild ohne extra Scale */
-.dg-page .dd-timeline .dd-tl-chapter:nth-child(2) .dd-tl-chapter__bg img {
+  /* Größeres Bild-Fenster → mehr Motiv sichtbar, kein scale + Letterboxing */
+  width: 112% !important;
+  height: 112% !important;
+  left: -6% !important;
+  top: -6% !important;
+  max-width: none;
   transform: none;
+  object-fit: cover;
   object-position: center center;
+}
+
+/* Scrim deutlich heller – Text bleibt lesbar, Fotos wirken nicht so dunkel */
+.dg-page .dd-timeline .dd-tl-chapter__scrim {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.36) 0%,
+    rgba(0, 0, 0, 0.14) 40%,
+    transparent 68%
+  ) !important;
+}
+@media (min-width: 768px) {
+  .dg-page .dd-timeline .dd-tl-chapter:nth-child(2) .dd-tl-chapter__scrim {
+    background: linear-gradient(
+      270deg,
+      rgba(0, 0, 0, 0.36) 0%,
+      rgba(0, 0, 0, 0.14) 40%,
+      transparent 68%
+    ) !important;
+  }
+}
+@media (max-width: 767px) {
+  .dg-page .dd-timeline .dd-tl-chapter__scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.1) 0%,
+      rgba(0, 0, 0, 0.42) 100%
+    ) !important;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .dg-page .dd-timeline .dd-tl-chapter__bg img {
-    transform: none;
+    width: 100% !important;
+    height: 100% !important;
+    left: 0 !important;
+    top: 0 !important;
   }
 }
 
