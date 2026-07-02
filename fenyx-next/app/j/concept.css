@@ -58,6 +58,13 @@
   object-position: center center;
 }
 
+/* Fließtext unter der Überschrift: kräftigeres Weiß + leichter Schatten,
+   damit er über den helleren Fotos besser lesbar bleibt */
+.dg-page .dd-timeline .dd-tl-chapter__body {
+  color: rgba(255, 255, 255, 0.94) !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
 /* Scrim deutlich heller – Text bleibt lesbar, Fotos wirken nicht so dunkel */
 .dg-page .dd-timeline .dd-tl-chapter__scrim {
   background: linear-gradient(
