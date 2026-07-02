@@ -1,64 +1,102 @@
 "use client";
 
-// Interaktives Umfrage-Kontaktformular (Prototyp, Test auf /bestandsmanagement/
-// digitale-inventarisierung). Ersetzt das statische HubSpot-Formular durch einen
-// mehrstufigen, klickbaren "Quiz"-Flow mit catchy Headline.
-//
-// Hinweis: Der Absenden-Schritt ist bewusst frontend-only (kein HubSpot-Wiring).
-// Bei Freigabe kann onSubmit an HubSpot / die dataLayer-Lead-Events angebunden
-// werden (siehe HubSpotForm.tsx: trackGenerateLead / pushLead).
+// Variante B des Kontaktformulars — verzweigter Wizard (siehe
+// Kontaktformular_AB-Test_Plan.md). Frontend-Prototyp: das Absenden ist noch
+// NICHT an HubSpot angebunden. Bei Freigabe: Antworten (siehe buildPayload)
+// per HubSpot Forms-API in das Backend-Formular B einspeisen und
+// trackGenerateLead / pushLead auslösen (vgl. HubSpotForm.tsx).
 
 import Image from "next/image";
-import { useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
-type Choice = { value: string; label: string; emoji: string };
-type Step = {
-  key: string;
+type Option = { value: string; label: string };
+type SelectStep = {
+  kind: "select";
+  key: "kundentyp" | "interesse" | "arbeitsplaetze" | "verwertungsart" | "zeithorizont";
   question: string;
   hint?: string;
-  multi: boolean;
-  choices: Choice[];
+  options: Option[];
 };
+type ContactStep = { kind: "contact"; privat: boolean };
+type FlowStep = SelectStep | ContactStep;
 
-const STEPS: Step[] = [
-  {
-    key: "interesse",
-    question: "Woran habt ihr Interesse?",
-    hint: "Mehrfachauswahl möglich.",
-    multi: true,
-    choices: [
-      { value: "refurbished", label: "Refurbished Möbel", emoji: "♻️" },
-      { value: "miete", label: "Möbel mieten", emoji: "📅" },
-      { value: "kauf", label: "Neu kaufen", emoji: "🛋️" },
-      { value: "verwertung", label: "Bestand verwerten", emoji: "📦" },
-      { value: "unklar", label: "Noch unklar – beratet mich", emoji: "🤔" },
-    ],
-  },
-  {
-    key: "groesse",
-    question: "Wie viele Arbeitsplätze umfasst euer Büro?",
-    multi: false,
-    choices: [
-      { value: "s", label: "Bis 20", emoji: "🌱" },
-      { value: "m", label: "20 – 50", emoji: "🏢" },
-      { value: "l", label: "50 – 150", emoji: "🏬" },
-      { value: "xl", label: "Mehr als 150", emoji: "🏙️" },
-    ],
-  },
-  {
-    key: "zeitpunkt",
-    question: "Wann soll es losgehen?",
-    multi: false,
-    choices: [
-      { value: "sofort", label: "So schnell wie möglich", emoji: "⚡" },
-      { value: "quartal", label: "In 1 – 3 Monaten", emoji: "🗓️" },
-      { value: "halbjahr", label: "In 3 – 6 Monaten", emoji: "🌤️" },
-      { value: "stoebern", label: "Erstmal nur stöbern", emoji: "👀" },
-    ],
-  },
+type Answers = Partial<Record<SelectStep["key"], string>>;
+
+const INTERESSE_OPTIONS: Option[] = [
+  { value: "einrichten", label: "Büro einrichten" },
+  { value: "mieten", label: "Möbel mieten" },
+  { value: "kaufen", label: "Möbel kaufen" },
+  { value: "verwerten", label: "Bestand aufnehmen oder verwerten" },
 ];
 
-type Answers = Record<string, string[]>;
+/** Baut die Schrittfolge dynamisch aus den bisherigen Antworten (Verzweigung). */
+function buildFlow(a: Answers): FlowStep[] {
+  const flow: FlowStep[] = [
+    {
+      kind: "select",
+      key: "kundentyp",
+      question: "Für wen planen wir?",
+      options: [
+        { value: "geschaeft", label: "Geschäftskunde" },
+        { value: "privat", label: "Privatkunde" },
+      ],
+    },
+    {
+      kind: "select",
+      key: "interesse",
+      question: "Worum geht es?",
+      options: INTERESSE_OPTIONS,
+    },
+  ];
+
+  if (a.kundentyp === "privat") {
+    flow.push({ kind: "contact", privat: true });
+    return flow;
+  }
+  if (a.kundentyp !== "geschaeft") return flow; // noch nicht gewählt
+
+  if (a.interesse === "verwerten") {
+    flow.push({
+      kind: "select",
+      key: "verwertungsart",
+      question: "Welche Art der Verwertung passt?",
+      options: [
+        { value: "ankauf", label: "Ankauf" },
+        { value: "spende", label: "Spende" },
+        { value: "aufbereitung", label: "Aufbereitung" },
+        { value: "inventarisierung", label: "Inventarisierung" },
+      ],
+    });
+  } else if (a.interesse) {
+    flow.push({
+      kind: "select",
+      key: "arbeitsplaetze",
+      question: "Wie viele Arbeitsplätze umfasst Ihr Büro?",
+      options: [
+        { value: "bis20", label: "Bis 20" },
+        { value: "20-50", label: "20 – 50" },
+        { value: "50-150", label: "50 – 150" },
+        { value: "ueber150", label: "Mehr als 150" },
+      ],
+    });
+  } else {
+    return flow; // Interesse noch offen
+  }
+
+  flow.push({
+    kind: "select",
+    key: "zeithorizont",
+    question: "Wann soll es losgehen?",
+    options: [
+      { value: "asap", label: "So schnell wie möglich" },
+      { value: "1-3", label: "In 1 – 3 Monaten" },
+      { value: "3-6", label: "In 3 – 6 Monaten" },
+      { value: "stoebern", label: "Erstmal stöbern" },
+    ],
+  });
+  flow.push({ kind: "contact", privat: false });
+  return flow;
+}
 
 export type SurveyContactSectionProps = {
   email: string;
@@ -79,45 +117,77 @@ export default function SurveyContactSection({
   name,
   role,
 }: SurveyContactSectionProps) {
-  const [stepIndex, setStepIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
-  const [contact, setContact] = useState({ name: "", email: "", company: "" });
+  const [stepIndex, setStepIndex] = useState(0);
+  const [contact, setContact] = useState({
+    name: "",
+    company: "",
+    email: "",
+    phone: "",
+  });
   const [submitted, setSubmitted] = useState(false);
+  const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const totalSteps = STEPS.length + 1; // + Kontaktschritt
-  const isContactStep = stepIndex === STEPS.length;
-  const step = STEPS[stepIndex];
-  const progress = Math.round(((stepIndex + (submitted ? 1 : 0)) / totalSteps) * 100);
+  const flow = useMemo(() => buildFlow(answers), [answers]);
+  const clampedIndex = Math.min(stepIndex, flow.length - 1);
+  const step = flow[clampedIndex];
+  const progress = submitted
+    ? 100
+    : Math.round((clampedIndex / flow.length) * 100);
 
-  function toggleChoice(stepKey: string, value: string, multi: boolean) {
-    setAnswers((prev) => {
-      const current = prev[stepKey] ?? [];
-      if (multi) {
-        const next = current.includes(value)
-          ? current.filter((v) => v !== value)
-          : [...current, value];
-        return { ...prev, [stepKey]: next };
-      }
-      return { ...prev, [stepKey]: [value] };
-    });
-  }
-
-  const currentSelection = step ? answers[step.key] ?? [] : [];
-  const canAdvance = isContactStep
-    ? contact.name.trim() !== "" && /\S+@\S+\.\S+/.test(contact.email)
-    : currentSelection.length > 0;
-
-  function next() {
-    if (!canAdvance) return;
-    if (isContactStep) {
-      // Prototyp: nur Frontend. Hier später HubSpot / Lead-Tracking anbinden.
-      setSubmitted(true);
-      return;
+  function chooseOption(stepKey: SelectStep["key"], value: string) {
+    const nextAnswers: Answers = { ...answers, [stepKey]: value };
+    // Nachgelagerte Antworten verwerfen, wenn eine frühere Weiche neu gestellt wird
+    if (stepKey === "kundentyp") {
+      delete nextAnswers.interesse;
+      delete nextAnswers.arbeitsplaetze;
+      delete nextAnswers.verwertungsart;
+      delete nextAnswers.zeithorizont;
     }
-    setStepIndex((i) => i + 1);
+    if (stepKey === "interesse") {
+      delete nextAnswers.arbeitsplaetze;
+      delete nextAnswers.verwertungsart;
+    }
+    setAnswers(nextAnswers);
+
+    const nextFlow = buildFlow(nextAnswers);
+    if (advanceTimer.current) clearTimeout(advanceTimer.current);
+    advanceTimer.current = setTimeout(() => {
+      setStepIndex((i) => Math.min(i + 1, nextFlow.length - 1));
+    }, 260);
   }
+
   function back() {
+    if (advanceTimer.current) clearTimeout(advanceTimer.current);
     setStepIndex((i) => Math.max(0, i - 1));
+  }
+
+  const contactValid =
+    contact.name.trim() !== "" && /\S+@\S+\.\S+/.test(contact.email);
+
+  function buildPayload() {
+    const projektart =
+      answers.interesse === "verwerten" ? "Liquidierung" : "Einrichtung";
+    return {
+      kundentyp: answers.kundentyp === "privat" ? "Privatkunde" : "Geschäftskunde",
+      interesse: answers.interesse ?? "",
+      projektart,
+      arbeitsplaetze: answers.arbeitsplaetze ?? "",
+      verwertungsart: answers.verwertungsart ?? "",
+      zeithorizont: answers.zeithorizont ?? "",
+      ...contact,
+    };
+  }
+
+  function submit() {
+    if (!contactValid) return;
+    // TODO(HubSpot): buildPayload() an Forms-API / Backend-Formular B senden
+    // und trackGenerateLead("contact_form", "survey_b") auslösen.
+    if (process.env.NODE_ENV !== "production") {
+      // eslint-disable-next-line no-console
+      console.log("Survey B Submission:", buildPayload());
+    }
+    setSubmitted(true);
   }
 
   return (
@@ -155,12 +225,11 @@ export default function SurveyContactSection({
               <div className="service-contact__form survey">
                 <p className="survey__eyebrow">In unter einer Minute</p>
                 <h2 id="survey-kontakt-heading" className="survey__headline">
-                  Refurbished, mieten oder kaufen?
+                  Was dürfen wir für Sie tun?
                 </h2>
                 <p className="survey__subline">
-                  Klick dich durch – wir finden heraus, was für euer Büro am
-                  meisten Sinn ergibt, und melden uns mit einem passenden
-                  Vorschlag.
+                  Ein paar Klicks genügen – wir melden uns mit einem passenden
+                  Vorschlag für Ihr Büro.
                 </p>
 
                 {!submitted && (
@@ -178,7 +247,7 @@ export default function SurveyContactSection({
                       />
                     </div>
                     <p className="survey__step-count">
-                      Schritt {stepIndex + 1} von {totalSteps}
+                      Schritt {clampedIndex + 1} von {flow.length}
                     </p>
                   </>
                 )}
@@ -189,21 +258,33 @@ export default function SurveyContactSection({
                       ✓
                     </div>
                     <h3 className="survey__done-title">
-                      Danke, {contact.name.split(" ")[0] || "und bis gleich"}!
+                      Vielen Dank
+                      {contact.name ? `, ${contact.name.split(" ")[0]}` : ""}!
                     </h3>
                     <p className="survey__done-text">
-                      Wir haben eure Angaben erhalten und melden uns in Kürze mit
-                      einem passenden Vorschlag. Bei Eile erreicht ihr uns direkt:
+                      {answers.kundentyp === "privat"
+                        ? "Wir leiten Ihre Anfrage an unseren Partner Office for Sale weiter – er meldet sich zeitnah bei Ihnen. Bei Fragen erreichen Sie uns direkt:"
+                        : "Wir haben Ihre Angaben erhalten und melden uns in Kürze mit einem passenden Vorschlag. Bei Eile erreichen Sie uns direkt:"}
                     </p>
                     <div className="survey__done-links">
                       <a href={`mailto:${email}`}>{email}</a>
                       <a href={`tel:${phone.replace(/\s/g, "")}`}>{phone}</a>
                     </div>
                   </div>
-                ) : isContactStep ? (
+                ) : step.kind === "contact" ? (
                   <div className="survey__panel" key="contact">
+                    {step.privat && (
+                      <div className="survey__disclaimer" role="note">
+                        <strong>Hinweis:</strong> Wir bedienen ausschließlich
+                        Geschäftskunden. Für private Anliegen arbeiten wir mit
+                        unserem Partner <em>Office for Sale</em> zusammen – wir
+                        leiten Ihre Anfrage gerne dorthin weiter.
+                      </div>
+                    )}
                     <h3 className="survey__question">
-                      Fast geschafft – wohin dürfen wir den Vorschlag schicken?
+                      {step.privat
+                        ? "Wohin dürfen wir Ihre Anfrage weiterleiten?"
+                        : "Wohin dürfen wir den Vorschlag schicken?"}
                     </h3>
                     <div className="survey__fields">
                       <input
@@ -216,6 +297,18 @@ export default function SurveyContactSection({
                         }
                         autoComplete="name"
                       />
+                      {!step.privat && (
+                        <input
+                          type="text"
+                          className="survey__input"
+                          placeholder="Unternehmen (optional)"
+                          value={contact.company}
+                          onChange={(e) =>
+                            setContact({ ...contact, company: e.target.value })
+                          }
+                          autoComplete="organization"
+                        />
+                      )}
                       <input
                         type="email"
                         className="survey__input"
@@ -227,14 +320,14 @@ export default function SurveyContactSection({
                         autoComplete="email"
                       />
                       <input
-                        type="text"
+                        type="tel"
                         className="survey__input"
-                        placeholder="Unternehmen (optional)"
-                        value={contact.company}
+                        placeholder="Telefon (optional)"
+                        value={contact.phone}
                         onChange={(e) =>
-                          setContact({ ...contact, company: e.target.value })
+                          setContact({ ...contact, phone: e.target.value })
                         }
-                        autoComplete="organization"
+                        autoComplete="tel"
                       />
                     </div>
                   </div>
@@ -243,28 +336,24 @@ export default function SurveyContactSection({
                     <h3 className="survey__question">{step.question}</h3>
                     {step.hint && <p className="survey__hint">{step.hint}</p>}
                     <div className="survey__choices">
-                      {step.choices.map((choice) => {
-                        const selected = currentSelection.includes(choice.value);
+                      {step.options.map((option) => {
+                        const selected = answers[step.key] === option.value;
                         return (
                           <button
                             type="button"
-                            key={choice.value}
+                            key={option.value}
                             className={`survey__choice${
                               selected ? " is-selected" : ""
                             }`}
                             aria-pressed={selected}
-                            onClick={() =>
-                              toggleChoice(step.key, choice.value, step.multi)
-                            }
+                            onClick={() => chooseOption(step.key, option.value)}
                           >
-                            <span className="survey__choice-emoji" aria-hidden="true">
-                              {choice.emoji}
-                            </span>
+                            <span
+                              className="survey__choice-radio"
+                              aria-hidden="true"
+                            />
                             <span className="survey__choice-label">
-                              {choice.label}
-                            </span>
-                            <span className="survey__choice-check" aria-hidden="true">
-                              ✓
+                              {option.label}
                             </span>
                           </button>
                         );
@@ -275,7 +364,7 @@ export default function SurveyContactSection({
 
                 {!submitted && (
                   <div className="survey__nav">
-                    {stepIndex > 0 ? (
+                    {clampedIndex > 0 ? (
                       <button
                         type="button"
                         className="survey__back"
@@ -286,14 +375,20 @@ export default function SurveyContactSection({
                     ) : (
                       <span />
                     )}
-                    <button
-                      type="button"
-                      className="survey__next"
-                      onClick={next}
-                      disabled={!canAdvance}
-                    >
-                      {isContactStep ? "Absenden" : "Weiter →"}
-                    </button>
+                    {step.kind === "contact" ? (
+                      <button
+                        type="button"
+                        className="survey__next"
+                        onClick={submit}
+                        disabled={!contactValid}
+                      >
+                        Absenden
+                      </button>
+                    ) : (
+                      <span className="survey__hint-inline">
+                        Zum Fortfahren auswählen
+                      </span>
+                    )}
                   </div>
                 )}
               </div>
