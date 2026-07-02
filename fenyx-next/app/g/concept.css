@@ -185,3 +185,18 @@
 .dg-refs .dg-refs__body { max-width: 62ch; margin-left: auto; margin-right: auto; }
 
 /* ContactSection: Original-Farben (kein Override) */
+
+/* ── Timeline Kapitel 2 („Ganzheitliche Verwertung"): Text nach rechts
+      ausrichten, Scrim passend spiegeln (nur Desktop, mobil bleibt vertikal) ─ */
+.dg-page .dd-timeline .dd-tl-chapter:nth-child(2) .dd-tl-chapter__content {
+  text-align: right;
+}
+.dg-page .dd-timeline .dd-tl-chapter:nth-child(2) .dd-tl-chapter__title,
+.dg-page .dd-timeline .dd-tl-chapter:nth-child(2) .dd-tl-chapter__body {
+  margin-left: auto;
+}
+@media (min-width: 768px) {
+  .dg-page .dd-timeline .dd-tl-chapter:nth-child(2) .dd-tl-chapter__scrim {
+    background: linear-gradient(270deg, rgba(11,23,31,0.92) 0%, rgba(11,23,31,0.55) 45%, rgba(11,23,31,0.15) 100%);
+  }
+}
