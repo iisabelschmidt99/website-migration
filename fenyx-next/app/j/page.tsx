@@ -90,7 +90,7 @@ export default async function ConceptJPage() {
 
       {/* ── Timeline (g) ──────────────────────────────────────────── */}
       <TimelineCinematicG
-        bestandImageSrc="/assets/concepts/g/bestandsmanagement-laptop.png"
+        bestandImageSrc="/assets/timeline/fenyx-laptop-mix.png"
         verwertungImageSrc="/assets/concepts/g/verwertung-aussenlift.png"
         einrichtungImageSrc="/assets/concepts/f/f-hero.png"
       />
