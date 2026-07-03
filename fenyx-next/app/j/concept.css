@@ -2,21 +2,33 @@
    KONZEPT J — eigene Overrides
    ════════════════════════════════════════════════════════════════════════ */
 
-/* ── Logo-Grid (Original-Homepage): leichter Hover auf Logos ─────────────── */
+/* ── Logo-Grid /j: Spotlight-Hover + Farb-Pop ───────────────────────────── */
+/* Ruhezustand: dezent entsättigt, aber klar erkennbar */
 .dj-logo-grid [role="listitem"] img {
-  transition: transform 0.28s ease, opacity 0.28s ease;
+  filter: grayscale(35%);
+  opacity: 0.8;
+  transition: filter 0.4s ease, opacity 0.4s ease,
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, filter, opacity;
 }
+/* Sobald man über das Raster fährt, treten alle Logos zurück (Spotlight) */
+.dj-logo-grid:hover [role="listitem"] img {
+  opacity: 0.3;
+  filter: grayscale(70%);
+}
+/* Das anvisierte Logo springt in voller Farbe hervor, größer und angehoben */
 .dj-logo-grid [role="listitem"]:hover img {
-  transform: scale(1.06) translateY(-2px);
-  opacity: 0.82;
+  opacity: 1;
+  filter: grayscale(0%);
+  transform: scale(1.16) translateY(-4px);
 }
+
 @media (prefers-reduced-motion: reduce) {
-  .dj-logo-grid [role="listitem"] img {
-    transition: none;
-  }
+  .dj-logo-grid [role="listitem"] img,
+  .dj-logo-grid:hover [role="listitem"] img,
   .dj-logo-grid [role="listitem"]:hover img {
+    transition: none;
     transform: none;
-    opacity: 1;
   }
 }
 
