@@ -148,6 +148,7 @@ export default function SurveyContactSection({
     company: "",
     email: "",
     phone: "",
+    message: "",
   });
   const [submitted, setSubmitted] = useState(false);
   const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -335,12 +336,14 @@ export default function SurveyContactSection({
                       <input
                         type="text"
                         className="survey__input"
-                        placeholder="Name"
+                        placeholder="Name *"
                         value={contact.name}
                         onChange={(e) =>
                           setContact({ ...contact, name: e.target.value })
                         }
                         autoComplete="name"
+                        required
+                        aria-required="true"
                       />
                       {!step.privat && (
                         <input
@@ -357,12 +360,14 @@ export default function SurveyContactSection({
                       <input
                         type="email"
                         className="survey__input"
-                        placeholder="E-Mail"
+                        placeholder="E-Mail *"
                         value={contact.email}
                         onChange={(e) =>
                           setContact({ ...contact, email: e.target.value })
                         }
                         autoComplete="email"
+                        required
+                        aria-required="true"
                       />
                       <input
                         type="tel"
@@ -374,7 +379,17 @@ export default function SurveyContactSection({
                         }
                         autoComplete="tel"
                       />
+                      <textarea
+                        className="survey__input survey__textarea"
+                        placeholder="Ihre Nachricht (optional)"
+                        value={contact.message}
+                        onChange={(e) =>
+                          setContact({ ...contact, message: e.target.value })
+                        }
+                        rows={3}
+                      />
                     </div>
+                    <p className="survey__required-note">* Pflichtfeld</p>
                   </div>
                 ) : step.kind === "size" ? (
                   <div className="survey__panel" key="size">

@@ -3992,6 +3992,17 @@
   border-color: #c8ff00;
   box-shadow: 0 0 0 4px rgba(200, 255, 0, 0.18);
 }
+.survey__textarea {
+  min-height: 96px;
+  resize: vertical;
+  line-height: 1.5;
+  font-family: inherit;
+}
+.survey__required-note {
+  margin-top: 0.6rem;
+  font-size: 0.8rem;
+  color: rgba(220, 234, 245, 0.55);
+}
 
 /* Navigation */
 .survey__nav {
