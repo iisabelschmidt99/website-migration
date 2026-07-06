@@ -76,23 +76,11 @@
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55), 0 1px 2px rgba(0, 0, 0, 0.45);
 }
 
-/* Überschriften (Service-Namen): standardmäßig weiß mit Schatten,
-   werden beim Drüberfahren grün – analog zu den Referenz-Kacheln */
+/* Überschriften (Service-Namen): sauber weiß, kein Hover-Grün, kein Schatten */
 .dg-page .dd-timeline .dd-tl-chapter__title,
 .dg-page .dd-timeline .dd-tl-chapter__title .dd-word__inner {
   color: #fff !important;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.45);
-  transition: color 300ms ease;
-}
-.dg-page .dd-timeline .dd-tl-chapter:hover .dd-tl-chapter__title,
-.dg-page .dd-timeline .dd-tl-chapter:hover .dd-tl-chapter__title .dd-word__inner {
-  color: #c8ff00 !important;
-}
-@media (prefers-reduced-motion: reduce) {
-  .dg-page .dd-timeline .dd-tl-chapter__title,
-  .dg-page .dd-timeline .dd-tl-chapter__title .dd-word__inner {
-    transition: none;
-  }
+  text-shadow: none !important;
 }
 
 /* Scrim: auf der Textseite kräftig genug für weiße Schrift, fällt aber schnell
