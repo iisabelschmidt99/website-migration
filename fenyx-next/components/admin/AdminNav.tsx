@@ -15,6 +15,7 @@ const ITEMS = [
   { href: "/admin/team", label: "Team" },
   { href: "/admin/kundenstimmen", label: "Kundenstimmen" },
   { href: "/admin/events", label: "Events" },
+  { href: "/admin/landingpages", label: "Landingpages" },
   { href: "/admin/medien", label: "Medien / Upload" },
   { href: "/admin/benutzer", label: "Benutzer" },
   { href: "/admin/sicherheit", label: "Sicherheit" },

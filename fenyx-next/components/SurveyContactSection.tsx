@@ -27,10 +27,10 @@ type Answers = Partial<Record<SelectKey, string>>;
 type Groesse = { unit: "m2" | "ap"; value: number };
 
 const INTERESSE_OPTIONS: Option[] = [
-  { value: "einrichten", label: "Büro einrichten (Miete / Kauf)" },
-  { value: "verwerten", label: "Büro räumen, verwerten oder umziehen" },
-  { value: "bestand", label: "Bürobestand aufnehmen und digitalisieren" },
-  { value: "unsicher", label: "Ich bin mir noch unsicher – beraten Sie mich" },
+  { value: "einrichten", label: "Büroeinrichtung – Miete oder Kauf" },
+  { value: "verwerten", label: "Büroauflösung, Verwertung & Umzug" },
+  { value: "bestand", label: "Bestandsaufnahme & digitale Inventarisierung" },
+  { value: "unsicher", label: "Erstberatung – noch in der Orientierung" },
 ];
 
 const AP_EINRICHTEN: Option[] = [
@@ -67,10 +67,10 @@ function buildFlow(a: Answers): FlowStep[] {
     {
       kind: "select",
       key: "kundentyp",
-      question: "Für wen planen wir?",
+      question: "Wer sind Sie?",
       options: [
-        { value: "geschaeft", label: "Geschäftskunde" },
-        { value: "privat", label: "Privatkunde" },
+        { value: "geschaeft", label: "Unternehmen" },
+        { value: "privat", label: "Privatperson" },
       ],
     },
   ];
@@ -79,7 +79,7 @@ function buildFlow(a: Answers): FlowStep[] {
   flow.push({
     kind: "select",
     key: "interesse",
-    question: "Worum geht es?",
+    question: "Wobei dürfen wir Sie unterstützen?",
     options: INTERESSE_OPTIONS,
   });
 
