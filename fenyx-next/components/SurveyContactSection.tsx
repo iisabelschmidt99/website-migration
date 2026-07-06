@@ -1,12 +1,13 @@
 "use client";
 
-// Variante B des Kontaktformulars — verzweigter Wizard (siehe
-// Kontaktformular_AB-Test_Plan.md, angepasst). Frontend-Prototyp: das Absenden
-// ist noch NICHT an HubSpot angebunden. Bei Freigabe: buildPayload() per HubSpot
-// Forms-API in das Backend-Formular B einspeisen + trackGenerateLead / pushLead.
+// Variante B des Kontaktformulars — verzweigter Wizard.
+// Absenden geht per POST an /api/lead (Server-Route → n8n-Webhook „Flow 1"),
+// n8n legt Kontakt + Deal in „New Leads" an und triggert Power Automate.
 
 import Image from "next/image";
 import { useMemo, useRef, useState } from "react";
+import { pushLead } from "@/lib/analytics/dataLayer";
+import { trackGenerateLead } from "@/lib/analytics/events";
 
 type Option = { value: string; label: string };
 type SelectKey = "kundentyp" | "interesse" | "arbeitsplaetze" | "zeithorizont";
@@ -54,6 +55,11 @@ const SIZE_BOUNDS = {
   m2: { min: 20, max: 2000, step: 20, def: 300, unit: "m²" },
   ap: { min: 5, max: 500, step: 5, def: 50, unit: "Arbeitsplätze" },
 } as const;
+
+/** Gibt das Label einer Option zum internen Wert zurück. */
+function labelFor(options: Option[], value?: string): string {
+  return options.find((o) => o.value === value)?.label ?? "";
+}
 
 /** Baut die Schrittfolge dynamisch aus den bisherigen Antworten (Verzweigung). */
 function buildFlow(a: Answers): FlowStep[] {
@@ -144,13 +150,17 @@ export default function SurveyContactSection({
   const [stepIndex, setStepIndex] = useState(0);
   const [groesse, setGroesse] = useState<Groesse>({ unit: "m2", value: 300 });
   const [contact, setContact] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     company: "",
+    city: "",
     email: "",
     phone: "",
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState(false);
   const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const flow = useMemo(() => buildFlow(answers), [answers]);
@@ -200,37 +210,79 @@ export default function SurveyContactSection({
       : `${groesse.value} ${bounds.unit}`;
 
   const contactValid =
-    contact.name.trim() !== "" && /\S+@\S+\.\S+/.test(contact.email);
+    contact.firstName.trim() !== "" &&
+    contact.lastName.trim() !== "" &&
+    contact.city.trim() !== "" &&
+    /\S+@\S+\.\S+/.test(contact.email);
 
   function buildPayload() {
-    const projektartMap: Record<string, string> = {
+    const leistungsartMap: Record<string, string> = {
       einrichten: "Einrichtung",
-      verwerten: "Liquidierung",
-      bestand: "Bestandsaufnahme",
+      verwerten: "Verwertung",
+      bestand: "Bestandsmanagement",
       unsicher: "Unklar",
     };
-    return {
-      kundentyp:
+    const isBestand = answers.interesse === "bestand";
+    const apOptions =
+      answers.interesse === "verwerten" ? AP_VERWERTEN : AP_EINRICHTEN;
+
+    // Arbeitsplätze: aus dem Auswahl-Schritt ODER aus dem Regler (Arbeitsplatz-Modus)
+    let arbeitsplaetze = labelFor(apOptions, answers.arbeitsplaetze);
+    if (isBestand && groesse.unit === "ap") {
+      arbeitsplaetze = groesseLabel;
+    }
+    // Bürofläche in m² (Zahl) nur im Bestand-Stream + m²-Modus
+    const flaecheM2 =
+      isBestand && groesse.unit === "m2" ? String(groesse.value) : "";
+
+    const payload: Record<string, string> = {
+      kontaktart_website:
         answers.kundentyp === "privat" ? "Privatkunde" : "Geschäftskunde",
-      interesse: answers.interesse ?? "",
-      projektart: projektartMap[answers.interesse ?? ""] ?? "",
-      arbeitsplaetze: answers.arbeitsplaetze ?? "",
-      bueroGroesse:
-        answers.interesse === "bestand" ? groesseLabel : "",
-      zeithorizont: answers.zeithorizont ?? "",
-      ...contact,
+      leistungsart_website: leistungsartMap[answers.interesse ?? ""] ?? "",
+      arbeitsplatze_website: arbeitsplaetze,
+      burogroe_m2: flaecheM2,
+      startzeitpunkt_website: labelFor(ZEITHORIZONT, answers.zeithorizont),
+      firstname: contact.firstName,
+      lastname: contact.lastName,
+      company: contact.company,
+      city: contact.city,
+      email: contact.email,
+      phone: contact.phone,
+      message: contact.message,
+      leadquelle: "Website",
     };
+    return payload;
   }
 
-  function submit() {
-    if (!contactValid) return;
-    // TODO(HubSpot): buildPayload() an Forms-API / Backend-Formular B senden
-    // und trackGenerateLead("contact_form", "survey_b") auslösen.
-    if (process.env.NODE_ENV !== "production") {
-      // eslint-disable-next-line no-console
-      console.log("Survey B Submission:", buildPayload());
+  async function submit() {
+    if (!contactValid || sending) return;
+    setSending(true);
+    setError(false);
+    try {
+      const res = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...buildPayload(),
+          ab_variant: "B",
+          page_url:
+            typeof window !== "undefined" ? window.location.href : "",
+        }),
+      });
+      if (!res.ok) throw new Error("submit_failed");
+      trackGenerateLead("contact_form", "survey_b");
+      pushLead({
+        lead_type: "contact_form",
+        lead_surface: "survey_b",
+        page_path:
+          typeof window !== "undefined" ? window.location.pathname : "",
+      });
+      setSubmitted(true);
+    } catch {
+      setError(true);
+    } finally {
+      setSending(false);
     }
-    setSubmitted(true);
   }
 
   return (
@@ -305,7 +357,7 @@ export default function SurveyContactSection({
                     </div>
                     <h3 className="survey__done-title">
                       Vielen Dank
-                      {contact.name ? `, ${contact.name.split(" ")[0]}` : ""}!
+                      {contact.firstName ? `, ${contact.firstName}` : ""}!
                     </h3>
                     <p className="survey__done-text">
                       {answers.kundentyp === "privat"
@@ -336,12 +388,24 @@ export default function SurveyContactSection({
                       <input
                         type="text"
                         className="survey__input"
-                        placeholder="Name *"
-                        value={contact.name}
+                        placeholder="Vorname *"
+                        value={contact.firstName}
                         onChange={(e) =>
-                          setContact({ ...contact, name: e.target.value })
+                          setContact({ ...contact, firstName: e.target.value })
                         }
-                        autoComplete="name"
+                        autoComplete="given-name"
+                        required
+                        aria-required="true"
+                      />
+                      <input
+                        type="text"
+                        className="survey__input"
+                        placeholder="Nachname *"
+                        value={contact.lastName}
+                        onChange={(e) =>
+                          setContact({ ...contact, lastName: e.target.value })
+                        }
+                        autoComplete="family-name"
                         required
                         aria-required="true"
                       />
@@ -379,6 +443,18 @@ export default function SurveyContactSection({
                         }
                         autoComplete="tel"
                       />
+                      <input
+                        type="text"
+                        className="survey__input"
+                        placeholder="Stadt *"
+                        value={contact.city}
+                        onChange={(e) =>
+                          setContact({ ...contact, city: e.target.value })
+                        }
+                        autoComplete="address-level2"
+                        required
+                        aria-required="true"
+                      />
                       <textarea
                         className="survey__input survey__textarea"
                         placeholder="Ihre Nachricht (optional)"
@@ -390,6 +466,15 @@ export default function SurveyContactSection({
                       />
                     </div>
                     <p className="survey__required-note">* Pflichtfeld</p>
+                    {error && (
+                      <p
+                        className="survey__required-note"
+                        role="alert"
+                        style={{ color: "#ef9a9a" }}
+                      >
+                        Das hat leider nicht geklappt. Bitte erneut senden.
+                      </p>
+                    )}
                   </div>
                 ) : step.kind === "size" ? (
                   <div className="survey__panel" key="size">
@@ -490,9 +575,9 @@ export default function SurveyContactSection({
                         type="button"
                         className="survey__next"
                         onClick={submit}
-                        disabled={!contactValid}
+                        disabled={!contactValid || sending}
                       >
-                        Absenden
+                        {sending ? "Wird gesendet…" : "Absenden"}
                       </button>
                     ) : step.kind === "size" ? (
                       <button

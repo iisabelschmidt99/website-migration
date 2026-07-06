@@ -2,32 +2,20 @@
    KONZEPT J — eigene Overrides
    ════════════════════════════════════════════════════════════════════════ */
 
-/* ── Logo-Grid /j: Spotlight-Hover + Farb-Pop ───────────────────────────── */
-/* Ruhezustand: dezent entsättigt, aber klar erkennbar */
+/* ── Logo-Grid /j: voll sichtbar, beim Hovern größer ────────────────────── */
 .dj-logo-grid [role="listitem"] img {
-  filter: grayscale(35%);
-  opacity: 0.8;
-  transition: filter 0.4s ease, opacity 0.4s ease,
-    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform, filter, opacity;
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
 }
-/* Sobald man über das Raster fährt, treten alle Logos zurück (Spotlight) */
-.dj-logo-grid:hover [role="listitem"] img {
-  opacity: 0.3;
-  filter: grayscale(70%);
-}
-/* Das anvisierte Logo springt in voller Farbe hervor, größer und angehoben */
 .dj-logo-grid [role="listitem"]:hover img {
-  opacity: 1;
-  filter: grayscale(0%);
-  transform: scale(1.16) translateY(-4px);
+  transform: scale(1.18) translateY(-3px);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .dj-logo-grid [role="listitem"] img,
-  .dj-logo-grid:hover [role="listitem"] img,
-  .dj-logo-grid [role="listitem"]:hover img {
+  .dj-logo-grid [role="listitem"] img {
     transition: none;
+  }
+  .dj-logo-grid [role="listitem"]:hover img {
     transform: none;
   }
 }
@@ -123,12 +111,12 @@
   position: relative;
   padding: clamp(1.5rem, 3vw, 2.5rem);
   border-radius: 24px;
-  background: rgba(200, 255, 0, 0.03);
-  border: 1px solid rgba(200, 255, 0, 0.12);
-  box-shadow: 0 30px 80px -40px rgba(200, 255, 0, 0.28);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 30px 80px -40px rgba(255, 255, 255, 0.22);
   overflow: hidden;
 }
-/* weicher, verspielter Lichtblob hinter dem Formular */
+/* weicher Lichtblob hinter dem Formular (weiß statt grün) */
 .dg-page #kontakt .service-contact__form::before {
   content: "";
   position: absolute;
@@ -136,7 +124,7 @@
   right: -80px;
   width: 260px;
   height: 260px;
-  background: radial-gradient(circle, rgba(200, 255, 0, 0.35), transparent 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.28), transparent 70%);
   filter: blur(40px);
   opacity: 0.55;
   pointer-events: none;
@@ -224,8 +212,8 @@
 }
 .dg-page #kontakt .service-contact__form:hover {
   transform: translateY(-4px);
-  border-color: rgba(200, 255, 0, 0.28);
-  box-shadow: 0 40px 90px -40px rgba(200, 255, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 40px 90px -40px rgba(255, 255, 255, 0.35);
 }
 /* Felder reagieren schon beim Hover (nicht erst beim Fokus) */
 .dg-page #kontakt .hubspot-form .hs-form-field input[type="text"]:hover,
