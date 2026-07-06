@@ -95,22 +95,25 @@
   }
 }
 
-/* Scrim deutlich heller – Text bleibt lesbar, Fotos wirken nicht so dunkel */
+/* Scrim: auf der Textseite kräftig genug für weiße Schrift, fällt aber schnell
+   ab, damit der Großteil des Fotos hell bleibt */
 .dg-page .dd-timeline .dd-tl-chapter__scrim {
   background: linear-gradient(
     90deg,
-    rgba(0, 0, 0, 0.36) 0%,
-    rgba(0, 0, 0, 0.14) 40%,
-    transparent 68%
+    rgba(0, 0, 0, 0.72) 0%,
+    rgba(0, 0, 0, 0.5) 28%,
+    rgba(0, 0, 0, 0.18) 52%,
+    transparent 74%
   ) !important;
 }
 @media (min-width: 768px) {
   .dg-page .dd-timeline .dd-tl-chapter:nth-child(2) .dd-tl-chapter__scrim {
     background: linear-gradient(
       270deg,
-      rgba(0, 0, 0, 0.36) 0%,
-      rgba(0, 0, 0, 0.14) 40%,
-      transparent 68%
+      rgba(0, 0, 0, 0.72) 0%,
+      rgba(0, 0, 0, 0.5) 28%,
+      rgba(0, 0, 0, 0.18) 52%,
+      transparent 74%
     ) !important;
   }
 }
@@ -118,8 +121,9 @@
   .dg-page .dd-timeline .dd-tl-chapter__scrim {
     background: linear-gradient(
       180deg,
-      rgba(0, 0, 0, 0.1) 0%,
-      rgba(0, 0, 0, 0.42) 100%
+      rgba(0, 0, 0, 0.15) 0%,
+      rgba(0, 0, 0, 0.4) 45%,
+      rgba(0, 0, 0, 0.72) 100%
     ) !important;
   }
 }
@@ -138,6 +142,10 @@
 }
 .dg-page #bekannt-aus #bekannt-aus-heading {
   color: #132735 !important;
+  /* gleiche Größe wie die Referenzen-Überschrift (.dg-refs__heading) */
+  font-size: clamp(2rem, 4.5vw, 3.5rem) !important;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
 }
 /* Filter (brightness-0 invert) entfernen → Original-Logofarben, volle Deckkraft */
 .dg-page #bekannt-aus .presse-marquee img {
