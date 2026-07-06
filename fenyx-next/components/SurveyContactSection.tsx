@@ -248,6 +248,8 @@ export default function SurveyContactSection({
       city: contact.city,
       email: contact.email,
       phone: contact.phone,
+      // Nachricht -> Deal-Beschreibung (HubSpot-Property "description")
+      description: contact.message,
       message: contact.message,
       leadquelle: "Website",
     };
@@ -371,12 +373,26 @@ export default function SurveyContactSection({
                   </div>
                 ) : step.kind === "contact" ? (
                   <div className="survey__panel" key="contact">
-                    {step.privat && (
-                      <div className="survey__disclaimer" role="note">
-                        <strong>Hinweis:</strong> Wir bedienen ausschließlich
-                        Geschäftskunden. Für private Anliegen arbeiten wir mit
-                        einem ausgewählten Partner zusammen – wir leiten Ihre
-                        Anfrage gerne dorthin weiter.
+                    {step.privat ? (
+                      <div
+                        className="mb-5 border-l-2 border-signal bg-signal/10 px-4 py-3 text-sm leading-relaxed text-white/85"
+                        role="note"
+                      >
+                        <strong className="text-signal font-semibold">Hinweis:</strong>{" "}
+                        Wir bedienen ausschließlich Geschäftskunden. Für private
+                        Anliegen arbeiten wir mit einem ausgewählten Partner zusammen
+                        – wir leiten Ihre Anfrage gerne dorthin weiter.
+                      </div>
+                    ) : (
+                      <div
+                        className="mb-5 border-l-2 border-signal bg-signal/10 px-4 py-3 text-sm leading-relaxed text-white/85"
+                        role="note"
+                      >
+                        <strong className="text-signal font-semibold">
+                          Gut zu wissen:
+                        </strong>{" "}
+                        Sollten wir Ihre Anfrage einmal nicht selbst übernehmen können,
+                        leiten wir Sie an einen unserer ausgewählten Partner weiter.
                       </div>
                     )}
                     <h3 className="survey__question">
