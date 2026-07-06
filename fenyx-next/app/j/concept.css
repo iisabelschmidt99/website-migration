@@ -8,7 +8,14 @@
   will-change: transform;
 }
 .dj-logo-grid [role="listitem"]:hover img {
-  transform: scale(1.18) translateY(-3px);
+  transform: scale(1.55) translateY(-6px);
+}
+/* damit vergrößerte Logos nicht von Nachbarn beschnitten werden */
+.dj-logo-grid [role="listitem"] {
+  position: relative;
+}
+.dj-logo-grid [role="listitem"]:hover {
+  z-index: 5;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -63,6 +70,12 @@
 .dg-page .dd-timeline .dd-tl-chapter__body {
   color: rgba(255, 255, 255, 0.94) !important;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+/* Überschriften (Service-Namen) der Timeline in Fenyx-Grün */
+.dg-page .dd-timeline .dd-tl-chapter__title,
+.dg-page .dd-timeline .dd-tl-chapter__title .dd-word__inner {
+  color: #c8ff00 !important;
 }
 
 /* Scrim deutlich heller – Text bleibt lesbar, Fotos wirken nicht so dunkel */
