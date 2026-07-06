@@ -83,6 +83,14 @@
   text-shadow: none !important;
 }
 
+/* Text weiter nach außen an den Bildrand rücken → sitzt auf dem dunklen Scrim,
+   die helle Bildmitte bleibt sichtbar (zentrierende max-width aufheben) */
+.dg-page .dd-timeline .dd-tl-chapter__content {
+  max-width: none;
+  padding-left: clamp(1.5rem, 4vw, 4.5rem);
+  padding-right: clamp(1.5rem, 4vw, 4.5rem);
+}
+
 /* Scrim: auf der Textseite kräftig genug für weiße Schrift, fällt aber schnell
    ab, damit der Großteil des Fotos hell bleibt */
 .dg-page .dd-timeline .dd-tl-chapter__scrim {
