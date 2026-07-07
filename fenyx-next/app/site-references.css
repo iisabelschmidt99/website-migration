@@ -3,3 +3,16 @@
 .dg-refs.df-refs {
   padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
 }
+
+/* Einzelne Referenz-Kachel (z. B. Spende) zentriert */
+.dg-refs .df-refs__grid--single {
+  max-width: 36rem;
+  margin-inline: auto;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .dg-refs .df-refs__grid--single {
+    grid-auto-rows: 28rem;
+  }
+}

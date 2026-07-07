@@ -42,9 +42,16 @@ export default function ReferencesArchitecturalG({
   id,
 }: Props) {
   const headingId = id ? `${id}-heading` : "dg-refs-heading";
-  const base = projects.slice(0, 5);
-  const ordered = (base.length < 6 ? [...base, STATIC_SIXTH] : projects.slice(0, 6));
-  // Universal (Index 3) und Reneo (Index 0) tauschen
+
+  let ordered: ReferenceProject[];
+  if (projects.length >= 6) {
+    ordered = projects.slice(0, 6);
+  } else if (projects.length === 5) {
+    ordered = [...projects, STATIC_SIXTH];
+  } else {
+    ordered = projects;
+  }
+
   if (ordered.length > 3) {
     const tmp = ordered[0];
     ordered[0] = ordered[3];
@@ -76,7 +83,13 @@ export default function ReferencesArchitecturalG({
         </Rise>
       </div>
 
-      <Stagger className="df-refs__grid" step={110} y={36}>
+      <Stagger
+        className={`df-refs__grid${
+          tiles.length === 1 ? " df-refs__grid--single" : ""
+        }`}
+        step={110}
+        y={36}
+      >
         {tiles.map((project, index) => {
           const span = SPAN[index] ?? "";
           const kpi = project.stats[0];

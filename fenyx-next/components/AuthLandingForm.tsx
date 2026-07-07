@@ -95,7 +95,7 @@ export default function AuthLandingForm() {
       <div className="w-full max-w-sm">
         <div className="flex justify-center mb-8">
           <Image
-            src="/assets/fenyx-logo-header.png"
+            src="/assets/fenyx-logo-white.png"
             alt="FENYX"
             width={110}
             height={24}

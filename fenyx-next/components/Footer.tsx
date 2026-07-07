@@ -117,7 +117,7 @@ export default function Footer() {
         {/* Großes Logo + rechtliche Links */}
         <div className="pt-4 border-t border-white/8 bg-black -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 pb-6">
           <Image
-            src="/assets/fenyx-logo.png"
+            src="/assets/fenyx-logo-white.png"
             alt="FENYX"
             width={1200}
             height={200}

@@ -139,7 +139,7 @@ export default function Header() {
             data-track-id="header__logo__home"
           >
             <Image
-              src="/assets/fenyx-logo-header.png"
+              src="/assets/fenyx-logo-white.png"
               alt="FENYX"
               width={82}
               height={18}

@@ -1197,6 +1197,10 @@
   object-position: center 15%;
 }
 
+.service-contact__portrait img[src*="marius-gimm"] {
+  object-position: center 4%;
+}
+
 @media (min-width: 1024px) {
   .service-contact__portrait {
     align-self: stretch;

@@ -15,11 +15,13 @@ export const heroContent = {
     "⌀ 57% CO₂ sparen durch Optimierung der Refurbished-Strategien",
     "Kernkompetenzen in Digitalisierung, Nachhaltigkeit, und Logistik",
   ],
-  imageSrc: `${pm}/miete-tabs-3.webp`,
-  imageAlt: "Nachhaltiges Projektmanagement.",
+  imageSrc: `${pm}/6850292bf6f10af5a78aa660_fenyx-office-2025-296.webp`,
+  imageAlt: "Fenyx-Team bei der Planung einer nachhaltigen Bürotransformation.",
   ctaHref: "#kontakt",
   ctaLabel: "Projektberatung vereinbaren",
   showLearnMore: false,
+  variant: "gradient" as const,
+  uppercase: false,
 };
 
 export const standortContent = {

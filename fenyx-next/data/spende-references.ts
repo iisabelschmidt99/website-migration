@@ -12,7 +12,7 @@ export const spendeReferences: ReferenceProject[] = [
       { value: "765", label: "Möbel gespendet" },
       { value: "19.000 kg", label: "CO₂-Emissionen gespart" },
     ],
-    href: "/referenzen",
+    href: "/referenzen/ernst-klett-verlag",
     imageSrc: "/assets/referenzen/ernst-klett-verlag.webp",
     imageAlt: "Moderner Bürobereich nach der Spenden-Verwertung bei Ernst Klett Verlag",
   },
