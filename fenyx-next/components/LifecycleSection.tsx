@@ -63,6 +63,7 @@ export default function LifecycleSection() {
           imageAlt="Möbellift hebt Bürostühle in einen LKW im Innenhof eines Bürogebäudes."
           href="/verwertung/bueroaufloesung"
           align="right"
+          className="leistung-card--jstyle"
         />
 
         <LifecycleCard

@@ -282,6 +282,30 @@
   }
 }
 
+/* /j-Stil-Variante (nur Vergleich): Vollhöhe + Gradient-Scrim statt schwarzem
+   Panel, Text direkt auf dem Scrim – wie die Timeline auf /j */
+.leistung-card--jstyle {
+  min-height: 100svh;
+}
+.leistung-card--jstyle .leistung-card__overlay {
+  background: linear-gradient(
+    270deg,
+    rgba(0, 0, 0, 0.72) 0%,
+    rgba(0, 0, 0, 0.5) 28%,
+    rgba(0, 0, 0, 0.18) 52%,
+    transparent 74%
+  );
+}
+.leistung-card--jstyle .leistung-card__panel {
+  background: transparent;
+  max-width: 40rem;
+  padding-right: 0;
+}
+.leistung-card--jstyle .leistung-card__panel p {
+  color: rgba(255, 255, 255, 0.96);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.55), 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
 /* ── Feature-Rows (CTA-Bänder) ── */
 .feature-row {
   display: grid;
