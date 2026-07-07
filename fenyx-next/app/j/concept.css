@@ -125,26 +125,3 @@
   filter: none !important;
   opacity: 1 !important;
 }
-
-/* ── /j: Header & Footer schwarz statt Abyss-Blau ───────────────────────── */
-body.page-j #site-header.site-header.is-scrolled,
-body.page-j #site-header.site-header.is-menu-open,
-body.page-j #site-header.site-header:has(.mega-item.is-open) {
-  background: #000;
-  border-bottom-color: rgba(255, 255, 255, 0.08);
-}
-body.page-j #site-header.site-header #mobile-menu {
-  background: #000;
-}
-body.page-j #site-header.site-header.is-scrolled .site-header-logo,
-body.page-j #site-header.site-header.is-menu-open .site-header-logo {
-  background: #000;
-}
-
-body.page-j footer {
-  background: #000 !important;
-  border-top-color: rgba(255, 255, 255, 0.08);
-}
-body.page-j footer .wf-container-large > div:last-child {
-  background-color: #000 !important;
-}

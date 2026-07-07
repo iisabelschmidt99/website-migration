@@ -12,13 +12,15 @@ export const heroContent = {
   heading: "Digitale Inventarisierung.",
   description:
     "Mit unserer digitalen Inventarisierung schaffen Sie die Grundlage für jede nachhaltige Bürotransformation. Ob Weiternutzung, Verkauf oder Aufbereitung: Sie erhalten volle Transparenz über Ihren Bestand, dessen Zustand und die erforderliche Logistik.",
-  pills: [
+  bullets: [
     "Interne Weiternutzung nach Aufbereitung",
-    " ⌀ 42% höhere Ankaufsangebote",
-    "⌀ 29% bessere Wiederverwertungsrate",
+    "⌀ 42 % höhere Ankaufsangebote",
+    "⌀ 29 % bessere Wiederverwertungsrate",
   ],
   imageSrc: `${inv}/Home-Digitales-Bestandsmanagement.webp`,
-  imageAlt: "Digitale Inventarisierung.",
+  imageAlt: "Digitale Inventarisierung von Büromöbeln.",
+  ctaHref: "#kontakt",
+  ctaLabel: "Kontakt aufnehmen",
 };
 
 export const greenBenefitsContent = {

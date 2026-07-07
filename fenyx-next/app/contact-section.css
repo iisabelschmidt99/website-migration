@@ -1,0 +1,80 @@
+/* Kontakt-Section: global weiß, Formular mit schwarzem Schatten, größere Höhe */
+
+.service-contact {
+  background: #fff !important;
+}
+
+.service-contact .wf-padding-section-large {
+  padding-top: clamp(2rem, 4vw, 3.5rem);
+  padding-bottom: clamp(4rem, 6vw, 5.5rem);
+}
+
+.service-contact__portrait {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.service-contact__form.survey {
+  background: rgba(11, 23, 31, 0.97);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 28px 64px -16px rgba(0, 0, 0, 0.42),
+    0 12px 32px -8px rgba(0, 0, 0, 0.24);
+}
+
+.service-contact__form.survey:hover {
+  border-color: rgba(0, 0, 0, 0.16);
+  box-shadow:
+    0 36px 80px -14px rgba(0, 0, 0, 0.5),
+    0 16px 40px -8px rgba(0, 0, 0, 0.3);
+}
+
+.service-contact__form.contact-form-a {
+  background: rgba(11, 23, 31, 0.97);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 28px 64px -16px rgba(0, 0, 0, 0.42),
+    0 12px 32px -8px rgba(0, 0, 0, 0.24);
+}
+
+.service-contact__form.contact-form-a:hover {
+  border-color: rgba(0, 0, 0, 0.16);
+  box-shadow:
+    0 36px 80px -14px rgba(0, 0, 0, 0.5),
+    0 16px 40px -8px rgba(0, 0, 0, 0.3);
+}
+
+.service-contact__form.contact-form-a::before {
+  opacity: 0.35;
+}
+
+@media (min-width: 1024px) {
+  .service-contact__grid {
+    gap: 3.5rem;
+    min-height: clamp(30rem, 44vw, 38rem);
+  }
+
+  .service-contact__portrait {
+    min-height: clamp(30rem, 44vw, 38rem);
+  }
+
+  .service-contact__form {
+    min-height: clamp(30rem, 44vw, 38rem);
+  }
+
+  .service-contact__form.survey,
+  .service-contact__form.contact-form-a {
+    padding: clamp(2rem, 3.5vw, 3.25rem);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .service-contact__portrait {
+    aspect-ratio: 4 / 5;
+    max-width: none;
+    min-height: 22rem;
+  }
+
+  .service-contact__form {
+    min-height: 22rem;
+  }
+}

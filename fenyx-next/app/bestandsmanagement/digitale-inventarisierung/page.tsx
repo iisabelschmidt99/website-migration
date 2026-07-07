@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import InventarisierungHero from "@/components/InventarisierungHero";
+import ServiceHero from "@/components/ServiceHero";
 import LogoGrid from "@/components/LogoGrid";
 import GreenBenefitsTabs from "@/components/GreenBenefitsTabs";
 import InventarisierungPhaseTabs from "@/components/InventarisierungPhaseTabs";
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 export default function DigitaleInventarisierungPage() {
   return (
     <div className="inv-page">
-      <InventarisierungHero {...heroContent} />
+      <ServiceHero {...heroContent} />
 
       <LogoGrid />
 

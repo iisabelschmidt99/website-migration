@@ -1,0 +1,5 @@
+/* Referenzen (dg-refs): globaler Abstand zur Kontakt-Section darunter */
+
+.dg-refs.df-refs {
+  padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}

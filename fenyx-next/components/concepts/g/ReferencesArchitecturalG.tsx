@@ -9,7 +9,18 @@ import Link from "next/link";
 import { CountUp, ClipReveal, Stagger, Rise, splitKpi } from "@/components/concepts/shared/anim";
 import type { ReferenceProject } from "@/data/reference-projects";
 
-type Props = { projects: ReferenceProject[] };
+type Props = {
+  projects: ReferenceProject[];
+  heading?: string;
+  description?: string;
+  /** Section-Anker (z. B. „referenzen“) */
+  id?: string;
+};
+
+const DEFAULT_HEADING =
+  "Unsere Kunden setzen neue Standards für Nachhaltigkeit.";
+const DEFAULT_DESCRIPTION =
+  "Führende Unternehmen aus diversen Branchen und mit individuellen Anforderungen setzen auf die Zusammenarbeit mit Fenyx.";
 
 const SPAN = ["big", "wide", "", "tall", "wide", ""] as const;
 
@@ -24,7 +35,13 @@ const STATIC_SIXTH: ReferenceProject = {
   stats: [{ value: "0 %", label: "Restentsorgungskosten" }],
 };
 
-export default function ReferencesArchitecturalG({ projects }: Props) {
+export default function ReferencesArchitecturalG({
+  projects,
+  heading = DEFAULT_HEADING,
+  description = DEFAULT_DESCRIPTION,
+  id,
+}: Props) {
+  const headingId = id ? `${id}-heading` : "dg-refs-heading";
   const base = projects.slice(0, 5);
   const ordered = (base.length < 6 ? [...base, STATIC_SIXTH] : projects.slice(0, 6));
   // Universal (Index 3) und Reneo (Index 0) tauschen
@@ -45,16 +62,17 @@ export default function ReferencesArchitecturalG({ projects }: Props) {
   );
 
   return (
-    <section className="df-refs dg-refs df-root" aria-labelledby="dg-refs-heading">
+    <section
+      id={id}
+      className="df-refs dg-refs df-root"
+      aria-labelledby={headingId}
+    >
       <div className="df-refs__intro">
         <Rise tag="h2" className="df-refs__heading dg-refs__heading" delay={80}>
-          <span id="dg-refs-heading">Unsere Kunden setzen neue Standards für Nachhaltigkeit.</span>
+          <span id={headingId}>{heading}</span>
         </Rise>
         <Rise tag="p" className="dg-refs__body" delay={180}>
-          <span>
-            Führende Unternehmen aus diversen Branchen und mit individuellen Anforderungen
-            setzen auf die Zusammenarbeit mit Fenyx.
-          </span>
+          <span>{description}</span>
         </Rise>
       </div>
 

@@ -5,7 +5,7 @@ import CtaButton from "@/components/CtaButton";
 import LifecycleTrack from "@/components/LifecycleTrack";
 import LeistungBleedCard from "@/components/LeistungBleedCard";
 import FeatureRowSection from "@/components/FeatureRowSection";
-import ReferenceRevealList from "@/components/ReferenceRevealList";
+import ReferenceProjectsSection from "@/components/ReferenceProjectsSection";
 import FaqSection from "@/components/FaqSection";
 import ServiceContactSection from "@/components/ServiceContactSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
@@ -124,26 +124,12 @@ export default async function BestandsmanagementPage() {
         ctaHref="/bestandsmanagement#kontakt"
       />
 
-      <section
-        className="py-20 sm:py-28 bg-white"
-        aria-labelledby="praxis-heading"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-20">
-            <h2
-              id="praxis-heading"
-              className="text-h2 sm:text-3xl lg:text-[2.75rem] font-heading tracking-fenyx mb-5 text-black"
-            >
-              Bestandsmanagement in der Praxis.
-            </h2>
-            <p className="text-black text-base sm:text-lg leading-relaxed">
-              Werden auch Sie Vorreiter und erleben Sie die Zukunft der
-              Büroeinrichtung.
-            </p>
-          </div>
-          <ReferenceRevealList projects={bestandsmanagementReferences} />
-        </div>
-      </section>
+      <ReferenceProjectsSection
+        id="referenzen"
+        heading="Bestandsmanagement in der Praxis."
+        description="Werden auch Sie Vorreiter und erleben Sie die Zukunft der Büroeinrichtung."
+        projects={bestandsmanagementReferences}
+      />
 
       <FaqSection items={bestandsmanagementFaq} dark />
 

@@ -25,12 +25,17 @@
 #site-header.site-header.is-scrolled,
 #site-header.site-header.is-menu-open,
 #site-header.site-header:has(.mega-item.is-open) {
-  background: #0b171f;
-  border-bottom-color: rgba(255, 255, 255, 0.05);
+  background: #000;
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+#site-header.site-header.is-scrolled .site-header-logo,
+#site-header.site-header.is-menu-open .site-header-logo {
+  background: #000;
 }
 
 #site-header.site-header #mobile-menu {
-  background: #0b171f;
+  background: #000;
 }
 
 /* ── Mega-Menü ── */

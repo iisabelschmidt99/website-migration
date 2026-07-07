@@ -33,7 +33,7 @@ export default function ServiceContactSection({
   return (
     <section
       id="kontakt"
-      className="service-contact bg-gradient-to-b from-black-gradient to-abyss-deep"
+      className="service-contact bg-white"
       aria-labelledby="service-kontakt-heading"
     >
       <div className="wf-padding-global">

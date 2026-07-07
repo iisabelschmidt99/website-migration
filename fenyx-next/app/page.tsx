@@ -11,7 +11,6 @@ import HomeHeroVideo from "@/components/HomeHeroVideo";
 import { getHomepageReferenceProjects } from "@/lib/references";
 import "@/components/concepts/shared/anim.css";
 import "@/app/d/concept.css";
-import "@/app/f/concept.css";
 import "@/app/g/concept.css";
 import "@/app/home-j.css";
 
@@ -76,9 +75,7 @@ export default async function HomePage() {
       </div>
 
       {/* ── Kontakt ──────────────────────────────────────────────── */}
-      <div className="home-contact">
-        <ContactSection formVariant="B" />
-      </div>
+      <ContactSection formVariant="B" />
     </>
   );
 }

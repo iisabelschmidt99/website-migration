@@ -270,7 +270,7 @@ export default function Header() {
 
       <nav
         id="mobile-menu"
-        className={`lg:hidden bg-abyss-deep border-t border-white/5 max-h-[80vh] overflow-y-auto${
+        className={`lg:hidden bg-black border-t border-white/5 max-h-[80vh] overflow-y-auto${
           mobileOpen ? "" : " hidden"
         }`}
         aria-label="Mobile Navigation"

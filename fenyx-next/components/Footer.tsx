@@ -36,7 +36,7 @@ const COLUMNS = [
 
 export default function Footer() {
   return (
-    <footer className="bg-abyss-deep border-t border-white/5 text-mist" aria-label="Seitenfuß">
+    <footer className="bg-black border-t border-white/8 text-mist" aria-label="Seitenfuß">
       <div className="wf-padding-global pt-16 pb-8">
         <div className="wf-container-large">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-12">
@@ -115,7 +115,7 @@ export default function Footer() {
         </div>
 
         {/* Großes Logo + rechtliche Links */}
-        <div className="pt-4 border-t border-white/5 bg-[#0b171f] -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 pb-6">
+        <div className="pt-4 border-t border-white/8 bg-black -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 pb-6">
           <Image
             src="/assets/fenyx-logo.png"
             alt="FENYX"
