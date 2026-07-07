@@ -4,11 +4,16 @@ import type { Metadata } from "next";
 import LogoGrid from "@/components/LogoGrid";
 import LifecycleSection from "@/components/LifecycleSection";
 import PressMarquee from "@/components/PressMarquee";
-import ReferenceProjectsSection from "@/components/ReferenceProjectsSection";
+import ReferencesArchitecturalG from "@/components/concepts/g/ReferencesArchitecturalG";
 import ContactSection from "@/components/ContactSection";
 import CtaButton from "@/components/CtaButton";
 import HomeHeroVideo from "@/components/HomeHeroVideo";
 import { getHomepageReferenceProjects } from "@/lib/references";
+import "@/components/concepts/shared/anim.css";
+import "@/app/d/concept.css";
+import "@/app/f/concept.css";
+import "@/app/g/concept.css";
+import "@/app/home-j.css";
 
 export const revalidate = 60;
 
@@ -54,17 +59,23 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── Referenzen-Logogrid ──────────────────────────────────── */}
-      <LogoGrid />
+      <div className="dg-page home-j">
+        {/* ── Logos (wie /j) ─────────────────────────────────────── */}
+        <div className="dj-logo-grid">
+          <LogoGrid />
+        </div>
 
-      {/* ── Leistungen / Lebenszyklus ────────────────────────────── */}
-      <LifecycleSection />
+        {/* ── Leistungen / Lebenszyklus (wie /j) ─────────────────── */}
+        <div id="leistungen">
+          <LifecycleSection />
+        </div>
 
-      {/* ── Bekannt aus (Presse-Marquee) ─────────────────────────── */}
-      <PressMarquee />
+        {/* ── Bekannt aus (wie /j) ───────────────────────────────── */}
+        <PressMarquee />
 
-      {/* ── Referenz-Projekte (Case Studies) ─────────────────────── */}
-      <ReferenceProjectsSection projects={referenceProjects} />
+        {/* ── Referenzen (wie /j) ────────────────────────────────── */}
+        <ReferencesArchitecturalG projects={referenceProjects} />
+      </div>
 
       {/* ── Kontakt ──────────────────────────────────────────────── */}
       <ContactSection />

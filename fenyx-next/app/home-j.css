@@ -1,0 +1,128 @@
+/* Homepage: gleicher Look & Feel wie Konzept /j (scoped auf .home-j.dg-page) */
+
+/* ── Logo-Grid: Hover wie /j ─────────────────────────────────────────────── */
+.home-j.dg-page .dj-logo-grid [role="listitem"] img {
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.home-j.dg-page .dj-logo-grid [role="listitem"]:hover img {
+  transform: scale(1.55) translateY(-6px);
+}
+.home-j.dg-page .dj-logo-grid [role="listitem"] {
+  position: relative;
+}
+.home-j.dg-page .dj-logo-grid [role="listitem"]:hover {
+  z-index: 5;
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-j.dg-page .dj-logo-grid [role="listitem"] img {
+    transition: none;
+  }
+  .home-j.dg-page .dj-logo-grid [role="listitem"]:hover img {
+    transform: none;
+  }
+}
+
+/* ── Intro vor Timeline: schwarz (wie /j) ───────────────────────────────── */
+.home-j.dg-page .dg-intro {
+  position: relative;
+  z-index: 5;
+  background: #000;
+}
+.home-j.dg-page .dg-intro__heading {
+  margin-top: 0;
+  color: #fff;
+}
+.home-j.dg-page .dg-intro__inner {
+  padding-top: clamp(4rem, 9vw, 7rem);
+}
+.home-j.dg-page .dg-intro__body {
+  color: rgba(255, 255, 255, 0.72);
+}
+.home-j.dg-page .dg-intro__cta {
+  color: #fff;
+  border-bottom-color: #c8ff00;
+}
+.home-j.dg-page .dg-intro__cta:hover {
+  color: #c8ff00;
+}
+
+/* ── Timeline ────────────────────────────────────────────────────────────── */
+.home-j.dg-page .dd-timeline .dd-tl-chapter__bg img {
+  width: 100% !important;
+  height: 100% !important;
+  left: 0 !important;
+  top: 0 !important;
+  max-width: none;
+  transform: none;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.home-j.dg-page .dd-timeline .dd-tl-chapter__body {
+  color: rgba(255, 255, 255, 0.96) !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.55), 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+.home-j.dg-page .dd-timeline .dd-tl-chapter__eyebrow,
+.home-j.dg-page .dd-timeline .dd-tl__slogan {
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55), 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+
+.home-j.dg-page .dd-timeline .dd-tl-chapter__title,
+.home-j.dg-page .dd-timeline .dd-tl-chapter__title .dd-word__inner {
+  color: #fff !important;
+  text-shadow: none !important;
+}
+
+.home-j.dg-page .dd-timeline .dd-tl-chapter__content {
+  max-width: none;
+  padding-left: clamp(1.5rem, 4vw, 4.5rem);
+  padding-right: clamp(1.5rem, 4vw, 4.5rem);
+}
+
+/* Scrim etwas heller als zuvor */
+.home-j.dg-page .dd-timeline .dd-tl-chapter__scrim {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.36) 22%,
+    rgba(0, 0, 0, 0.12) 46%,
+    transparent 68%
+  ) !important;
+}
+@media (min-width: 768px) {
+  .home-j.dg-page .dd-timeline .dd-tl-chapter:nth-child(2) .dd-tl-chapter__scrim {
+    background: linear-gradient(
+      270deg,
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0.36) 22%,
+      rgba(0, 0, 0, 0.12) 46%,
+      transparent 68%
+    ) !important;
+  }
+}
+@media (max-width: 767px) {
+  .home-j.dg-page .dd-timeline .dd-tl-chapter__scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.1) 0%,
+      rgba(0, 0, 0, 0.32) 45%,
+      rgba(0, 0, 0, 0.58) 100%
+    ) !important;
+  }
+}
+
+/* ── „Fenyx ist bekannt aus": weiß + farbige Logos ──────────────────────── */
+.home-j.dg-page #bekannt-aus {
+  background: #fff !important;
+}
+.home-j.dg-page #bekannt-aus #bekannt-aus-heading {
+  color: #132735 !important;
+  font-size: clamp(2rem, 4.5vw, 3.5rem) !important;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+.home-j.dg-page #bekannt-aus .presse-marquee img {
+  filter: none !important;
+  opacity: 1 !important;
+}
