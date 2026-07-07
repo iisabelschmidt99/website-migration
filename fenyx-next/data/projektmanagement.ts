@@ -10,18 +10,15 @@ export const heroContent = {
   heading: "Nachhaltiges Projektmanagement.",
   description:
     "Mit Fenyx holen Sie sich professionelle externe Expertise und Erfahrung aus +150 Projekten für die Planung und Umsetzung nachhaltiger Transformationen von Büroflächen und Büroimmobilien. Vom Erstgespräch bis hin zur schlüsselfertigen Übergabe stehen wir Ihnen als Partner bereit.",
-  pills: [
+  bullets: [
     "⌀ 34% Kostenersparnis dank Monetarisierung von Bestand",
     "⌀ 57% CO₂ sparen durch Optimierung der Refurbished-Strategien",
     "Kernkompetenzen in Digitalisierung, Nachhaltigkeit, und Logistik",
   ],
-  imageSrc: `${pm}/6850292bf6f10af5a78aa660_fenyx-office-2025-296.webp`,
-  imageAlt: "Fenyx-Team bei der Planung einer nachhaltigen Bürotransformation.",
+  imageSrc: `${pm}/hero.png`,
+  imageAlt: "Fenyx-Team bei der nachhaltigen Büroplanung.",
   ctaHref: "#kontakt",
   ctaLabel: "Projektberatung vereinbaren",
-  showLearnMore: false,
-  variant: "gradient" as const,
-  uppercase: false,
 };
 
 export const standortContent = {

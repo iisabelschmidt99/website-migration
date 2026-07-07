@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import InventarisierungHero from "@/components/InventarisierungHero";
+import ServiceHero from "@/components/ServiceHero";
 import FeatureRowSection from "@/components/FeatureRowSection";
 import InventarisierungPhaseTabs from "@/components/InventarisierungPhaseTabs";
 import InvCrossSellSection from "@/components/InvCrossSellSection";
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 export default function ProjektmanagementPage() {
   return (
     <div className="inv-page">
-      <InventarisierungHero {...heroContent} />
+      <ServiceHero {...heroContent} />
 
       <FeatureRowSection
         heading={standortContent.heading}
