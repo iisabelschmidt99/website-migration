@@ -50,17 +50,6 @@ export default function LifecycleSection() {
           align="left"
         />
 
-        <div className="wf-padding-global my-6 lg:my-8">
-          <div className="max-w-md mx-auto p-6 sm:p-8 bg-abyss-deep border border-white/10 text-white text-center">
-            <h3 className="wf-heading-h4 mb-2">Optimierte Flächennutzung</h3>
-            <p className="text-mist text-sm leading-relaxed">
-              Unterschätzte Potenziale in Ihrer Bürofläche werden sichtbar und
-              in greifbare Handlungsfelder übersetzt, um Räume effektiver zu
-              gestalten.
-            </p>
-          </div>
-        </div>
-
         <LifecycleCard
           id="verwertung"
           title="Ganzheitliche Verwertung."
@@ -70,8 +59,8 @@ export default function LifecycleSection() {
             "Bis zu 42% höherer Erlös",
             "100% sorgenfreie Übergabe",
           ]}
-          imageSrc="/assets/timeline/verwertung-besichtigung.webp"
-          imageAlt="Junger Mann in einem grünen T-Shirt mit dem Aufdruck „fenyx“, der sich über einen Tisch mit Aufklebern und Papieren beugt."
+          imageSrc="/assets/timeline/verwertung-lift.jpg"
+          imageAlt="Möbellift hebt Bürostühle in einen LKW im Innenhof eines Bürogebäudes."
           href="/verwertung/bueroaufloesung"
           align="right"
         />
