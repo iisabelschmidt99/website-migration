@@ -34,7 +34,7 @@ export default function LogoGrid({
         </div>
 
         <div
-          className="grid grid-cols-4 sm:grid-cols-7 lg:grid-cols-14 gap-x-4 gap-y-8 sm:gap-x-7 sm:gap-y-11"
+          className="logo-grid-hover grid grid-cols-4 sm:grid-cols-7 lg:grid-cols-14 gap-x-4 gap-y-8 sm:gap-x-7 sm:gap-y-11"
           role="list"
           aria-label="Kundenlogos"
         >

@@ -1,7 +1,7 @@
 // Konzept J — Mix-Version (Kopie von /g, mit Original-LogoGrid + H-Hero-Bild)
 // URL: /j
 // Hero:       Original-Video-Hero (wie g)
-// Logos:      LogoGrid (Original-Homepage) mit leichtem Hover
+// Logos:      LogoGrid mit Hover (global)
 // Timeline:   TimelineCinematicG (g), überlappt die Logo-Wand (dh-timeline-overlap),
 //             Bild „Schlüsselfertige Einrichtung" = H-Hero-Bild (f-hero.png)
 // Press:      PressMarquee (shared)
@@ -69,9 +69,7 @@ export default async function ConceptJPage() {
       </section>
 
       {/* ── Logos: Original-Homepage-Grid ───────────────────────────── */}
-      <div className="dj-logo-grid">
-        <LogoGrid />
-      </div>
+      <LogoGrid />
 
       {/* ── Intro nach Logos: schwarz auf weiß ─────────────────────── */}
       <section className="dg-intro" aria-labelledby="dj-intro-heading">

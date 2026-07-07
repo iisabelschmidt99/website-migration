@@ -24,7 +24,7 @@ export default function ContactSection({ formVariant }: ContactSectionProps) {
                   src="/assets/kontakt/anina-blatter.webp"
                   alt="Bild von Anina Blatter, Einrichtungsberaterin bei Fenyx Office"
                   fill
-                  className="object-cover object-top"
+                  className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   loading="lazy"
                 />

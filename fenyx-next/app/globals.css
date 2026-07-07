@@ -1191,6 +1191,12 @@
   border-radius: 4px;
 }
 
+/* Gesichter im oberen Bildbereich halten (hohe Formular-Spalte croppt sonst zu tief) */
+.service-contact__portrait img {
+  object-fit: cover;
+  object-position: center 15%;
+}
+
 @media (min-width: 1024px) {
   .service-contact__portrait {
     align-self: stretch;

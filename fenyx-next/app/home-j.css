@@ -1,28 +1,5 @@
 /* Homepage: gleicher Look & Feel wie Konzept /j (scoped auf .home-j.dg-page) */
 
-/* ── Logo-Grid: Hover wie /j ─────────────────────────────────────────────── */
-.home-j.dg-page .dj-logo-grid [role="listitem"] img {
-  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
-}
-.home-j.dg-page .dj-logo-grid [role="listitem"]:hover img {
-  transform: scale(1.55) translateY(-6px);
-}
-.home-j.dg-page .dj-logo-grid [role="listitem"] {
-  position: relative;
-}
-.home-j.dg-page .dj-logo-grid [role="listitem"]:hover {
-  z-index: 5;
-}
-@media (prefers-reduced-motion: reduce) {
-  .home-j.dg-page .dj-logo-grid [role="listitem"] img {
-    transition: none;
-  }
-  .home-j.dg-page .dj-logo-grid [role="listitem"]:hover img {
-    transform: none;
-  }
-}
-
 /* ── Intro vor Timeline: schwarz (wie /j) ───────────────────────────────── */
 .home-j.dg-page .dg-intro {
   position: relative;
@@ -76,8 +53,14 @@
 
 .home-j.dg-page .dd-timeline .dd-tl-chapter__content {
   max-width: none;
-  padding-left: clamp(1.5rem, 4vw, 4.5rem);
+  padding-left: clamp(2rem, 6vw, 6.5rem);
   padding-right: clamp(1.5rem, 4vw, 4.5rem);
+}
+@media (min-width: 768px) {
+  .home-j.dg-page .dd-timeline .dd-tl-chapter:nth-child(2) .dd-tl-chapter__content {
+    padding-left: clamp(1.5rem, 4vw, 4.5rem);
+    padding-right: clamp(2rem, 6vw, 6.5rem);
+  }
 }
 
 /* Scrim etwas heller als zuvor */
@@ -125,4 +108,41 @@
 .home-j.dg-page #bekannt-aus .presse-marquee img {
   filter: none !important;
   opacity: 1 !important;
+}
+
+/* ── Homepage Kontakt: weiße Section, schwarzer Schatten am Formular ─────── */
+.home-contact .service-contact {
+  background: #fff !important;
+}
+.home-contact .service-contact__portrait {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+.home-contact .service-contact__form.survey {
+  background: rgba(11, 23, 31, 0.97);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 28px 64px -16px rgba(0, 0, 0, 0.42),
+    0 12px 32px -8px rgba(0, 0, 0, 0.24);
+}
+.home-contact .service-contact__form.survey:hover {
+  border-color: rgba(0, 0, 0, 0.16);
+  box-shadow:
+    0 36px 80px -14px rgba(0, 0, 0, 0.5),
+    0 16px 40px -8px rgba(0, 0, 0, 0.3);
+}
+.home-contact .service-contact__form.contact-form-a {
+  background: rgba(11, 23, 31, 0.97);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 28px 64px -16px rgba(0, 0, 0, 0.42),
+    0 12px 32px -8px rgba(0, 0, 0, 0.24);
+}
+.home-contact .service-contact__form.contact-form-a:hover {
+  border-color: rgba(0, 0, 0, 0.16);
+  box-shadow:
+    0 36px 80px -14px rgba(0, 0, 0, 0.5),
+    0 16px 40px -8px rgba(0, 0, 0, 0.3);
+}
+.home-contact .service-contact__form.contact-form-a::before {
+  opacity: 0.35;
 }

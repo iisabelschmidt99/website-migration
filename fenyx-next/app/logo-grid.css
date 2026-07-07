@@ -1,0 +1,28 @@
+/* Kundenlogo-Raster: Hover-Vergrößerung (global auf allen LogoGrid-Seiten) */
+
+.logo-grid-hover [role="listitem"] {
+  position: relative;
+}
+
+.logo-grid-hover [role="listitem"] img {
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.logo-grid-hover [role="listitem"]:hover {
+  z-index: 5;
+}
+
+.logo-grid-hover [role="listitem"]:hover img {
+  transform: scale(1.55) translateY(-6px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-grid-hover [role="listitem"] img {
+    transition: none;
+  }
+
+  .logo-grid-hover [role="listitem"]:hover img {
+    transform: none;
+  }
+}

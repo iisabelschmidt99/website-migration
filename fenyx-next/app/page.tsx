@@ -61,9 +61,7 @@ export default async function HomePage() {
 
       <div className="dg-page home-j">
         {/* ── Logos (wie /j) ─────────────────────────────────────── */}
-        <div className="dj-logo-grid">
-          <LogoGrid />
-        </div>
+        <LogoGrid />
 
         {/* ── Leistungen / Lebenszyklus (wie /j) ─────────────────── */}
         <div id="leistungen">
@@ -78,7 +76,9 @@ export default async function HomePage() {
       </div>
 
       {/* ── Kontakt ──────────────────────────────────────────────── */}
-      <ContactSection formVariant="B" />
+      <div className="home-contact">
+        <ContactSection formVariant="B" />
+      </div>
     </>
   );
 }

@@ -2,30 +2,7 @@
    KONZEPT J — eigene Overrides
    ════════════════════════════════════════════════════════════════════════ */
 
-/* ── Logo-Grid /j: voll sichtbar, beim Hovern größer ────────────────────── */
-.dj-logo-grid [role="listitem"] img {
-  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
-}
-.dj-logo-grid [role="listitem"]:hover img {
-  transform: scale(1.55) translateY(-6px);
-}
-/* damit vergrößerte Logos nicht von Nachbarn beschnitten werden */
-.dj-logo-grid [role="listitem"] {
-  position: relative;
-}
-.dj-logo-grid [role="listitem"]:hover {
-  z-index: 5;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .dj-logo-grid [role="listitem"] img {
-    transition: none;
-  }
-  .dj-logo-grid [role="listitem"]:hover img {
-    transform: none;
-  }
-}
+/* ── Logo-Grid: Hover global in logo-grid.css ───────────────────────────── */
 
 /* ── Intro: normaler oberer Rand, kein Überlapp mehr ────────────────────── */
 .dg-page .dg-intro {
@@ -147,4 +124,27 @@
 .dg-page #bekannt-aus .presse-marquee img {
   filter: none !important;
   opacity: 1 !important;
+}
+
+/* ── /j: Header & Footer schwarz statt Abyss-Blau ───────────────────────── */
+body.page-j #site-header.site-header.is-scrolled,
+body.page-j #site-header.site-header.is-menu-open,
+body.page-j #site-header.site-header:has(.mega-item.is-open) {
+  background: #000;
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+body.page-j #site-header.site-header #mobile-menu {
+  background: #000;
+}
+body.page-j #site-header.site-header.is-scrolled .site-header-logo,
+body.page-j #site-header.site-header.is-menu-open .site-header-logo {
+  background: #000;
+}
+
+body.page-j footer {
+  background: #000 !important;
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+body.page-j footer .wf-container-large > div:last-child {
+  background-color: #000 !important;
 }
