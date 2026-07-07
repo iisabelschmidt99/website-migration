@@ -1,0 +1,117 @@
+/* Variante A — HubSpot-Formular (Karte, Glow, runde Inputs, CTA) */
+
+.contact-form-a {
+  position: relative;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 30px 80px -40px rgba(255, 255, 255, 0.22);
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.contact-form-a::before {
+  content: "";
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.28), transparent 70%);
+  filter: blur(40px);
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 0;
+  animation: contact-form-a-blob 9s ease-in-out infinite;
+}
+
+.contact-form-a > * {
+  position: relative;
+  z-index: 1;
+}
+
+.contact-form-a:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 40px 90px -40px rgba(255, 255, 255, 0.35);
+}
+
+.contact-form-a a[href^="mailto:"],
+.contact-form-a a[href^="tel:"] {
+  transition: transform 0.18s ease, color 0.18s ease;
+}
+
+.contact-form-a a[href^="mailto:"]:hover,
+.contact-form-a a[href^="tel:"]:hover {
+  transform: translateX(3px);
+}
+
+.contact-form-a .hubspot-form .hs-form-field input[type="text"],
+.contact-form-a .hubspot-form .hs-form-field input[type="email"],
+.contact-form-a .hubspot-form .hs-form-field input[type="tel"],
+.contact-form-a .hubspot-form .hs-form-field textarea {
+  border-radius: 14px;
+  background-color: rgba(11, 23, 31, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  transition: border-color 0.2s ease, box-shadow 0.25s ease,
+    background-color 0.2s ease, transform 0.15s ease;
+}
+
+.contact-form-a .hubspot-form .hs-form-field input:focus,
+.contact-form-a .hubspot-form .hs-form-field textarea:focus {
+  outline: none;
+  border-color: #c8ff00;
+  background-color: rgba(11, 23, 31, 0.95);
+  box-shadow: 0 0 0 4px rgba(200, 255, 0, 0.18);
+  transform: translateY(-1px);
+}
+
+.contact-form-a .hubspot-form .hs-form-field:focus-within label {
+  color: #c8ff00;
+}
+
+.contact-form-a .hubspot-form .hs-form-field input[type="text"]:hover,
+.contact-form-a .hubspot-form .hs-form-field input[type="email"]:hover,
+.contact-form-a .hubspot-form .hs-form-field input[type="tel"]:hover,
+.contact-form-a .hubspot-form .hs-form-field textarea:hover {
+  border-color: rgba(200, 255, 0, 0.5);
+  background-color: rgba(11, 23, 31, 0.9);
+}
+
+.contact-form-a .hubspot-form .hs-button.primary.large {
+  border-radius: 999px;
+  padding: 14px 30px;
+  letter-spacing: 0.04em;
+  transition: transform 0.18s ease, box-shadow 0.25s ease, filter 0.2s ease;
+  box-shadow: 0 8px 24px -8px rgba(200, 255, 0, 0.5);
+  animation: contact-form-a-cta-breathe 3.2s ease-in-out infinite;
+}
+
+.contact-form-a .hubspot-form .hs-button.primary.large:hover {
+  filter: brightness(1.05);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 16px 36px -8px rgba(200, 255, 0, 0.65);
+  animation-play-state: paused;
+}
+
+.contact-form-a .hubspot-form .hs-button.primary.large:active {
+  transform: translateY(-1px) scale(0.99);
+}
+
+@keyframes contact-form-a-blob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(-18px, 22px) scale(1.12); }
+}
+
+@keyframes contact-form-a-cta-breathe {
+  0%, 100% { box-shadow: 0 8px 24px -8px rgba(200, 255, 0, 0.45); }
+  50%      { box-shadow: 0 8px 30px -6px rgba(200, 255, 0, 0.7); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-form-a::before,
+  .contact-form-a .hubspot-form .hs-button.primary.large {
+    animation: none;
+  }
+}

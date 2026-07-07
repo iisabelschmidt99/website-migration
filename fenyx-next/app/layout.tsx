@@ -4,6 +4,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import "./contact-form-a.css";
 import "./site-nav.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";

@@ -7,7 +7,7 @@ import LeistungBleedCard from "@/components/LeistungBleedCard";
 import FeatureRowSection from "@/components/FeatureRowSection";
 import ReferenceRevealList from "@/components/ReferenceRevealList";
 import FaqSection from "@/components/FaqSection";
-import SurveyContactSection from "@/components/SurveyContactSection";
+import ServiceContactSection from "@/components/ServiceContactSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import { getTestimonials } from "@/lib/testimonials";
 import { bestandsmanagementReferences } from "@/data/bestandsmanagement-references";
@@ -149,7 +149,8 @@ export default async function BestandsmanagementPage() {
 
       <TestimonialsSection testimonials={testimonials} />
 
-      <SurveyContactSection
+      <ServiceContactSection
+        heading="Buchen Sie eine kostenlose Erstberatung."
         email="marius@fenyx-office.com"
         phone="+49 176 23820424"
         portraitSrc="/assets/kontakt/marius-gimm.webp"

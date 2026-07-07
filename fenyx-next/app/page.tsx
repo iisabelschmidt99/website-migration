@@ -78,7 +78,7 @@ export default async function HomePage() {
       </div>
 
       {/* ── Kontakt ──────────────────────────────────────────────── */}
-      <ContactSection />
+      <ContactSection formVariant="B" />
     </>
   );
 }

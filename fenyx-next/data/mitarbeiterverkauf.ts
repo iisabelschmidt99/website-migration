@@ -10,16 +10,15 @@ export const heroContent = {
   heading: "Professioneller Mitarbeiterverkauf.",
   description:
     "Fenyx macht den Verkauf von obsoletem Bestand an die Mitarbeiterschaft EU-weit möglich. Mit der digitalen Lösung vermeiden Kunden steuerliche Risiken und administrativen Aufwand.",
-  pills: [
+  bullets: [
     "Frei von steuerlichen und Haftungs-Risiken",
     "Kein administrativer oder buchhalterischer Aufwand",
     "Veräußerung und Logistik aus einer Hand",
   ],
-  imageSrc: `${mv}/hero.avif`,
-  imageAlt: "Professioneller Mitarbeiterverkauf.",
+  imageSrc: `${mv}/hero.jpg`,
+  imageAlt: "Mitarbeiter wählen Büromöbel bei einem professionellen Mitarbeiterverkauf.",
   ctaHref: "#kontakt",
   ctaLabel: "Kontakt aufnehmen",
-  showLearnMore: false,
 };
 
 export const logoGridContent = {

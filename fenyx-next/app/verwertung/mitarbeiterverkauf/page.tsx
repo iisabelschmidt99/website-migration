@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import InventarisierungHero from "@/components/InventarisierungHero";
+import ServiceHero from "@/components/ServiceHero";
 import LogoGrid from "@/components/LogoGrid";
 import VideoSection from "@/components/VideoSection";
 import GreenCardsSection from "@/components/GreenCardsSection";
@@ -37,7 +37,7 @@ export default async function MitarbeiterverkaufPage() {
 
   return (
     <div className="inv-page">
-      <InventarisierungHero {...heroContent} />
+      <ServiceHero {...heroContent} />
 
       <LogoGrid {...logoGridContent} />
 
