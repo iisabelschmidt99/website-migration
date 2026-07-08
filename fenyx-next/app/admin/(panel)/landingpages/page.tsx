@@ -9,6 +9,7 @@ type Row = { slug: string; title?: string | null; published: boolean; href: stri
 
 function labelFor(collection: string): string {
   const map: Record<string, string> = {
+    "bueroeinrichtung-standort": "Büroeinrichtung-Standorte (21 Städte)",
     "einrichtung-standorte": "Einrichtung-Standorte",
     ankauf: "Ankauf",
     bueroaufloesung: "Büroauflösungen",
@@ -20,6 +21,12 @@ function labelFor(collection: string): string {
   };
   return map[collection] ?? collection;
 }
+
+const LOC_PREFIX: Record<string, string> = {
+  "bueroeinrichtung-standort": "/bueroeinrichtung-standort",
+  "einrichtung-standorte": "/bueroeinrichtung-standort",
+  ankauf: "/bueromoebel-ankauf-verkauf",
+};
 
 function StatusBadge({ published }: { published: boolean }) {
   return published ? (
@@ -103,11 +110,12 @@ export default async function AdminLandingpages() {
   };
 
   for (const r of locations.data ?? []) {
+    const prefix = LOC_PREFIX[r.collection as string] ?? `/${r.collection}`;
     add(r.collection as string, {
       slug: r.slug as string,
       title: r.title as string | null,
       published: Boolean(r.published),
-      href: `/${r.collection}/${r.slug}`,
+      href: `${prefix}/${r.slug}`,
     });
   }
   for (const r of topics.data ?? []) {
@@ -129,6 +137,7 @@ export default async function AdminLandingpages() {
 
   const errors = [locations.error, topics.error, directories.error].filter(Boolean);
   const orderedKeys = [
+    "bueroeinrichtung-standort",
     "einrichtung-standorte",
     "ankauf",
     "bueroaufloesung",

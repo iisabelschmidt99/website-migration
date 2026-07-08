@@ -156,3 +156,37 @@ export const contactContent = {
   name: "Kristina Niesel",
   role: "Einrichtungsberaterin",
 };
+
+// Häufige Fragen für die Büroeinrichtungs-Standortseiten (echte FAQ-Inhalte aus
+// dem CMS). Der Original-Webflow-Export lädt die FAQ dynamisch nach – daher hier
+// als kuratierte, geteilte Auswahl hinterlegt.
+export const standortFaqContent = {
+  heading: "Häufige Fragen zur Büroeinrichtung",
+  items: [
+    {
+      question: "Ist die nachhaltige Büroeinrichtung von Fenyx so langlebig wie neue?",
+      answer:
+        "Ja, die nachhaltige Büroeinrichtung von Fenyx bietet eine vergleichbare Langlebigkeit wie neue Möbel. Durch strenge Qualitätsprüfungen und gezielte Aufbereitungsschritte stellen wir sicher, dass jedes Möbelstück in einwandfreiem Zustand ist. Defekte Teile werden ausgetauscht, Oberflächen aufgearbeitet und alle Elemente auf Stabilität und Funktionalität geprüft. Dadurch können wir garantieren, dass unsere Möbel den täglichen Anforderungen im Büro standhalten und Ihnen langfristig zuverlässige Dienste leisten.",
+    },
+    {
+      question: "Müssen wir die Planung dann auch mit Fenyx umsetzen?",
+      answer:
+        "Nein. Unsere Planungs-Dienstleistung ist eigenständig. Sie erhalten am Ende ein vollständiges Konzept und eine detaillierte Roadmap, die Sie auch mit anderen Partnern oder in Eigenregie umsetzen können. Den größten Mehrwert und die beste Umsetzung erfahren Sie natürlich, wenn wir Sie ganzheitlich begleiten dürfen.",
+    },
+    {
+      question: "Können wir unser Büro mit Fenyx flexibel an veränderte Anforderungen anpassen?",
+      answer:
+        "Ja, Flexibilität ist ein zentraler Bestandteil unserer Planung. Wir gestalten Ihre Büroräume so, dass sie leicht an neue Anforderungen, wie z. B. Wachstum oder geänderte Arbeitsprozesse, angepasst werden können. Durch modulare Möbel und flexible Raumkonzepte bleiben Sie auch in Zukunft flexibel.",
+    },
+    {
+      question: "Kann ich die Büroeinrichtung von der Steuer absetzen?",
+      answer:
+        "Ja. Büromöbel gelten als betriebliche Anschaffungen und können steuerlich abgeschrieben werden. Die Kosten werden in der Regel über mehrere Jahre verteilt abgeschrieben, statt sofort vollständig geltend gemacht zu werden.",
+    },
+    {
+      question: "Mieten oder kaufen – was ist besser?",
+      answer:
+        "Das hängt von Ihrer Situation ab. Für Startups und schnell wachsende Unternehmen empfehlen wir meist die Miete ab 49€/Arbeitsplatz/Monat. Keine Kapitalbindung, maximale Flexibilität, quartalsweise anpassbar. Etablierte Unternehmen mit stabiler Mitarbeiterzahl fahren oft mit dem Kauf-Modell besser – besonders bei unserem Hybrid-Ansatz mit 50-70% Ersparnis. Wir rechnen Ihnen gerne beide Varianten durch.",
+    },
+  ],
+};

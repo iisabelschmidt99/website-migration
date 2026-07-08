@@ -43,11 +43,10 @@ const nextConfig = {
         destination: `/bueromoebel-mieten/${stadt}`,
         permanent: true,
       },
-      // Büroeinrichtung-Standort (21 Großstädte): auf die bestehenden
-      // Büroeinrichtungs-Stadtseiten (bis Content-Merge mit Agentur geklärt).
+      // Alte statische Büroeinrichtungs-Stadtseiten -> kanonische Standort-URL
       {
-        source: `/bueroeinrichtung-standort/${stadt}`,
-        destination: `/einrichtung/bueroeinrichtung/${stadt}`,
+        source: `/einrichtung/bueroeinrichtung/${stadt}`,
+        destination: `/bueroeinrichtung-standort/${stadt}`,
         permanent: true,
       },
     ]);

@@ -1,5 +1,5 @@
 // Öffentliche Route: /bueroeinrichtung-standort/<slug> (kanonisch, Zielbild Agentur).
-// Inhalt aus Supabase (landing_locations, collection = 'einrichtung-standorte').
+// Inhalt aus Supabase (landing_locations, Collections bueroeinrichtung-standort + einrichtung-standorte).
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { createPublicClient } from "@/lib/supabase/public";
@@ -8,7 +8,8 @@ import { getTestimonials } from "@/lib/testimonials";
 
 export const revalidate = 60;
 
-const COLLECTION = "einrichtung-standorte";
+// Reihenfolge = Vorrang bei Slug-Kollision.
+const COLLECTIONS = ["bueroeinrichtung-standort", "einrichtung-standorte"];
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -34,13 +35,16 @@ async function getPage(slug: string): Promise<LocationRow | null> {
     const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("landing_locations")
-      .select(SELECT)
-      .eq("collection", COLLECTION)
+      .select(`${SELECT},collection`)
+      .in("collection", COLLECTIONS)
       .eq("slug", slug)
-      .eq("published", true)
-      .maybeSingle();
-    if (error) return null;
-    return (data as LocationRow | null) ?? null;
+      .eq("published", true);
+    if (error || !data || data.length === 0) return null;
+    const rows = data as (LocationRow & { collection: string })[];
+    rows.sort(
+      (a, b) => COLLECTIONS.indexOf(a.collection) - COLLECTIONS.indexOf(b.collection),
+    );
+    return rows[0] ?? null;
   } catch {
     return null;
   }
@@ -52,9 +56,10 @@ export async function generateStaticParams() {
     const { data } = await supabase
       .from("landing_locations")
       .select("slug")
-      .eq("collection", COLLECTION)
+      .in("collection", COLLECTIONS)
       .eq("published", true);
-    return (data ?? []).map((r) => ({ slug: r.slug as string }));
+    const slugs = Array.from(new Set((data ?? []).map((r) => r.slug as string)));
+    return slugs.map((slug) => ({ slug }));
   } catch {
     return [];
   }

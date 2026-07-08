@@ -12,6 +12,8 @@ import VideoFeatureSection from "./VideoFeatureSection";
 import GreenBenefitsTabs from "./GreenBenefitsTabs";
 import ReferenceProjectsSection from "./ReferenceProjectsSection";
 import TestimonialsSection from "./TestimonialsSection";
+import LocationsSection from "./LocationsSection";
+import FaqSection from "./FaqSection";
 import ServiceContactSection from "./ServiceContactSection";
 import type { Testimonial } from "@/lib/testimonials";
 import {
@@ -22,7 +24,9 @@ import {
   garantienContent,
   referenzenContent,
   contactContent,
+  standortFaqContent,
 } from "@/data/bueroeinrichtung";
+import { einrichtungStandortLocationsContent } from "@/data/standorte";
 
 const BE_ASSETS = "/assets/leistungen/bueroeinrichtung";
 
@@ -224,6 +228,12 @@ export default function LocationLandingContent({
       />
 
       <TestimonialsSection testimonials={testimonials} />
+
+      {/* „Unsere Standorte" – Deutschlandkarte (wie im Webflow-Original) */}
+      <LocationsSection {...einrichtungStandortLocationsContent} />
+
+      {/* Häufige Fragen (im Original dynamisch aus dem FAQ-CMS geladen) */}
+      <FaqSection {...standortFaqContent} />
 
       <ServiceContactSection {...contactContent} />
     </div>

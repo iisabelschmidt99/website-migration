@@ -36,6 +36,7 @@ const STATIC_PATHS = [
 const LOCATION_PREFIX: Record<string, string> = {
   ankauf: "/bueromoebel-ankauf-verkauf",
   "einrichtung-standorte": "/bueroeinrichtung-standort",
+  "bueroeinrichtung-standort": "/bueroeinrichtung-standort",
 };
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

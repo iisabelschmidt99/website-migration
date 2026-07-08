@@ -52,3 +52,22 @@ export const locationsSectionContent = {
     left: s.left,
   })),
 };
+
+/** Ziel-URL der Standortkarte auf den Büroeinrichtungs-Standortseiten. */
+export function einrichtungStandortHref(slug: string) {
+  return `/bueroeinrichtung-standort/${slug}`;
+}
+
+// Gleiche Karte, aber die Pins verlinken auf die Büroeinrichtungs-Standortseiten
+// (statt auf die Mietoptionen) – passend zum Kontext dieser Seiten.
+export const einrichtungStandortLocationsContent = {
+  heading: "Unsere Standorte",
+  mapSrc: STANDORT_MAP_SRC,
+  locations: STANDORTE.map((s) => ({
+    slug: s.slug,
+    city: s.city,
+    href: einrichtungStandortHref(s.slug),
+    top: s.top,
+    left: s.left,
+  })),
+};
