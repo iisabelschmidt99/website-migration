@@ -1,8 +1,6 @@
 "use client";
 
 // Kundenstimmen-Slider „Erfahrungen mit Fenyx." (wie im Webflow-Original).
-// Horizontaler Scroll-Snap-Track mit Vor/Zurück-Pfeilen (nur sichtbar ab 2
-// Karten). Rendert nichts, wenn keine Stimmen übergeben werden.
 import { useRef } from "react";
 import Image from "next/image";
 import type { Testimonial } from "@/lib/testimonials";
@@ -14,6 +12,45 @@ type TestimonialsSectionProps = {
   centered?: boolean;
 };
 
+function TestimonialCard({ t }: { t: Testimonial }) {
+  return (
+    <li className="testimonial-card">
+      <div
+        className="testimonial-quote [&_p]:m-0 [&_p+p]:mt-3"
+        dangerouslySetInnerHTML={{ __html: t.quote }}
+      />
+
+      <div className="testimonial-card__footer">
+        {t.imageSrc ? (
+          <Image
+            src={t.imageSrc}
+            alt={t.imageAlt}
+            width={56}
+            height={56}
+            className="w-14 h-14 rounded-full object-cover shrink-0"
+            loading="lazy"
+          />
+        ) : null}
+        <div className="min-w-0">
+          <p className="testimonial-card__name">{t.name}</p>
+          {t.roleCompany ? (
+            <p className="testimonial-card__role">{t.roleCompany}</p>
+          ) : null}
+        </div>
+        {t.logoSrc ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={t.logoSrc}
+            alt=""
+            className="ml-auto max-h-8 w-auto object-contain opacity-80 shrink-0"
+            loading="lazy"
+          />
+        ) : null}
+      </div>
+    </li>
+  );
+}
+
 export default function TestimonialsSection({
   testimonials,
   heading = "Erfahrungen mit Fenyx.",
@@ -23,13 +60,19 @@ export default function TestimonialsSection({
 
   if (!testimonials || testimonials.length === 0) return null;
 
-  const showNav = testimonials.length > 1 && !centered;
+  const useGrid = centered || testimonials.length <= 2;
+  const showNav = testimonials.length > 2 && !centered;
 
   function scrollBy(direction: 1 | -1) {
     const track = trackRef.current;
     if (!track) return;
     track.scrollBy({ left: direction * track.clientWidth * 0.85, behavior: "smooth" });
   }
+
+  const gridClass =
+    testimonials.length === 1
+      ? "testimonials-grid testimonials-grid--single"
+      : "testimonials-grid testimonials-grid--duo";
 
   return (
     <section
@@ -39,22 +82,13 @@ export default function TestimonialsSection({
       <div className="wf-padding-global">
         <div className="wf-container-large">
           <div className="wf-padding-section-large">
-            <div
-              className={`gap-6 mb-10 ${
-                centered
-                  ? "flex flex-col items-center text-center"
-                  : "flex items-end justify-between"
-              }`}
-            >
-              <h2
-                id="testimonials-heading"
-                className={`wf-heading-h2 max-w-2xl ${centered ? "mx-auto" : ""}`}
-              >
+            <div className="testimonials-header">
+              <h2 id="testimonials-heading" className="wf-heading-h2">
                 {heading}
               </h2>
 
               {showNav ? (
-                <div className="hidden sm:flex gap-3 shrink-0">
+                <div className="flex gap-3 shrink-0">
                   <button
                     type="button"
                     onClick={() => scrollBy(-1)}
@@ -80,55 +114,11 @@ export default function TestimonialsSection({
             </div>
 
             <ul
-              ref={trackRef}
-              className={
-                centered
-                  ? "flex justify-center"
-                  : "flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 -mx-1 px-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-              }
+              ref={useGrid ? undefined : trackRef}
+              className={useGrid ? gridClass : "testimonials-track"}
             >
               {testimonials.map((t) => (
-                <li
-                  key={t.slug}
-                  className={`bg-abyss border border-white/10 p-8 flex flex-col ${
-                    centered
-                      ? "w-full max-w-2xl"
-                      : "snap-start shrink-0 w-[88%] sm:w-[460px] max-w-full"
-                  }`}
-                >
-                  <div
-                    className="testimonial-quote text-mist-soft text-base leading-relaxed [&_p]:m-0 [&_p+p]:mt-3"
-                    dangerouslySetInnerHTML={{ __html: t.quote }}
-                  />
-
-                  <div className="mt-8 pt-6 border-t border-white/10 flex items-center gap-4">
-                    {t.imageSrc ? (
-                      <Image
-                        src={t.imageSrc}
-                        alt={t.imageAlt}
-                        width={56}
-                        height={56}
-                        className="w-14 h-14 rounded-full object-cover shrink-0"
-                        loading="lazy"
-                      />
-                    ) : null}
-                    <div className="min-w-0">
-                      <p className="text-white font-semibold leading-tight">{t.name}</p>
-                      {t.roleCompany ? (
-                        <p className="text-mist text-sm leading-tight mt-0.5">{t.roleCompany}</p>
-                      ) : null}
-                    </div>
-                    {t.logoSrc ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={t.logoSrc}
-                        alt=""
-                        className="ml-auto max-h-8 w-auto object-contain opacity-80 shrink-0"
-                        loading="lazy"
-                      />
-                    ) : null}
-                  </div>
-                </li>
+                <TestimonialCard key={t.slug} t={t} />
               ))}
             </ul>
           </div>

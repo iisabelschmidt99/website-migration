@@ -6,6 +6,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import "./contact-form-a.css";
 import "./contact-section.css";
+import "./testimonials-section.css";
 import "./logo-grid.css";
 import "./site-nav.css";
 import "./site-references.css";
