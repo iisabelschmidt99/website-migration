@@ -72,6 +72,7 @@ export default async function BestandsmanagementPage() {
       </div>
 
       <FeatureRowSection
+        size="large"
         heading="Die Datengrundlage für Planung im Bestand."
         body="Wir liefern mehr als Software. Unsere geschulten Teams erfassen Ihren Bestand strukturiert, inklusive Bilddokumentation und aller relevanten Produktdaten. Das Ergebnis: eine präzise, digital nutzbare Bestandsübersicht – erweiterbar um Pläne und Dokumente wie DWG-Dateien."
         imageSrc={`${assetBase}/cta-datengrundlage.png`}
@@ -81,6 +82,7 @@ export default async function BestandsmanagementPage() {
       />
 
       <FeatureRowSection
+        size="large"
         heading="Das Gerüst für weitere Entscheidungen."
         body="Auf das digitale Mengengerüst folgt eine strukturierte Qualitätsbewertung. Funktionalität, Zustand und optische Qualität werden anhand definierter Kriterien geprüft. So können konkrete Aufbereitungsangebote für einzelne Möbelstücke realistisch kalkuliert und transparent dargestellt werden."
         imageSrc={`${assetBase}/cta-geruest.png`}
@@ -90,6 +92,7 @@ export default async function BestandsmanagementPage() {
       />
 
       <FeatureRowSection
+        size="large"
         heading="Vom Digitalen in die Realität."
         body="Neben der Innenmöblierung erfassen wir auch das Gebäude selbst als Teil der Bestandsaufnahme. Laufwege, Aufzugsmaße, Anfahrtsmöglichkeiten und weitere logistische Rahmenbedingungen werden strukturiert dokumentiert. So entstehen belastbare Grundlagen für Angebote zu Räumung und Umzug."
         imageSrc={`${assetBase}/cta-realitaet.png`}

@@ -19,7 +19,7 @@ export const bestandsmanagementTimelineChapters: TimelineCinematicChapter[] = [
     body: "Mit Fenyx erhalten Sie Zugang zum größten Büromöbel-Lager-Ökosystem in Europa. Nutzen Sie die flexiblen Angebote, um Ihren individuellen Bedarf an zusätzlicher Kapazität zu decken.",
     href: "/bestandsmanagement#kontakt",
     imageSrc: `${assetBase}/timeline-einlagerung.png`,
-    imageAlt: "Flexible Einlagerung von Büromöbeln.",
+    imageAlt: "Fenyx-Lagerhalle für Büromöbel von außen.",
   },
   {
     index: "03",
@@ -33,10 +33,10 @@ export const bestandsmanagementTimelineChapters: TimelineCinematicChapter[] = [
   {
     index: "04",
     eyebrow: "Messbare Transparenz.",
-    title: "Steuern statt schätzen.",
+    title: "What gets measured gets improved.",
     body: "Was nicht sichtbar ist, lässt sich nicht steuern. Eine digitale, strukturierte Bestandsübersicht schafft Transparenz – und damit die Grundlage für weniger Kosten, weniger CO₂ und weniger Aufwand.",
     href: "/bestandsmanagement/digitale-inventarisierung",
     imageSrc: `${assetBase}/timeline-transparenz.png`,
-    imageAlt: "Hand misst einen Bürotisch mit einem Maßband.",
+    imageAlt: "Bürotisch wird mit Maßband vermessen.",
   },
 ];

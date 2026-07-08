@@ -324,6 +324,50 @@
   color: #8da4ba;
 }
 
+/* Größere Variante (Bestandsmanagement / Webflow-Original) */
+.cta-band-section--large {
+  padding-top: clamp(5rem, 10vw, 8rem);
+  padding-bottom: clamp(4rem, 8vw, 6.5rem);
+}
+
+.cta-band-section--large .feature-row--large {
+  gap: clamp(2.5rem, 5vw, 4rem);
+}
+
+@media (min-width: 1024px) {
+  .cta-band-section--large .feature-row--large {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: clamp(3rem, 6vw, 5rem);
+    align-items: center;
+  }
+}
+
+.cta-band-section--large .feature-row-content h2 {
+  font-size: clamp(2rem, 3.8vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: clamp(1rem, 2vw, 1.5rem);
+}
+
+.cta-band-section--large .feature-row-content p {
+  font-size: clamp(1rem, 1.35vw, 1.125rem);
+  line-height: 1.65;
+  margin-bottom: clamp(1.5rem, 2.5vw, 2rem);
+  max-width: 46ch;
+}
+
+.cta-band-section--large .feature-row-media--large {
+  min-height: clamp(18rem, 36vw, 32rem);
+  aspect-ratio: auto;
+}
+
+@media (min-width: 1024px) {
+  .cta-band-section--large .feature-row-media--large {
+    min-height: clamp(22rem, 38vw, 34rem);
+  }
+}
+
 /* ── FAQ ── */
 .faq-list {
   border-top: 1px solid rgba(255, 255, 255, 0.12);
