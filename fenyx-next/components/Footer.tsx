@@ -29,7 +29,7 @@ const COLUMNS = [
     links: [
       { label: "Büroeinrichtung", href: "/einrichtung/bueroeinrichtung" },
       { label: "Workspace Analytics & Bürokonzept", href: "/einrichtung/workspace-analytics" },
-      { label: "Mietoptionen", href: "/einrichtung/bueromoebel-mieten" },
+      { label: "Mietoptionen", href: "/bueromoebel-mieten" },
     ],
   },
 ];

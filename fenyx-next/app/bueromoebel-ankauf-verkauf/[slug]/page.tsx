@@ -67,6 +67,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: page.meta_title || page.h1 || page.title || undefined,
     description: page.meta_description || undefined,
+    alternates: { canonical: `/bueromoebel-ankauf-verkauf/${slug}` },
   };
 }
 

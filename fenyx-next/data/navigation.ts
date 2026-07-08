@@ -173,7 +173,7 @@ export const MEGA_MENUS: MegaMenuConfig[] = [
       },
       {
         label: "Mietoptionen",
-        href: "/einrichtung/bueromoebel-mieten",
+        href: "/bueromoebel-mieten",
         sub: "Flexible Bürolösungen ohne Kapitalbindung",
         imageSrc: `${NAV_EINRICHTUNG}/bueromoebel-mieten.webp`,
       },
