@@ -49,7 +49,9 @@ export default function LifecycleCard({
           <h3 className="text-white text-xl sm:text-2xl font-heading tracking-[-0.02em] mb-4">
             {title}
           </h3>
-          <p className="text-mist text-sm leading-relaxed mb-6">{description}</p>
+          {description ? (
+            <p className="text-mist text-sm leading-relaxed mb-6">{description}</p>
+          ) : null}
           <CheckList
             items={bullets}
             className="text-white/85 mb-8"

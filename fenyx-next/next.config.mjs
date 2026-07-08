@@ -68,6 +68,13 @@ const nextConfig = {
         destination: "/presse-medien/:slug",
         permanent: true,
       },
+      // Ankauf ist auf die kanonische SEO-URL umbenannt (Zielbild Agentur).
+      { source: "/ankauf", destination: "/bueromoebel-ankauf-verkauf", permanent: true },
+      {
+        source: "/ankauf/:slug",
+        destination: "/bueromoebel-ankauf-verkauf/:slug",
+        permanent: true,
+      },
       ...cityRedirects,
     ];
   },

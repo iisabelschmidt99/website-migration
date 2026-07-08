@@ -23,7 +23,7 @@ import {
   contactContent,
   digitaleInventarisierungFaq,
 } from "@/data/digitale-inventarisierung";
-import "./digitale-inventarisierung.css";
+import "../../digitale-inventarisierung.css";
 
 export const metadata: Metadata = {
   title: digitaleInventarisierungMeta.title,

@@ -10,17 +10,20 @@ import type { Testimonial } from "@/lib/testimonials";
 type TestimonialsSectionProps = {
   testimonials: Testimonial[];
   heading?: string;
+  /** true = einzelne Stimme zentriert (ohne Slider/Pfeile). */
+  centered?: boolean;
 };
 
 export default function TestimonialsSection({
   testimonials,
   heading = "Erfahrungen mit Fenyx.",
+  centered = false,
 }: TestimonialsSectionProps) {
   const trackRef = useRef<HTMLUListElement>(null);
 
   if (!testimonials || testimonials.length === 0) return null;
 
-  const showNav = testimonials.length > 1;
+  const showNav = testimonials.length > 1 && !centered;
 
   function scrollBy(direction: 1 | -1) {
     const track = trackRef.current;
@@ -36,10 +39,16 @@ export default function TestimonialsSection({
       <div className="wf-padding-global">
         <div className="wf-container-large">
           <div className="wf-padding-section-large">
-            <div className="flex items-end justify-between gap-6 mb-10">
+            <div
+              className={`gap-6 mb-10 ${
+                centered
+                  ? "flex flex-col items-center text-center"
+                  : "flex items-end justify-between"
+              }`}
+            >
               <h2
                 id="testimonials-heading"
-                className="wf-heading-h2 max-w-2xl"
+                className={`wf-heading-h2 max-w-2xl ${centered ? "mx-auto" : ""}`}
               >
                 {heading}
               </h2>
@@ -72,12 +81,20 @@ export default function TestimonialsSection({
 
             <ul
               ref={trackRef}
-              className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 -mx-1 px-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              className={
+                centered
+                  ? "flex justify-center"
+                  : "flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 -mx-1 px-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              }
             >
               {testimonials.map((t) => (
                 <li
                   key={t.slug}
-                  className="snap-start shrink-0 w-[88%] sm:w-[460px] max-w-full bg-abyss border border-white/10 p-8 flex flex-col"
+                  className={`bg-abyss border border-white/10 p-8 flex flex-col ${
+                    centered
+                      ? "w-full max-w-2xl"
+                      : "snap-start shrink-0 w-[88%] sm:w-[460px] max-w-full"
+                  }`}
                 >
                   <div
                     className="testimonial-quote text-mist-soft text-base leading-relaxed [&_p]:m-0 [&_p+p]:mt-3"
