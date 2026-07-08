@@ -188,24 +188,24 @@
 
 /* ── Timeline Kapitel 2 („Ganzheitliche Verwertung"): Text nach rechts
       ausrichten, Scrim passend spiegeln (nur Desktop, mobil bleibt vertikal) ─ */
-.dg-page .dd-timeline .dd-tl-chapter:nth-child(2) .dd-tl-chapter__content {
+.dg-page .dd-timeline .dd-tl-chapter:nth-child(even) .dd-tl-chapter__content {
   text-align: right;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
 }
-.dg-page .dd-timeline .dd-tl-chapter:nth-child(2) .dd-tl-chapter__eyebrow,
-.dg-page .dd-timeline .dd-tl-chapter:nth-child(2) .dd-tl-chapter__body {
+.dg-page .dd-timeline .dd-tl-chapter:nth-child(even) .dd-tl-chapter__eyebrow,
+.dg-page .dd-timeline .dd-tl-chapter:nth-child(even) .dd-tl-chapter__body {
   width: 100%;
   max-width: 48ch;
 }
-.dg-page .dd-timeline .dd-tl-chapter:nth-child(2) .dd-tl-chapter__title.dd-words {
+.dg-page .dd-timeline .dd-tl-chapter:nth-child(even) .dd-tl-chapter__title.dd-words {
   width: 100%;
   max-width: 48ch;
   justify-content: flex-end;
 }
 @media (min-width: 768px) {
-  .dg-page .dd-timeline .dd-tl-chapter:nth-child(2) .dd-tl-chapter__scrim {
+  .dg-page .dd-timeline .dd-tl-chapter:nth-child(even) .dd-tl-chapter__scrim {
     background: linear-gradient(270deg, rgba(11,23,31,0.92) 0%, rgba(11,23,31,0.55) 45%, rgba(11,23,31,0.15) 100%);
   }
 }

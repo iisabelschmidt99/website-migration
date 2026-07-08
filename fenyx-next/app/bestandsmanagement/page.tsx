@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import ServiceHero from "@/components/ServiceHero";
 import LogoGrid from "@/components/LogoGrid";
-import CtaButton from "@/components/CtaButton";
-import LifecycleTrack from "@/components/LifecycleTrack";
-import LeistungBleedCard from "@/components/LeistungBleedCard";
+import TimelineCinematicG from "@/components/concepts/g/TimelineCinematicG";
 import FeatureRowSection from "@/components/FeatureRowSection";
 import ReferenceProjectsSection from "@/components/ReferenceProjectsSection";
 import FaqSection from "@/components/FaqSection";
@@ -12,6 +10,11 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 import { getTestimonials } from "@/lib/testimonials";
 import { bestandsmanagementReferences } from "@/data/bestandsmanagement-references";
 import { bestandsmanagementFaq } from "@/data/bestandsmanagement-faq";
+import { bestandsmanagementTimelineChapters } from "@/data/bestandsmanagement-timeline";
+import "@/components/concepts/shared/anim.css";
+import "@/app/d/concept.css";
+import "@/app/g/concept.css";
+import "@/app/home-j.css";
 
 export const metadata: Metadata = {
   title: "Büromöbel-Bestandsmanagement | Inventur & Verwertung | Fenyx",
@@ -42,58 +45,31 @@ export default async function BestandsmanagementPage() {
 
       <LogoGrid description="" />
 
-      <section
-        className="leistung-timeline-section py-20 sm:py-28 bg-white overflow-hidden"
-        aria-labelledby="wert-heading"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-            <h2
-              id="wert-heading"
-              className="text-h2 sm:text-3xl lg:text-[2.75rem] font-heading tracking-fenyx mb-5 text-black"
-            >
-              Wenn Nachhaltigkeit sich auch wirtschaftlich lohnt.
-            </h2>
-            <p className="text-black text-base sm:text-lg leading-relaxed">
-              Nachhaltige Bürotransformation bedeutet mehr als
-              Produktzertifikate. Mit Fenyx gewinnen Sie einen Partner, der
-              Kosteneinsparungen messbar macht, Nachhaltigkeit transparent
-              dokumentiert und Ihr Projekt strukturiert begleitet – von der
-              Analyse bis zur Umsetzung.
-            </p>
-            <CtaButton href="/bestandsmanagement#kontakt" className="mt-8">
-              Kontakt aufnehmen
-            </CtaButton>
+      <div className="dg-page home-j">
+        <section className="dg-intro" aria-labelledby="wert-heading">
+          <div className="dg-intro__inner wf-padding-global">
+            <div className="wf-container-large">
+              <h2 id="wert-heading" className="dg-intro__heading">
+                Wenn Nachhaltigkeit sich auch wirtschaftlich lohnt.
+              </h2>
+              <p className="dg-intro__body">
+                Nachhaltige Bürotransformation bedeutet mehr als Produktzertifikate.
+                Mit Fenyx gewinnen Sie einen Partner, der Kosteneinsparungen messbar macht,
+                Nachhaltigkeit transparent dokumentiert und Ihr Projekt strukturiert begleitet
+                – von der Analyse bis zur Umsetzung.
+              </p>
+              <a href="/bestandsmanagement#kontakt" className="dg-intro__cta">
+                Kontakt aufnehmen <span aria-hidden="true">→</span>
+              </a>
+            </div>
           </div>
-        </div>
+        </section>
 
-        <LifecycleTrack dotCount={4}>
-          <LeistungBleedCard
-            title="Digitale Inventarisierung."
-            description="Maximieren Sie die Wiederverwertungsquote und den Verkaufserlös Ihres nicht mehr genötigten Bestands. Die Fenyx-Plattform garantiert die optimale Veräußerung, unabhängig von Hersteller, Kategorie und Zustand."
-            imageSrc={`${assetBase}/timeline-inventarisierung.png`}
-          />
-          <LeistungBleedCard
-            title="Flexible Einlagerung."
-            description="Mit Fenyx erhalten Sie Zugang zum größten Büromöbel-Lager-Ökosystem in Europa. Nutzen Sie die flexiblen Angebote, um Ihren individuellen Bedarf an zusätzlicher Kapazität zu decken."
-            imageSrc={`${assetBase}/timeline-einlagerung.png`}
-            align="right"
-          />
-          <LeistungBleedCard
-            title="Ganzheitliche Aufbereitung."
-            description="Wir verlängern den Lebenszyklus Ihrer Bestände – strukturiert, fachgerecht und unabhängig vom Hersteller. Das Ergebnis: deutlich reduzierte Emissionen und Kosten."
-            imageSrc={`${assetBase}/timeline-aufbereitung.png`}
-            imageAlt="Aufbereitung von Büromöbeln vor Ort"
-          />
-          <LeistungBleedCard
-            title="Messbare Transparenz."
-            description="Was nicht sichtbar ist, lässt sich nicht steuern. Eine digitale, strukturierte Bestandsübersicht schafft Transparenz – und damit die Grundlage für weniger Kosten, weniger CO₂ und weniger Aufwand."
-            imageSrc={`${assetBase}/timeline-transparenz.png`}
-            imageAlt="Hand misst einen Bürotisch mit einem Maßband"
-            align="right"
-          />
-        </LifecycleTrack>
-      </section>
+        <TimelineCinematicG
+          chapters={bestandsmanagementTimelineChapters}
+          ariaLabel="Bestandsmanagement in vier Kapiteln"
+        />
+      </div>
 
       <FeatureRowSection
         heading="Die Datengrundlage für Planung im Bestand."

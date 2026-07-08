@@ -57,7 +57,7 @@
   padding-right: clamp(1.5rem, 4vw, 4.5rem);
 }
 @media (min-width: 768px) {
-  .home-j.dg-page .dd-timeline .dd-tl-chapter:nth-child(2) .dd-tl-chapter__content {
+  .home-j.dg-page .dd-timeline .dd-tl-chapter:nth-child(even) .dd-tl-chapter__content {
     padding-left: clamp(1.5rem, 4vw, 4.5rem);
     padding-right: clamp(2.5rem, 8vw, 8.5rem);
   }
@@ -74,7 +74,7 @@
   ) !important;
 }
 @media (min-width: 768px) {
-  .home-j.dg-page .dd-timeline .dd-tl-chapter:nth-child(2) .dd-tl-chapter__scrim {
+  .home-j.dg-page .dd-timeline .dd-tl-chapter:nth-child(even) .dd-tl-chapter__scrim {
     background: linear-gradient(
       270deg,
       rgba(0, 0, 0, 0.55) 0%,

@@ -19,6 +19,8 @@ type Chapter = {
   imageAlt: string;
 };
 
+export type TimelineCinematicChapter = Chapter;
+
 const CHAPTERS: Chapter[] = [
   {
     index: "01",
@@ -50,10 +52,15 @@ const CHAPTERS: Chapter[] = [
 ];
 
 export default function TimelineCinematicG({
+  chapters: chaptersProp,
+  ariaLabel = "Leistungen in drei Kapiteln",
   einrichtungImageSrc = "/assets/concepts/d/d-refs.png",
   bestandImageSrc = "/assets/concepts/d/d-timeline.png",
   verwertungImageSrc = "/assets/timeline/verwertung-besichtigung.webp",
 }: {
+  /** Eigene Kapitel (z. B. Bestandsmanagement mit 4 Schritten). */
+  chapters?: TimelineCinematicChapter[];
+  ariaLabel?: string;
   /** Optional: überschreibt das Bild des dritten Kapitels (Schlüsselfertige Einrichtung). */
   einrichtungImageSrc?: string;
   /** Optional: überschreibt das Bild des ersten Kapitels (Digitales Bestandsmanagement). */
@@ -61,14 +68,16 @@ export default function TimelineCinematicG({
   /** Optional: überschreibt das Bild des zweiten Kapitels (Ganzheitliche Verwertung). */
   verwertungImageSrc?: string;
 } = {}) {
-  const chapters = CHAPTERS.map((c, i) => {
-    if (i === 0) return { ...c, imageSrc: bestandImageSrc };
-    if (i === 1) return { ...c, imageSrc: verwertungImageSrc };
-    if (i === 2) return { ...c, imageSrc: einrichtungImageSrc };
-    return c;
-  });
+  const chapters = chaptersProp
+    ? chaptersProp
+    : CHAPTERS.map((c, i) => {
+        if (i === 0) return { ...c, imageSrc: bestandImageSrc };
+        if (i === 1) return { ...c, imageSrc: verwertungImageSrc };
+        if (i === 2) return { ...c, imageSrc: einrichtungImageSrc };
+        return c;
+      });
   return (
-    <section className="dd-timeline" aria-label="Leistungen in drei Kapiteln">
+    <section className="dd-timeline" aria-label={ariaLabel}>
       {chapters.map((chapter) => (
         <article
           key={chapter.index}
