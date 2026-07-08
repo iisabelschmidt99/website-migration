@@ -43,6 +43,7 @@ const telegraf = localFont({
 
 // Standard-Metadaten (SEO). Einzelne Seiten können das überschreiben.
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.fenyx-office.com"),
   title: "Fenyx GmbH – Zirkuläre Bürotransformationen",
   description:
     "Fenyx GmbH – Ihr Partner für zirkuläre Bürotransformationen: Bestandsmanagement, Verwertung und schlüsselfertige Einrichtung.",
