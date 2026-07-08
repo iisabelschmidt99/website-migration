@@ -23,6 +23,7 @@ import {
   contactContent,
   digitaleInventarisierungFaq,
 } from "@/data/digitale-inventarisierung";
+import "./digitale-inventarisierung.css";
 
 export const metadata: Metadata = {
   title: digitaleInventarisierungMeta.title,
@@ -31,40 +32,40 @@ export const metadata: Metadata = {
 
 export default function DigitaleInventarisierungPage() {
   return (
-    <div className="inv-page">
+    <div className="inv-page inv-page--digitale">
       <ServiceHero {...heroContent} />
 
       <LogoGrid />
 
-      <GreenBenefitsTabs {...greenBenefitsContent} />
+      <GreenBenefitsTabs {...greenBenefitsContent} scrollDriven />
 
       <section
         className="py-20 sm:py-28 inv-section--dark inv-klarheit"
         aria-labelledby="klarheit-heading"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div className="inv-container">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center inv-klarheit__grid">
             <div>
               <h2
                 id="klarheit-heading"
-                className="text-3xl sm:text-4xl font-heading tracking-[-0.03em] mb-5 text-white"
+                className="inv-section-heading font-heading tracking-[-0.03em] mb-5 text-white"
               >
                 {klarheitContent.heading}
               </h2>
-              <div className="text-mist text-base leading-relaxed space-y-4 mb-8">
+              <div className="inv-section-lead text-mist leading-relaxed space-y-4 mb-8">
                 {klarheitContent.paragraphs.map((paragraph) => (
                   <p key={paragraph.slice(0, 32)}>{paragraph}</p>
                 ))}
               </div>
               <CtaButton href="#kontakt">Kontakt aufnehmen</CtaButton>
             </div>
-            <div className="relative aspect-[4/3]">
+            <div className="relative aspect-[4/3] inv-klarheit__media">
               <Image
                 src={klarheitContent.imageSrc}
                 alt={klarheitContent.imageAlt}
                 fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover object-center"
+                sizes="(max-width: 1024px) 100vw, 55vw"
                 loading="lazy"
               />
             </div>
@@ -77,21 +78,22 @@ export default function DigitaleInventarisierungPage() {
         introLead={challengesContent.introLead}
         introBody={challengesContent.introBody}
         tabs={challengesContent.tabs}
+        scrollDriven
       />
 
       <section
         className="py-20 sm:py-28 inv-section--dark"
         aria-labelledby="ampel-heading"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-10 sm:mb-14">
+        <div className="inv-container">
+          <div className="inv-ampel__header mb-10 sm:mb-14">
             <h2
               id="ampel-heading"
-              className="text-3xl sm:text-4xl font-heading tracking-[-0.03em] mb-5 text-white"
+              className="inv-section-heading font-heading tracking-[-0.03em] mb-5 text-white"
             >
               {ampelContent.heading}
             </h2>
-            <p className="text-mist text-base leading-relaxed">
+            <p className="inv-section-lead text-mist leading-relaxed max-w-4xl">
               {ampelContent.intro}
             </p>
           </div>
@@ -114,6 +116,8 @@ export default function DigitaleInventarisierungPage() {
         steps={processSteps}
         backgroundSrc={timelineBackground.src}
         backgroundAlt={timelineBackground.alt}
+        variant="cinematic"
+        scrollAnimated
       />
 
       <InvCrossSellSection {...crossSellContent} />

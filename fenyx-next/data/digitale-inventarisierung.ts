@@ -167,8 +167,8 @@ export const processSteps = [
 ];
 
 export const timelineBackground = {
-  src: `${inv}/freepik__vertical-immersive-office-transparent-circulation-__581501.webp`,
-  alt: "Beeindruckendes modernes Atrium eines Bürogebäudes mit mehreren Etagen, geschwungenen Balkonen, türkisfarbenem Sofa und Pflanzen im Erdgeschoss.",
+  src: `${inv}/timeline-hall.png`,
+  alt: "Modernes Bürogebäude-Atrium mit mehreren Etagen und offener Architektur.",
 };
 
 export const crossSellContent = {

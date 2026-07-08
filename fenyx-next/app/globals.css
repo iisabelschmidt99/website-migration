@@ -1194,11 +1194,12 @@
 /* Gesichter im oberen Bildbereich halten (hohe Formular-Spalte croppt sonst zu tief) */
 .service-contact__portrait img {
   object-fit: cover;
-  object-position: center 15%;
+  object-position: center 20%;
 }
 
-.service-contact__portrait img[src*="marius-gimm"] {
-  object-position: center 4%;
+/* Marius: viel Kopffreiheit im Quellbild – oben stärker zuschneiden */
+.service-contact__portrait img[src*="marius" i] {
+  object-position: center 26%;
 }
 
 @media (min-width: 1024px) {
