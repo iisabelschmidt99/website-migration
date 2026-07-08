@@ -37,11 +37,14 @@ const nextConfig = {
     ];
 
     const cityRedirects = citySlugs.flatMap((stadt) => [
+      // Miete: verschachtelte Route -> kanonische SEO-URL
       {
-        source: `/bueromoebel-mieten/${stadt}`,
-        destination: `/einrichtung/bueromoebel-mieten/${stadt}`,
+        source: `/einrichtung/bueromoebel-mieten/${stadt}`,
+        destination: `/bueromoebel-mieten/${stadt}`,
         permanent: true,
       },
+      // Büroeinrichtung-Standort (21 Großstädte): auf die bestehenden
+      // Büroeinrichtungs-Stadtseiten (bis Content-Merge mit Agentur geklärt).
       {
         source: `/bueroeinrichtung-standort/${stadt}`,
         destination: `/einrichtung/bueroeinrichtung/${stadt}`,
@@ -58,7 +61,7 @@ const nextConfig = {
       { source: "/aufbereitung", destination: "/verwertung/aufbereitung", permanent: true },
       { source: "/bueroeinrichtung", destination: "/einrichtung/bueroeinrichtung", permanent: true },
       { source: "/workspace-analytics", destination: "/einrichtung/workspace-analytics", permanent: true },
-      { source: "/bueromoebel-mieten", destination: "/einrichtung/bueromoebel-mieten", permanent: true },
+      { source: "/einrichtung/bueromoebel-mieten", destination: "/bueromoebel-mieten", permanent: true },
       { source: "/grossunternehmen", destination: "/fenyx-fuer-sie/grossunternehmen", permanent: true },
       { source: "/mittelstand", destination: "/fenyx-fuer-sie/mittelstand", permanent: true },
       { source: "/start-up-scale-up", destination: "/fenyx-fuer-sie/start-up-scale-up", permanent: true },
@@ -73,6 +76,12 @@ const nextConfig = {
       {
         source: "/ankauf/:slug",
         destination: "/bueromoebel-ankauf-verkauf/:slug",
+        permanent: true,
+      },
+      // Einrichtung-Standorte -> kanonische SEO-URL
+      {
+        source: "/einrichtung-standorte/:slug",
+        destination: "/bueroeinrichtung-standort/:slug",
         permanent: true,
       },
       ...cityRedirects,
