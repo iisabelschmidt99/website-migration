@@ -37,7 +37,7 @@ export default function DigitaleInventarisierungPage() {
 
       <LogoGrid />
 
-      <GreenBenefitsTabs {...greenBenefitsContent} scrollDriven />
+      <GreenBenefitsTabs {...greenBenefitsContent} scrollDriven scrollStepVh={52} />
 
       <section
         className="py-20 sm:py-28 inv-section--dark inv-klarheit"
@@ -79,6 +79,7 @@ export default function DigitaleInventarisierungPage() {
         introBody={challengesContent.introBody}
         tabs={challengesContent.tabs}
         scrollDriven
+        scrollStepVh={52}
       />
 
       <section

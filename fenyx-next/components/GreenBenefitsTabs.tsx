@@ -17,6 +17,8 @@ type GreenBenefitsTabsProps = {
   tabs: GreenTab[];
   /** Scroll zwischen Punkten statt nur Klick (Digitale Inventarisierung). */
   scrollDriven?: boolean;
+  /** Höhe pro Tab in vh (Standard 85). Niedriger = weniger Scroll-Haken. */
+  scrollStepVh?: number;
 };
 
 /** Grüne Kosteneinsparungs-Section mit vertikalen Tabs. */
@@ -25,6 +27,7 @@ export default function GreenBenefitsTabs({
   description,
   tabs,
   scrollDriven = false,
+  scrollStepVh = 85,
 }: GreenBenefitsTabsProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeId, setActiveId] = useState(tabs[0]?.id ?? "");
@@ -142,7 +145,7 @@ export default function GreenBenefitsTabs({
         ref={sectionRef}
         id="vorteile"
         className="inv-green-section inv-green-tabs--scroll"
-        style={{ height: `${tabs.length * 85}vh` }}
+        style={{ height: `${tabs.length * scrollStepVh}vh` }}
         aria-labelledby="vorteile-heading"
       >
         <div className="sticky top-[72px] flex min-h-[calc(100vh-72px)] items-center py-10 sm:py-12">

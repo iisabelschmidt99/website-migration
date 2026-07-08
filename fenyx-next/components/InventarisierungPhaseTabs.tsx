@@ -20,6 +20,8 @@ type InventarisierungPhaseTabsProps = {
   variant?: "dark" | "light";
   /** true = scroll-gesteuert (Sticky-Sektion, großes Bild). Sonst klassische Klick-Tabs. */
   scrollDriven?: boolean;
+  /** Höhe pro Tab in vh (Standard 85). Niedriger = weniger Scroll-Haken. */
+  scrollStepVh?: number;
 };
 
 function renderBody(body: string, isLight = false) {
@@ -86,6 +88,7 @@ export default function InventarisierungPhaseTabs({
   tabs,
   variant = "dark",
   scrollDriven = false,
+  scrollStepVh = 85,
 }: InventarisierungPhaseTabsProps) {
   const isLight = variant === "light";
   const sectionRef = useRef<HTMLElement>(null);
@@ -168,7 +171,7 @@ export default function InventarisierungPhaseTabs({
       <section
         ref={sectionRef}
         className={`relative ${sectionClass}${scrollActive ? " inv-phase-tabs--scroll" : ""}`}
-        style={{ height: `${tabs.length * 85}vh` }}
+        style={{ height: `${tabs.length * scrollStepVh}vh` }}
         aria-labelledby={heading ? "tabs-heading" : undefined}
       >
         <div className="sticky top-[72px] flex min-h-[calc(100vh-72px)] items-center py-12">
